@@ -111,9 +111,8 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
 
 // Detail
 
-// TBD: 0IS_STREAM, 0IS_STREAM_CONS
-#define ORDER_PP_0IS_STREAM(P,x) ORDER_PP_IF_8true
-#define ORDER_PP_0IS_STREAM_CONS(P,x) ORDER_PP_IF_8true
+#define ORDER_PP_0IS_STREAM(P,x) ORDER_PP_OR(or)(ORDER_PP_0IS_STREAM_CONS(,P##x))(or)(ORDER_PP_IS_NIL(,P##x))()
+#define ORDER_PP_0IS_STREAM_CONS(P,x) ORDER_PP_AND(and)(ORDER_PP_0IS_TUPLE(,P##x))(and)(ORDER_PP_FY(IS_TUPLE_SIZE_2,(,ORDER_PP_REM P##x)))(and)(ORDER_PP_FY(0IS_FN,(,ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_REM P##x,)))))()
 
 #define ORDER_PP_STREAM_HEAD(h,t) h
 #define ORDER_PP_STREAM_TAIL(h,t) ORDER_PP_OPEN t
