@@ -288,7 +288,7 @@ Sequences
   -8seq_parallel_for_each_with_idx(8OP,8SS) : (Num -> Any+ -> Nil) -> Seq(Seq) -> Nil
   -8seq_parallel_map(8FN,8SS)               : (Any+ -> Any) -> Seq(Seq) -> Seq
   -8seq_symmetric_difference(8PR,8LS,8RS)   : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
-  -8seq_unfold(8CN,8ST,8FN,8X)              : (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Any -> Seq
+   8seq_unfold(8X,8CN,8ST,8FN)              : Any -> (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Seq
   -8seq_union(8PR,8LS,8RS)                  : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
   -8seq_unique(8PR,8OS)                     : (Any -> Any -> Bool) -> Seq -> Seq
 
