@@ -317,8 +317,10 @@
 8tuple(8(!),8(%),8(?),8(^),8(*),8(;),8([),8(]))#(!,%,?,^,*,;,[,])#
 8tuple(8adjoin(8(;)),8adjoin(8(;),8(;),8(;)))#(;,;;;)#
 8tuple(8always(1),8always(8false),8ap(8always,8nil))#(8true,8true,8true)#
+8tuple(8drop_tuples(8()),8drop_tuples(8(+)),8drop_tuples(8((a)b)),8drop_tuples(8((a,b)(c)d)))#(,+,b,d)#
 8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)#
 8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)#
+8tuple(8has_tuples(8()),8has_tuples(8(+)),8has_tuples(8((a)b)),8has_tuples(8((a,b)(c)d)))#(8false,8false,8true,8true)#
 8tuple(8is_0(0),8is_0(1),8is_0(50))#(8true,8false,8false)#
 8tuple(8is_0(0),8is_0(1),8is_0(8nat(1,2,3)))#(8true,8false,8false)#
 8tuple(8is_lit(8true),8is_lit(0),8is_lit(100),8is_lit(8tuple(1)),8is_lit(8(1000)))#(8false,8true,8true,8false,8false)#
@@ -336,6 +338,7 @@
 8tuple(8nat_to_seq_of_digits(8nat(0)),8nat_to_seq_of_digits(8nat(2,0,0,4)))#((0),(2)(0)(0)(4))#
 8tuple(8never(1),8never(8false),8ap(8never,8nil))#(8false,8false,8false)#
 8tuple(8seq_repeat(0,8seq(1,2)),8seq_repeat(1,8seq(3)),8seq_repeat(2,8seq(4,5)),8seq_repeat(15,8seq(6)))#(,(3),(4)(5)(4)(5),(6)(6)(6)(6)(6)(6)(6)(6)(6)(6)(6)(6)(6)(6)(6))#
+8tuple(8take_tuples(8()),8take_tuples(8(+)),8take_tuples(8((a)b)),8take_tuples(8((a,b)(c)d)))#(,,((a)),((a , b))((c)))#
 8tuple(8to_lit(0),8to_lit(25),8to_lit(8nat(3,1,4,1,5,9,2)))#(0,25,3141592)#
 8tuple(8to_lit(8dec(1)),8to_lit(8dec(8nat(1,2,3))),8to_lit(8dec(100)))#(0,122,99)#
 8tuple(8to_lit(8div(10,3)),8to_lit(8remainder(10,3)))#(3,1)#
