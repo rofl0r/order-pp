@@ -9,6 +9,7 @@
 #include "order/prelude/seq/ctor.h"
 #include "order/prelude/seq/detail.h"
 #include "order/prelude/seq/filter.h"
+#include "order/prelude/seq/fold_left.h"
 #include "order/prelude/seq/for_each.h"
 #include "order/prelude/seq/for_each_in_product.h"
 #include "order/prelude/seq/transform.h"
