@@ -84,17 +84,20 @@ void array_add_ss_ss(const signed short* lhs_in,
 // The general form of a binary array manipulation procedure is
 // captured by the `GEN_array_bop(...)' macro:
 
-#define GEN_array_bop(mnemo, op, lhs_a, lhs_t, rhs_a, rhs_t, out_t)     \
-void array##mnemo##lhs_a##rhs_a(const lhs_t* lhs_in,                    \
-                                const rhs_t* rhs_in,                    \
-                                out_t* out,                             \
-                                int n) {                                \
-  if (n > 0) do {                                                       \
-    *out++ = *lhs_in op *rhs_in;                                        \
-    /* Remember short circuit logic operators! */                       \
-    ++lhs_in;                                                           \
-    ++rhs_in;                                                           \
-  } while (--n);                                                        \
+#define GEN_array_bop(mnemo, op,                        \
+                      lhs_a, lhs_t,                     \
+                      rhs_a, rhs_t,                     \
+                      out_t)                            \
+void array##mnemo##lhs_a##rhs_a(const lhs_t* lhs_in,    \
+                                const rhs_t* rhs_in,    \
+                                out_t* out,             \
+                                int n) {                \
+  if (n > 0) do {                                       \
+    *out++ = *lhs_in op *rhs_in;                        \
+    /* Remember short circuit logic operators! */       \
+    ++lhs_in;                                           \
+    ++rhs_in;                                           \
+  } while (--n);                                        \
 }
 
 // Given
@@ -413,13 +416,13 @@ ORDER_PP_CONST(((          char, _ch, 8false, 1))       \
 // Let's first define a helper metafunction for emitting the code
 // for an unary operator. The `gen_array_uop(o, t)' metafunction
 
-#define ORDER_PP_DEF_8gen_array_uop                                     \
-ORDER_PP_FN(8fn(8O, 8T,                                                 \
-                8emit(8(GEN_array_uop),                                 \
-                      8tuple(8op_mnemonic(8O),                          \
-                             8op_symbol(8O),                            \
-                             8type_abbrev(8T),                          \
-                             8type_name(8T),                            \
+#define ORDER_PP_DEF_8gen_array_uop                             \
+ORDER_PP_FN(8fn(8O, 8T,                                         \
+                8emit(8(GEN_array_uop),                         \
+                      8tuple(8op_mnemonic(8O),                  \
+                             8op_symbol(8O),                    \
+                             8type_abbrev(8T),                  \
+                             8type_name(8T),                    \
                              8type_name(8type_of_uop(8O, 8T))))))
 
 // computes the argument tuple for the `GEN_array_uop(...)' code
@@ -513,15 +516,15 @@ ORDER_PP(8seq_for_each_in_product
 // We'll then handle binary operations similarly. First we define
 // the metafunction `8gen_array_bop(o, l, r)':
 
-#define ORDER_PP_DEF_8gen_array_bop                                     \
-ORDER_PP_FN(8fn(8O, 8L, 8R,                                             \
-                8emit(8(GEN_array_bop),                                 \
-                      8tuple(8op_mnemonic(8O),                          \
-                             8op_symbol(8O),                            \
-                             8type_abbrev(8L),                          \
-                             8type_name(8L),                            \
-                             8type_abbrev(8R),                          \
-                             8type_name(8R),                            \
+#define ORDER_PP_DEF_8gen_array_bop                             \
+ORDER_PP_FN(8fn(8O, 8L, 8R,                                     \
+                8emit(8(GEN_array_bop),                         \
+                      8tuple(8op_mnemonic(8O),                  \
+                             8op_symbol(8O),                    \
+                             8type_abbrev(8L),                  \
+                             8type_name(8L),                    \
+                             8type_abbrev(8R),                  \
+                             8type_name(8R),                    \
                              8type_name(8type_of_bop(8O, 8L, 8R))))))
 
 // Then we'll generate code for all binary array procedures in two

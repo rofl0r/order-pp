@@ -79,9 +79,14 @@ yes_type is_function_tester(R (*)(A0,A1));
 
 ORDER_PP(8for_each_in_range
          (8fn(8N,
-              8print((template<class R) 8emit_trailing_params(0, 8N, 8(class A)) (>)
+              8print((template
+                      <class R) 8emit_trailing_params(0,
+                                                      8N,
+                                                      8(class A)) (>)
                      (yes_type is_function_tester)
-                     8parens((R(*)) 8parens(8emit_params(0, 8N, 8(A))))
+                     8parens((R(*)) 8parens(8emit_params(0,
+                                                         8N,
+                                                         8(A))))
                      (;))),
           0,
           8inc(IS_FUNCTION_MAX_ARGS)))
