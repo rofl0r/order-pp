@@ -19,17 +19,15 @@ template<class T> struct is_integral
 // each integral type and cv-qualifier pair.
 
 ORDER_PP(8seq_for_each_in_product
-         (8fn(8CV,8TY,
+         (8fn(8CV, 8TY,
               8print((template<> struct is_integral<) 8CV 8TY (>)
                      ({ enum { value = true }; };))),
-          8seq(8((,)(,const)(,volatile)(,const volatile)),
-               8seq_append
-               (8((,char)(,wchar_t)),
-                8let(8TS, 8((,char)(,short)(,int)(,long)),
-                     8seq_append
-                     (8TS,
-                      8seq_map(8fn(8TY,
-                                   8expand(8(unsigned),8TY)),
-                               8TS)))))))
+          8((()(const)(volatile)(const volatile))
+            ((char)
+             (wchar_t)
+             (signed char)(unsigned char)
+             (short)(unsigned short)
+             (int)(unsigned int)
+             (long)(unsigned long)))))
 
 #endif

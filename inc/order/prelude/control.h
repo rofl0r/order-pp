@@ -37,7 +37,7 @@
 //                      8fn(8I,
 //                          8emit(8nat_to_lit(8I)))) ==> 5 6 7
 #define ORDER_PP_DEF_8for_each_in_range ORDER_PP_FN_CM(3,8REMAP_3012,,8FOR_EACH_IN_RANGE_4)
-#define ORDER_PP_8FOR_EACH_IN_RANGE_4(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_0 n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_4,ORDER_PP_NAT_SUCC i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_IN_RANGE_4(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_0 n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_4,ORDER_PP_NAT_INC i##P,ORDER_PP_NAT_DEC n##P,P##f),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8for_each ORDER_PP_FN_CM(4,8FOR_EACH)
 #define ORDER_PP_8FOR_EACH(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##__VA_ARGS__)

@@ -33,7 +33,7 @@
 // can be extracted like this
 //
 //   ORDER_PP_GET_CONST(8my_const) // my value
-#define ORDER_PP_GET_CONST(name) ORDER_PP_FX(,ORDER_PP_TUPLE_AT_1,(,ORDER_PP_DEF_##name))
+#define ORDER_PP_GET_CONST(name) ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_DEF_##name))
 
 #define ORDER_PP_8DEF_CONST(P,e,v,G,K,...) ORDER_PP_##K(,v##P,P##__VA_ARGS__)
 

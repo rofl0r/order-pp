@@ -36,9 +36,9 @@ int linear_fib(int n) {
 // We can easily translate the same algorithm to Order code. First
 // we'll define the driver function `8linear_fib':
 
-#define ORDER_PP_DEF_8linear_fib                        \
-ORDER_PP_FN(8fn(8N,                                     \
-                8linear_fib_iter(8N,8nat(0),8nat(1))))
+#define ORDER_PP_DEF_8linear_fib                \
+ORDER_PP_FN(8fn(8N,                             \
+                8linear_fib_iter(8N, 0, 1)))
 
 // As you can see, the Order function `8linear_fib' is structurally
 // very similar to the previously defined C function `linear_fib'.
@@ -49,13 +49,13 @@ ORDER_PP_FN(8fn(8N,                                     \
 // Then we'll define the Order function `8linear_fib_iter', which is
 // structurally very similar to the C function `linear_fib_iter':
 
-#define ORDER_PP_DEF_8linear_fib_iter                   \
-ORDER_PP_FN(8fn(8N,8F0,8F1,                             \
-                8if(8is_zero(8N),                       \
-                    8F0,                                \
-                    8linear_fib_iter(8pred(8N),         \
-                                     8F1,               \
-                                     8plus(8F0,8F1)))))
+#define ORDER_PP_DEF_8linear_fib_iter                           \
+ORDER_PP_FN(8fn(8N, 8F0, 8F1,                                   \
+                8if(8nat_is_0(8N),                              \
+                    8F0,                                        \
+                    8linear_fib_iter(8nat_dec(8N),              \
+                                     8F1,                       \
+                                     8nat_add(8F0, 8F1)))))
 
 // The Order function `8linear_fib' can now be used to compute
 // Fibonacci numbers.

@@ -13,16 +13,13 @@
 // templates of the earliest Boost.PP (see http://www.boost.org)
 // example.
 
-ORDER_PP
-(8for_each_in_range
- (8nat(0), 8nat(3,0),
-  8fn(8I,
-      8print((template<class R) 8emit_trailing_params(8nat(0),
-                                                      8I,
-                                                      8(class A)) (>)
-             (yes_type is_function_tester)
-             8parens((R(*)) 8parens(8emit_params(8nat(0), 8I, 8(A))))
-             (;)))))
+ORDER_PP(8for_each_in_range
+         (0, 30,
+          8fn(8I,
+              8print((template<class R) 8emit_trailing_params(0, 8I, 8(class A)) (>)
+                     (yes_type is_function_tester)
+                     8parens((R(*)) 8parens(8emit_params(0, 8I, 8(A))))
+                     (;)))))
 
 // As you can see, no ad-hoc code generation macros were needed to
 // produce the output. In fact, the Order interpreter is complete in

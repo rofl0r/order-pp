@@ -14,8 +14,11 @@
 
 #define ORDER_PP_BLOCK
 #define ORDER_PP_EAT(...)
-#define ORDER_PP_EXPAND(l,r) l r
-#define ORDER_PP_FX(P,f,x) P##f x
+#define ORDER_PP_EXPAND(l,...) l __VA_ARGS__
+#define ORDER_PP_FX(f,x) ORDER_PP_##f x
+#define ORDER_PP_FY(f,y) ORDER_PP_##f y
+#define ORDER_PP_FZ(f,z) ORDER_PP_##f z
+#define ORDER_PP_OVERLOAD(f,n) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_##f##_,n)
 #define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
 #define ORDER_PP_REVERSE_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(r,l)
 #define ORDER_PP_PRIMITIVE_CAT(l,r) l##r
@@ -71,12 +74,14 @@
 #define ORDER_PP_IS_NOT_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_IS_EDIBLE_TEST x##P,8false,8true)
 #define ORDER_PP_IS_EDIBLE_TEST(...) ,,
 
-#define ORDER_PP_IS_SYM(P,x) ORDER_PP_IS_EDIBLE(,P##x)(,ORDER_PP_IF_8false ORDER_EAT,ORDER_PP_IS_SYM_NOT_EDIBLE)(P##x)
+#define ORDER_PP_IS_SYM(P,x) ORDER_PP_IS_EDIBLE(,P##x)(ORDER_PP_,EAT_FALSE,IS_SYM_NOT_EDIBLE)(P##x)
 #define ORDER_PP_IS_SYM_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##x(,),8true,8false)
 
-#define ORDER_PP_IS_NIL(P,x) ORDER_PP_IS_EDIBLE(,P##x)(,ORDER_PP_IF_8false ORDER_PP_EAT,ORDER_PP_IS_NIL_NOT_EDIBLE)(P##x)
+#define ORDER_PP_IS_NIL(P,x) ORDER_PP_IS_EDIBLE(,P##x)(ORDER_PP_,EAT_FALSE,IS_NIL_NOT_EDIBLE)(P##x)
 #define ORDER_PP_IS_NIL_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_IS_NIL_##x,8true,8false)
 #define ORDER_PP_IS_NIL_ ,,
+
+#define ORDER_PP_EAT_FALSE(...) ORDER_PP_IF_8false
 
 #define ORDER_PP_TEST(P,x,c,a) ORDER_PP_TEST_B(,x,P##c,,P##a,)
 #define ORDER_PP_TEST_B(P,_1,_2,_3,x,...) x##P
@@ -91,5 +96,20 @@
 #define ORDER_PP_IS_1_8(P,t,...) P##__VA_ARGS__
 #define ORDER_PP_IS_1_9(P,t,...) P##__VA_ARGS__
 #define ORDER_PP_IS_1_10(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_11_OR_MORE(P,t,...) P##__VA_ARGS__
+
+#define ORDER_PP_COMMA_1 ,1
+#define ORDER_PP_COMMA_2 ,2
+#define ORDER_PP_COMMA_3 ,3
+#define ORDER_PP_COMMA_4 ,4
+#define ORDER_PP_COMMA_5 ,5
+#define ORDER_PP_COMMA_6 ,6
+#define ORDER_PP_COMMA_7 ,7
+#define ORDER_PP_COMMA_8 ,8
+#define ORDER_PP_COMMA_9 ,9
+#define ORDER_PP_COMMA_10 ,10
+
+#define ORDER_PP_LPAREN (
+#define ORDER_PP_RPAREN )
 
 #endif

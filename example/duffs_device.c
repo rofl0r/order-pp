@@ -7,8 +7,8 @@
 
 // ## Duff's device
 //
-// This example uses the Order interpreter to implement a generalized
-// macro for implementing Duff's Device.
+// This example uses the Order interpreter to implement a
+// generalized macro for implementing Duff's Device.
 //
 // This example was inspired by an original generalized macro for
 // for implementing Duff's Device written by Joerg Walter.
@@ -25,8 +25,8 @@ do {                                                                    \
       do {                                                              \
       case 0 : __VA_ARGS__;                                             \
         ORDER_PP(8rout(8for_each_in_range                               \
-                       (8nat(1),                                        \
-                        8pred(8nat(unroll_cnt)),                        \
+                       (1,                                              \
+                        8nat_dec(unroll_cnt),                           \
                         8fn(8I,                                         \
                             8rout(8print((case)                         \
                                          8nat_to_lit(8I)                \
