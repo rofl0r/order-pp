@@ -16,7 +16,6 @@
 #define ORDER_PP_EAT(...)
 #define ORDER_PP_EXPAND(l,r) l r
 #define ORDER_PP_FX(P,f,x) P##f x
-#define ORDER_PP_FGX(P,f,g,x) ORDER_PP_APPLY_FX(,P##f,P##g x)
 #define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
 #define ORDER_PP_REVERSE_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(r,l)
 #define ORDER_PP_PRIMITIVE_CAT(l,r) l##r
@@ -24,7 +23,6 @@
 #define ORDER_PP_LEFT(P,...) P##__VA_ARGS__
 #define ORDER_PP_RIGHT(P,...) __VA_ARGS__##P
 #define ORDER_PP_OPEN(P,...) P##__VA_ARGS__
-#define ORDER_PP_OPEN_NP(...) __VA_ARGS__
 #define ORDER_PP_REM(...) __VA_ARGS__
 #define ORDER_PP_SCAN(...) __VA_ARGS__
 
