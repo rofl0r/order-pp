@@ -160,7 +160,7 @@ ORDER_PP_FN(8fn(8T,                                     \
 // an object-like macro of the form
 
 #if 0
-#define ORDER_PP_DEF_8<name> ORDER_PP_FN(<fn-expression>)
+#define ORDER_PP_DEF_8<name> ORDER_PP_FN(<fn-exp>)
 #endif
 
 // The above is the general form of top-level Order function
@@ -187,11 +187,11 @@ ORDER_PP_FN(8fn(8T,                                     \
 // definitions, which use `ORDER_PP_CONST', and so called macro
 // definitions, which use `ORDER_PP_MACRO'.
 //
-// The `<fn-expression>' of a function definition must define an
+// The `<fn-exp>' of a function definition must define an
 // anonymous function. Anonymous function definitions have the
 // general form:
 //
-//   8fn(<var-1>, ..., <var-n>, <expression>)
+//   8fn(<var_1>, ..., <var_n>, <exp_{body}>)
 //
 // A function must have at least one parameter and exactly one
 // expression, the body of the function, must follow the parameters.
@@ -204,14 +204,14 @@ ORDER_PP_FN(8fn(8T,                                     \
 //
 // A conditional if-expression in Order has the form:
 //
-//   8if(<cond-exp>, <cons-exp>, <alt-exp>)
+//   8if(<exp_{bool}>, <exp_{cons}>, <exp_{alt}>)
 //
 // If-expressions in Order behave just like in other strict
-// programming languages. The condition subexpression, `<cond-exp>',
+// programming languages. The boolean subexpression, `<exp_{bool}>',
 // is evaluated first and if it evaluates to `8true', then the
-// consequent, `<cons-exp>', is evaluated. Otherwise the condition
-// must evaluate to `8false', and the alternative, `<alt-exp>', is
-// evaluated.
+// consequent, `<exp_{cons}>', is evaluated. Otherwise the boolean
+// expression must evaluate to `8false', and the alternative,
+// `<exp_{alt}>', is evaluated.
 //
 // The body of the `8type_of_promotion(t)' function also contains
 // calls to other functions. The binary function `8less' compares

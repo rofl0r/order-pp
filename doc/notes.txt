@@ -16,7 +16,7 @@
 SYNTAX
 ======
 
-        <exp> ::= 8fn(<sym>+, <exp>)
+        <exp> ::= <fn-exp>
                 | 8ap(<exp>+)
                 | <var>
                 | 8ref(<sym>)
@@ -38,6 +38,8 @@ SYNTAX
                 | <fn>(<exp>+)
                 | <op>(<exp>+)
                 | <const>
+
+     <fn-exp> ::= 8fn(<sym>+, <exp>)
 
         <var> ::= 8[A-Z]
 
