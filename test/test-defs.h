@@ -116,15 +116,6 @@ ORDER_PP_FN(8fn(8X,8Y,8Y))
 
 ////////////////////////////////////////////////////////////////////
 
-#define ORDER_PP_DEF_8exp_size_seq                              \
-ORDER_PP_FN(8fn(8N, 8S,                                         \
-                8if(8is_0(8N),                                  \
-                    8S,                                         \
-                    8exp_size_seq(8dec(8N),                     \
-                                  8seq_append(8S, 8S)))))
-
-////////////////////////////////////////////////////////////////////
-
 #define ORDER_PP_DEF_8macro_let(s,i,t)          \
 ORDER_PP_MACRO(8ap(8fn(s,t),i))
 
@@ -136,73 +127,6 @@ ORDER_PP_CONST(This constant                            \
 
 #define ORDER_PP_DEF_8constant_contents         \
 ORDER_PP_CONST(is in two parts)
-
-////////////////////////////////////////////////////////////////////
-
-#define ORDER_PP_DEF_8exp_delay                 \
-ORDER_PP_FN(8fn(8N,                             \
-                8unless(8is_0(8N),              \
-                        8exp_delay(8dec(8N)),   \
-                        8exp_delay(8dec(8N)))))
-
-////////////////////////////////////////////////////////////////////
-
-#define ORDER_PP_DEF_8linear_fib                \
-ORDER_PP_FN(8fn(8N,                             \
-                8linear_fib_iter(8N, 0, 1)))
-
-#define ORDER_PP_DEF_8linear_fib_iter                   \
-ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
-                8if(8is_0(8N),                          \
-                    8I,                                 \
-                    8linear_fib_iter(8dec(8N),          \
-                                     8J,                \
-                                     8plus(8I, 8J)))))
-
-////////////////////////////////////////////////////////////////////
-
-#define ORDER_PP_DEF_8print_bottles                             \
-ORDER_PP_MACRO(8let((8B, 8fn(8N,                                \
-                             8cond((8greater(8N, 1),            \
-                                    8separate(8N, 8(bottles)))  \
-                                   (8isnt_0(8N),                \
-                                    8separate(8N, 8(bottle)))   \
-                                   (8else,                      \
-                                    8(no more bottles))))),     \
-                    8for_each_in_range                          \
-                    (8fn(8N,                                    \
-                         8print(8ap(8B, 8N)                     \
-                                (of beer on the wall,) 8space   \
-                                8ap(8B, 8N)                     \
-                                (of beer, take one down,        \
-                                 pass it around,) 8space        \
-                                8ap(8B, 8dec(8N))               \
-                                (of beer on the wall.))),       \
-                     100, 1)))
-
-////////////////////////////////////////////////////////////////////
-
-#define GEN_phrase(N_bottles, N_minus_1_bottles)        \
-  N_bottles of beer on the wall,                        \
-  N_bottles of beer, take one down, pass it around,     \
-  N_minus_1_bottles of beer on the wall.
-
-#define ORDER_PP_DEF_8bottles                           \
-ORDER_PP_FN(8fn(8N,                                     \
-                8cond((8greater(8N, 1),                 \
-                       8separate(8N, 8(bottles)))       \
-                      (8equal(8N, 1),                   \
-                       8separate(8N, 8(bottle)))        \
-                      (8else,                           \
-                       8(no more bottles)))))
-
-#define ORDER_PP_DEF_8emit_bottles                              \
-ORDER_PP_MACRO(8for_each_in_range                               \
-               (8chain(8emit(8(GEN_phrase)),                    \
-                       8fn(8N,                                  \
-                           8tuple(8bottles(8N),                 \
-                                  8bottles(8dec(8N))))),        \
-                100, 1))
 
 ////////////////////////////////////////////////////////////////////
 
