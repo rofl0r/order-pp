@@ -23,6 +23,13 @@
 #define ORDER_PP_DEF_1st ORDER_PP_FN(8fn(8X,,8X))
 #define ORDER_PP_DEF_2nd ORDER_PP_FN(8fn(,8Y,8Y))
 
+#define ORDER_PP_DEF_8exp_size_seq                              \
+ORDER_PP_FN(8fn(8N,8S,                                          \
+                8if(8is_zero(8N),                               \
+                    8S,                                         \
+                    8exp_size_seq(8pred(8N),                    \
+                                  8seq_append(8S,8S)))))
+
 #define ORDER_PP_DEF_8macro_let(s,i,t) ORDER_PP_MACRO(8ap(8fn(s,t),i))
 
 #define ORDER_PP_DEF_8constant_contents ORDER_PP_CONST(is in two parts)
