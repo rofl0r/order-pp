@@ -14,4 +14,5 @@ void error(const char* msg, ...) {
   vfprintf(stderr, msg, args);
   fprintf(stderr, "\n");
   va_end(args);
+  exit(EXIT_FAILURE);
 }
