@@ -22,6 +22,7 @@ SYNTAX
                 | 8ref(<sym>)
                 | 8(<pp-arg>) | 8
                 | 8if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>)
+                | 8cond((<exp_{cond}>, <exp_{cons}>+)+ (8else, <exp_{alt}>+)?)
                 | 8and(<exp>+)
                 | 8or(<exp>+)
                 | 8cat(<exp>+)
@@ -29,9 +30,9 @@ SYNTAX
                 | 8tuple(<exp>+)
                 | 8do(<exp>+)
                 | 8rout(<exp>+)
--               | 8let({<var>, <exp_{init}>}+, <exp_{in}>)
+-               | 8let((<var>, <exp_{init}>)+, <exp_{in}>)
                 | 8print(<print-exp>+)
--               | 8match(<exp_{val}>, {<pat>, <exp>}+)
+-               | 8match(<exp_{val}>, (<pat>, <exp>+)+)
 -               | 8try(<exp_{body}>, <var>, <exp_{handler}>)
                 | <fn>
                 | <fn>(<exp>+)
@@ -54,7 +55,9 @@ SYNTAX
 -               | <ctor>
 -               | <ctor>(<pat>+)
 -               | 8nil
--               | <sym>        ;; Matches anything and bings <sym>
+-               | 8(<sym>)
+-               | 1..100
+-               | <var>        ;; Matches anything and binds <var>
 -               | 8_           ;;     -- || --     and binds nothing
 
 --------------------------------------------------------------------------
@@ -301,7 +304,7 @@ Sequences
    8seq_range(i, n, s)            : Num -> Num -> Seq -> Seq
 
    8seq_first(s)                  : Seq -> Any
-  -8seq_last(s)                   : Seq -> Any
+   8seq_last(s)                   : Seq -> Any
    8seq_rest(s)                   : Seq -> Seq
 
    8seq_first_n(n, s)             : Num -> Seq -> Seq
@@ -340,6 +343,7 @@ Sequences
    8seq_for_each(op, s)              : (a -> b) -> Seq(a) -> Nil
    8seq_for_each_in_product(op, ss)  : (Any+ -> b) -> Seq(Seq) -> Nil
    8seq_for_each_with_idx(op, i0, s) : (Num -> a -> b) -> Num -> Seq(a) -> Nil
+   8seq_for_each_with_delimiter(op, dop, s) : (a -> b) -> (b -> c) -> Seq(a) -> b
   -8seq_for_each_perm(op, s)         : (Seq(a) -> b) -> Seq(a) -> Nil
 
    8seq_map(fn, s)                   : (a -> b) -> Seq(a) -> Seq(b)

@@ -37,18 +37,15 @@
 // So, without further ado, the following is our average macro
 // implementation.
 
-#define GEN_average(x, ...)                                     \
-((x ORDER_PP(8seq_for_each                                      \
-             (8emit(8quote(+)),                                 \
-              8tuple_to_seq(8quote((__VA_ARGS__)))))) /         \
- ORDER_PP(8to_lit(8tuple_size(8quote((,__VA_ARGS__))))))
+#define GEN_average(...)                                \
+((ORDER_PP(8seq_for_each_with_delimiter                 \
+           (8put,                                       \
+            8emit(8quote(+)),                           \
+            8tuple_to_seq(8quote((__VA_ARGS__)))))) /   \
+ ORDER_PP(8to_lit(8tuple_size(8quote((__VA_ARGS__))))))
 
 // The above macro invokes the Order interpreter, through the
-// `ORDER_PP' macro, to evaluate two simple Order programs. The
-// `GEN_average' macro, as defined above, must be given at least two
-// arguments, which slightly simplifies the macro. We leave it as an
-// exercise to the reader to implement a macro that also works with
-// just a single argument.
+// `ORDER_PP' macro, to evaluate two simple Order programs.
 //
 // Let's then consider the Order programs used in the macro. The
 // second program, which computes the denominator, simply uses the
@@ -62,14 +59,23 @@
 // programs.
 //
 // The first, and more complicated, program generates the sum
-// expression by converting the argument tuple to a sequence, using
-// `8tuple_to_seq', and then using the higher-order procedure
-// `8seq_for_each' to output the sum. Above, the binary `8emit'
-// function is directly applied to only a single argument, `+'.
-// Order, like many other purely functional programming languages,
-// supports partial application of functions. The second argument to
-// `8emit' comes from the sequence. Once given two arguments,
-// `8emit' outputs both of the arguments separated by whitespace.
+// expression. It first converts the argument tuple to a sequence
+// using `8tuple_to_seq'. The higher-order procedure
+// `8seq_for_each_with_delimiter' has been designed for outputing
+// sequences of tokens with a delimiter. It is given two unary
+// procedures. The first procedure is for outputing the elements and
+// the second is for outputing the delimiters. The first procedure
+// is applied to each element of the sequence. The second procedure
+// is applied to the result, or return value, of the first procedure
+// for all elements except the last. In this case, the delimiter is
+// `+', which is given to the binary procedure `8emit', which yeilds
+// an unary procedure. Order, like many other purely functional
+// programming languages, supports partial application of functions.
+// The second argument to `8emit' comes from `8put', which always
+// evaluates to nil. The only argument to `8put' comes from the
+// sequence, and `8put' simply outputs the argument. Once given two
+// arguments, `8emit' outputs both of the arguments separated by
+// whitespace.
 //
 // The last thing to do is to test our macro. The following `main'
 // program is just a simple test of the macro.
@@ -90,11 +96,7 @@ int main() {
 //
 // ### Exercises
 //
-// 1. The `GEN_average' macro implemented in this example must be
-//    given at least two arguments. Change the macro so that it also
-//    works given just a single argument.
-//
-// 2. Implement the same program using the syntax-rules macro system
+// 1. Implement the same program using the syntax-rules macro system
 //    of Scheme. You'll get an extra point if your implementation
 //    does not have an arbitrary limit on the number of arguments to
 //    the macro and the number of elements is actually computed in
