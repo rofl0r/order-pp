@@ -195,6 +195,8 @@
 8seq_map(8dec,8nil)##
 8seq_map(8nat_remainder_10_lit,8seq(8nat(0),8nat(5),8nat(1,2),8nat(3,4,7)))#(0)(5)(2)(7)#
 8seq_map(8seq_map(8to_lit),8tuple_to_seq(8seq_partition(8less(5),8seq(3,1,4,1,5,9,2,6,5))))#((9)(6))((3)(1)(4)(1)(5)(2)(5))#
+8seq_map(8to_lit,8seq(8max(1,2),8max(2,2),8max(3,2),8max(8nat(1),2),8max(2,8nat(2)),8max(8nat(3),8nat(2))))#(2)(2)(3)(2)(2)(3)#
+8seq_map(8to_lit,8seq(8min(1,2),8min(2,2),8min(3,2),8min(8nat(1),2),8min(2,8nat(2)),8min(8nat(3),8nat(2))))#(1)(2)(2)(1)(2)(2)#
 8seq_map(8to_lit,8seq(8nat_minus(8nat(5),8nat(5)),8nat_minus(8nat(7,5,6,5),8nat(9,4,7))))#(0)(6618)#
 8seq_map(8to_lit,8seq(8nat_plus(8nat(5),8nat(5)),8nat_plus(8nat(7,5,6,5),8nat(9,4,7))))#(10)(8512)#
 8seq_map(8to_lit,8seq(8nat_quotient(8nat(5),8nat(5)),8nat_quotient(8nat(7,5,6,5),8nat(9,4,7))))#(1)(7)#
