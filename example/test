@@ -6,6 +6,13 @@
 
 TIMEFORMAT='  Time: %R seconds'
 
+if test "$1" == "-d" ; then
+    cppOpt="-D ORDER_PP_DEBUG"
+    shift
+else
+    cppOpt=""
+fi
+
 function is-cpp {
     echo "$1" | grep '\.\(cpp\|ii\)$' > /dev/null
 }
@@ -26,9 +33,9 @@ function compile {
 function preprocess {
     if is-cpp "$1" ; then
         # TBD: We can't used -pedantic here due to variadic macros.
-        time g++ -E -std=c++98 -Wall -I ../inc/ -I ../../chaos-pp/ "$1"
+        time g++ $cppOpt -E -std=c++98 -Wall -I ../inc/ -I ../../chaos-pp/ "$1"
     else
-        time gcc -E -std=c99 -Wall -Werror -pedantic-errors -I ../inc/ -I ../../chaos-pp/ "$1"
+        time gcc $cppOpt -E -std=c99 -Wall -Werror -pedantic-errors -I ../inc/ -I ../../chaos-pp/ "$1"
     fi
 }
 
