@@ -120,6 +120,9 @@
 #define ORDER_PP_PSEQ_SIZE_B0
 #define ORDER_PP_PSEQ_SIZE_F(x) ORDER_PP_NAT_SUCC x
 
+#define ORDER_PP_DEF_8seq_split_at ORDER_PP_FN_NATIVE(2,9SEQ_SPLIT_AT)
+#define ORDER_PP_9SEQ_SPLIT_AT(P,i,s) (ORDER_PP_SEQ_SPLIT_AT(,P##i,P##s))
+
 #define ORDER_PP_DEF_8seq_to_tuple ORDER_PP_FN_NATIVE(1,9SEQ_TO_TUPLE)
 #define ORDER_PP_9SEQ_TO_TUPLE(P,s) ORDER_PP_FX(SEQ_TO_TUPLE_TERMINATE,(ORDER_PP_SEQ_TO_TUPLE_A P##s))
 #define ORDER_PP_SEQ_TO_TUPLE_TERMINATE(...) ORDER_PP_SEQ_TO_TUPLE_##__VA_ARGS__##0
@@ -130,6 +133,17 @@
 #define ORDER_PP_SEQ_TO_TUPLE_B0 )
 #define ORDER_PP_SEQ_TO_TUPLE_C(x) ORDER_PP_RIGHT(,,x)ORDER_PP_SEQ_TO_TUPLE_B
 #define ORDER_PP_SEQ_TO_TUPLE_C0 )
+
+#define ORDER_PP_DEF_8seq_zip ORDER_PP_FN_NATIVE(2,9SEQ_ZIP)
+/*
+    --- (,a)(,b)(,c)(,d),(,1)(,2)(,3)(,4)
+    ==> (,(,a,b,))(,(,c,d,)),(,(,1,2,))(,(,3,4,))
+    ==> (,(,(,a,b,),(,c,d,),)),(,(,(,1,2,),(,3,4,),))
+    ==> (,(,a,b,))(,(,1,2,))(,(,c,d,))(,(,3,4,))
+    ==> (,a)(,1)(,b)(,2)(,c)(,3)(,d)(,4)
+    ==> ((a,1))((b,2))((c,3))((d,4))
+*/
+#define ORDER_PP_9SEQ_ZIP(P,sl,sr)
 
 // Higher-order functions
 
@@ -239,10 +253,10 @@
 #define ORDER_PP_PSEQ_TO_SEQ_B0
 
 #define ORDER_PP_SEQ_SPLIT_AT(P,i,s) ORDER_PP_IS_EDIBLE(,P##i)(ORDER_PP_SEQ_SPLIT_AT_,NAT,LIT)(,P##i,P##s)
-#define ORDER_PP_SEQ_SPLIT_AT_LIT(P,i,s) ORDER_PP_SEQ_SPLIT_AT_##i P##s
-#define ORDER_PP_SEQ_SPLIT_AT_NAT(P,i,s) ORDER_PP_PM(ORDER_PP_NAT_DIV_100 P##i,8SEQ_SPLIT_AT_B,ORDER_PP_OVERLOAD(SEQ_SPLIT_AT,ORDER_PP_SCAN(ORDER_PP_NAT_MOD_100_LIT P##i))P##s)
+#define ORDER_PP_SEQ_SPLIT_AT_LIT(P,i,s) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_SEQ_SPLIT_AT_,P##i)s##P
+#define ORDER_PP_SEQ_SPLIT_AT_NAT(P,i,s) ORDER_PP_PM(ORDER_PP_NAT_DIV_100 i##P,8SEQ_SPLIT_AT_B,ORDER_PP_OVERLOAD(SEQ_SPLIT_AT,ORDER_PP_SCAN(ORDER_PP_NAT_MOD_100_LIT i##P))s##P)
 #define ORDER_PP_8SEQ_SPLIT_AT_B(P,n,first_n,rest,...) ORDER_PP_NAT_IS_ZERO P##n(ORDER_PP_,8SEQ_SPLIT_AT_C,8SEQ_SPLIT_AT_D)(,P##n,P##first_n,P##rest)
 #define ORDER_PP_8SEQ_SPLIT_AT_C(P,n,first_n,rest) ,P##first_n,P##rest)
-#define ORDER_PP_8SEQ_SPLIT_AT_D(P,n,first_n,rest) (,ORDER_PP_NAT_PRED P##n,8SEQ_SPLIT_AT_B,P##first_n ORDER_PP_SEQ_SPLIT_AT_100 P##rest,)
+#define ORDER_PP_8SEQ_SPLIT_AT_D(P,n,first_n,rest) (,ORDER_PP_NAT_PRED n##P,8SEQ_SPLIT_AT_B,P##first_n ORDER_PP_SEQ_SPLIT_AT_100 P##rest,)
 
 #include "order/prelude/seq_tables.h"
