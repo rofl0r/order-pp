@@ -10,4 +10,6 @@
 # define ORDER_PP_DEF_8(x) 8DEF_CONST,x,
 #endif
 
+#define ORDER_PP_ORDER_PP_DEF_8quote(P,e,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):8quote:(,P##e,P##__VA_ARGS__))
+
 #define ORDER_PP_ORDER_PP_DEF_8(P,e,K,...) ORDER_PP_##K(,8,P##__VA_ARGS__)

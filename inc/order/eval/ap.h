@@ -12,6 +12,8 @@
 #define ORDER_PP_DEF_8ap_ARGS_5(P,...) 5,P##__VA_ARGS__
 #define ORDER_PP_DEF_8ap_ARGS_N(P,t,...) 8N,P##t,(,P##__VA_ARGS__)
 
+#define ORDER_PP_ORDER_PP_DEF_8ap(P,e,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):8ap:(,P##e,P##__VA_ARGS__))
+
 #define ORDER_PP_ARGS(...) ORDER_PP_ARGS_B(0##__VA_ARGS__,,ORDER_PP_COMMA_5,ORDER_PP_COMMA_4,ORDER_PP_COMMA_3,ORDER_PP_COMMA_2,ORDER_PP_COMMA_1,)(,__VA_ARGS__),
 #define ORDER_PP_ARGS_B(_,A,B,C,D,E,x,...) ORDER_PP_TUPLE_AT_1(ORDER_PP_ARGS_,x,N,)
 #define ORDER_PP_ARGS_1(P,...) 1,P##__VA_ARGS__

@@ -4,6 +4,8 @@
 
 #define ORDER_PP_DEF_8print(expr) 8EVAL_PRINT,expr,
 
+#define ORDER_PP_ORDER_PP_DEF_8print(P,e,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):8print:(,P##e,P##__VA_ARGS__))
+
 #define ORDER_PP_8EVAL_PRINT(P,e,expr,G,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,expr##P 0print,e##P,P##__VA_ARGS__)
 
 #define ORDER_PP_8EVAL_PRINT_LOOP(P,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)

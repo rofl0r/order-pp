@@ -3,6 +3,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8ref(sym) 8EVAL_REF,sym,
+
+#define ORDER_PP_ORDER_PP_DEF_8ref(P,e,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):8ref:(,P##e,P##__VA_ARGS__))
+
 #define ORDER_PP_8EVAL_REF(P,e,s,G,K,...) ORDER_PP_INVOKE(P##K,ORDER_PP_9ENV_REF(,P##s,P##e)),P##__VA_ARGS__)
 
 #define ORDER_PP_9ENV_REF(P,s0,e) ORDER_PP_FX(TUPLE_AT_2,(,ORDER_PP_SCAN(ORDER_PP_SCAN(ORDER_PP_ENV_REF_A P##e(0,,)P##s0,ORDER_PP_ENV_CLOSE_A P##e(0,))),ORDER_PP_ERROR_UNBOUND_VARIABLE ORDER_PP_BLOCK(!),))

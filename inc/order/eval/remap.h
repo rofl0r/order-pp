@@ -8,6 +8,8 @@
 # define ORDER_PP_DEF_8remap(t,...) ORDER_PP_DEF_##t,8EVAL_REMAP,ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(ORDER_PP_REMAP_,NONE,SOME)(,__VA_ARGS__),
 #endif
 
+#define ORDER_PP_ORDER_PP_DEF_8remap(P,e,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):8remap:(,P##e,P##__VA_ARGS__))
+
 #define ORDER_PP_REMAP_NONE(P,n) P##n,(,)
 #define ORDER_PP_REMAP_SOME(P,n,...) P##n,(,P##__VA_ARGS__,)
 

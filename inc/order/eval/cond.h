@@ -4,6 +4,8 @@
 
 #define ORDER_PP_DEF_8cond(ts) 8EVAL_COND,ORDER_PP_EVAL_COND_SPLIT ts(0cond,),
 
+#define ORDER_PP_ORDER_PP_DEF_8cond(P,e,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):8cond:(,P##e,P##__VA_ARGS__))
+
 #define ORDER_PP_EVAL_COND_SPLIT(c,...) c,ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),
 
 #ifdef ORDER_PP_DEBUG
