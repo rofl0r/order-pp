@@ -85,6 +85,9 @@
 
 #define ORDER_PP_EAT_UNLESS_
 #define ORDER_PP_EAT_UNLESS_0(...)
+#define ORDER_PP_EAT_UNLESS_1
+#define ORDER_PP_EAT_UNLESS_8false(...)
+#define ORDER_PP_EAT_UNLESS_8true
 
 #define ORDER_PP_0NEVER(...) ORDER_PP_IF_0
 #define ORDER_PP_0ALWAYS(...) ORDER_PP_IF_1

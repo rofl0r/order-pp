@@ -62,8 +62,8 @@ ORDER_PP_FN(8fn(8C,                             \
                        8stream_tail)))
 
 #define ORDER_PP_DEF_8stream_filter ORDER_PP_FN_CM(2,8STREAM_FILTER,0IS_FN,0IS_STREAM)
-#define ORDER_PP_8STREAM_FILTER(P,s,f,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN f##P,8STREAM_FILTER_B,P##s,P##f),P##__VA_ARGS__)
-#define ORDER_PP_8STREAM_FILTER_B(P,b,s,f,...) (,ORDER_PP_IF_##b(,(ORDER_PP_STREAM_HEAD s##P,(,ORDER_PP_STREAM_TAIL s##P,8STREAM_FILTER,P##f)),,ORDER_PP_STREAM_TAIL s##P,8STREAM_FILTER,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8STREAM_FILTER(P,s,f,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN f##P,8STREAM_FILTER_B,ORDER_PP_REM P##s,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8STREAM_FILTER_B(P,b,h,t,f,...) (,ORDER_PP_IF_##b(,(P##h,(,ORDER_PP_OPEN t##P,8STREAM_FILTER,P##f)),,ORDER_PP_OPEN t##P,8STREAM_FILTER,P##f),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8stream_fold                               \
 ORDER_PP_FN(8fn(8F,8R,8S,                                       \
