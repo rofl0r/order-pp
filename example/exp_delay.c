@@ -69,5 +69,5 @@ ORDER_PP(8exp_delay(EXP_DELAY_N))
 //
 // 3. Modify this example so that instead of expanding to nothing,
 //    each time `exp_delay' is called, it outputs a single `+'. How
-//    many `+' tokens you get when `EXP_DELAY_N' is `10' or `100'
+//    many `+' tokens you get when `EXP_DELAY_N' is `10' or `50'
 //    (assuming the program would actually finish)?
