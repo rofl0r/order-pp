@@ -29,10 +29,10 @@ SYNTAX
                 | 8tuple(<exp>+)
                 | 8do(<exp>+)
                 | 8rout(<exp>+)
-                | 8let({<var>, <exp_{init}>}+, <exp_{in}>)
+-               | 8let({<var>, <exp_{init}>}+, <exp_{in}>)
                 | 8print(<print-exp>+)
-                | 8match(<exp_{val}>, {<pat>, <exp>}+)
-                | 8try(<exp_{body}>, <var>, <exp_{handler}>)
+-               | 8match(<exp_{val}>, {<pat>, <exp>}+)
+-               | 8try(<exp_{body}>, <var>, <exp_{handler}>)
                 | <fn>
                 | <fn>(<exp>+)
                 | <op>(<exp>+)
@@ -49,13 +49,13 @@ SYNTAX
                 | 8rparen
                 | 8parens(<print-exp>+)
 
-        <pat> ::= 8tuple(<pat>+{,8rest(<sym>)}?)
-                | 8seq(<pat>+{,8rest(<sym>)}?)
-                | <ctor>
-                | <ctor>(<pat>+)
-                | 8nil
-                | <sym>        ;; Matches anything and bings <sym>
-                | 8_           ;;     -- || --     and binds nothing
+-       <pat> ::= 8tuple(<pat>+{,8rest(<sym>)}?)
+-               | 8seq(<pat>+{,8rest(<sym>)}?)
+-               | <ctor>
+-               | <ctor>(<pat>+)
+-               | 8nil
+-               | <sym>        ;; Matches anything and bings <sym>
+-               | 8_           ;;     -- || --     and binds nothing
 
 --------------------------------------------------------------------------
 
@@ -301,6 +301,7 @@ Sequences
    8seq_range(i, n, s)            : Num -> Num -> Seq -> Seq
 
    8seq_first(s)                  : Seq -> Any
+  -8seq_last(s)                   : Seq -> Any
    8seq_rest(s)                   : Seq -> Seq
 
    8seq_first_n(n, s)             : Num -> Seq -> Seq
