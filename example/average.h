@@ -2,7 +2,6 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#include <stdio.h>
 #include "order/interpreter.h"
 
 // ## Computing an average
