@@ -11,10 +11,10 @@
 //
 // In this example we generate some repetitive code that could be
 // used to implement a particular C++ type traits template, namely a
-// type trait by the name `is_function<T>', which tests whether the
+// type trait by the name `is_function<T>', which tests whether a
 // given type is a function type. The reader might want to refer to
-// the documentation and the source code of the `is_function<T>'
-// type trait of the Boost type traits library.
+// the documentation and source code of the `is_function<T>' type
+// trait of the Boost type traits library [Boost].
 //
 // In order to portably distinguish function types from other types,
 // the implementation of the `is_function<T>' type trait could use
@@ -33,8 +33,11 @@ yes_type is_function_tester(R (*)(A0,A1));
 // ...
 #endif
 
-// One function template is required for each number of parameters,
-// which means a lot of repetitive code.
+// One function template is required for each number of parameters
+// and, as can easily be seen, in order to support $n$ parameters,
+// $\Theta(n^2)$ tokens are needed. So, instead of laboriously
+// writing the repetitive templates by hand, we'd like to generate
+// them using a simple metaprogram.
 //
 // Even if we would be willing to write the repetitive code by hand,
 // we would still have one problem. We don't know how many
@@ -80,7 +83,7 @@ ORDER_PP(8for_each_in_range
 // The `8print' block used in the above code makes it fairly
 // convenient to generate arbitrary output, even unbalanced
 // parentheses. `8print' basically outputs any sequence of tokens
-// inside parentheses verbatim and impliticly outputs the value of
+// inside parentheses verbatim and implicitly outputs the value of
 // any non-parenthesized Order expression. The `8parens' form, that
 // can be used inside `8print', outputs a parenthesized sequence of
 // tokens.
