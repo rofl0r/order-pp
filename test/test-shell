@@ -37,7 +37,7 @@ function eval-in-cpp {
 }
 
 function eval-in-wave {
-    wave --c++0x \
+    wave --variadics \
          --include "../inc/" \
          --include "../../chaos-pp/" \
          --forceinclude "order/interpreter.h" \
