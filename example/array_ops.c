@@ -107,7 +107,7 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
 /*
  * Given an
  * - operation mnemonic,
- * - an operator symbol (e.g. +),
+ * - an operator symbol (e.g. '+'),
  * - an abbreviation of the left hand side input array element type and
  * - array element type,
  * - an abbreviation of the right hand side input array element type and
@@ -187,7 +187,7 @@ ORDER_PP_FN(fn(Ty,                              \
  * constant definitions, which use 'ORDER_PP_CONST', and so called macro
  * definitions, which use 'ORDER_PP_MACRO'.
  *
- * The <fn-expression> of a function definition must define an anonymous
+ * The '<fn-expression>' of a function definition must define an anonymous
  * function. Anonymous function definitions have the general form:
  *
  *      fn(<var-1>, ..., <var-n>, <expression>)
@@ -207,9 +207,10 @@ ORDER_PP_FN(fn(Ty,                              \
  *   if(<cond-exp>, <cons-exp>, <alt-exp>)
  *
  * If-expressions in Order behave just like in other strict programming
- * languages. The <cond-exp> subexpression is evaluated first and if it
- * evaluates to true, then <cons-exp> is evaluated, otherwise <alt-exp> is
- * evaluated.
+ * languages. The condition subexpression, '<cond-exp>', is evaluated
+ * first and if it evaluates to 'true', then the consequent, '<cons-exp>',
+ * is evaluated. Otherwise the condition must evaluate to 'false', and the
+ * alternative, '<alt-exp>', is evaluated.
  *
  * The body of the 'type_of_promotion(Ty)' function also contains calls to
  * other functions. The binary function 'less' compares numbers. The unary
@@ -286,7 +287,7 @@ ORDER_PP_FN(fn(Op,Tl,Tr,                                \
  * Considering the requirements, we will represent an operator by a
  * 6-tuple of the form
  *
- *   (symbol, mnemonic, arity, does_floating, is_logical, is_shift).
+ *   (symbol, mnemonic, arity, does_floating, is_logical, is_shift)
  *
  * A tuple, in general, is represented simply by a parenthesized list of
  * comma separated elements. A 6-tuple simply has 6 elements.
@@ -296,12 +297,12 @@ ORDER_PP_FN(fn(Op,Tl,Tr,                                \
  * operators on tuples.
  */
 
-#define ORDER_PP_DEF_op_symbol(o)        ORDER_PP_MACRO(tuple_at(o,0))
-#define ORDER_PP_DEF_op_mnemonic(o)      ORDER_PP_MACRO(tuple_at(o,1))
-#define ORDER_PP_DEF_op_arity(o)         ORDER_PP_MACRO(tuple_at(o,2))
-#define ORDER_PP_DEF_op_does_floating(o) ORDER_PP_MACRO(tuple_at(o,3))
-#define ORDER_PP_DEF_op_is_logical(o)    ORDER_PP_MACRO(tuple_at(o,4))
-#define ORDER_PP_DEF_op_is_shift(o)      ORDER_PP_MACRO(tuple_at(o,5))
+#define ORDER_PP_DEF_op_symbol(o)        ORDER_PP_MACRO(tuple_at(0,o))
+#define ORDER_PP_DEF_op_mnemonic(o)      ORDER_PP_MACRO(tuple_at(1,o))
+#define ORDER_PP_DEF_op_arity(o)         ORDER_PP_MACRO(tuple_at(2,o))
+#define ORDER_PP_DEF_op_does_floating(o) ORDER_PP_MACRO(tuple_at(3,o))
+#define ORDER_PP_DEF_op_is_logical(o)    ORDER_PP_MACRO(tuple_at(4,o))
+#define ORDER_PP_DEF_op_is_shift(o)      ORDER_PP_MACRO(tuple_at(5,o))
 
 /*
  * As you should have noticed, the above definitions aren't function
@@ -365,15 +366,15 @@ ORDER_PP_CONST((( ~  , compl , 1, false, false, false ))        \
  * The requirements for types are somewhat less demanding and we'll do
  * with a 4-tuple of the form
  *
- *   (name, abbreviation, is_floating, rank).
+ *   (name, abbreviation, is_floating, rank)
  *
  * The following defines accessors for the type data type.
  */
 
-#define ORDER_PP_DEF_type_name(t)        ORDER_PP_MACRO(tuple_at(t,0))
-#define ORDER_PP_DEF_type_abbrev(t)      ORDER_PP_MACRO(tuple_at(t,1))
-#define ORDER_PP_DEF_type_is_floating(t) ORDER_PP_MACRO(tuple_at(t,2))
-#define ORDER_PP_DEF_type_rank(t)        ORDER_PP_MACRO(tuple_at(t,3))
+#define ORDER_PP_DEF_type_name(t)        ORDER_PP_MACRO(tuple_at(0,t))
+#define ORDER_PP_DEF_type_abbrev(t)      ORDER_PP_MACRO(tuple_at(1,t))
+#define ORDER_PP_DEF_type_is_floating(t) ORDER_PP_MACRO(tuple_at(2,t))
+#define ORDER_PP_DEF_type_rank(t)        ORDER_PP_MACRO(tuple_at(3,t))
 
 /*
  * While encoding the metadata for types, we must specify the 'type_int'
