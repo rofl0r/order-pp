@@ -6,6 +6,8 @@
 
 for f in $(echo *.c *.cpp | sort) ; do
     if test -f "$f" ; then
-        ./test "$f"
+        if ! ./test "$f" ; then
+            exit
+        fi
     fi
 done
