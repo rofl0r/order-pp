@@ -486,22 +486,18 @@ ORDER_PP(8seq_for_each_in_product
 // predicate for filtering the `8applicative_ops' sequence using an
 // anonymous function. This is typical when using higher-order
 // functions. New functions can also be formed through other means,
-// which often yeilds slightly shorter and slightly more efficient
-// programs. The predicate for filtering the `8builtin_types'
-// sequence is implemented above by composing together the unary
-// `8not' function with the unary `8type_is_float' accessor.
+// which often yields shorter and more efficient programs. The
+// predicate for filtering the `8builtin_types' sequence is
+// implemented above by composing together the unary `8not' function
+// with the unary `8type_is_float' accessor.
 //
 // The `8seq_for_each_in_product(op, ss)' function computes the
-// cartesian product of the given sequence of sequences and invokes
-// the given function with each element of the cartesian product.
-// Above, we use `8seq_for_each_in_product' to compute the cartesian
-// product of operators that do not work on floating point types and
-// the non-floating point types.
-//
-// If you looked carefully, you noticed that we passed
-// `8gen_array_uop', as the first parameter to
-// `8seq_for_each_in_product'. This is possible, because functions
-// are first class values in Order.
+// cartesian product of the given sequence of sequences and applies
+// the given procedure, in this case `8gen_array_uop', to each
+// element of the cartesian product. Above, we use
+// `8seq_for_each_in_product' to compute the cartesian product of
+// operators that do not work on floating point types and the
+// non-floating point types.
 //
 // Let's move on and generate code for the floating point operators
 // and all types.
