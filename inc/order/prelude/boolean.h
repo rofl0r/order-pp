@@ -33,6 +33,4 @@
 
 // Detail
 
-// TBD: 0IS_BOOL
-#define ORDER_PP_0IS_BOOL(P,x) ORDER_PP_IF_8true
-
+#define ORDER_PP_0IS_BOOL(P,x) ORDER_PP_AND(not)(ORDER_PP_IS_EDIBLE(,P##x))(and)(ORDER_PP_OR(or)(ORDER_PP_SAME(,8true,P##x))(or)(ORDER_PP_SAME(,8false,P##x))())()
