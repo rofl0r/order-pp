@@ -7,11 +7,28 @@
 
 doc=tom
 
+function newest {
+    if test 0 -lt "$#" ; then
+        result="$1"
+
+        shift
+
+        while test 0 -lt "$#" ; do
+            if test "$1" -nt "$result" ; then
+                result="$1"
+            fi
+            shift
+        done
+
+        echo "$result"
+    fi
+}
+
 REPLY=''
 prompt='[ (R)ebuild | (Q)uit ]: '
 
 while test "$REPLY" != 'q' ; do
-    if test "$REPLY" == 'r' -o "$doc.ltx" -nt "$doc.ps" ; then
+    if test "$REPLY" == 'r' -o $(newest "$doc.ltx" *.ebnf ../../example/*.c* ../../example/*.h*) -nt "$doc.ps" ; then
         echo
         ./Build
         prompt='[ (R)ebuild | (Q)uit ]: '
