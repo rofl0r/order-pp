@@ -38,7 +38,7 @@ template<class T> struct is_integral
 //>
 // We also need to define specializations of the above template for
 // each integral type and cv-qualifier pair. This means that we need
-// a total of $2*2*10=40$ specializations. The spealizations would
+// a total of $2*2*10=40$ specializations. The specializations would
 // look like this:
 //<
 //   template<> struct is_integral<int>
@@ -51,8 +51,8 @@ template<class T> struct is_integral
 //   { static const bool value = true; };
 //   // and so on for all the 9 remaining integral types...
 //>
-// That would be a lot of code to write. Instead of manually writing
-// the code, we'll implement a simple Order metaprogram that
+// That would be a lot of code to write. Instead of typing the code
+// manually, we'll implement a simple Order metaprogram that
 // generates the specializations.
 //<
 ORDER_PP(8seq_for_each_in_product
