@@ -1,32 +1,31 @@
-#ifndef ORDER_EXAMPLE_AVERAGE_H_VAJK20040620
-#define ORDER_EXAMPLE_AVERAGE_H_VAJK20040620
+# ifndef ORDER_EXAMPLE_AVERAGE_H_VAJK20040620
+# define ORDER_EXAMPLE_AVERAGE_H_VAJK20040620
 
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#include "order/interpreter.h"
+# include "order/interpreter.h"
 
-// ## Computing an average
+// ## Computing an Average
 //
 // ### Introduction
 //
-// This example was inspired by the Wiki discussion at
-//
-//   http://c2.com/cgi/wiki?CompileTimeGenericAverageFunctionInCeePlusPlus
+// This example was inspired by the Wiki discussion at \url{http://
+// c2.com/cgi/wiki?CompileTimeGenericAverageFunctionInCeePlusPlus}.
 //
 // The goal is to build a macro for computing the average of a
 // number of elements. The macro should expand to an expression that
-// has the number of elements computed before run-time, but the
-// values of the elements may not be known until run-time. For
+// has the number of elements computed before run--time, but the
+// values of the elements may not be known until run--time. For
 // example,
-//
+//<
 //   GEN_average(x, y, z)
-//
+//>
 // should expand to something like
-//
+//<
 //   ((x + y + z) / 3)
-//
+//>
 // Above, the number of elements, `3', is supposed to be computed by
 // the macro.
 //
@@ -38,18 +37,18 @@
 // must be a floating point number. In the spirit of C, we will also
 // not make any effort to guard against overflow.
 //
-// ### The `GEN_average' macro
+// ### The Average Macro
 //
 // So, without further ado, the following is our average macro
 // implementation.
-
+//<
 #define GEN_average(...)                                \
 ((ORDER_PP(8seq_for_each_with_delimiter                 \
            (8put,                                       \
             8emit(8quote(+)),                           \
             8tuple_to_seq(8quote((__VA_ARGS__)))))) /   \
  ORDER_PP(8to_lit(8tuple_size(8quote((__VA_ARGS__))))))
-
+//>
 // The above macro invokes the Order interpreter, through the
 // `ORDER_PP' macro, to evaluate two simple Order programs.
 //
@@ -66,7 +65,7 @@
 //
 // The first, and more complicated, program generates the sum
 // expression. It first converts the argument tuple to a sequence
-// using `8tuple_to_seq'. The higher-order procedure
+// using `8tuple_to_seq'. The higher--order procedure
 // `8seq_for_each_with_delimiter' has been designed for outputing
 // sequences of tokens with a delimiter. It is given two unary
 // procedures. The first procedure is for outputing the elements and
@@ -82,4 +81,4 @@
 // `8put' simply outputs the argument. Once given two arguments,
 // `8emit' outputs both of the arguments separated by whitespace.
 
-#endif
+# endif

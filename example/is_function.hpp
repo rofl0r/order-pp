@@ -1,54 +1,52 @@
-#ifndef ORDER_EXAMPLE_IS_FUNCTION_HPP_VAJK20040620
-#define ORDER_EXAMPLE_IS_FUNCTION_HPP_VAJK20040620
+# ifndef ORDER_EXAMPLE_IS_FUNCTION_HPP_VAJK20040620
+# define ORDER_EXAMPLE_IS_FUNCTION_HPP_VAJK20040620
 
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#include "order/interpreter.h"
+# include "order/interpreter.h"
 
-// ## `is_function_tester' templates
+// ## Is Function Testers
 //
 // In this example we generate some repetitive code that could be
 // used to implement a particular C++ type traits template, namely a
 // type trait by the name `is_function<T>', which tests whether a
 // given type is a function type. The reader might want to refer to
 // the documentation and source code of the `is_function<T>' type
-// trait of the Boost type traits library [Boost].
+// trait of the Boost type traits library \cite{boost}.
 //
 // In order to portably distinguish function types from other types,
 // the implementation of the `is_function<T>' type trait could use
 // a couple of auxiliary types
-
+//<
 struct yes_type { int type[2]; };
 typedef int no_type;
-
+//>
 // an ellipsis function
-
+//<
 no_type is_function_tester(...);
-
+//>
 // and function templates of the form
-
 #if 0
-template<class R>
-yes_type is_function_tester(R (*)());
+   template<class R>
+   yes_type is_function_tester(R (*)());
 
-template<class R, class A0>
-yes_type is_function_tester(R (*)(A0));
+   template<class R, class A0>
+   yes_type is_function_tester(R (*)(A0));
 
-template<class R, class A0, class A1>
-yes_type is_function_tester(R (*)(A0,A1));
+   template<class R, class A0, class A1>
+   yes_type is_function_tester(R (*)(A0,A1));
 
-// ...
-#endif
-
+   // ...
+#endif//0
 // It is then possible to distinguish between function types and
 // other types taking advantage of overload resolution and the
-// compile-time 'sizeof' operator.
+// compile--time `sizeof' operator.
 //
 // One function template is required for each number of parameters
 // and, as can easily be seen, in order to support $n$ parameters,
-// $\Theta(n^2)$ tokens are needed. Instead of laboriously writing
+// %$\Theta(n^2)$ tokens are needed. Instead of laboriously writing
 // the repetitive templates by hand, we'd like to generate them
 // using a simple metaprogram.
 //
@@ -59,42 +57,39 @@ yes_type is_function_tester(R (*)(A0,A1));
 // support 100 parameters, it would slow down compilation for all
 // users. Ideally, of course, we wouldn't want to have the
 // repetition in the first place, but we are somewhat out of luck
-// here.{Actually, in this particular case, given a fully conforming
-// C++ compiler, we wouldn't need the repetition, but the repetition
-// is needed for portability and structurally identical (isomorphic)
-// repetition is needed, even on conforming C++ compilers, in other
-// cases.} The next best thing is that the maximum number of
-// parameters could easily be specified, making the `is_function<T>'
-// type trait configurable. So, let's make it so, by using a
-// conditional macro definition, that can be externally overridden
-// by a user.
-
+// here.\footnote{Actually, in this particular case, given a fully
+// conforming C++ compiler, we wouldn't need the repetition, but the
+// repetition is needed for portability and structurally identical
+// (isomorphic) repetition is needed, even on conforming C++
+// compilers, in other cases.} The next best thing is that the
+// maximum number of parameters could easily be specified, making
+// the `is_function<T>' type trait configurable. So, let's do it by
+// using a conditional macro definition, that can be externally
+// overridden by a user.
+//<
 #ifndef IS_FUNCTION_MAX_ARGS
 #define IS_FUNCTION_MAX_ARGS 10
 #endif
-
+//>
 // We can then refer to the `IS_FUNCTION_MAX_ARGS' macro in the
 // following program that generates the `is_function_tester'
 // templates.
-
-ORDER_PP(8for_each_in_range
-         (8fn(8N,
-              8print((template
-                      <class R) 8emit_trailing_params(0,
-                                                      8N,
-                                                      8(class A)) (>)
-                     (yes_type is_function_tester)
-                     8parens((R(*)) 8parens(8emit_params(0,
-                                                         8N,
-                                                         8(A))))
-                     (;))),
-          0,
-          8inc(IS_FUNCTION_MAX_ARGS)))
-
-// The above program uses the higher-order function
+//<
+ORDER_PP
+(8for_each_in_range
+ (8fn(8N,
+      8print((template
+              <class R) 8emit_trailing_params(0, 8N, 8(class A)) (>)
+             (yes_type is_function_tester)
+             8parens((R(*)) 8parens(8emit_params(0, 8N, 8(A))))
+             (;))),
+  0,
+  8inc(IS_FUNCTION_MAX_ARGS)))
+//>
+// The above program uses the higher--order function
 // `8for_each_in_range' to invoke an anonymous function, defined by
-// the `8fn(...)' expression, for each number in the range `[0,
-// IS_FUNCTION_MAX_ARGS]'. On each invocation, the anonymous
+// the `8fn(...)' expression, for each number in the range
+// `[0,IS_FUNCTION_MAX_ARGS]'. On each invocation, the anonymous
 // function outputs a single `is_function_tester' template with the
 // number of parameters determined by the number passed by
 // `8for_each_in_range'.
@@ -103,7 +98,7 @@ ORDER_PP(8for_each_in_range
 // convenient to generate arbitrary output, even unbalanced
 // parentheses. `8print' basically outputs any sequence of tokens
 // inside parentheses verbatim and implicitly outputs the value of
-// any non-parenthesized Order expression. The `8parens' form, that
+// any non--parenthesized Order expression. The `8parens' form, that
 // can be used inside `8print', outputs a parenthesized sequence of
 // tokens.
 //
@@ -122,4 +117,4 @@ ORDER_PP(8for_each_in_range
 // generation macros, as well as Order definition macros, because
 // they can both simplify and speed up the generator program.
 
-#endif
+# endif

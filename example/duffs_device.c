@@ -6,7 +6,7 @@
 # include <stdlib.h>
 # include "order/interpreter.h"
 
-// \section{Duff's Device} %****************************************
+// ## Duff's Device
 //
 // In this example we will use the Order interpreter to implement a
 // macro for generating Duff's device. A Duff's device, named after
@@ -68,12 +68,12 @@
      //               +------------ unrolling factor
    }
 #endif//0
-// Above, the \code{GEN_duffs_device} macro would generate the repetitive
+// Above, the `GEN_duffs_device' macro would generate the repetitive
 // switch-case statement, freeing us from the manual labor.
 //
 // Now that we know what we want, we are ready to implement the
 // desired macro.
-// \begin{verbatim}
+//<
 #define GEN_duffs_device(unroll_cnt, counter_t, n, ...) \
 do {                                                    \
   counter_t ORDER_PP_FRESH_ID(initial_cnt) = (n);       \
@@ -99,10 +99,10 @@ do {                                                    \
     }                                                   \
   }                                                     \
 } while (0)
-// \end{verbatim}
-// The \code{GEN_duffs_device} macro uses a do-while block to scope the
+//>
+// The `GEN_duffs_device' macro uses a do-while block to scope the
 // generated code and to ensure that our macro plays nice with other
-// C statements. The \code{ORDER_PP_FRESH_ID} macro is used for
+// C statements. The `ORDER_PP_FRESH_ID' macro is used for
 // generating identifiers tagged by the source line number on which
 // the macro is invoked. The intention is to avoid unintended
 // variable capture and make the generated code referentially
@@ -111,21 +111,21 @@ do {                                                    \
 // same line, but it avoids the most common problems.
 //
 // The most interesting parts of the above macro are the parts where
-// we invoke the Order interpreter using the \code{ORDER_PP} macro to
+// we invoke the Order interpreter using the `ORDER_PP' macro to
 // evaluate an Order program. We actually invoke the interpreter
 // several times. The first two programs compute simple constants
 // based on the unrolling factor. The third program is more
 // complicated and it generates the cases, except for the first, of
 // the switch-case statement, using the higher-order function
-// \code{8for_each_in_range}.
+// `8for_each_in_range'.
 //
 // Before we get to the exercises, we'd like to check that our
-// generator doesn't have obvious bugs. The following \code{main} program
+// generator doesn't have obvious bugs. The following `main' program
 // is a simple test. It checks that the body of a Duff's device is
 // executed the proper number of times for a range of loop counts.
 // We also make the main program configurable through the
-// conditional macro definition \code{UNROLLING_FACTOR}.
-// \begin{verbatim}
+// conditional macro definition `UNROLLING_FACTOR'.
+//<
 #ifndef UNROLLING_FACTOR
 #define UNROLLING_FACTOR 8
 #endif
@@ -144,23 +144,23 @@ int main(void) {
   printf("OK.\n");
   return 0;
 }
-// \end{verbatim}
+//>
 //
 // How about compiling and running this example to see if our Duff's
 // device generation macro works as expected?
 //
-// \subsection*{Acknowledgements} %=================================
+// ### Acknowledgements
 //
 // This example was inspired by an original macro written by Joerg
 // Walter for generating Duff's device.
 //
-// \subsection*{Exercises} %========================================
+// ### Exercises
 //
 // \begin{enumerate}
-// \item The \code{array_ops.c} example generates array manipulation
+// \item The `array_ops.c' example generates array manipulation
 //       procedures. The generated procedures use an a simple loop
-//       to process the arrays. Change the \code{array_ops.c}
-//       example to use the \code{GEN_duffs_device} macro to
+//       to process the arrays. Change the `array_ops.c'
+//       example to use the `GEN_duffs_device' macro to
 //       generate unrolled array manipulation procedures. Did the
 //       unrolling improve the performance of the generated array
 //       manipulation procedures?
@@ -170,8 +170,8 @@ int main(void) {
 //       advantage of unrolling, because it may make it more
 //       difficult to reorder the generated machine instructions in
 //       the unrolled loop for optimal CPU pipeline usage. Implement
-//       a new macro \code{UNROLL}, with parameters identical to
-//       \code{GEN_duffs_device}, that generates an unrolled loop
+//       a new macro `UNROLL', with parameters identical to
+//       `GEN_duffs_device', that generates an unrolled loop
 //       without using a switch-case. The inner loop of the
 //       generated code should simply repeat the given statements by
 //       the unrolling factor. The remainder elements can be handled
