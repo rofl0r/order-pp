@@ -2,127 +2,127 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
 #include "datatype.h"
+#include "error.h"
 #include "ll1_parser.h"
+#include "str.h"
+#include <assert.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef char* c_string;
-typedef c_string sym_type;
+typedef str_type sym_type;
 
-#define DATATYPE_term_type (term_type,                  \
-                            ((Lambda,                   \
-                              (sym_type)(term_type)))   \
-                            ((Apply,                    \
-                              (term_type)(term_type)))  \
-                            ((Ref,                      \
-                              (sym_type))))
+DATATYPE_define(exp_type,
+                ((Exp_Lambda,
+                  (sym_type)(exp_type)))
+                ((Exp_Apply,
+                  (exp_type)(exp_type)))
+                ((Exp_Ref,
+                  (sym_type))))
 
-DATATYPE_declare(term_type);
-DATATYPE_define(term_type);
+static sym_type sym_parse(str_type *str_ptr) {
+  assert(str_ptr);
 
-static void skip_space(c_string* str) {
-  while (isspace(**str))
-    ++*str;
-}
+  str_type start = *str_ptr;
+  str_type beyond = *str_ptr;
 
-static int match(c_string pat, c_string str) {
-  int result = 0;
-  while ('\0' != *pat && *pat == *str) ++result, ++pat, ++str;
-  return '\0' == *pat
-    ? result
-    : 0;
-}
-
-static c_string intern_sym(char* start, char* stop) {
-  return 0; // TBD
-}
-
-static sym_type parse_sym(c_string* str) {
-  if (!isalpha(**str))
+  if (!isalpha(*beyond) && '_' != *beyond)
     return 0;
-  sym_type start = *str;
-  while (isalnum(**str) || '_' == **str)
-    ++*str;
-  return intern_sym(start, *str);
+
+  while (isalnum(*beyond) || '_' == *beyond)
+    ++beyond;
+
+  *str_ptr = beyond;
+  return str_substr(start, beyond);
 }
 
-static term_type parse_term(c_string str) {
-  LL1_PARSER(str, skip_space, match,
-             ((sym, sym_type, parse_sym)),
-             (term, term_type,
-              (("\\") ((sym, var)) (".") ((term, body)),
-               ({ return term_type_Lambda(var, body); }))
-              (("(") ((term, lhs)) ((term, rhs)) (")"),
-               ({ return term_type_Apply(lhs, rhs); }))
+static exp_type exp_parse(str_type str) {
+  LL1_PARSER(str, str_num_prefix_spaces, str_is_non_empty_prefix,
+             ((sym, sym_type, sym_parse)),
+             (exp, exp_type,
+              (("\\") ((sym, var)) (".") ((exp, body)),
+               ({ return Exp_Lambda(var, body); }))
+              (("(") ((exp, lhs)) ((exp, rhs)) (")"),
+               ({ return Exp_Apply(lhs, rhs); }))
               (((sym, var)),
-               ({ return term_type_Ref(var); }))));
+               ({ return Exp_Ref(var); }))));
 }
 
-static c_string unparse_term(term_type term) {
-  return 0; // TBD
-}
-
-static term_type subst(sym_type sym, term_type in, term_type with) {
+static str_type exp_unparse(exp_type exp) {
   DATATYPE_switch
-    ( in, term_type,
-      ((Lambda,(var)(body),
-        ({ return (var == sym)
+    ( exp, exp_type,
+      ((Exp_Lambda, (var)(body),
+        ({ return str_cat("\\", var, ".", exp_unparse(body), str_end); })))
+      ((Exp_Apply,(lhs)(rhs),
+        ({ return str_cat("(", exp_unparse(lhs), " ", exp_unparse(rhs), ")", str_end); })))
+      ((Exp_Ref,(var),
+        ({ return var; }))) );
+  assert(0);
+}
+
+static exp_type exp_subst(sym_type sym, exp_type in, exp_type with) {
+  DATATYPE_switch
+    ( in, exp_type,
+      ((Exp_Lambda,(var)(body),
+        ({ return var == sym
              ? in
-             : term_type_Lambda(var,
-                                subst(sym, body, with)); })))
-      ((Apply,(lhs)(rhs),
-        ({ return term_type_Apply(subst(sym, lhs, with),
-                                  subst(sym, rhs, with)); })))
-      ((Ref,(var),
-        ({ return (var == sym)
+             : Exp_Lambda(var,
+                          exp_subst(sym, body, with)); })))
+      ((Exp_Apply,(lhs)(rhs),
+        ({ return Exp_Apply(exp_subst(sym, lhs, with),
+                            exp_subst(sym, rhs, with)); })))
+      ((Exp_Ref,(var),
+        ({ return var == sym
              ? with
              : in; }))) );
+  assert(0);
 }
 
-static void error(c_string msg, ...) {
-  fprintf(stderr, msg);
-  exit(EXIT_FAILURE);
-}
-
-static term_type reduce(term_type term) {
+static exp_type exp_reduce(exp_type exp) {
   DATATYPE_switch
-    ( term, term_type,
-      ((Lambda,(var)(body),
-        ({ return term; })))
-      ((Apply,(lhs)(rhs),
+    ( exp, exp_type,
+      ((Exp_Lambda,,
+        ({ return exp; })))
+      ((Exp_Apply,(lhs)(rhs),
         ({ DATATYPE_switch
-             ( reduce(lhs), term_type,
-               ((Lambda,(var)(body),
-                 ({ return reduce(subst(var,
-                                        body,
-                                        reduce(rhs))); })))
-               ((Apply,,
+             ( exp_reduce(lhs), exp_type,
+               ((Exp_Lambda,(var)(body),
+                 ({ return exp_reduce(exp_subst(var,
+                                                body,
+                                                exp_reduce(rhs))); })))
+               ((Exp_Apply,,
                  ({ error("'%s' doesn't reduce to a Lambda.",
-                          unparse_term(lhs)); })))
-               ((Ref,,
+                          exp_unparse(lhs)); })))
+               ((Exp_Ref,,
                  ({ error("'%s' doesn't reduce to a Lambda.",
-                          unparse_term(lhs)); })))); })))
-      ((Ref,(var),
+                          exp_unparse(lhs)); })))); })))
+      ((Exp_Ref,(var),
         ({ error("Unbound variable '%s'.", var); }))) );
+  assert(0);
 }
 
-int main(int argc, c_string argv[]) {
+int main(int argc, char* argv[]) {
   if (argc < 2) {
-    printf("Usage: lambda '<term>'\n"
+    printf("Usage: lambda '<exp>'\n"
            "\n"
            "Syntax:\n"
            "\n"
-           "  <term> ::= \\ sym . <term>\n"
-           "           | ( <term> <term> )\n"
-           "           | sym\n"
+           "  <exp> ::= \\ sym . <exp>\n"
+           "         |  ( <exp> <exp> )\n"
+           "         |  sym\n"
            "\n"
-           "  sym = [a-zA-Z][a-zA-Z0-9_]+\n");
-    return 0;
+           "  sym = [a-zA-Z_][a-zA-Z0-9_]+\n");
+    return EXIT_SUCCESS;
   }
 
-  printf(unparse_term(reduce(parse_term(argv[1]))));
+  //exp_type exp = exp_parse(argv[1]);
+  exp_type exp = Exp_Apply(Exp_Lambda("y",Exp_Ref("y")),
+                           Exp_Lambda("x",Exp_Ref("x")));
+  printf("exp = %s\n", exp_unparse(exp));
 
-  return 0;
+  exp_type reduced_exp = exp_reduce(exp);
+  printf("reduced exp = %s\n", exp_unparse(reduced_exp));
+
+  return EXIT_SUCCESS;
 }
