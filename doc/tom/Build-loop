@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# (C) Copyright Vesa Karvonen 2004.
+#
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE.)
+
+doc=tom
+
+REPLY=''
+prompt='[ (R)ebuild | (Q)uit ]: '
+
+while test "$REPLY" != 'q' ; do
+    if test "$REPLY" == 'r' -o "$doc.ltx" -nt "$doc.ps" ; then
+        echo
+        ./Build
+        prompt='[ (R)ebuild | (Q)uit ]: '
+    fi
+    read -t 2 -n 1 -p "$prompt"
+    prompt=''
+done
+echo
