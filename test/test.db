@@ -111,6 +111,12 @@
 8seq_rest_n(4,8quote((1)(2)(3)(4)))#
 8seq_reverse(8nil)#
 8seq_reverse(8quote((1)(2)(3)(a)))#(a) (3) (2) (1)
+8seq_select(8greater,0,8quote((1)(2)(3)(4)))#0
+8seq_select(8less,0,8quote((1)(2)(3)(4)))#4
+8seq_select(8less,15,8quote((10)))#15
+8seq_select(8less,2,8quote((1)(2)(3)(4)(3)(2)))#4
+8seq_select(8less,45,8quote())#45
+8seq_select(8less,5,8quote((10)))#10
 8seq_set(0,8quote((1)(2)(3)),8quote(.))#(.) (2)(3)
 8seq_set(1,8quote((1)(2)(3)),8quote(.))#(1) (.) (3)
 8seq_set(2,8quote((1)(2)(3)),8quote(.))#(1) (2) (.)
