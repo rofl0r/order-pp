@@ -26,12 +26,12 @@ do {                                                                            
     switch (duffs_device_initial_cnt % unrolling_factor) {                              \
       do {                                                                              \
         ORDER_PP(do(for_each_in_range(fn(I,                                             \
-                                         emit_expand(const(GEN_duffs_device_case),      \
-                                                     tuple(I,const(exp)))),             \
+                                         emit_expand(quote(GEN_duffs_device_case),      \
+                                                     tuple(I,quote(exp)))),             \
                                       1,                                                \
                                       unrolling_factor),                                \
-                    emit_expand(const(GEN_duffs_device_case),                           \
-                                const((0,exp)))));                                      \
+                    emit_expand(quote(GEN_duffs_device_case),                           \
+                                quote((0,exp)))));                                      \
       } while (--duffs_device_running_cnt);                                             \
     }                                                                                   \
   }                                                                                     \

@@ -56,14 +56,14 @@ template<> struct is_integral<qualifier type> {         \
  */
 ORDER_PP(seq_for_each_in_product
          (fn(Q,T,
-             emit_expand(const(GEN_is_integral_specialization),
+             emit_expand(quote(GEN_is_integral_specialization),
                          tuple(Q,T))),
-          seq(const(()(const)(volatile)(const volatile)),
-              seq_append(const((char)(wchar_t)),
-                         let(S,const((char)(short)(int)(long)),
+          seq(quote(()(const)(volatile)(const volatile)),
+              seq_append(quote((char)(wchar_t)),
+                         let(S,quote((char)(short)(int)(long)),
                              seq_append(S,
                                         seq_map(fn(T,
-                                                   expand(const(unsigned),T)),
+                                                   expand(quote(unsigned),T)),
                                                 S)))))))
 
 #undef GEN_is_integral_specialization

@@ -334,7 +334,7 @@ ORDER_PP_CONST(((           char, ch, false, 1 ))       \
 
 #define ORDER_PP_DEF_gen_array_uop                                      \
 ORDER_PP_OP(fn(O,T,                                                     \
-               emit_expand(const(GEN_array_uop),                        \
+               emit_expand(quote(GEN_array_uop),                        \
                            tuple(op_mnemonic(O),                        \
                                  op_symbol(O),                          \
                                  type_abbrev(T),                        \
@@ -379,7 +379,7 @@ ORDER_PP(seq_for_each_in_product
 
 #define ORDER_PP_DEF_gen_array_bop                                      \
 ORDER_PP_OP(fn(O,L,R,                                                   \
-               emit_expand(const(GEN_array_bop),                        \
+               emit_expand(quote(GEN_array_bop),                        \
                            tuple(op_mnemonic(O),                        \
                                  op_symbol(O),                          \
                                  type_abbrev(L),                        \

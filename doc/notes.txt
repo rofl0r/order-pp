@@ -47,12 +47,12 @@ SYNTAX
 
 --------------------------------------------------------------------------
 
-DEFINITIONS
+DEFINITIONS <#define ORDER_PP_DEF_>
 -----------
 
 Order should support various kinds of definitions for ease-of-use.
 
-  #define ORDER_PP_DEF_<name> ORDER_PP_CONST(<pp-param>)
+  <name> ORDER_PP_CONST(<pp-param>)
 
 Defines a named constant. The expression ''<name>'' then evaluates to
 ''<pp-param>''. Constant definitions can also be function-like macros, but
@@ -64,32 +64,37 @@ be embedded into another constant. This is necessary to avoid having to
 manually duplicate information accross constants. For this purpose, a
 macro ''ORDER_PP_GET_CONST(<name>)'' should be defined.
 
-  #define ORDER_PP_DEF_<name>(<pp-args>) ORDER_PP_MACRO(<exp>)
+  <name>(<pp-args>) ORDER_PP_MACRO(<exp>)
 
 Defines a "macro". The effect is that an expression of the form
 ''<name>(<params>)'' is macro replaced to ''<exp>''. The interpreter then
 evaluates the ''<exp>''. Macros are efficient, because the macro
 replacement doesn't take an additional continuation machine step. Macros
-are not versatile; Macros can not be partially applied and may cause
-surprises.
+can not be partially applied and may cause surprises.
 
-  #define ORDER_PP_DEF_<name> ORDER_PP_FN(<exp_{fn}>)
-  #define ORDER_PP_DEF_<name> ORDER_PP_FN_CM(<arity>, <instr>, (,<cont>))
-  #define ORDER_PP_DEF_<name> ORDER_PP_FN_MACRO(<arity>, <macro>)
-  #define ORDER_PP_DEF_<name> ORDER_PP_FN_MACRO_P(<arity>, <macro>)
+  <name> ORDER_PP_FN(<exp_{fn}>)
+  <name> ORDER_PP_FN_CM(<arity>, <instr>, (,<cont>))
+  <name> ORDER_PP_FN_MACRO(<arity>, <macro>)
+  <name> ORDER_PP_FN_MACRO_P(<arity>, <macro>)
 
-  #define ORDER_PP_DEF_<name> ORDER_PP_OP(<assoc>,<pp-param>,<exp_{fn}>)
-  #define ORDER_PP_DEF_<name> ORDER_PP_OP_CM(<assoc>,<pp-param>,<instr>,(,<cont>))
-  #define ORDER_PP_DEF_<name> ORDER_PP_OP_MACRO(<assoc>,<pp-param>,<macro>)
-  #define ORDER_PP_DEF_<name> ORDER_PP_OP_MACRO_P(<assoc>,<pp-param>,<macro>)
+Each of the above defines a function. Functions take their arguments
+one-by-one and have a fixed arity.
 
-Associativity is one of:
+  <name> ORDER_PP_OP(<assoc>,<pp-param_{unit}>,<exp_{fn}>)
+  <name> ORDER_PP_OP_CM(<assoc>,<pp-param_{unit}>,<instr>,(,<cont>))
+  <name> ORDER_PP_OP_MACRO(<assoc>,<pp-param_{unit}>,<macro>)
+  <name> ORDER_PP_OP_MACRO_P(<assoc>,<pp-param_{unit}>,<macro>)
+
+Each of the above defines an operator. Operators take all of their
+arguments immediately and they can not be applied partially. The
+associativity of an operator is one of:
 
   left      | left-associative            | op(... op(x1,x2) ..., xn)
   left_w_1  | left-associative with unit  | op(... op( 1,x1) ..., xn)
   right     | right-associative           | op(xn, ... op(x2,x1) ...)
   right_w_1 | right-associative with unit | op(xn, ... op(x1, 1) ...)
 
+The unit element is unused when associativity is ''left'' or ''right''.
 
 --------------------------------------------------------------------------
 

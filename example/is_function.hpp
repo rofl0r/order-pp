@@ -15,11 +15,11 @@
  */
 
 #define GEN_is_function_tester(n)                                               \
-template<class R ORDER_PP(emit_trailing_params(const(class A), n)) >            \
-yes_type is_function_tester(R (*)(ORDER_PP(emit_params(const(class A), n))));
+template<class R ORDER_PP(emit_trailing_params(quote(class A), n)) >            \
+yes_type is_function_tester(R (*)(ORDER_PP(emit_params(quote(class A), n))));
 
 ORDER_PP(for_each_in_range(fn(I,
-                              emit_expand(const(GEN_is_function_tester),
+                              emit_expand(quote(GEN_is_function_tester),
                                           tuple(I))),
                            0,
                            30))

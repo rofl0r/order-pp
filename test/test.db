@@ -3,16 +3,16 @@ and(true)#true
 and(true,5)#5
 and(true,true,true,false,0)#false
 ap(2nd(1,1st(id(id),2)),3)#3
-ap(ap(ap(ap(fn(A,B,A),fn(C,D,C),fn(E,F,E)),ap(fn(G,H,G),fn(I,J,I),fn(K,L,K)),ap(fn(M,N,M),fn(O,P,O),fn(Q,R,Q))),const(i)),const(j))#i
-ap(ap(ap(fn(X,Y,Z,Z),const(x)),const(y)),const(z))#z
+ap(ap(ap(ap(fn(A,B,A),fn(C,D,C),fn(E,F,E)),ap(fn(G,H,G),fn(I,J,I),fn(K,L,K)),ap(fn(M,N,M),fn(O,P,O),fn(Q,R,Q))),quote(i)),quote(j))#i
+ap(ap(ap(fn(X,Y,Z,Z),quote(x)),quote(y)),quote(z))#z
 ap(ap(id),5)#5
-ap(fn(A,B,C,D,E,F,G,H,H),const(a),const(b),const(c),const(d),const(e),const(f),const(g),const(h))#h
-ap(fn(X,X),const(x))#x
-ap(fn(X,Y,X),const(x),const(y))#x
-ap(fn(X,Y,tuple(X,Y)),const(a),const(b))#(a,b)
+ap(fn(A,B,C,D,E,F,G,H,H),quote(a),quote(b),quote(c),quote(d),quote(e),quote(f),quote(g),quote(h))#h
+ap(fn(X,X),quote(x))#x
+ap(fn(X,Y,X),quote(x),quote(y))#x
+ap(fn(X,Y,tuple(X,Y)),quote(a),quote(b))#(a,b)
 cat(1,2)#12
 cat(1,2,3,4,5,6,7,8)#12345678
-const(0)#0
+quote(0)#0
 constant_embedding#This constant is in two parts!
 div_mod(10,3)#(3,1)
 do(7)#7
@@ -28,7 +28,7 @@ expand(1,2)#1 2
 expand(1,2,3,4,5,6,7,8)#1 2 3 4 5 6 7 8
 if(false,1,2)#2
 if(true,1,2)#1
-is_sym(const(this is not a symbol))#false
+is_sym(quote(this is not a symbol))#false
 is_sym(true)#true
 let(X,id,ap(X,5))#5
 macro_let(X,5,X)#5
@@ -41,18 +41,18 @@ or(false)#false
 or(false,6)#6
 or(false,false,false,true,0)#true
 or(true)#true
-seq(const(a),const(b),const(c),const(d),const(e),const(f),const(g),const(h))#(a)(b)(c)(d)(e)(f)(g)(h)
-seq(const(x))#(x)
+seq(quote(a),quote(b),quote(c),quote(d),quote(e),quote(f),quote(g),quote(h))#(a)(b)(c)(d)(e)(f)(g)(h)
+seq(quote(x))#(x)
 seq(seq(1))#((1))
-seq_filter(is_sym,seq(1,const(not symbol),true))#(1)(true)
-seq_fold_left(add,3,const((1)(4)(1)(5)))#14
+seq_filter(is_sym,seq(1,quote(not symbol),true))#(1)(true)
+seq_fold_left(add,3,quote((1)(4)(1)(5)))#14
 seq_fold_left(add,45,nil)#45
 seq_for_each(emit,seq(1,2,3,4))#4 3 2 1
 seq_for_each(fn(_,exit(0)),nil)#
-seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , const( (( 1 )( 2 )) (( * )) (( A )( B )( C )) ) )#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
+seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , quote( (( 1 )( 2 )) (( * )) (( A )( B )( C )) ) )#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
 seq_transform(dec,nil)#
-seq_transform(inc,const((3)(1)(4)(1)))#(4)(2)(5)(2)
-stringize(const(This is a string.))#"This is a string."
+seq_transform(inc,quote((3)(1)(4)(1)))#(4)(2)(5)(2)
+stringize(quote(This is a string.))#"This is a string."
 tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
 tuple(dec(0),dec(1),dec(256))#(0,0,255)
 tuple(div(10,3),mod(10,3))#(3,1)
@@ -63,7 +63,7 @@ tuple(is_not_0(0),is_not_0(1),is_not_0(50))#(false,true,true)
 tuple(sub(10,3),add(10,3))#(7,13)
 tuple(true,false)#(true,false)
 tuple(tuple(1))#((1))
-tuple(tuple(const(a)),tuple(const(b)))#((a),(b))
+tuple(tuple(quote(a)),tuple(quote(b)))#((a),(b))
 tuple_at(tuple(1,2,3,4,5,6,7,8),7)#8
 tuple_at(tuple(4,5),0)#4
 unless(false,emit(3),emit(2),1)#1 2 3
