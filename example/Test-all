@@ -5,4 +5,4 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.)
 
-./test "$@" $(echo *.c *.cpp | sort)
+./Test "$@" $(echo *.c *.cpp | sort)
