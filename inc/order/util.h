@@ -13,6 +13,8 @@
 #define ORDER_PP_8EXIT_SYNTAX_ERROR(P,e,t,...) ,)(,1,ORDER_PP_SYNTAX_ERROR(!):P##t:(,P##e,P##t,P##__VA_ARGS__))
 #define ORDER_PP_SYNTAX_ERROR() ORDER_PP_SYNTAX_ERROR
 
+#define ORDER_PP_8EXIT_ERROR(P,err,msg,...) ,)(,1,P##err(!):P##msg:(,P##__VA_ARGS__))
+
 #define ORDER_PP_BLOCK
 #define ORDER_PP_NIL()
 #define ORDER_PP_EAT(...)
