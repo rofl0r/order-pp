@@ -107,12 +107,9 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
                                                        8stream_tail(8L),        \
                                                        8stream_tail(8R))))))
 
-#define ORDER_PP_DEF_8stream_take_while                                         \
-ORDER_PP_FN(8fn(8C,8S,                                                          \
-                8when(8and(8stream_is_cons(8S),                                 \
-                           8ap(8C,8stream_head(8S))),                           \
-                      8stream_cons(8stream_head(8S),                            \
-                                   8stream_take_while(8C,8stream_tail(8S))))))
+#define ORDER_PP_DEF_8stream_take_while ORDER_PP_FN_CM(2,8STREAM_TAKE_WHILE,0IS_FN,0IS_STREAM)
+#define ORDER_PP_8STREAM_TAKE_WHILE(P,s,c,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN c##P,8STREAM_TAKE_WHILE_B,P##c,ORDER_PP_REM P##s),P##__VA_ARGS__)
+#define ORDER_PP_8STREAM_TAKE_WHILE_B(P,b,c,h,t,...) (,ORDER_PP_EAT_UNLESS_##b(P##h,(,ORDER_PP_OPEN t##P,8STREAM_TAKE_WHILE,P##c)),P##__VA_ARGS__)
 
 // Detail
 
