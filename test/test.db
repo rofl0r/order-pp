@@ -6,6 +6,7 @@
 8ap(8ap(8ap(8ap(8fn(8A,8B,8A),8fn(8C,8D,8C),8fn(8E,8F,8E)),8ap(8fn(8G,8H,8G),8fn(8I,8J,8I),8fn(8K,8L,8K)),8ap(8fn(8M,8N,8M),8fn(8O,8P,8O),8fn(8Q,8R,8Q))),8quote(i)),8quote(j))#i
 8ap(8ap(8ap(8fn(8X,8Y,8Z,8Z),8quote(x)),8quote(y)),8quote(z))#z
 8ap(8ap(8id),5)#5
+8ap(8chain(8seq_size,8seq_rest),8quote((1)(2)(3)))#2
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8H),8quote(a),8quote(b),8quote(c),8quote(d),8quote(e),8quote(f),8quote(g),8quote(h))#h
 8ap(8fn(8X,8X),8quote(x))#x
 8ap(8fn(8X,8Y,8X),8quote(x),8quote(y))#x
