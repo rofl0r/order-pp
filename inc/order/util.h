@@ -43,8 +43,6 @@
 #define ORDER_PP_8STOP_NIL(...) )
 #define ORDER_PP_8STOP_REM(P,x,...) )ORDER_PP_REM x##P
 
-#define ORDER_PP_8PAIR(P,l,r,...) (,(P##l,P##r),P##__VA_ARGS__)
-
 #define ORDER_PP_IF(c) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_IF_,c)
 #define ORDER_PP_IF_(P,c,...) P##c
 #define ORDER_PP_IF_0(P,c,...) P##__VA_ARGS__
@@ -79,10 +77,16 @@
 #define ORDER_PP_SELECT_4_01(P,tt,tf,ft,...) P##ft
 #define ORDER_PP_SELECT_4_00(P,tt,tf,ft,...) P##__VA_ARGS__
 
+#define ORDER_PP_OR(P,c0,c1) ORDER_PP_CAT(P##c0(ORDER_PP_OR_,,0),P##c1(,,0))
+#define ORDER_PP_OR_(P,c,...) P##c
+#define ORDER_PP_OR_0(P,c,...) P##c
+#define ORDER_PP_OR_00(P,c,...) P##__VA_ARGS__
+
 #define ORDER_PP_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),,0)
 #define ORDER_PP_NOT_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),0,)
 
 #define ORDER_PP_IS_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_IS_EDIBLE_TEST x##P,,0)
+#define ORDER_PP_ISNT_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_IS_EDIBLE_TEST x##P,0,)
 #define ORDER_PP_IS_EDIBLE_TEST(...) ,,
 
 #define ORDER_PP_IS_SYM(P,x) ORDER_PP_IS_EDIBLE(,P##x)(ORDER_PP_,EAT_FALSE,IS_SYM_NOT_EDIBLE)(P##x)

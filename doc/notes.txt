@@ -246,6 +246,9 @@ Functional primitives
    8identity(x) : a -> a
    8ignore(x)   : a -> Nil
 
+   8always(x) : Any -> True
+   8never(x)  : Any -> False
+
 Nil
 ---
 
@@ -306,11 +309,12 @@ Sequences
    8seq_range(i, n, s)            : Num -> Num -> Seq -> Seq
 
    8seq_first(s)                  : Seq -> Any
-   8seq_last(s)                   : Seq -> Any
    8seq_rest(s)                   : Seq -> Seq
 
-   8seq_first_n(n, s)             : Num -> Seq -> Seq
-   8seq_rest_n(n, s)              : Num -> Seq -> Seq
+   8seq_last(s)                   : Seq -> Any
+
+   8seq_take(n, s)                : Num -> Seq -> Seq
+   8seq_drop(n, s)                : Num -> Seq -> Seq
 
    8seq_size(s)                   : Seq -> Num
 
@@ -387,17 +391,20 @@ Sequences
 Tuples
 ------
 
-   8is_tuple(x)         : a -> Bool
+  -8singleton(a)        : a -> Tuple(a)
+   8pair(a, b)          : a -> b -> Tuple(a, b)
 
-   8pair(l, r)          : a -> b -> Tuple(a, b)
+   8is_tuple(x)         : a -> Bool
 
    8tuple_at(i, t)      : Num -> Tuple -> a
    8tuple_at_[0,9](t)   : Tuple -> a
 
-   8tuple_rest(t)       : Tuple -> Tuple
-   8tuple_rest_n(n, t)  : Num -> Tuple -> Tuple
-   8tuple_rest_[1-9](t) : Num -> Tuple -> Tuple
+   8tuple_drop(n, t)    : Num -> Tuple -> Tuple
+   8tuple_drop_[1-9](t) : Tuple -> Tuple
 
    8tuple_size(t)       : Tuple -> Num
+
+  -8tuple_take(n, t)    : Num -> Tuple -> Tuple
+  -8tuple_take_[1-9](t) : Tuple -> Tuple
 
    8tuple_to_seq(t)     : Tuple(a+) -> Seq(a)
