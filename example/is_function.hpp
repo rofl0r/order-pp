@@ -25,13 +25,15 @@ ORDER_PP(8for_each_in_range
 // produce the output. In fact, the Order interpreter is complete in
 // the sense that it can theoretically produce any sequence of up to
 // a few billion tokens without requiring the use of additional
-// macros. However, it usually makes sense to use ad-hoc code
+// macros. However, it usually makes sense to use ad hoc code
 // generation macros, as well as Order definition macros, because
 // they can both simplify and speed up the generator program.
 //
 // ### Exercises
 //
 // 1. Rewrite this example using a ad-hoc code generation macro and
-//    `8emit' instead of `8print'.
+//    `8emit' instead of `8print'. Do you prefer one style over the
+//    other? Which one is faster (try generating more than 30
+//    specializations)?
 
 #endif
