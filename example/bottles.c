@@ -62,10 +62,10 @@
 // A token that starts with a digit, like `8cond', is called a
 // \emph{pp-number} and because it isn't an \emph{identifier} it
 // isn't subject to macro replacement. The use of pp-numbers is
-// admittedly an ugly, but absolutely necessary, detail, because
-// otherwise an Order expression might get macro replaced by a user
-// or standard defined macro, like the macro `I' defined by the
-// \cite{c:1999} standard\footnote{If you plan to go to a
+// admittedly an ugly detail, but it is absolutely necessary,
+// because otherwise an Order expression might get macro replaced by
+// a user or standard defined macro, like the macro `I' defined by
+// the C standard \cite{c:1999}\footnote{If you plan to go to a
 // JTC1/SC22/WG14 meeting, consider bringing your own food and
 // beverages.}, before the Order interpreter gets to analyze the
 // expression. Please note that unintended macro replacement isn't a
@@ -94,8 +94,8 @@
 // unparenthesized commas nor unbalanced parentheses.
 //
 // The binary function `8separate', given two arguments,
-// evaluates to a new token sequence that consists of the two token
-// arguments separated by a space. The expression `8N' is a
+// evaluates to a new token sequence that consists of the tokens of
+// the two arguments separated by a space. The expression `8N' is a
 // variable reference. By default, variable identifiers in the Order
 // interpreter are limited to the tokens `8[A-Z]', meaning digit `8'
 // followed by a capital letter.\footnote{The interpreter can be
@@ -206,21 +206,19 @@ ORDER_PP
   N_bottles of beer, take one down, pass it around, \
   N_minus_1_bottles of beer on the wall.
 //>
-// The above function-like macro, named `GEN_phrase', takes
-// two arguments, `N_bottles' and `N_minus_1_bottles', and
-// expands to a single phrase of the song. The idea is to use the
-// above macro to generate all the phrases of the song by outputing
-// a sequence of 99 macro invocations. In general, a viable design
-// heuristic is to completely parameterize any ad hoc code
-// generation macro and then use the Order interpreter to implement
-// any non-trivial logic to compute the parameters. This minimizes
-// the need to implement complex logic using only the low-level
-// macro mechanism.
+// The above function-like macro, named `GEN_phrase', takes two
+// arguments, `N_bottles' and `N_minus_1_bottles', and expands to a
+// single phrase of the song. The idea is to use the above macro to
+// generate all the phrases of the song by outputing a sequence of
+// 99 macro invocations. In general, a viable design heuristic is to
+// completely parameterize any ad hoc code generation macro and then
+// use the Order interpreter to implement any non-trivial logic to
+// compute the parameters. This minimizes the need to implement
+// complex logic using only the low-level macro mechanism.
 //
-// To compute the arguments to the `GEN_phrase' macro, we give
-// a top-level definition, named `8bottles', for the
-// previously used auxiliary function for referring to the number of
-// bottles:
+// To compute the arguments to the `GEN_phrase' macro, we give a
+// top-level definition, named `8bottles', for the previously used
+// auxiliary function for referring to the number of bottles:
 //<
 #define ORDER_PP_DEF_8bottles                          \
 ORDER_PP_FN(8fn(8N,                                    \
@@ -247,14 +245,14 @@ ORDER_PP_FN(8fn(8N,                                    \
                     8tuple(8bottles(8N),
                            8bottles(8dec(8N))))
 #endif//0
-// Given two arguments, the `8emit' procedure outputs both of
-// the arguments separated by a space. Above, `8emit' is used
-// to output the identifier of a function-like macro and a
-// tuple\footnote{In Order, a tuple is a parenthesized and comma
-// separated list of elements.} that matches the formal parameters
-// of the function-like macro `GEN_phrase'. As one could
-// expect, it will eventually result in expanding the function-like
-// macro generating one phrase of the song.
+// Given two arguments, the `8emit' procedure outputs both of the
+// arguments separated by a space. Above, `8emit' is used to output
+// the identifier of a function-like macro and a tuple\footnote{In
+// Order, a tuple is a parenthesized and comma separated list of
+// elements.} that matches the formal parameters of the
+// function-like macro `GEN_phrase'. As one could expect, it will
+// eventually result in expanding the function-like macro generating
+// one phrase of the song.
 //
 // The complete program now looks like this:
 //<
