@@ -4,7 +4,7 @@
 #
 # Distributed under the Boost Software License, Version 1.0.
 
-for f in *.h *.hpp *.c *.cpp ; do
+for f in $(echo *.c *.cpp | sort) ; do
     if test -f "$f" ; then
         ./test "$f"
     fi
