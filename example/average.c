@@ -10,7 +10,7 @@
 // The last thing to do is to test our macro. The following `main'
 // program is just a simple test of the `GEN_average' macro.
 
-int main() {
+int main(void) {
   printf(GEN_average(3, 1, 4, 1, 5, 9, 2, 6, 5) == 4
          ? "OK.\n"
          : "ERROR!\n");

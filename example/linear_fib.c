@@ -64,7 +64,7 @@ ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
 // constants during preprocessing time to avoid computing the same
 // constants in runtime. Consider the following `main' function:
 
-int main() {
+int main(void) {
    printf
      ("The 100th Fibonacci number is "
       ORDER_PP(8stringize(8to_lit(8linear_fib(100))))

@@ -43,7 +43,7 @@ printf(BINARY(digits) == value                       \
 // also write one simple sanity check that contains multiple tokens.
 // These test cases should give a fairly good coverage.
 
-int main() {
+int main(void) {
 
   ORDER_PP(8for_each_in_range
            (8chain(8emit(8(CHECK)),
