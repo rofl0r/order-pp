@@ -186,8 +186,6 @@ fi
 
 IFS=''
 
-run-tests
-
 while true ; do
     if test "$#" -gt 0 ; then
         REPLY="$1"
