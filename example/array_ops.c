@@ -352,13 +352,13 @@ ORDER_OP(fn(O,T,                                                \
 
 ORDER(seq_for_each_in_product
       (gen_array_uop,
-       tuple(seq_filter(fn(O,
-                           and(equal(1,op_arity(O)),
-                               not(op_does_floating(O)))),
-                        applicative_ops),
-             seq_filter(fn(O,
-                           not(type_is_floating(O))),
-                        builtin_types))))
+       seq(seq_filter(fn(O,
+                         and(equal(1,op_arity(O)),
+                             not(op_does_floating(O)))),
+                      applicative_ops),
+           seq_filter(fn(O,
+                         not(type_is_floating(O))),
+                      builtin_types))))
 
 /*
  * Then for the floating point operators and all types.
@@ -366,11 +366,11 @@ ORDER(seq_for_each_in_product
 
 ORDER(seq_for_each_in_product
       (gen_array_uop,
-       tuple(seq_filter(fn(O,
-                           and(equal(1,op_arity(O)),
-                               op_does_floating(O))),
-                        applicative_ops),
-             builtin_types)))
+       seq(seq_filter(fn(O,
+                         and(equal(1,op_arity(O)),
+                             op_does_floating(O))),
+                      applicative_ops),
+           builtin_types)))
 
 /*
  * We'll then handle binary operations similarly. First we define the
@@ -398,12 +398,12 @@ ORDER(seq_for_each_in_product
        let(T,seq_filter(fn(T,
                            not(type_is_floating(T))),
                         builtin_types),
-           tuple(seq_filter(fn(O,
-                               and(equal(2,op_arity(O)),
-                                   not(op_does_floating(O)))),
-                            applicative_ops),
-                 T,
-                 T))))
+           seq(seq_filter(fn(O,
+                             and(equal(2,op_arity(O)),
+                                 not(op_does_floating(O)))),
+                          applicative_ops),
+               T,
+               T))))
 
 /*
  * Then the floating point operators:
@@ -411,12 +411,12 @@ ORDER(seq_for_each_in_product
 
 ORDER(seq_for_each_in_product
       (gen_array_bop,
-       tuple(seq_filter(fn(O,
-                           and(equal(2,op_arity(O)),
-                               op_does_floating(O))),
-                        applicative_ops),
-             builtin_types,
-             builtin_types)))
+       seq(seq_filter(fn(O,
+                         and(equal(2,op_arity(O)),
+                             op_does_floating(O))),
+                      applicative_ops),
+           builtin_types,
+           builtin_types)))
 
 /*
  * That's it! Who needs templates anyway?
