@@ -46,7 +46,3 @@ function eval-in-wave {
 function eval-in {
     eval-in-$preprocessor
 }
-
-function eval-term {
-    echo "ORDER_PP($1)" | eval-in | tail -n1
-}

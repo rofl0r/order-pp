@@ -8,6 +8,13 @@ source test-functions
 
 dbFile=test.db
 
+function spacify {
+    sed -e 's|,| , |g' \
+        -e 's|(| ( |g' \
+        -e 's|)| ) |g' \
+        -e 's| \+| |g'
+}
+
 function sed-from {
     local tmp="$1"
     shift 1
@@ -31,7 +38,7 @@ function get-test {
 }
 
 function add-test {
-    echo "$1#$2" >> $dbFile
+    echo "$1#$2#<ws>" >> $dbFile
     local tmp="$(cat $dbFile)"
     echo "$tmp" | sort | uniq > $dbFile
 }
@@ -57,9 +64,10 @@ function replace-test {
 
 function preprocess-all-tests {
     sed -e 's|#.*||g' \
-        -e 's#^#ORDER_PP(#g' \
-        -e 's#$#)#g' \
+        -e 's|^|ORDER_PP(|g' \
+        -e 's|$|)|g' \
         $dbFile | \
+    spacify | \
     eval-in | \
     tail -n $(test-cnt)
 }
@@ -69,7 +77,7 @@ function run-tests {
 
     allResult=$(time preprocess-all-tests)
     allTerm=$(sed -e 's|#.*||g' $dbFile)
-    allExpected=$(sed -e 's|[^#]*#||g' $dbFile)
+    allExpected=$(sed -e 's|^[^#]*#||g' -e 's|#.*$||g' $dbFile)
 
     if test "$allResult" != "$allExpected" ; then
         echo -n "Errors"
@@ -112,7 +120,7 @@ function interactive-eval {
     else
         echo "Term: $term"
     fi
-    result=$(time eval-term "$term")
+    result=$(time echo "ORDER_PP($term)" | spacify | eval-in | tail -n1)
     resultChars=$(echo "$result" | wc -m | sed 's# ##g')
     resultLines=$(echo "$result" | wc -l | sed 's# ##g')
     if test $(($COLUMNS-9)) -lt $resultChars ; then
@@ -136,7 +144,7 @@ function interactive-trace {
 
     steps=0
 
-    result=$(echo "(,,ORDER_PP_DEF($term),8EXIT,)" | eval-in)
+    result=$(echo "(,,ORDER_PP_DEF($(echo "$term" | spacify)),8EXIT,)" | eval-in)
     echo ": $result"
 
     while read -e -n 1 -p "[(#$steps) | Enter to step]? " ; do
@@ -149,13 +157,12 @@ function interactive-trace {
         result=$(echo "ORDER_PP_CM_DN_0 $result" | eval-in)
         echo ": $result"
 
-        if echo "$result" | grep -q '^,' ; then
-            echo "[ Program stopped! ]"
+        if ! echo "$result" | grep -q '^(' ; then
+            echo "[ Program stopped. ]"
             break
         fi
     done
 }
-
 
 function interactive-add-test {
     interactive-eval
