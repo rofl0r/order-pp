@@ -318,7 +318,7 @@ Sequences
    8seq_push_at(i, s, x)          : Num -> Seq -> a -> Seq
    8seq_push_back(x, s)           : a -> Seq -> Seq
    8seq_push_front(x, s)          : a -> Seq -> Seq
-  -8seq_push_range(i, s, ss)      : Num -> Seq -> Seq -> Seq
+   8seq_push_range(i, s, ss)      : Num -> Seq -> Seq -> Seq
 
    8seq_split(i, s)               : Num -> Seq(a) -> Tuple(Seq(a), Seq(a))
    8seq_join(ls, rs)              : Seq(a) -> Seq(a) -> Seq(a)
