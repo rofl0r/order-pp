@@ -5,7 +5,23 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_FN(fn) ORDER_PP_FN_##fn
+// Defines a function.
+//
+// `fn_expression' must be an Order anonymous function expression.
+//
+// For example,
+//
+//   #define ORDER_PP_DEF_8factorial                            \
+//   ORDER_PP_FN(8fn(8N,                                        \
+//                   8if(8is_0(8N),                             \
+//                       1,                                     \
+//                       8mul(8N,8factorial(8dec(8N))))))
+//
+// defines a recursive function for computing factorials. It can then be
+// used as an Order expression:
+//
+//   8factorial(4) ==> 24
+#define ORDER_PP_FN(fn_expression) ORDER_PP_FN_##fn_expression
 
 #define ORDER_PP_FN_8fn(...) 8DEF_FN,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),(,__VA_ARGS__),ORDER_PP_PARAMS
 #define ORDER_PP_PARAMS(...) ORDER_PP_NUM_ARGS_8(__VA_ARGS__,9,8,7,6,5,4,3,2,1,),__VA_ARGS__
