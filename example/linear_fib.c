@@ -5,34 +5,83 @@
 #include <stdio.h>
 #include "order/interpreter.h"
 
-// This simple example shows how you can implement algorithms in Order
-// using recursion.
+// ## Linear time Fibonacci
+//
+// This simple example shows how you can implement algorithms in the Order
+// language using recursion.
+//
+// Let's start with a recursive C implementation of the Fibonacci
+// function. First we'll define the `linear_fib_iter' function:
 
-// First consider the following C implementation of Fibonacci.
-int linear_fib_3(int n, int i, int j) {
+int linear_fib_iter(int n, int f0, int f1) {
   if (!n)
-    return i;
+    return f0;
   else
-    return linear_fib_3(n-1, j, i+j);
+    return linear_fib_iter(n-1, f1, f0+f1);
 }
+
+// `linear_fib_iter(n,i,j)' recursively performs `n' steps of Fibonacci
+// iteration, starting with the values `f0' and `f1'. During recursion,
+// `f0' and `f1' act as accumulators.
+//
+// Then we'll define the function `linear_fib', which is just a simple
+// driver for the Fibonacci iterator function.
 
 int linear_fib(int n) {
-  return linear_fib_3(n, 0, 1);
+  return linear_fib_iter(n, 0, 1);
 }
 
-// Then consider the following Order implementation of Fibonacci.
-#define ORDER_PP_DEF_8linear_fib_3                              \
-ORDER_PP_FN(8fn(8N,8I,8J,                                       \
-                8if(8is_0(8N),                                  \
-                    8I,                                         \
-                    8linear_fib_3(8dec(8N),8J,8add(8I,8J)))))
+// We can easily translate the same algorithm to Order code. First we'll
+// define the driver function `8linear_fib':
 
 #define ORDER_PP_DEF_8linear_fib                \
 ORDER_PP_FN(8fn(8N,                             \
-                8linear_fib_3(8N,0,1)))
+                8linear_fib_iter(8N,0,1)))
+
+// As you can see, the Order function `8linear_fib' is structurally very
+// similar to the previously defined C function `linear_fib'.
+//
+// Note also that we can refer to the `8linear_fib_iter' function without
+// having to declare it first.
+//
+// Then we'll define the Order function `8linear_fib_iter', which is
+// structurally very similar to the C function `linear_fib_iter':
+
+#define ORDER_PP_DEF_8linear_fib_iter                                   \
+ORDER_PP_FN(8fn(8N,8F0,8F1,                                             \
+                8if(8is_0(8N),                                          \
+                    8F0,                                                \
+                    8linear_fib_iter(8dec(8N),8F1,8add(8F0,8F1)))))
+
+// The Order function `8linear_fib' can now be used to compute Fibonacci
+// numbers. For example, evaluation of the expression `8linear_fib(10)'
+// would yield the result `55'.
+//
+// One use for the above metafunction could be to calculate constants
+// during preprocessing time to avoid computing the same constants in
+// runtime. Consider the following `main' function:
 
 int main() {
-   printf("linear_fib(10) = %d\n", linear_fib(10));
-   printf("ORDER_PP(8linear_fib(10)) = %d\n", ORDER_PP(8linear_fib(10)));
+   printf("The 10th Fibonacci number is " ORDER_PP(8stringize(8linear_fib(10))) ".\n");
    return 0;
 }
+
+// Unless you are already convinced, you should check, by preprocessing
+// this example, that the actual parameter to `printf' in the above code
+// is just a single string literal that contains the substring `55'.
+//
+// ### Exercises
+//
+// 1. Is the `8linear_fib_iter' function tail recursive? How much space
+//    does the evaluation of `8linear_fib_iter(n,0,1)' use in terms of
+//    `n'?
+//
+// 2. Modify this example so that it prints the first 10 Fibonacci numbers
+//    computed using the `8linear_fib' function. (Hint: Use the Order
+//    function `8for_each_in_range'.)
+//
+// 3. Implement a high-precision arithmetic version of the `8linear_fib'
+//    function.
+//
+// 4. Implement an Order function to compute the n'th Fibonacci number in
+//    $O(log(n))$ time.

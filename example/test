@@ -21,9 +21,10 @@ if test -f ".$f.out" ; then
     if diff -q ".$f.out" ".$f.new" > /dev/null ; then
         rm ".$f.new"
     else
+        echo "The old and new output differ!"
         diff ".$f.out" ".$f.new" | less
 
-        read -e -n 1 -p "[(U)se result | (E)xit without removing new output | (Q)uit | Skip]? "
+        read -e -n 1 -p "[(U)se new result | (E)xit without removing new output | (Q)uit | Skip]? "
         case "$REPLY" in
             ("u"|"U")
                 echo "Using new result..."
