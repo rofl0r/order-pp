@@ -7,17 +7,17 @@
 
 #define ORDER_PP_DEF_8nat(...) 8DEF_CONST,ORDER_PP_PM(,(,0##__VA_ARGS__),8NAT,),
 #define ORDER_PP_8NAT(P,t,...) ORDER_PP_OVERLOAD(8NAT,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE t##P)t##P
-#define ORDER_PP_8NAT_1(P,_0) )(P##_0)
-#define ORDER_PP_8NAT_2(P,_0,_1) )(P##_1)(P##_0)
-#define ORDER_PP_8NAT_3(P,_0,_1,_2) )(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_4(P,_0,_1,_2,_3) )(P##_3)(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_5(P,_0,_1,_2,_3,_4) )(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_6(P,_0,_1,_2,_3,_4,_5) )(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_7(P,_0,_1,_2,_3,_4,_5,_6) )(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_8(P,_0,_1,_2,_3,_4,_5,_6,_7) )(P##_7)(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_9(P,_0,_1,_2,_3,_4,_5,_6,_7,_8) )(P##_8)(P##_7)(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9) )(P##_9)(P##_8)(P##_7)(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
-#define ORDER_PP_8NAT_11_OR_MORE(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,...) (,(,P##__VA_ARGS__),8NAT,)(P##_9)(P##_8)(P##_7)(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
+#define ORDER_PP_8NAT_1(P,a) )(P##a)
+#define ORDER_PP_8NAT_2(P,a,b) )(P##b)(P##a)
+#define ORDER_PP_8NAT_3(P,a,b,c) )(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_4(P,a,b,c,d) )(P##d)(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_5(P,a,b,c,d,e) )(P##e)(P##d)(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_6(P,a,b,c,d,e,f) )(P##f)(P##e)(P##d)(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_7(P,a,b,c,d,e,f,g) )(P##g)(P##f)(P##e)(P##d)(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_8(P,a,b,c,d,e,f,g,h) )(P##h)(P##g)(P##f)(P##e)(P##d)(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_9(P,a,b,c,d,e,f,g,h,i) )(P##i)(P##h)(P##g)(P##f)(P##e)(P##d)(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_10(P,a,b,c,d,e,f,g,h,i,j) )(P##j)(P##i)(P##h)(P##g)(P##f)(P##e)(P##d)(P##c)(P##b)(P##a)
+#define ORDER_PP_8NAT_11_OR_MORE(P,a,b,c,d,e,f,g,h,i,j,...) (,(,P##__VA_ARGS__),8NAT,)(P##j)(P##i)(P##h)(P##g)(P##f)(P##e)(P##d)(P##c)(P##b)(P##a)
 
 #define ORDER_PP_DEF_8nat_add ORDER_PP_OP_LEFT_NATIVE(9NAT_PLUS,0IS_NAT)
 
