@@ -24,7 +24,7 @@ STATIC_ASSERT(is_function<int()>::value);
 // (compile-time) assertions.
 //
 // \begin{exercise}
-// Rewrite this example using a ad hoc code generation macro and
+// Rewrite this example using an ad hoc code generation macro and
 // `8emit' instead of `8print'. Do you prefer one style over the
 // other? Which one is faster?
 // \end{exercise}
