@@ -11,3 +11,6 @@
 
 #define ORDER_PP_DEF_0cond 0EVAL_COND,
 #define ORDER_PP_0EVAL_COND(P,e0,G,eval_cond_loop,ct,ts,e1,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)
+
+#define ORDER_PP_DEF_8else 0EVAL_ELSE,
+#define ORDER_PP_0EVAL_ELSE(P,e,G,eval_cond_loop,ct,bt1,ct1,ts,e1,...) (,P##e,ORDER_PP_DEF_##ct,P##__VA_ARGS__)

@@ -24,6 +24,10 @@
 8cat(1,2)#12#<ws>
 8cat(1,2,3,4,5,6,7,8)#12345678#<ws>
 8cat(8cat(1,2),8cat(1,2))#1212#<ws>
+8cond((8else,1))#1#<ws>
+8cond((8false,1)(8else,2))#2#<ws>
+8cond((8true,8put(1),8put(2),3))#1 2 3#<ws>
+8cond()##<ws>
 8constant_embedding#This constant is in two parts!#<ws>
 8do(8act(!))#TCA (!)!!!!!!!!!!!!!#<ws>
 8do(8do(8act(!)))#ACT (!)!!!!!!!!!!!!!!#<ws>
@@ -56,6 +60,10 @@
 8inc(8call_cc(8fn(8K,8add(1,2,8ap(8K,4)))))#5#<ws>
 8is_sym(8(this is not a symbol))#8false#<ws>
 8is_sym(8true)#8true#<ws>
+8let(8X,0,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#10#<ws>
+8let(8X,1,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#11#<ws>
+8let(8X,2,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#12#<ws>
+8let(8X,3,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))##<ws>
 8let(8X,8id,8ap(8X,8act(!)))#ACT (!)!!!!!!!!!!!!!!!!#<ws>
 8macro_let(8X,8(5),8X)#5#<ws>
 8nil##<ws>
