@@ -355,19 +355,19 @@ BRD_PARSER(static, prg_parse,
            str_skip_spaces, str_match_prefix,
            (id, id_type, id_parse),
            (prg, prg_type,
-            ((def,first)(prg,rest), {
+            ((def, first) (prg, rest), {
               *prg = Prg_Def(first, rest); })
-            ((exp,last), {
+            ((exp, last), {
               *prg = Prg_Exp(last); }))
            (def, def_type,
-            (("def")(id,var)("=")(exp,body), {
+            (("def") (id, var) ("=") (exp, body), {
               *def = Def(var, body); }))
            (exp, exp_type,
-            (("\\")(id,var)(".")(exp,body), {
+            (("\\") (id, var) (".") (exp, body), {
               *exp = Exp_Lambda(var, body); })
-            (("(")(exp,lhs)(exp,rhs)(")"), {
+            (("(") (exp, lhs) (exp, rhs) (")"), {
               *exp = Exp_Apply(lhs, rhs); })
-            ((id,var), {
+            ((id, var), {
               *exp = Exp_Var(var); })))
 
 // The `BRD_PARSER' macro implements the simple parser generator.
