@@ -12,6 +12,7 @@
 #include "order/eval/if.h"
 #include "order/eval/let.h"
 #include "order/eval/or.h"
+#include "order/eval/print.h"
 #include "order/eval/ref.h"
 #include "order/eval/rout.h"
 

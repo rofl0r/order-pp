@@ -15,8 +15,8 @@ ORDER_PP_CONST((,bool)                                  \
                (,long)(,unsigned long)                  \
                (,float)(,double)(,long double))
 
-#define GEN_catch(type)                                         \
-catch (type t) {                                                \
+#define GEN_catch(P, type)                                      \
+catch (P##type t) {                                             \
   std::cerr << "Caught an " << typeid(t).name() << " = " << t;  \
 }
 
@@ -25,8 +25,7 @@ int main() {
      throw 10;
    }
    ORDER_PP(8seq_for_each(8fn(8TY,
-                              8emit(8quote(GEN_catch),
-                                    8args(8TY))),
+                              8emit(8(GEN_catch), 8tuple(8TY))),
                           8builtin_types));
    return 0;
 }

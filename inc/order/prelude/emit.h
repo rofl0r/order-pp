@@ -5,49 +5,37 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_DEF_8emit ORDER_PP_CTOR_N(8EMIT)
-#define ORDER_PP_8EMIT_1(P,_0,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,1,P##_0)
-#define ORDER_PP_8EMIT_2(P,_0,_1,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,P##_0,P##_1)
-#define ORDER_PP_8EMIT_3(P,_0,_1,_2,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,3,P##_0,P##_1,P##_2)
-#define ORDER_PP_8EMIT_4(P,_0,_1,_2,_3,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,4,P##_0,P##_1,P##_2,P##_3)
-#define ORDER_PP_8EMIT_5(P,_0,_1,_2,_3,_4,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,5,P##_0,P##_1,P##_2,P##_3,P##_4)
-#define ORDER_PP_8EMIT_6(P,_0,_1,_2,_3,_4,_5,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,6,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5)
-#define ORDER_PP_8EMIT_7(P,_0,_1,_2,_3,_4,_5,_6,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,7,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,P##_6)
-#define ORDER_PP_8EMIT_8(P,_0,_1,_2,_3,_4,_5,_6,_7,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,8,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,P##_6,P##_7)
-#define ORDER_PP_8EMIT_9(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,9,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,P##_6,P##_7,P##_8)
-#define ORDER_PP_8EMIT_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,10,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,P##_6,P##_7,P##_8,P##_9)
+// `8put(x)' outputs `x' and returns nil.
+//
+// For example,
+//
+//   8put(8nat_to_lit(8times(8nat(2,5,6),
+//                           8nat(2,5,6)))) ==> 65536
+#define ORDER_PP_DEF_8put ORDER_PP_FN_CM(1,8PUT)
+#define ORDER_PP_8PUT(P,x,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,1,P##x)
 
-#define ORDER_PP_DEF_8emit_cat ORDER_PP_CTOR_N(8EMIT_CAT)
-#define ORDER_PP_8EMIT_CAT_1(P,_0,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,1C,_0##P)
-#define ORDER_PP_8EMIT_CAT_2(P,_0,_1,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2C,P##_0,_1##P)
-#define ORDER_PP_8EMIT_CAT_3(P,_0,_1,_2,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,3C,P##_0,P##_1,_2##P)
-#define ORDER_PP_8EMIT_CAT_4(P,_0,_1,_2,_3,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,4C,P##_0,P##_1,P##_2,_3##P)
-#define ORDER_PP_8EMIT_CAT_5(P,_0,_1,_2,_3,_4,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,5C,P##_0,P##_1,P##_2,P##_3,_4##P)
-#define ORDER_PP_8EMIT_CAT_6(P,_0,_1,_2,_3,_4,_5,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,6C,P##_0,P##_1,P##_2,P##_3,P##_4,_5##P)
-#define ORDER_PP_8EMIT_CAT_7(P,_0,_1,_2,_3,_4,_5,_6,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,7C,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,_6##P)
-#define ORDER_PP_8EMIT_CAT_8(P,_0,_1,_2,_3,_4,_5,_6,_7,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,8C,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,P##_6,_7##P)
-#define ORDER_PP_8EMIT_CAT_9(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,9C,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,P##_6,_7##P,_8##P)
-#define ORDER_PP_8EMIT_CAT_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,10C,P##_0,P##_1,P##_2,P##_3,P##_4,P##_5,P##_6,_7##P,_8##P,_9##P)
+// `8emit(m,p)' outputs `m p' and returns nil.
+//
+// For example, suppose you have defined the macro
+//
+//   #define MY_MACRO(P,x,y) P##x,P##y
+//
+// then you can emit an expansion of `MY_MACRO' using `8emit'
+//
+//   8emit(8quote(MY_MACRO),
+//         8tuple(8quote(a),8quote(b))) ==> a,b
+#define ORDER_PP_DEF_8emit ORDER_PP_FN_CM(2,8EMIT)
+#define ORDER_PP_8EMIT(P,m,p,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,P##m,P##p)
 
-#define ORDER_PP_DEF_8emitq 8EMITQ,
-#define ORDER_PP_8EMITQ(P,e,x,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,1,ORDER_PP_OPEN_NP x##P)
+#define ORDER_PP_DEF_8emit_params ORDER_PP_FN_CM(3,8EMIT_PARAMS)
+#define ORDER_PP_8EMIT_PARAMS(P,i,n,p,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,ORDER_PP_ENUM_PARAMS,(,P##i,P##n,P##p))
 
-#define ORDER_PP_DEF_8emit_comma 8EMIT_COMMA
-#define ORDER_PP_8EMIT_COMMA(P,e,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2C,ORDER_PP_,8C)
-#define ORDER_PP_8C ,
+#define ORDER_PP_DEF_8emit_trailing_params ORDER_PP_FN_CM(3,8EMIT_TRAILING_PARAMS)
+#define ORDER_PP_8EMIT_TRAILING_PARAMS(P,i,n,p,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,ORDER_PP_ENUM_TRAILING_PARAMS,(,P##i,P##n,P##p))
 
-#define ORDER_PP_DEF_8emit_lparen 8EMIT_LPAREN
-#define ORDER_PP_8EMIT_LPAREN(P,e,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2C,ORDER_PP_,8L)
-#define ORDER_PP_8L (
+#define ORDER_PP_ENUM_PARAMS(P,i,n,p) ORDER_PP_NAT_IS_0 P##n(,ORDER_PP_EAT,ORDER_PP_CAT(P##p,ORDER_PP_NAT_TO_LIT(,P##i))ORDER_PP_ENUM_TRAILING_PARAMS)(,ORDER_PP_NAT_SUCC P##i,ORDER_PP_NAT_PRED P##n,P##p)
 
-#define ORDER_PP_DEF_8emit_rparen 8EMIT_RPAREN
-#define ORDER_PP_8EMIT_RPAREN(P,e,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2C,ORDER_PP_,8R)
-#define ORDER_PP_8R )
-
-#define ORDER_PP_DEF_8emit_trailing_params(n,p) ORDER_PP_MACRO(8emit(8quote(CHAOS_PP_ENUM_TRAILING_PARAMS),8args(n,p)))
-#include "chaos/preprocessor/repetition/enum_trailing_params.h"
-
-#define ORDER_PP_DEF_8emit_params(n,p) ORDER_PP_MACRO(8emit(8quote(CHAOS_PP_ENUM_PARAMS),8args(n,p)))
-#include "chaos/preprocessor/repetition/enum_params.h"
+#define ORDER_PP_ENUM_TRAILING_PARAMS(P,i,n,p) ORDER_PP_CM(,,8FOR_EACH_IN_RANGE_4,P##i,P##n,(,8EMIT_TRAILING_PARAM,P##p),8EXIT,)
+#define ORDER_PP_8EMIT_TRAILING_PARAM(P,i,p,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,1,ORDER_PP_CAT(P##p,ORDER_PP_NAT_TO_LIT(,P##i)))(,1,,)
 
 #endif

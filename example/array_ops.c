@@ -406,7 +406,7 @@ ORDER_PP_CONST((,(,          char, _ch, 8false, 1))     \
 
 #define ORDER_PP_DEF_8gen_array_uop ORDER_PP_FN         \
 (8fn(8OP,8TY,                                           \
-     8emit(8quote(GEN_array_uop),                       \
+     8emit(8(GEN_array_uop),                            \
            8tuple(8op_mnemonic(8OP),                    \
                   8op_symbol(8OP),                      \
                   8type_abbrev(8TY),                    \
@@ -417,19 +417,20 @@ ORDER_PP_CONST((,(,          char, _ch, 8false, 1))     \
 // generation macro and then emits the expansion.
 //
 // There are two rather significant new things in the above
-// function. First of all, `8quote' is a special form, which allows
-// you to define constants inline. The parameter to `8quote' can be
-// any preprocessor parameter, like in ordinary top-level constant
-// definitions. `8quote' then simply evaluates to that preprocessor
-// parameter. You might wonder why we need to use `8quote' here. The
-// reason is simple. There is no Order definition for
-// `GEN_array_uop', hence the interpreter knows nothing about
-// `GEN_array_uop', and can not interpret it. Therefore we must
-// quote it so that the interpreter will not try to interpret it. Of
-// course, we could have alternatively introduced a constant
-// definition for `GEN_array_uop', but since we are not going to
-// refer to it many times, it is more convenient to just use
-// `8quote'.
+// function. First of all, `8' followed by parenthesis, is a
+// convenient shorthand for `8quote', which is a special form that
+// allows you to define constants inline. The parameter to `8quote',
+// or the shorthand `8', can be any preprocessor parameter, like in
+// ordinary top-level constant definitions. `8quote' then simply
+// evaluates to that preprocessor parameter. You might wonder why we
+// need to use `8quote' here. The reason is simple. There is no
+// Order definition for `GEN_array_uop', hence the interpreter knows
+// nothing about `GEN_array_uop', and can not interpret it.
+// Therefore we must quote it so that the interpreter will not try
+// to interpret it. Of course, we could have alternatively
+// introduced a constant definition for `GEN_array_uop', but since
+// we are not going to refer to it many times, it is more convenient
+// to just use `8quote'.
 //
 // The side-effecting `8emit' operator is different from the
 // functions we have used so far. It is used to produce output as a
@@ -508,7 +509,7 @@ ORDER_PP
 
 #define ORDER_PP_DEF_8gen_array_bop ORDER_PP_FN                 \
 (8fn(8OP,8TL,8TR,                                               \
-     8emit(8quote(GEN_array_bop),                               \
+     8emit(8(GEN_array_bop),                                    \
            8tuple(8op_mnemonic(8OP),                            \
                   8op_symbol(8OP),                              \
                   8type_abbrev(8TL),                            \

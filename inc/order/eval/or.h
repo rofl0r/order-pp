@@ -5,9 +5,9 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_DEF_8or(...) 8EVAL_OR,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,9,8,7,6,5,4,3,2,1,),__VA_ARGS__
+#define ORDER_PP_DEF_8or(...) 8EVAL_OR,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,9,8,7,6,5,4,3,2,1,),(,__VA_ARGS__,),
 
-#define ORDER_PP_8EVAL_OR(P,e,n,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_OR_##n,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_OR(P,e,n,ts,G,...) (,P##e,ORDER_PP_DEF_FIRST ts##P,8EVAL_OR_##n,P##e,ORDER_PP_TUPLE_REST ts##P P##__VA_ARGS__)
 
 #define ORDER_PP_8EVAL_OR_1(P,b,e,...) (,P##b,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_OR_2(P,b,e,t1,...) (,ORDER_PP_IF_##b(,8true,P##e,ORDER_PP_DEF_##t1),P##__VA_ARGS__)

@@ -25,12 +25,12 @@ do {                                                                    \
       do {                                                              \
       case 0 : __VA_ARGS__;                                             \
         ORDER_PP(8rout(8for_each_in_range                               \
-                       (8fn(8I,                                         \
-                            8rout(8emitq(case),                         \
-                                  8emit(8I),                            \
-                                  8emitq(: __VA_ARGS__;))),             \
-                        1,                                              \
-                        unroll_cnt)))                                   \
+                       (8nat(1),                                        \
+                        8pred(8nat(unroll_cnt)),                        \
+                        8fn(8I,                                         \
+                            8rout(8print((case)                         \
+                                         8nat_to_lit(8I)                \
+                                         (: __VA_ARGS__;)))))))         \
       } while (--ORDER_PP_FRESH_ID(running_cnt));                       \
     }                                                                   \
   }                                                                     \
