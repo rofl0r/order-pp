@@ -1,10 +1,9 @@
 #ifndef ORDER_TEST_TEST_DEFS_H_VAJK20040620
 #define ORDER_TEST_TEST_DEFS_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8id ORDER_PP_FN(8fn(8X,8X))
 #define ORDER_PP_DEF_1st ORDER_PP_FN(8fn(8X,  ,8X))

@@ -1,10 +1,9 @@
 #ifndef ORDER_PRELUDE_NUMERIC_H_VAJK20040620
 #define ORDER_PRELUDE_NUMERIC_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8is_0 ORDER_PP_FN_CM(1,8IS_0)
 #define ORDER_PP_CM_8IS_0(P,x,...) (,ORDER_PP_IS_0_##x(,(,8true),8false),P##__VA_ARGS__)
@@ -35,7 +34,7 @@
 #define ORDER_PP_DEF_8div ORDER_PP_OP_LEFT_CM(8REMAP_10021,0,8DIV_MOD_5,8FST)
 #define ORDER_PP_DEF_8mod ORDER_PP_FN_CM(2,8REMAP_01120,0,8DIV_MOD_5,8RST)
 #define ORDER_PP_DEF_8div_mod ORDER_PP_FN_CM(2,8REMAP_01120,0,8DIV_MOD_5)
-#define ORDER_PP_CM_8DIV_MOD_5(P,x,y,c,d,m,...) (,ORDER_PP_EXPAND(ORDER_PP_IS_0_##x,(,(,ORDER_PP_IS_0_##c(,(,(ORDER_PP_INC_##d,0)),(P##d,P##m))),ORDER_PP_IS_0_##c(,(,P##x,8DIV_MOD_5,P##y,P##y,ORDER_PP_INC_##d,P##x),ORDER_PP_DEC_##x,8DIV_MOD_5,P##y,ORDER_PP_DEC_##c,P##d,P##m))),P##__VA_ARGS__)
+#define ORDER_PP_CM_8DIV_MOD_5(P,x,y,c,d,m,...) (,ORDER_PP_SELECT_4(ORDER_PP_IS_0_##x,ORDER_PP_IS_0_##c)(,(,(ORDER_PP_INC_##d,0)),(,(P##d,P##m)),(,P##x,8DIV_MOD_5,P##y,P##y,ORDER_PP_INC_##d,P##x),ORDER_PP_DEC_##x,8DIV_MOD_5,P##y,ORDER_PP_DEC_##c,P##d,P##m),P##__VA_ARGS__)
 
 /*
  (let ((n 256))

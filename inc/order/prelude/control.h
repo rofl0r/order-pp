@@ -1,10 +1,9 @@
 #ifndef ORDER_PRELUDE_CONTROL_H_VAJK20040620
 #define ORDER_PRELUDE_CONTROL_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8when(cond,...) 8EVAL_IF,cond,8do(__VA_ARGS__),8nil
 #define ORDER_PP_DEF_8unless(cond,...) 8EVAL_IF,cond,8nil,8do(__VA_ARGS__)

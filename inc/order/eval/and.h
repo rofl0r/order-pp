@@ -1,10 +1,9 @@
 #ifndef ORDER_EVAL_AND_H_VAJK20040620
 #define ORDER_EVAL_AND_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8and(...) 8EVAL_AND,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,9,8,7,6,5,4,3,2,1,),__VA_ARGS__
 

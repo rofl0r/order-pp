@@ -1,18 +1,15 @@
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #include "order/interpreter.h"
 #include <assert.h>
 
-/*
- * This example uses the Order interpreter to implement a generalized
- * macro for implementing Duff's Device.
- *
- * This example was inspired by an original generalized macro for
- * for implementing Duff's Device written by Joerg Walter.
- */
+// This example uses the Order interpreter to implement a generalized
+// macro for implementing Duff's Device.
+//
+// This example was inspired by an original generalized macro for
+// for implementing Duff's Device written by Joerg Walter.
 
 /* Expands to a Duff's Device. */
 #define GEN_duffs_device(unrolling_factor, counter_t, n, exp)                           \

@@ -1,10 +1,9 @@
 #ifndef ORDER_DEF_CTOR_H_VAJK20040620
 #define ORDER_DEF_CTOR_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_CTOR(arity,cm) 8DEF_CTOR_##arity,cm,
 

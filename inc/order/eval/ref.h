@@ -1,10 +1,9 @@
 #ifndef ORDER_EVAL_REF_H_VAJK20040620
 #define ORDER_EVAL_REF_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_CM_8EVAL_REF(P,e,s,K,...) ORDER_PP_CM_INVOKE(P##K,ORDER_PP_EXPAND(ORDER_PP_ENV_REF,(,ORDER_PP_ENV_REF_##s e##P))),P##__VA_ARGS__)
 
@@ -20,7 +19,7 @@
     (funcall gen i)
     (loop for j from ?A to ?Z do (funcall gen (string i j)))
     (loop for j from  0 to  9 do (funcall gen (concat (char-to-string i) (number-to-string j))))))
- */
+*/
 
 #define ORDER_PP_DEF_8A 8EVAL_REF,8A
 #define ORDER_PP_SYM_8A_8A(P,v) ,P##v,

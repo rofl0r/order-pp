@@ -1,10 +1,9 @@
 #ifndef ORDER_PRELUDE_EMIT_H_VAJK20040620
 #define ORDER_PRELUDE_EMIT_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8emit ORDER_PP_CTOR_N(8EMIT_)
 #define ORDER_PP_CM_8EMIT_8(P,_0,_1,_2,_3,_4,_5,_6,_7,K,...) ORDER_PP_CM_##K(,,P##__VA_ARGS__)P##_0 P##_1 P##_2 P##_3 P##_4 P##_5 P##_6 P##_7

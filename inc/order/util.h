@@ -1,10 +1,9 @@
 #ifndef ORDER_UTIL_H_VAJK20040620
 #define ORDER_UTIL_H_VAJK20040620
 
-/* (C) Copyright Vesa Karvonen 2004.
- *
- *    Distributed under the Boost Software License, Version 1.0.
- */
+// (C) Copyright Vesa Karvonen 2004.
+//
+//    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF(t) ORDER_PP_DEF_##t
 
@@ -57,6 +56,12 @@
 
 #define ORDER_PP_UNLESS_8true(...)
 #define ORDER_PP_UNLESS_8false(P,...) P##__VA_ARGS__
+
+#define ORDER_PP_SELECT_4(c0,c1) ORDER_PP_PASTE(c0(,(,ORDER_PP_SELECT_4_8true),ORDER_PP_SELECT_4_8false),c1(,(,8true),8false))
+#define ORDER_PP_SELECT_4_8true8true(P,tt,tf,ft,...) ORDER_PP_OPEN_COND tt##P
+#define ORDER_PP_SELECT_4_8true8false(P,tt,tf,ft,...) ORDER_PP_OPEN_COND tf##P
+#define ORDER_PP_SELECT_4_8false8true(P,tt,tf,ft,...) ORDER_PP_OPEN_COND ft##P
+#define ORDER_PP_SELECT_4_8false8false(P,tt,tf,ft,...) P##__VA_ARGS__
 
 #define ORDER_PP_EQUAL(P,x,y) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##y(,),ORDER_PP_IF_OPEN_8true,,ORDER_PP_IF_OPEN_8false,)
 #define ORDER_PP_NOT_EQ(P,x,y) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##y(,),ORDER_PP_IF_OPEN_8false,,ORDER_PP_IF_OPEN_8true,)
