@@ -94,6 +94,8 @@
 8letn(,1)#1#
 8macro(8macro(8macro(1)))#1#
 8macro_2#0#
+8macro_error_neither_nil_nor_paren#ORDER_PP_SYNTAX_ERROR:syntax_error:(,,syntax_error,(syntax_error),8EXIT,,)#ORDER_PP_SYNTAX_ERROR
+8macro_error_nil#ORDER_PP_SYNTAX_ERROR: :(,,,(),8EXIT,,)#ORDER_PP_SYNTAX_ERROR
 8macro_let(8X,8(5),8X)#5#
 8nil##
 8not(8not(8false))#8false#

@@ -9,6 +9,17 @@
 
 ////////////////////////////////////////////////////////////////////
 
+#define ORDER_PP_DEF_8macro_error_neither_nil_nor_paren \
+ORDER_PP_MACRO(syntax_error)
+
+#define ORDER_PP_DEF_8macro_error_nil \
+ORDER_PP_MACRO()
+
+#define ORDER_PP_DEF_8macro_error_paren \
+ORDER_PP_MACRO((1))
+
+////////////////////////////////////////////////////////////////////
+
 #define TOKEN_x (x)
 #define TOKEN_y (y)
 #define TOKEN_z (z)
