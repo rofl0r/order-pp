@@ -14,5 +14,6 @@
 #include "order/eval/print.h"
 #include "order/eval/quote.h"
 #include "order/eval/ref.h"
+#include "order/eval/remap.h"
 #include "order/eval/seq.h"
 #include "order/eval/tuple.h"
