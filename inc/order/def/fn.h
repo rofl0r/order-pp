@@ -10,13 +10,13 @@
 // `fn_expression' must be an Order anonymous function expression.
 //
 // For example,
-//
-//   #define ORDER_PP_DEF_8factorial                            \
-//   ORDER_PP_FN(8fn(8N,                                        \
-//                   8if(8is_0(8N),                             \
-//                       1,                                     \
-//                       8mul(8N,8factorial(8dec(8N))))))
-//
+#if 0
+#define ORDER_PP_DEF_8factorial                         \
+ORDER_PP_FN(8fn(8N,                                     \
+                8if(8is_0(8N),                          \
+                    1,                                  \
+                    8mul(8N,8factorial(8dec(8N))))))
+#endif
 // defines a recursive function for computing factorials. It can then be
 // used as an Order expression:
 //
