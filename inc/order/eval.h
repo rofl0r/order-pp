@@ -13,5 +13,6 @@
 #include "order/eval/let.h"
 #include "order/eval/or.h"
 #include "order/eval/ref.h"
+#include "order/eval/rout.h"
 
 #endif

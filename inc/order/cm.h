@@ -32,20 +32,32 @@
 #define ORDER_PP_CM_ERROR_2(P,_,x) P##x ORDER_PP_CM_SCAN_2(ORDER_PP_CM_SCAN_2(ORDER_PP_CM_OUTPUT(,
 #define ORDER_PP_CM_ERROR_3(P,_,x) P##x ORDER_PP_CM_SCAN_3(ORDER_PP_CM_SCAN_3(ORDER_PP_CM_OUTPUT(,
 
-#define ORDER_PP_CM_OUTPUT(P,s) ORDER_PP_CM_OUTPUT_B(ORDER_PP_CM_OUTPUT_OPEN_A P##s(0,0,)ORDER_PP_CM_OUTPUT_CLOSE_A P##s(0,))
-#define ORDER_PP_CM_OUTPUT_B(s) ORDER_PP_CM_EMIT_A s(0,0,)
+#define ORDER_PP_CM_OUTPUT(P,s) ORDER_PP_CM_EMIT_A ORDER_PP_CM_REV_A P##s(0,0,)(0,0,)
 
-#define ORDER_PP_CM_OUTPUT_OPEN_A(P,...) ORDER_PP_CM_REV ORDER_PP_BLOCK(,(,P##__VA_ARGS__),ORDER_PP_CM_OUTPUT_OPEN_B##P
-#define ORDER_PP_CM_OUTPUT_OPEN_B(P,...) ORDER_PP_CM_REV ORDER_PP_BLOCK(,(,P##__VA_ARGS__),ORDER_PP_CM_OUTPUT_OPEN_A##P
-#define ORDER_PP_CM_OUTPUT_OPEN_A0
-#define ORDER_PP_CM_OUTPUT_OPEN_B0
+#define ORDER_PP_CM_REV_A(P,m,...) ORDER_PP_CM_REV_##m(,P##__VA_ARGS__)ORDER_PP_CM_REV_B##P
+#define ORDER_PP_CM_REV_B(P,m,...) ORDER_PP_CM_REV_##m(,P##__VA_ARGS__)ORDER_PP_CM_REV_A##P
+#define ORDER_PP_CM_REV_A0
+#define ORDER_PP_CM_REV_B0
 
-#define ORDER_PP_CM_OUTPUT_CLOSE_A(P,...) )ORDER_PP_CM_OUTPUT_CLOSE_B##P
-#define ORDER_PP_CM_OUTPUT_CLOSE_B(P,...) )ORDER_PP_CM_OUTPUT_CLOSE_A##P
-#define ORDER_PP_CM_OUTPUT_CLOSE_A0
-#define ORDER_PP_CM_OUTPUT_CLOSE_B0
-
-#define ORDER_PP_CM_REV(P,l,r) r P##l
+#define ORDER_PP_CM_REV_1B(P,...) CHAOS_PP_SEQ_REVERSE ORDER_PP_BLOCK(
+#define ORDER_PP_CM_REV_1E(P,...) )
+#define ORDER_PP_CM_REV_0(P,...)
+#define ORDER_PP_CM_REV_1(P,...) (,1,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_2(P,...) (,2,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_3(P,...) (,3,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_4(P,...) (,4,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_5(P,...) (,5,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_6(P,...) (,6,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_7(P,...) (,7,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_8(P,...) (,8,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_1C(P,...) (,1C,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_2C(P,...) (,2C,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_3C(P,...) (,3C,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_4C(P,...) (,4C,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_5C(P,...) (,5C,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_6C(P,...) (,6C,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_7C(P,...) (,7C,P##__VA_ARGS__)
+#define ORDER_PP_CM_REV_8C(P,...) (,8C,P##__VA_ARGS__)
 
 #define ORDER_PP_CM_EMIT_A(P,m,...) ORDER_PP_CM_EMIT_##m(,P##__VA_ARGS__)ORDER_PP_CM_EMIT_B##P
 #define ORDER_PP_CM_EMIT_B(P,m,...) ORDER_PP_CM_EMIT_##m(,P##__VA_ARGS__)ORDER_PP_CM_EMIT_A##P
@@ -53,23 +65,23 @@
 #define ORDER_PP_CM_EMIT_B0
 
 #define ORDER_PP_CM_EMIT_0(...)
-#define ORDER_PP_CM_EMIT_00(...)
+#define ORDER_PP_CM_EMIT_00(P,...)
 #define ORDER_PP_CM_EMIT_1(P,...) P##__VA_ARGS__
-#define ORDER_PP_CM_EMIT_2(P,_0,_1) P##_0 P##_1
-#define ORDER_PP_CM_EMIT_3(P,_0,_1,_2) P##_0 P##_1 P##_2
-#define ORDER_PP_CM_EMIT_4(P,_0,_1,_2,_3) P##_0 P##_1 P##_2 P##_3
-#define ORDER_PP_CM_EMIT_5(P,_0,_1,_2,_3,_4) P##_0 P##_1 P##_2 P##_3 P##_4
-#define ORDER_PP_CM_EMIT_6(P,_0,_1,_2,_3,_4,_5) P##_0 P##_1 P##_2 P##_3 P##_4 P##_5
-#define ORDER_PP_CM_EMIT_7(P,_0,_1,_2,_3,_4,_5,_6) P##_0 P##_1 P##_2 P##_3 P##_4 P##_5 P##_6
-#define ORDER_PP_CM_EMIT_8(P,_0,_1,_2,_3,_4,_5,_6,_7) P##_0 P##_1 P##_2 P##_3 P##_4 P##_5 P##_6 P##_7
+#define ORDER_PP_CM_EMIT_2(P,_0,...) P##_0 P##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_3(P,_0,_1,...) P##_0 P##_1 P##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_4(P,_0,_1,_2,...) P##_0 P##_1 P##_2 P##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_5(P,_0,_1,_2,_3,...) P##_0 P##_1 P##_2 P##_3 P##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_6(P,_0,_1,_2,_3,_4,...) P##_0 P##_1 P##_2 P##_3 P##_4 P##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_7(P,_0,_1,_2,_3,_4,_5,...) P##_0 P##_1 P##_2 P##_3 P##_4 P##_5 P##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_8(P,_0,_1,_2,_3,_4,_5,_6,...) P##_0 P##_1 P##_2 P##_3 P##_4 P##_5 P##_6 P##__VA_ARGS__
 #define ORDER_PP_CM_EMIT_1C(P,...) P##__VA_ARGS__
-#define ORDER_PP_CM_EMIT_2C(P,_0,_1) _0##_1
-#define ORDER_PP_CM_EMIT_3C(P,_0,_1,_2) _0##_1##_2
-#define ORDER_PP_CM_EMIT_4C(P,_0,_1,_2,_3) _0##_1##_2##_3
-#define ORDER_PP_CM_EMIT_5C(P,_0,_1,_2,_3,_4) _0##_1##_2##_3##_4
-#define ORDER_PP_CM_EMIT_6C(P,_0,_1,_2,_3,_4,_5) _0##_1##_2##_3##_4##_5
-#define ORDER_PP_CM_EMIT_7C(P,_0,_1,_2,_3,_4,_5,_6) _0##_1##_2##_3##_4##_5##_6
-#define ORDER_PP_CM_EMIT_8C(P,_0,_1,_2,_3,_4,_5,_6,_7) _0##_1##_2##_3##_4##_5##_6##_7
+#define ORDER_PP_CM_EMIT_2C(P,_0,...) _0##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_3C(P,_0,_1,...) _0##_1##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_4C(P,_0,_1,_2,...) _0##_1##_2##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_5C(P,_0,_1,_2,_3,...) _0##_1##_2##_3##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_6C(P,_0,_1,_2,_3,_4,...) _0##_1##_2##_3##_4##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_7C(P,_0,_1,_2,_3,_4,_5,...) _0##_1##_2##_3##_4##_5##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_8C(P,_0,_1,_2,_3,_4,_5,_6,...) _0##_1##_2##_3##_4##_5##_6##__VA_ARGS__
 
 #define ORDER_PP_CM_SCAN_0(...) __VA_ARGS__
 #define ORDER_PP_CM_SCAN_1(...) __VA_ARGS__
