@@ -5,6 +5,8 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
+#include "order/lib.h"
+
 #define ORDER_PP_DEF_8seq_26                                                                            \
 ORDER_PP_FN(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z,          \
                 8seq(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z)))
@@ -70,10 +72,10 @@ ORDER_PP_MACRO(8let((8B, 8fn(8N,                                                
                                 8ap(8B, 8dec(8N)) (of beer on the wall.))),                     \
                      100, 1)))
 
-#define GEN_phrase(N, N_minus_1)                \
-  N of beer on the wall,                        \
-  N of beer, take one down, pass it around,     \
-  N_minus_1 of beer on the wall.
+#define GEN_phrase(N_bottles, N_minus_1_bottles)        \
+  N_bottles of beer on the wall,                        \
+  N_bottles of beer, take one down, pass it around,     \
+  N_minus_1_bottles of beer on the wall.
 
 #define ORDER_PP_DEF_8bottles                           \
 ORDER_PP_FN(8fn(8N,                                     \
