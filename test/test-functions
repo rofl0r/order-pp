@@ -28,6 +28,7 @@ fi
 function eval-in-cpp {
     cpp -P \
         -I "../inc/" \
+        -I "../../chaos-pp/" \
         -include "../inc/order/interpreter.h" \
         -include "test-defs.h"
 }
@@ -35,6 +36,7 @@ function eval-in-cpp {
 function eval-in-wave {
     wave --c++0x \
          --include "../inc/" \
+         --include "../../chaos-pp/" \
          --forceinclude "order/interpreter.h" \
          --forceinclude "test-defs.h"
 }

@@ -10,5 +10,6 @@
 #include "order/def/ctor.h"
 #include "order/def/fn.h"
 #include "order/def/fn_cm.h"
+#include "order/def/fn_macro.h"
 
 #endif

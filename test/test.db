@@ -12,14 +12,13 @@ ap(fn(X,Y,X),quote(x),quote(y))#x
 ap(fn(X,Y,tuple(X,Y)),quote(a),quote(b))#(a,b)
 cat(1,2)#12
 cat(1,2,3,4,5,6,7,8)#12345678
-quote(0)#0
 constant_embedding#This constant is in two parts!
 div_mod(10,3)#(3,1)
 do(7)#7
 do(do(1,2),do(3,4))#4
 do(emit(1),emit(2),emit(3))#3 2 1
-do(emit_cat(1,2),3)#3 12
 do(emit(1,2),emit(3,4))#3 4 1 2
+do(emit_cat(1,2),3)#3 12
 equal(1,1)#true
 equal(1,2)#false
 equal(1,tuple_at(tuple(1,2),0))#true
@@ -40,6 +39,7 @@ or(false)#false
 or(false,6)#6
 or(false,false,false,true,0)#true
 or(true)#true
+quote(0)#0
 seq(quote(a),quote(b),quote(c),quote(d),quote(e),quote(f),quote(g),quote(h))#(a)(b)(c)(d)(e)(f)(g)(h)
 seq(quote(x))#(x)
 seq(seq(1))#((1))
@@ -51,6 +51,11 @@ seq_for_each(fn(_,exit(0)),nil)#
 seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , quote( (( 1 )( 2 )) (( * )) (( A )( B )( C )) ) )#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
 seq_map(dec,nil)#
 seq_map(inc,quote((3)(1)(4)(1)))#(4)(2)(5)(2)
+seq_pop_back(quote((1)(2)(3)(b)))#(1) (2) (3)
+seq_pop_back(quote((1)))#
+seq_reverse(quote((1)(2)(3)(a)))#(a) (3) (2) (1)
+seq_size(nil)#0
+seq_size(quote((1)(2)(3)(4)(5)))#5
 stringize(quote(This is a string.))#"This is a string."
 tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
 tuple(dec(0),dec(1),dec(256))#(0,0,255)
