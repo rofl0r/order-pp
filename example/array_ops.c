@@ -257,27 +257,27 @@ ORDER_OP(fn(O,L,R,                              \
  */
 
 #define ORDER_DEF_applicative_ops                       \
-ORDER_CONST((( ~  , bit_not, 1, false, false, false ))  \
-            (( -  , neg    , 1, true , false, false ))  \
-            (( !  , not    , 1, true , true , false ))  \
-            (( *  , mul    , 2, true , false, false ))  \
-            (( /  , div    , 2, true , false, false ))  \
-            (( +  , add    , 2, true , false, false ))  \
-            (( -  , sub    , 2, true , false, false ))  \
-            (( %  , mod    , 2, false, false, false ))  \
-            (( << , shl    , 2, false, false, true  ))  \
-            (( >> , shr    , 2, false, false, true  ))  \
-            (( <  , lt     , 2, true , true , false ))  \
-            (( <= , lt_eq  , 2, true , true , false ))  \
-            (( >  , gt     , 2, true , true , false ))  \
-            (( >= , gt_eq  , 2, true , true , false ))  \
-            (( == , equal  , 2, true , true , false ))  \
-            (( != , not_eq , 2, true , true , false ))  \
-            (( &  , bit_and, 2, false, false, false ))  \
-            (( |  , bit_or , 2, false, false, false ))  \
-            (( ^  , bit_xor, 2, false, false, false ))  \
-            (( && , and    , 2, true , true , false ))  \
-            (( || , or     , 2, true , true , false )))
+ORDER_CONST((( ~  , compl , 1, false, false, false ))   \
+            (( -  , neg   , 1, true , false, false ))   \
+            (( !  , not   , 1, true , true , false ))   \
+            (( *  , mul   , 2, true , false, false ))   \
+            (( /  , div   , 2, true , false, false ))   \
+            (( +  , add   , 2, true , false, false ))   \
+            (( -  , sub   , 2, true , false, false ))   \
+            (( %  , mod   , 2, false, false, false ))   \
+            (( << , shl   , 2, false, false, true  ))   \
+            (( >> , shr   , 2, false, false, true  ))   \
+            (( <  , lt    , 2, true , true , false ))   \
+            (( <= , lt_eq , 2, true , true , false ))   \
+            (( >  , gt    , 2, true , true , false ))   \
+            (( >= , gt_eq , 2, true , true , false ))   \
+            (( == , equal , 2, true , true , false ))   \
+            (( != , not_eq, 2, true , true , false ))   \
+            (( &  , bitand, 2, false, false, false ))   \
+            (( |  , bitor , 2, false, false, false ))   \
+            (( ^  , bitxor, 2, false, false, false ))   \
+            (( && , and   , 2, true , true , false ))   \
+            (( || , or    , 2, true , true , false )))
 
 /*
  * The requirements for types are somewhat less demanding and we'll do

@@ -17,6 +17,7 @@ do(7)#7
 do(ap(emit_expand,2,3),ap(emit,1),0)#0 1 2 3
 do(do(1,2),do(3,4))#4
 do(emit(1),emit(2),emit(3))#3 2 1
+do(emit_expand(1,2),emit_expand(3,4))#3 4 1 2
 do(emit_paste(1,2),3)#3 12
 equal(1,1)#true
 equal(1,2)#false
@@ -30,8 +31,8 @@ macro_let(X,5,X)#5
 nil#
 not(not(false))#false
 not(not(true))#true
-not_equal(1,2)#true
-not_equal(2,2)#false
+not_eq(1,2)#true
+not_eq(2,2)#false
 or(false)#false
 or(false,6)#6
 or(false,false,false,true,0)#true

@@ -13,9 +13,9 @@
 #define ORDER_CM_8IS_NOT_0(P,x,...) (,ORDER_PP_IS_NOT_0_##x(,(,true),(,false)),P##__VA_ARGS__)
 
 #define ORDER_DEF_greater(x,y) ORDER_MACRO(is_not_0(sub(x,y)))
-#define ORDER_DEF_greater_equal(x,y) ORDER_MACRO(is_0(sub(y,x)))
+#define ORDER_DEF_greater_eq(x,y) ORDER_MACRO(is_0(sub(y,x)))
 #define ORDER_DEF_less(x,y) ORDER_MACRO(is_not_0(sub(y,x)))
-#define ORDER_DEF_less_equal(x,y) ORDER_MACRO(is_0(sub(x,y)))
+#define ORDER_DEF_less_eq(x,y) ORDER_MACRO(is_0(sub(x,y)))
 
 #define ORDER_DEF_inc ORDER_OP_CM(1,8INC)
 #define ORDER_CM_8INC(P,x,...) (,ORDER_PP_INC_##x,P##__VA_ARGS__)

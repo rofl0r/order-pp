@@ -14,7 +14,7 @@
 #define ORDER_DEF_equal ORDER_OP_CM(2,8EQUAL)
 #define ORDER_CM_8EQUAL(P,x,y,...) (,ORDER_PP_TEST(ORDER_SYM_##x##_##y(,),true,,false,),P##__VA_ARGS__)
 
-#define ORDER_DEF_not_equal ORDER_OP_CM(2,8NOT_EQUAL)
-#define ORDER_CM_8NOT_EQUAL(P,x,y,...) (,ORDER_PP_TEST(ORDER_SYM_##x##_##y(,),false,,true,),P##__VA_ARGS__)
+#define ORDER_DEF_not_eq ORDER_OP_CM(2,8NOT_EQ)
+#define ORDER_CM_8NOT_EQ(P,x,y,...) (,ORDER_PP_TEST(ORDER_SYM_##x##_##y(,),false,,true,),P##__VA_ARGS__)
 
 #endif
