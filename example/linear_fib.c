@@ -24,18 +24,18 @@ int linear_fib(int n) {
 }
 
 /* Then consider the following Order implementation of Fibonacci. */
-#define ORDER_DEF_linear_fib_3                          \
-ORDER_OP(fn(N,I,J,                                      \
-            if(is_0(N),                                 \
-               I,                                       \
-               linear_fib_3(dec(N),J,add(I,J)))))
+#define ORDER_PP_DEF_linear_fib_3                       \
+ORDER_PP_OP(fn(N,I,J,                                   \
+               if(is_0(N),                              \
+                  I,                                    \
+                  linear_fib_3(dec(N),J,add(I,J)))))
 
-#define ORDER_DEF_linear_fib                    \
-ORDER_OP(fn(N,                                  \
-            linear_fib_3(N,0,1)))
+#define ORDER_PP_DEF_linear_fib                 \
+ORDER_PP_OP(fn(N,                               \
+               linear_fib_3(N,0,1)))
 
 int main() {
    printf("linear_fib(10) = %d\n", linear_fib(10));
-   printf("ORDER(linear_fib(10)) = %d\n", ORDER(linear_fib(10)));
+   printf("ORDER_PP(linear_fib(10)) = %d\n", ORDER_PP(linear_fib(10)));
    return 0;
 }

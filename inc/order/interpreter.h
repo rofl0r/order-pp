@@ -12,8 +12,8 @@
 #include "order/prelude.h"
 #include "order/util.h"
 
-#define ORDER_MACRO(expression) ORDER_DEF_##expression
+#define ORDER_PP_MACRO(expression) ORDER_PP_DEF_##expression
 
-#define ORDER(program) ORDER_CM(,,ORDER_DEF(program),8STOP,)
+#define ORDER_PP(program) ORDER_PP_CM(,,ORDER_PP_DEF(program),8STOP,)
 
 #endif

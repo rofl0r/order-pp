@@ -163,12 +163,12 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
  * operand. The type_of_promotion(T) metafunction
  */
 
-#define ORDER_DEF_type_of_promotion             \
-ORDER_OP(fn(T,                                  \
-            if(less(type_rank(T),               \
-                    type_rank(type_int)),       \
-               type_int,                        \
-               T)))
+#define ORDER_PP_DEF_type_of_promotion          \
+ORDER_PP_OP(fn(T,                               \
+               if(less(type_rank(T),            \
+                       type_rank(type_int)),    \
+                  type_int,                     \
+                  T)))
 
 /*
  * encodes the rule precisely. As you can see, we invented the function
@@ -181,12 +181,12 @@ ORDER_OP(fn(T,                                  \
  * metafunction below:
  */
 
-#define ORDER_DEF_type_of_conversion                    \
-ORDER_OP(fn(L,R,                                        \
-            type_of_promotion(if(less(type_rank(L),     \
-                                      type_rank(R)),    \
-                                 R,                     \
-                                 L))))
+#define ORDER_PP_DEF_type_of_conversion                 \
+ORDER_PP_OP(fn(L,R,                                     \
+               type_of_promotion(if(less(type_rank(L),  \
+                                         type_rank(R)), \
+                                    R,                  \
+                                    L))))
 
 /*
  * Integer promotion and usual arithmetic conversion rules ignore the
@@ -199,11 +199,11 @@ ORDER_OP(fn(L,R,                                        \
  * type_of_uop(O,T) metafunction captures this special case:
  */
 
-#define ORDER_DEF_type_of_uop                   \
-ORDER_OP(fn(O,T,                                \
-            if(op_is_logical(O),                \
-               type_int,                        \
-               type_of_promotion(T))))
+#define ORDER_PP_DEF_type_of_uop                \
+ORDER_PP_OP(fn(O,T,                             \
+               if(op_is_logical(O),             \
+                  type_int,                     \
+                  type_of_promotion(T))))
 
 /*
  * Like unary logical operators, binary logical operators produce integer
@@ -213,13 +213,13 @@ ORDER_OP(fn(O,T,                                \
  * type_of_bop(O,L,R) metafunction:
  */
 
-#define ORDER_DEF_type_of_bop                   \
-ORDER_OP(fn(O,L,R,                              \
-            if(op_is_logical(O),                \
-               type_int,                        \
-               if(op_is_shift(O),               \
-                  type_of_promotion(L),         \
-                  type_of_conversion(L,R)))))
+#define ORDER_PP_DEF_type_of_bop                        \
+ORDER_PP_OP(fn(O,L,R,                                   \
+               if(op_is_logical(O),                     \
+                  type_int,                             \
+                  if(op_is_shift(O),                    \
+                     type_of_promotion(L),              \
+                     type_of_conversion(L,R)))))
 
 /*
  * Given an operator and the types of the operands, we can now compute the
@@ -244,40 +244,40 @@ ORDER_OP(fn(O,L,R,                              \
  * already used earlier, on operators.
  */
 
-#define ORDER_DEF_op_symbol(o)        ORDER_MACRO(tuple_at(o,0))
-#define ORDER_DEF_op_mnemonic(o)      ORDER_MACRO(tuple_at(o,1))
-#define ORDER_DEF_op_arity(o)         ORDER_MACRO(tuple_at(o,2))
-#define ORDER_DEF_op_does_floating(o) ORDER_MACRO(tuple_at(o,3))
-#define ORDER_DEF_op_is_logical(o)    ORDER_MACRO(tuple_at(o,4))
-#define ORDER_DEF_op_is_shift(o)      ORDER_MACRO(tuple_at(o,5))
+#define ORDER_PP_DEF_op_symbol(o)        ORDER_PP_MACRO(tuple_at(o,0))
+#define ORDER_PP_DEF_op_mnemonic(o)      ORDER_PP_MACRO(tuple_at(o,1))
+#define ORDER_PP_DEF_op_arity(o)         ORDER_PP_MACRO(tuple_at(o,2))
+#define ORDER_PP_DEF_op_does_floating(o) ORDER_PP_MACRO(tuple_at(o,3))
+#define ORDER_PP_DEF_op_is_logical(o)    ORDER_PP_MACRO(tuple_at(o,4))
+#define ORDER_PP_DEF_op_is_shift(o)      ORDER_PP_MACRO(tuple_at(o,5))
 
 /*
  * We will also encode the metadata on all the applicative operators we
  * will consider in the applicative_ops sequence.
  */
 
-#define ORDER_DEF_applicative_ops                       \
-ORDER_CONST((( ~  , compl , 1, false, false, false ))   \
-            (( -  , neg   , 1, true , false, false ))   \
-            (( !  , not   , 1, true , true , false ))   \
-            (( *  , mul   , 2, true , false, false ))   \
-            (( /  , div   , 2, true , false, false ))   \
-            (( +  , add   , 2, true , false, false ))   \
-            (( -  , sub   , 2, true , false, false ))   \
-            (( %  , mod   , 2, false, false, false ))   \
-            (( << , shl   , 2, false, false, true  ))   \
-            (( >> , shr   , 2, false, false, true  ))   \
-            (( <  , lt    , 2, true , true , false ))   \
-            (( <= , lt_eq , 2, true , true , false ))   \
-            (( >  , gt    , 2, true , true , false ))   \
-            (( >= , gt_eq , 2, true , true , false ))   \
-            (( == , equal , 2, true , true , false ))   \
-            (( != , not_eq, 2, true , true , false ))   \
-            (( &  , bitand, 2, false, false, false ))   \
-            (( |  , bitor , 2, false, false, false ))   \
-            (( ^  , bitxor, 2, false, false, false ))   \
-            (( && , and   , 2, true , true , false ))   \
-            (( || , or    , 2, true , true , false )))
+#define ORDER_PP_DEF_applicative_ops                            \
+ORDER_PP_CONST((( ~  , compl , 1, false, false, false ))        \
+               (( -  , neg   , 1, true , false, false ))        \
+               (( !  , not   , 1, true , true , false ))        \
+               (( *  , mul   , 2, true , false, false ))        \
+               (( /  , div   , 2, true , false, false ))        \
+               (( +  , add   , 2, true , false, false ))        \
+               (( -  , sub   , 2, true , false, false ))        \
+               (( %  , mod   , 2, false, false, false ))        \
+               (( << , shl   , 2, false, false, true  ))        \
+               (( >> , shr   , 2, false, false, true  ))        \
+               (( <  , lt    , 2, true , true , false ))        \
+               (( <= , lt_eq , 2, true , true , false ))        \
+               (( >  , gt    , 2, true , true , false ))        \
+               (( >= , gt_eq , 2, true , true , false ))        \
+               (( == , equal , 2, true , true , false ))        \
+               (( != , not_eq, 2, true , true , false ))        \
+               (( &  , bitand, 2, false, false, false ))        \
+               (( |  , bitor , 2, false, false, false ))        \
+               (( ^  , bitxor, 2, false, false, false ))        \
+               (( && , and   , 2, true , true , false ))        \
+               (( || , or    , 2, true , true , false )))
 
 /*
  * The requirements for types are somewhat less demanding and we'll do
@@ -288,10 +288,10 @@ ORDER_CONST((( ~  , compl , 1, false, false, false ))   \
  * The following defines accessors for the type data type.
  */
 
-#define ORDER_DEF_type_name(t)        ORDER_MACRO(tuple_at(t,0))
-#define ORDER_DEF_type_abbrev(t)      ORDER_MACRO(tuple_at(t,1))
-#define ORDER_DEF_type_is_floating(t) ORDER_MACRO(tuple_at(t,2))
-#define ORDER_DEF_type_rank(t)        ORDER_MACRO(tuple_at(t,3))
+#define ORDER_PP_DEF_type_name(t)        ORDER_PP_MACRO(tuple_at(t,0))
+#define ORDER_PP_DEF_type_abbrev(t)      ORDER_PP_MACRO(tuple_at(t,1))
+#define ORDER_PP_DEF_type_is_floating(t) ORDER_PP_MACRO(tuple_at(t,2))
+#define ORDER_PP_DEF_type_rank(t)        ORDER_PP_MACRO(tuple_at(t,3))
 
 /*
  * While encoding the metadata for types, we must specify the type_int
@@ -299,22 +299,22 @@ ORDER_CONST((( ~  , compl , 1, false, false, false ))   \
  * once.
  */
 
-#define ORDER_DEF_type_int                      \
-ORDER_CONST( (     signed int, si, false, 3 ) )
+#define ORDER_PP_DEF_type_int                           \
+ORDER_PP_CONST( (     signed int, si, false, 3 ) )
 
-#define ORDER_DEF_builtin_types                 \
-ORDER_CONST(((           char, ch, false, 1 ))  \
-            ((    signed char, sc, false, 1 ))  \
-            ((  unsigned char, uc, false, 1 ))  \
-            ((   signed short, ss, false, 2 ))  \
-            (( unsigned short, us, false, 2 ))  \
-            (ORDER_GET_CONST(type_int)       )  \
-            ((   unsigned int, ui, false, 4 ))  \
-            ((    signed long, sl, false, 5 ))  \
-            ((  unsigned long, ul, false, 6 ))  \
-            ((          float, fl,  true, 7 ))  \
-            ((         double, db,  true, 8 ))  \
-            ((    long double, ld,  true, 9 )))
+#define ORDER_PP_DEF_builtin_types                      \
+ORDER_PP_CONST(((           char, ch, false, 1 ))       \
+               ((    signed char, sc, false, 1 ))       \
+               ((  unsigned char, uc, false, 1 ))       \
+               ((   signed short, ss, false, 2 ))       \
+               (( unsigned short, us, false, 2 ))       \
+               (ORDER_PP_GET_CONST(type_int)    )       \
+               ((   unsigned int, ui, false, 4 ))       \
+               ((    signed long, sl, false, 5 ))       \
+               ((  unsigned long, ul, false, 6 ))       \
+               ((          float, fl,  true, 7 ))       \
+               ((         double, db,  true, 8 ))       \
+               ((    long double, ld,  true, 9 )))
 
 /*
  * Generating code
@@ -332,14 +332,14 @@ ORDER_CONST(((           char, ch, false, 1 ))  \
  * unary operator. The gen_array_uop(O,T) metafunction
  */
 
-#define ORDER_DEF_gen_array_uop                                 \
-ORDER_OP(fn(O,T,                                                \
-            emit_expand(const(GEN_array_uop),                   \
-                        tuple(op_mnemonic(O),                   \
-                              op_symbol(O),                     \
-                              type_abbrev(T),                   \
-                              type_name(T),                     \
-                              type_name(type_of_uop(O,T))))))
+#define ORDER_PP_DEF_gen_array_uop                                      \
+ORDER_PP_OP(fn(O,T,                                                     \
+               emit_expand(const(GEN_array_uop),                        \
+                           tuple(op_mnemonic(O),                        \
+                                 op_symbol(O),                          \
+                                 type_abbrev(T),                        \
+                                 type_name(T),                          \
+                                 type_name(type_of_uop(O,T))))))
 
 /*
  * computes the parameter tuple for the GEN_array_uop(...) code generation
@@ -350,73 +350,73 @@ ORDER_OP(fn(O,T,                                                \
  * non-floating point operators and non-floating point types.
  */
 
-ORDER(seq_for_each_in_product
-      (gen_array_uop,
-       seq(seq_filter(fn(O,
-                         and(equal(1,op_arity(O)),
-                             not(op_does_floating(O)))),
-                      applicative_ops),
-           seq_filter(fn(T,
-                         not(type_is_floating(T))),
-                      builtin_types))))
+ORDER_PP(seq_for_each_in_product
+         (gen_array_uop,
+          seq(seq_filter(fn(O,
+                            and(equal(1,op_arity(O)),
+                                not(op_does_floating(O)))),
+                         applicative_ops),
+              seq_filter(fn(T,
+                            not(type_is_floating(T))),
+                         builtin_types))));
 
 /*
  * Then for the floating point operators and all types.
  */
 
-ORDER(seq_for_each_in_product
-      (gen_array_uop,
-       seq(seq_filter(fn(O,
-                         and(equal(1,op_arity(O)),
-                             op_does_floating(O))),
-                      applicative_ops),
-           builtin_types)))
+ORDER_PP(seq_for_each_in_product
+         (gen_array_uop,
+          seq(seq_filter(fn(O,
+                            and(equal(1,op_arity(O)),
+                                op_does_floating(O))),
+                         applicative_ops),
+              builtin_types)))
 
 /*
  * We'll then handle binary operations similarly. First we define the
  * metafunction gen_array_bop(O,L,R):
  */
 
-#define ORDER_DEF_gen_array_bop                                 \
-ORDER_OP(fn(O,L,R,                                              \
-            emit_expand(const(GEN_array_bop),                   \
-                        tuple(op_mnemonic(O),                   \
-                              op_symbol(O),                     \
-                              type_abbrev(L),                   \
-                              type_name(L),                     \
-                              type_abbrev(R),                   \
-                              type_name(R),                     \
-                              type_name(type_of_bop(O,L,R))))))
+#define ORDER_PP_DEF_gen_array_bop                                      \
+ORDER_PP_OP(fn(O,L,R,                                                   \
+               emit_expand(const(GEN_array_bop),                        \
+                           tuple(op_mnemonic(O),                        \
+                                 op_symbol(O),                          \
+                                 type_abbrev(L),                        \
+                                 type_name(L),                          \
+                                 type_abbrev(R),                        \
+                                 type_name(R),                          \
+                                 type_name(type_of_bop(O,L,R))))))
 
 /*
  * Then we'll generate code for all binary array procedures in two
  * batches. First the non-floating point operators:
  */
 
-ORDER(seq_for_each_in_product
-      (gen_array_bop,
-       let(T,seq_filter(fn(T,
-                           not(type_is_floating(T))),
-                        builtin_types),
-           seq(seq_filter(fn(O,
-                             and(equal(2,op_arity(O)),
-                                 not(op_does_floating(O)))),
-                          applicative_ops),
-               T,
-               T))))
+ORDER_PP(seq_for_each_in_product
+         (gen_array_bop,
+          let(T,seq_filter(fn(T,
+                              not(type_is_floating(T))),
+                           builtin_types),
+              seq(seq_filter(fn(O,
+                                and(equal(2,op_arity(O)),
+                                    not(op_does_floating(O)))),
+                             applicative_ops),
+                  T,
+                  T))))
 
 /*
  * Then the floating point operators:
  */
 
-ORDER(seq_for_each_in_product
-      (gen_array_bop,
-       seq(seq_filter(fn(O,
-                         and(equal(2,op_arity(O)),
-                             op_does_floating(O))),
-                      applicative_ops),
-           builtin_types,
-           builtin_types)))
+ORDER_PP(seq_for_each_in_product
+         (gen_array_bop,
+          seq(seq_filter(fn(O,
+                            and(equal(2,op_arity(O)),
+                                op_does_floating(O))),
+                         applicative_ops),
+              builtin_types,
+              builtin_types)))
 
 /*
  * That's it! Who needs templates anyway?

@@ -48,5 +48,5 @@ function eval-in {
 }
 
 function eval-term {
-    echo "ORDER($1)" | eval-in | tail -n1
+    echo "ORDER_PP($1)" | eval-in | tail -n1
 }

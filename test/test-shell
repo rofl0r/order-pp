@@ -57,7 +57,7 @@ function replace-test {
 
 function preprocess-all-tests {
     sed -e 's|#.*||g' \
-        -e 's#^#ORDER(#g' \
+        -e 's#^#ORDER_PP(#g' \
         -e 's#$#)#g' \
         $dbFile | \
     eval-in | \
@@ -136,7 +136,7 @@ function interactive-trace {
 
     steps=0
 
-    result=$(echo "(,,ORDER_DEF_$term,8STOP,)" | eval-in)
+    result=$(echo "(,,ORDER_PP_DEF_$term,8STOP,)" | eval-in)
     echo ": $result"
 
     while read -e -n 1 -p "[(#$steps) | Enter to step]? " ; do
@@ -146,7 +146,7 @@ function interactive-trace {
 
         steps=$(($steps+1))
 
-        result=$(echo "ORDER_CM_DN_0 $result" | eval-in)
+        result=$(echo "ORDER_PP_CM_DN_0 $result" | eval-in)
         echo ": $result"
 
         if echo "$result" | grep -q '^,' ; then
