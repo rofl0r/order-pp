@@ -101,6 +101,16 @@
 8seq_at(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!#<ws>
 8seq_at(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#ACT (?)????????????????????????#<ws>
 8seq_at(3,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^#<ws>
+8seq_cat(8((1)(2)(3)(4)))#1234#<ws>
+8seq_cat(8((1)(2)(3)))#123#<ws>
+8seq_cat(8((1)(2)))#12#<ws>
+8seq_cat(8((1)))#1#<ws>
+8seq_cat(8())##<ws>
+8seq_cat_reverse(8((1)(2)(3)(4)))#4321#<ws>
+8seq_cat_reverse(8((1)(2)(3)))#321#<ws>
+8seq_cat_reverse(8((1)(2)))#21#<ws>
+8seq_cat_reverse(8((1)))#1#<ws>
+8seq_cat_reverse(8())##<ws>
 8seq_count(8fn(8X,8equal(1,8remainder(8X,2))),8((3)(1)(4)(1)(5)(9)(2)(6)(5)))#6#<ws>
 8seq_exists(8same(8(8A)),8((8A)(8B)(8C)(8D)))#8true#<ws>
 8seq_exists(8same(8(8A)),8())#8false#<ws>
