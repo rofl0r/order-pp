@@ -7,8 +7,10 @@
 
 #include "order/interpreter.h"
 
+// ## `is_integral<T>' type trait
+//
 // This example demonstrates the usage of the Order interpreter for
-// generating C++ code.
+// generating repetitive C++ code.
 //
 // Here is a template for testing whether a type is an integral type.
 
