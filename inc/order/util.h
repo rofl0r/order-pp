@@ -19,6 +19,7 @@
 #define ORDER_PP_OPEN(P,...) P##__VA_ARGS__
 #define ORDER_PP_OPEN_COND(P,...) P##__VA_ARGS__
 #define ORDER_PP_OPEN_NP(...) __VA_ARGS__
+#define ORDER_PP_REM(...) __VA_ARGS__
 
 #define ORDER_PP_CM_INVOKE(K,...) ORDER_PP_CM_##K(,__VA_ARGS__
 
