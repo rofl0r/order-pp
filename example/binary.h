@@ -7,7 +7,7 @@
 
 # include "order/interpreter.h"
 
-// \section{Binary literals} %**************************************
+// \section{Binary Constants} %*************************************
 //
 // In this example, we will implement a macro for specifying binary
 // constants. \cite{c:1999} has decimal, octal and hexadecimal
@@ -23,7 +23,7 @@
 // interpreted as a binary number and converted to the corresponding
 // decimal constant.
 //
-// \subsection*{Token extraction macros} %==========================
+// \subsection*{Token Extraction Macros} %==========================
 //
 // The C preprocessor doesn't have a built--in mechanism for
 // deconstructing arbitrary sequences of tokens. Fortunately, it is
@@ -62,7 +62,7 @@
 // doing so without a diagnostic from a reasonable preprocessor
 // requires an explicit \code{#undef}.
 //
-// \subsection*{The macro} %========================================
+// \subsection*{The \code{BINARY} Macro} %==========================
 //
 // Having defined the token extraction macros, the task of
 // implementing the \code{BINARY} macro becomes rather trivial:
@@ -92,7 +92,7 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // extracted tokens. Sequence is the name of the primary aggregate
 // data type supported by Order. The representation of a sequence is
 // a sequence of parenthesized elements. For example, the token
-// sequence \code{1 0 1} corresponds to the sequence
+// sequence \verb/1 0 1/ corresponds to the sequence
 // \code{(1)(0)(1)}.
 //
 // The higher--order function \code{8seq_fold} folds a sequence to a
@@ -114,7 +114,7 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // conversion is needed, because the C language doesn't understand
 // the representation of natural numbers used by Order.
 //
-// \subsection*{Grouping digits} %==================================
+// \subsection*{Grouping Digits} %==================================
 //
 // The previously defined macro only supports digits in groups of
 // one. To specify a 32--bit constant, one needs to write at least

@@ -21,7 +21,7 @@ function cpp-to-ltx {
 
 mkdir -p "$tmpDir" && \
 cp *.ltx *.bib "$tmpDir/" && \
-cat "../../example/array_ops.c" | cpp-to-ltx > "$tmpDir/array_ops.ltx" && \
+cat "../../example/array_ops.c" | cpp-to-ltx > "$tmpDir/array-ops.ltx" && \
 cat "../../example/binary.h" "../../example/binary.c" | cpp-to-ltx > "$tmpDir/binary.ltx" && \
 cat "../../example/bottles.c" | cpp-to-ltx > "$tmpDir/bottles.ltx" && \
 cd "$tmpDir" && \
