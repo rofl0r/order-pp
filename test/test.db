@@ -20,18 +20,18 @@
 8div_mod(10,3)#(3,1)
 8do(7)#7
 8do(8do(1,2),8do(3,4))#4
-8do(8emit(1),8emit(2),8emit(3))#3 2 1
-8do(8emit(1),8emit(2),8exit(5),8emit(3),8emit(4))#5 2 1
-8do(8emit(1,2),8emit(3,4))#3 4 1 2
+8do(8emit(1),8emit(2),8emit(3))# 1 2 3
+8do(8emit(1),8emit(2),8exit(5),8emit(3),8emit(4))#5 1 2
+8do(8emit(1,2),8emit(3,4))# 1 2 3 4
 8do(8emit_cat(1,2),3)#3 12
-8emit_params(10,8quote(class B))#class B0 , class B1 , class B2 , class B3 , class B4 , class B5 , class B6 , class B7 , class B8 , class B9
-8emit_trailing_params(10,8quote(class A))#, class A0 , class A1 , class A2 , class A3 , class A4 , class A5 , class A6 , class A7 , class A8 , class A9
+8emit_params(10,8quote(class B))# class B0 , class B1 , class B2 , class B3 , class B4 , class B5 , class B6 , class B7 , class B8 , class B9
+8emit_trailing_params(10,8quote(class A))# , class A0 , class A1 , class A2 , class A3 , class A4 , class A5 , class A6 , class A7 , class A8 , class A9
 8equal(1,1)#8true
 8equal(1,2)#8false
 8equal(1,8tuple_at(0,8tuple(1,2)))#8true
 8expand(1,2)#1 2
 8expand(1,2,3,4,5,6,7,8)#1 2 3 4 5 6 7 8
-8for_each_in_range(8fn(8X,8emit(8X)),4,8inc(10))#10 9 8 7 6 5 4
+8for_each_in_range(8fn(8X,8emit(8X)),4,8inc(10))# 4 5 6 7 8 9 10
 8for_each_in_range(8fn(8X,8emit(8X)),45,45)#
 8for_each_in_range(8fn(8X,8emit(8quote(GEN_dim_0),8tuple(8X))),1,3)#(0,2)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(0,1)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)
 8identity(45)#45
@@ -81,10 +81,10 @@
 8seq_for_all(8greater(5),8quote((1)(6)(3)(4)))#8false
 8seq_for_all(8greater(5),8quote((5)(2)(3)(4)))#8false
 8seq_for_all(8greater(5),8quote())#8true
-8seq_for_each(8fn(8X,8emit(8X)),8seq(1,2,3,4))#4 3 2 1
+8seq_for_each(8fn(8X,8emit(8X)),8seq(1,2,3,4))# 1 2 3 4
 8seq_for_each(8fn(8_,8exit(0)),8nil)#
-8seq_for_each_in_product(8fn(8X,8Y,8Z,8emit(8tuple(8X,8Y,8Z))),8quote(((1)(2))((*))((A)(B)(C))))#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
-8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote((a)(b)(c)))#(2,c)(1,b)(0,a)
+8seq_for_each_in_product(8fn(8X,8Y,8Z,8emit(8tuple(8X,8Y,8Z))),8quote(((1)(2))((*))((A)(B)(C))))# (1,*,A) (1,*,B) (1,*,C) (2,*,A) (2,*,B) (2,*,C)
+8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote((a)(b)(c)))# (0,a) (1,b) (2,c)
 8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote())#
 8seq_insert(0,8quote((1)(2)(3)(4)),8quote(x))#(x) (1)(2)(3)(4)
 8seq_insert(2,8quote((1)(2)(3)(4)),8quote(x))#(1) (2)(x) (3)(4)
@@ -160,8 +160,8 @@
 8tuple_at(7,8tuple(1,2,3,4,5,6,7,8))#8
 8tuple_size(8quote((a,b,c,d)))#4
 8tuple_size(8tuple(8nil))#1
-8unless(8false,8emit(3),8emit(2),1)#1 2 3
+8unless(8false,8emit(3),8emit(2),1)#1 3 2
 8unless(8true,8emit(3),8emit(2),1)#
 8when(8false,8emit(5))#
-8when(8true,8emit(1),8emit(2),3)#3 2 1
+8when(8true,8emit(1),8emit(2),3)#3 1 2
 8with_assert(8and(8true,8false),8add(5,6))#8Assert_Failed(8with_assert(8and(8true,8false),8add(5,6)))
