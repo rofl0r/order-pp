@@ -15,17 +15,19 @@
 #define ORDER_PP_CM_B_2(x) ORDER_PP_CM_ERROR_2(,x)
 #define ORDER_PP_CM_B_3(x) ORDER_PP_CM_ERROR_3(,x)
 
-#define ORDER_PP_CM_ERROR_0(P,_,...) ORDER_PP_CM_SCAN_0(P##__VA_ARGS__
-#define ORDER_PP_CM_ERROR_1(P,_,...) ORDER_PP_CM_SCAN_1(P##__VA_ARGS__
-#define ORDER_PP_CM_ERROR_2(P,_,...) ORDER_PP_CM_SCAN_2(P##__VA_ARGS__
-#define ORDER_PP_CM_ERROR_3(P,_,...) ORDER_PP_CM_SCAN_3(P##__VA_ARGS__
+#define ORDER_PP_CM_ERROR_0(P,_,...) ORDER_PP_CM_SCAN_0(,P##__VA_ARGS__
+#define ORDER_PP_CM_ERROR_1(P,_,...) ORDER_PP_CM_SCAN_1(,P##__VA_ARGS__
+#define ORDER_PP_CM_ERROR_2(P,_,...) ORDER_PP_CM_SCAN_2(,P##__VA_ARGS__
+#define ORDER_PP_CM_ERROR_3(P,_,...) ORDER_PP_CM_SCAN_3(,P##__VA_ARGS__
 
-#define ORDER_PP_CM_SCAN_0(...) __VA_ARGS__
-#define ORDER_PP_CM_SCAN_1(...) __VA_ARGS__
-#define ORDER_PP_CM_SCAN_2(...) __VA_ARGS__
-#define ORDER_PP_CM_SCAN_3(...) __VA_ARGS__
+#define ORDER_PP_CM_SCAN_0(P,...) __VA_ARGS__##P
+#define ORDER_PP_CM_SCAN_1(P,...) __VA_ARGS__##P
+#define ORDER_PP_CM_SCAN_2(P,...) __VA_ARGS__##P
+#define ORDER_PP_CM_SCAN_3(P,...) __VA_ARGS__##P
 
-#define ORDER_PP_CM_8STOP(P,x,...) ,x##P)
+#define ORDER_PP_CM_IS_SCAN_ACTIVE(i) ORDER_PP_TEST(,ORDER_PP_CM_SCAN_##i(,,,),ORDER_PP_IF_8true,ORDER_PP_IF_8false)
+
+#define ORDER_PP_CM_8EXIT(P,x,...) ,x##P)
 
 #define ORDER_PP_CM_D_0(...) ORDER_PP_CM_DN_0 __VA_ARGS__
 #define ORDER_PP_CM_U_0(...) ORDER_PP_CM_UP_1 __VA_ARGS__

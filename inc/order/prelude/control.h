@@ -8,7 +8,7 @@
 #define ORDER_PP_DEF_8when(cond,...) 8EVAL_IF,cond,8do(__VA_ARGS__),8nil
 #define ORDER_PP_DEF_8unless(cond,...) 8EVAL_IF,cond,8nil,8do(__VA_ARGS__)
 
-#define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8STOP)
+#define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
 
 #ifndef ORDER_PP_NDEBUG
 #define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(8if(cond,body,8exit(8quote(8Assert_Failed(8with_assert(cond,body))))))

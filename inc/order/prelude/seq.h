@@ -20,7 +20,7 @@
 #define ORDER_PP_DEF_8seq_is_nil ORDER_PP_FN_CM(1,8IS_NIL)
 
 #define ORDER_PP_DEF_8seq_isnt_nil ORDER_PP_FN_CM(1,8SEQ_ISNT_NIL)
-#define ORDER_PP_CM_8SEQ_ISNT_NIL(P,s,...) (,ORDER_PP_TEST(ORDER_PP_IS_EDIBLE_TEST s##P,8true,,8false,),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_ISNT_NIL(P,s,...) (,ORDER_PP_TEST(,ORDER_PP_IS_EDIBLE_TEST s##P,8true,8false),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_first ORDER_PP_FN_CM(1,8SEQ_FIRST)
 #define ORDER_PP_CM_8SEQ_FIRST(P,s,...) (,ORDER_PP_SEQ_FIRST(,P##s),P##__VA_ARGS__)
