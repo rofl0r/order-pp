@@ -108,7 +108,7 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // arbitrary precision natural numbers, whose representation is an
 // implementation detail of the Order prelude. The result of an
 // arithmetic operation may be a small literal or a natural number.
-// The function `to_lit' converts a number, whether a small
+// The function `8to_lit' converts a number, whether a small
 // literal or a natural number, to an integer literal. The
 // conversion is needed, because the C language doesn't understand
 // the representation of natural numbers used by Order.

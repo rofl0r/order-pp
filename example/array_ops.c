@@ -32,7 +32,7 @@
 #endif//0
 // takes an array of signed integers, negates each element and
 // writes the result to another array. The general form of an unary
-// array manipulation operator is captured by the `GEN_array_uop'
+// array manipulation procedure is captured by the `GEN_array_uop'
 // macro:
 //<
 #define GEN_array_uop(mnemo, op, in_a, in_t, out_t)     \
