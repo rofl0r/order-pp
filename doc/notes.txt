@@ -1,0 +1,231 @@
+==========================================================================
+
+(C) Copyright Vesa Karvonen 2004.
+ 
+     Distributed under the Boost Software License, Version 1.0.
+
+==========================================================================
+
+                                  NOTE
+                                  ====
+
+     These DESIGN NOTES are not intended to serve as documentation.
+
+==========================================================================
+
+DEFINITIONS
+-----------
+
+Order should support various kinds of definitions for ease-of-use.
+
+  #define ORDER_PP_DEF_<name> ORDER_PP_CONST(<pp-param>)
+
+Defines a named constant. The expression ''<name>'' then evaluates to
+''<pp-param>''. Constant definitions can also be function-like macros, but
+except for the highly useful ''const(<pp-param>)'' there probably aren't
+many uses for such definitions.
+
+It should also be possible to get the value of a constant so that it can
+be embedded into another constant. This is necessary to avoid having to
+manually duplicate information accross constants. For this purpose, a
+macro ''ORDER_PP_GET_CONST(<name>)'' should be defined.
+
+  #define ORDER_PP_DEF_<name>(<pp-args>) ORDER_PP_MACRO(<expr>)
+
+Defines a "macro". The effect is that an expression of the form
+''<name>(<params>)'' is macro replaced to ''<expr>''. The interpreter then
+evaluates the ''<expr>''. Macros are efficient, because the macro
+replacement doesn't take an additional continuation machine step. Macros
+are not versatile; Macros can not be partially applied and may cause
+surprises.
+
+  #define ORDER_PP_DEF_<name> ORDER_PP_FN(<exp_{fn}>)
+  #define ORDER_PP_DEF_<name> ORDER_PP_FN_CM(<arity>, <instr>, (,<cont>))
+  #define ORDER_PP_DEF_<name> ORDER_PP_FN_MACRO(<arity>, <macro>)
+  #define ORDER_PP_DEF_<name> ORDER_PP_FN_MACRO_P(<arity>, <macro>)
+
+  #define ORDER_PP_DEF_<name> ORDER_PP_OP(<assoc>,<pp-param>,<exp_{fn}>)
+  #define ORDER_PP_DEF_<name> ORDER_PP_OP_CM(<assoc>,<pp-param>,<instr>,(,<cont>))
+  #define ORDER_PP_DEF_<name> ORDER_PP_OP_MACRO(<assoc>,<pp-param>,<macro>)
+  #define ORDER_PP_DEF_<name> ORDER_PP_OP_MACRO_P(<assoc>,<pp-param>,<macro>)
+
+Associativity is one of:
+
+  left      | left-associative            | op(... op(x1,x2) ..., xn)
+  left_w_1  | left-associative with unit  | op(... op( 1,x1) ..., xn)
+  right     | right-associative           | op(xn, ... op(x2,x1) ...)
+  right_w_1 | right-associative with unit | op(xn, ... op(x1, 1) ...)
+
+
+--------------------------------------------------------------------------
+
+DATA TYPES
+==========
+
+Basic containers
+----------------
+
+Order should support at least tuples and sequences. Tuples are required
+for passing parameters to macros and are generally useful as input syntax.
+Sequences are more efficient than lists and are also syntactically
+simpler.
+
+Tuples should only require a number of first-order functions.
+
+    tuple(X0,...,Xn)
+    tuple_at(T,I)
+    tuple_size(T)
+    tuple_to_seq(T)
+
+Sequences should come with a fairly comprehensive set of optimized
+functions, in order to enable decent performance. The first-order
+functions could be borrowed from Chaos.
+
+  first-order:
+
+    seq(X0,...,Xn)
+    seq_append(Ls,Rs)
+    seq_at(S,I)
+    seq_first(S)
+    seq_first_n(S)
+    seq_insert(S,I,X)
+    seq_insert_subseq(S,I,Ss)
+    seq_pop_back(S,X)
+    seq_pop_front(S,X)
+    seq_push_back(S,X)
+    seq_push_front(S,X)
+    seq_remove(S,I)
+    seq_remove_subseq(S,I0,I1)
+    seq_rest(S)
+    seq_rest_n(S)
+    seq_reverse(S)
+    seq_set(S,I,X)
+    seq_size(S)
+    seq_split(S,I)
+    seq_subseq(S,I0,I1)
+    seq_to_tuple(S)
+
+  higher-order:
+
+    seq_filter(Pr,S)
+    seq_fold(Fn,X,S)
+    seq_for_each(Op,S)
+    seq_for_each_in_product(Op,Ss)
+    seq_for_each_with_idx(Op,S)
+    seq_map(Fn,S)
+    seq_parallel_fold(Fn,S,Ss)
+    seq_parallel_for_each(Op,Ss)
+    seq_parallel_for_each_with_idx(Op,Ss)
+    seq_parallel_map(Fn,Ss)
+
+Strings
+-------
+
+TBD!
+
+Set, Mat and Priority Queue
+---------------------------
+
+More advanced program generators are going to need sets, maps and priority
+queues. (For string processing, a trie might also be useful.)
+
+TBD!
+
+--------------------------------------------------------------------------
+
+SYNTAX
+======
+
+  <exp> ::= fn(<var>+, <exp>)
+          | ap(<exp>+)
+          | <var>
+          | <def>
+          | if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>)
+          | and(<exp>+)
+          | or(<exp>+)
+          | do(<exp>+)
+          | let({<var>, <exp_{init}>}+, <exp_{body}>)
+          | for(<var>, <exp_{init}>, <exp_{cond}>, <exp_{step}>, <exp>+)
+          | match(<exp_{val}>, {<pat>,<exp>}+)
+
+  <var> ::= [A-Z][a-z0-9]?
+
+  <pat> ::= tuple(<pat>+)
+          | seq(<pat>+)
+          | <ctor>(<pat>+)
+          | nil
+          | <var>
+          | _
+
+--------------------------------------------------------------------------
+
+STANDARD PRELUDE
+================
+
+Operators
+---------
+
+  chain(F1,...,Fn)
+
+  add(N1,...,Nn)
+  sub(N1,...,Nn)
+  mul(N1,...,Nn)
+  div(N1,...,Nn)
+
+  expand(X1,...,Xn)
+  cat(X1,...,Xn)
+  stringize(X)
+
+  emit_expand(X1,...,Xn)
+  emit_cat(X1,...,Xn)
+
+First order functions
+---------------------
+
+  inc(N)
+  dec(N)
+
+  not(X)
+
+  is_0(N)
+  is_not_0(N)
+
+  equal(S0,S1)
+  not_eq(S0,S1)
+
+  less(Ln,Rn)
+  less_eq(Ln,Rn)
+  greater(Ln,Rn)
+  greater_eq(Ln,Rn)
+
+Higher-order functions
+----------------------
+
+  for_each(Cn,St,Op,X)
+
+  for_each_in_range(Op,Fr,To)
+
+Type predicates
+---------------
+
+  is_edible(X)
+  is_sym(X)
+  is_tuple(X)
+  is_nil(X)
+
+Macros / Syntax extensions
+--------------------------
+
+  when(<exp_{cond}>, <exp_{body}>+)
+  unless(<exp_{cond}>, <exp_{body}>+)
+
+--------------------------------------------------------------------------
+
+LIBRARIES
+=========
+
+  "hp_arithm.h":
+
+  "enum.h":
+
+  "string.h":
