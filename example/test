@@ -34,7 +34,7 @@ if test -f ".$f.out" ; then
                 exit ;;
             ("q"|"Q")
                 echo "Quitting and removing '.$f.new'..."
-                rm ".$f.new" 
+                rm ".$f.new"
                 exit ;;
             (*)
                 echo "Skipping and removing '.$f.new'..."
@@ -51,7 +51,7 @@ else
             exit ;;
         ("q"|"Q")
             echo "Quitting and removing '.$f.new'..."
-            rm ".$f.new" 
+            rm ".$f.new"
             exit ;;
         (*)
             echo "Using result..."
