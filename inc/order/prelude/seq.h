@@ -203,7 +203,7 @@
 #define ORDER_PP_8SEQ_BUILD_3(P,y,f,xs,...) (,ORDER_PP_SEQ_IS_NIL(,P##xs)(,P##y,ORDER_PP_SEQ_AT(,0,P##xs),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,1,P##xs(P##y)),8SEQ_BUILD_3,P##f,ORDER_PP_EAT_2 xs##P(P##y)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_count ORDER_PP_FN_CM(2,8SEQ_COUNT)
-#define ORDER_PP_8SEQ_COUNT(P,f,...) ORDER_PP_8SEQ_FOLD_3(,0,(,8SEQ_COUNT_F,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_COUNT(P,f,...) (,(,8SEQ_COUNT_F,P##f),8SEQ_FOLD,0,P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_COUNT_F(P,n,f,...) (,(,ORDER_PP_OPEN f##P,8SEQ_COUNT_G,P##n),P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_COUNT_G(P,b,n,...) (,ORDER_PP_IF_##b(ORDER_PP_,NUM_UOP,TUPLE_REST)(,INC,P##n),P##__VA_ARGS__)
 
