@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# (C) Copyright Vesa Karvonen 2004.
+#
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE.)
+
+doc=tom
+user=vesa_karvonen
+
+if test "$#" == 1 ; then
+    user="$1"
+fi
+
+scp "$doc.ps" "$user@shell.sourceforge.net:/home/groups/c/ch/chaos-pp/htdocs/order-pp/"
