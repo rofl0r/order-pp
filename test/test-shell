@@ -233,7 +233,7 @@ function interactive-eval {
 
     time do-eval
 
-    if test -n "$errors" ; then
+    if test -n "$messages" ; then
         echo "Errors: $errors"
         echo
         echo "$messages"

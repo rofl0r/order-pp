@@ -14,13 +14,14 @@ else
     gc_option='-DCHECKED_MALLOC_NO_GC=1'
 fi
 
-gcc -std=c99 \
-    -Wall -Werror \
-    -pedantic-errors \
-    -Os \
-    -I ../../inc/ \
+gcc -std=c99              \
+    -Wall -Werror         \
+    -pedantic-errors      \
+    -Os                   \
+    -D ORDER_PP_DEBUG     \
+    -I ../../inc/         \
     -I ../../../chaos-pp/ \
-    $gc_option \
-    -o lambda \
-    *.c && \
+    $gc_option            \
+    -o lambda             \
+    *.c &&                \
 strip lambda
