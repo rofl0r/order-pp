@@ -190,7 +190,7 @@ ORDER_PP_FN(fn(Ty,                              \
  * The '<fn-expression>' of a function definition must define an anonymous
  * function. Anonymous function definitions have the general form:
  *
- *      fn(<var-1>, ..., <var-n>, <expression>)
+ *   fn(<var-1>, ..., <var-n>, <expression>)
  *
  * A function must have at least one argument and exactly one expression,
  * the body of the function, must follow the arguments.
@@ -450,11 +450,11 @@ ORDER_PP_FN(fn(Op,Ty,                                           \
  * separated only by whitespace, to the left of what has been emitted so
  * far. For example,
  *
- *    emit(1,2)
+ *   emit(1,2)
  *
  * would produce the output
  *
- *    1 2
+ *   1 2
  *
  * In the 'gen_array_uop' metafunction, the first parameter to 'emit' is
  * the name of a macro, 'GEN_array_uop', and the second parameter is a
