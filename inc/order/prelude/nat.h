@@ -2,9 +2,9 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_NAT(...) ORDER_PP_PM((,0##__VA_ARGS__),8NAT)
+#define ORDER_PP_NAT(...) ORDER_PP_PM(,(,0##__VA_ARGS__),8NAT,)
 
-#define ORDER_PP_DEF_8nat(...) 8DEF_CONST,ORDER_PP_PM((,0##__VA_ARGS__),8NAT),
+#define ORDER_PP_DEF_8nat(...) 8DEF_CONST,ORDER_PP_PM(,(,0##__VA_ARGS__),8NAT,),
 #define ORDER_PP_8NAT(P,t,...) ORDER_PP_OVERLOAD(8NAT,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE t##P)t##P
 #define ORDER_PP_8NAT_1(P,_0) ,)(P##_0)
 #define ORDER_PP_8NAT_2(P,_0,_1) ,)(P##_1)(P##_0)
