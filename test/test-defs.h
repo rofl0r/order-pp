@@ -53,11 +53,11 @@ ORDER_PP_FN(8fn(8N,                             \
                 8linear_fib_iter(8N, 0, 1)))
 
 #define ORDER_PP_DEF_8linear_fib_iter                   \
-ORDER_PP_FN(8fn(8N, 8F0, 8F1,                           \
+ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
                 8if(8is_0(8N),                          \
-                    8F0,                                \
+                    8I,                                 \
                     8linear_fib_iter(8dec(8N),          \
-                                     8F1,               \
-                                     8add(8F0, 8F1)))))
+                                     8J,                \
+                                     8plus(8I, 8J)))))
 
 #endif
