@@ -13,19 +13,17 @@
  * generation. We use metadata to direct the generation of procedures for
  * 1-dimensional array manipulation in C.
  *
+ * Introduction
+ * ------------
+ *
  * What we mean by an array manipulation procedure is simply a procedure
  * that takes an array (or two), applies an operation to each element (or
  * pairs of elements) and writes the result to another array.
- */
-
-/*
- * Unary array manipulation procedures
- * -----------------------------------
  *
  * An unary array manipulation procedure takes a single array as input,
  * applies an unary operator to the elements of the array and writes the
  * results to another array. For example, the unary array manipulation
- * procedure array_neg_si(...)
+ * procedure 'array_neg_si(...)'
  */
 
 #if 0
@@ -43,7 +41,7 @@ void array_neg_si(const signed int* in,
  * result to another array.
  *
  * The general form of an unary array manipulation operator is captured by
- * the GEN_array_uop(...) macro:
+ * the 'GEN_array_uop(...)' macro:
  */
 
 #define GEN_array_uop(mnemo, op, in_a, in_t, out_t)     \
@@ -58,22 +56,17 @@ void array_##mnemo##_##in_a(const in_t* in,             \
 /*
  * Given an
  * - operation mnemonic,
- * - an operator symbol (e.g. -),
+ * - an operator symbol (e.g. '-'),
  * - an abbreviation of the input array element type,
  * - the input array element type, and
  * - the output array element type,
- * the GEN_array_uop(...) macro expands to an unary array manipulation
+ * the 'GEN_array_uop(...)' macro expands to an unary array manipulation
  * procedure.
- */
-
-/*
- * Binary array manipulation procedures
- * ------------------------------------
  *
  * A binary array manipulation procedure takes two arrays as input,
  * applies a binary operator to the corresponding elements of the arrays
  * and then writes result to a third array. For example, the binary array
- * manipulation procedure array_add_ss_ss(...)
+ * manipulation procedure 'array_add_ss_ss(...)'
  */
 
 #if 0
@@ -93,8 +86,8 @@ void array_add_ss_ss(const signed short* lhs_in,
  * takes two arrays of signed short integers, adds each pair of elements,
  * and writes the result to an array of signed integers.
  *
- * In general, the form of a binary array manipulation procedure is
- * captured by the GEN_array_bop(...) macro:
+ * The general form of a binary array manipulation procedure is captured
+ * by the 'GEN_array_bop(...)' macro:
  */
 
 #define GEN_array_bop(mnemo, op, lhs_a, lhs_t, rhs_a, rhs_t, out_t)     \
@@ -119,7 +112,7 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
  * - an abbreviation of the right hand side input array element type and
  * - array element type, and
  * - the output array element type,
- * the GEN_array_bop(...) macro expands to a binary array manipulation
+ * the 'GEN_array_bop(...)' macro expands to a binary array manipulation
  * procedure.
  */
 
@@ -133,13 +126,14 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
  * result of the operation. For example, the type of the result of adding
  * a signed short and a float should be a float.
  * 
- * Even with the aid of the GEN_array_uop(...) and GEN_array_bop(...)
+ * Even with the aid of the 'GEN_array_uop(...)' and 'GEN_array_bop(...)'
  * macros there would still be a lot of repetitive manual work, because
- * the number of sensible combinations is too great (the generator in this
- * example generates 33 unary procedures and 2214 binary procedures).
- * Instead of manually invoking the code generation macros for each
- * combination, we'd like to have a metaprogram that invokes the code
- * generation macros for all sensible combinations of operators and types.
+ * the number of sensible combinations is too great. In fact, the
+ * generator that we develop in this example generates a total of 33 unary
+ * procedures and a whopping 2214 binary procedures. So, instead of
+ * manually invoking the code generation macros for each combination, we'd
+ * like to have a metaprogram that invokes the code generation macros for
+ * all sensible combinations of operators and types.
  */
 
 /*
@@ -156,11 +150,11 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
  * arises and specify the representation of types after we know what kind
  * of metadata we need.
  *
- * Firsts we'd like to encode the rules for integer promotion on an unary
+ * First we'd like to encode the rules for integer promotion on an unary
  * operation. Rephrasing the C standard, if the rank of the operand type
  * is lower than the rank of int then the result of integer promotion is
  * int, otherwise the type of integer promotion is the type of the
- * operand. The type_of_promotion(T) metafunction
+ * operand. The 'type_of_promotion(T)' metafunction
  */
 
 #define ORDER_PP_DEF_type_of_promotion          \
@@ -171,14 +165,65 @@ ORDER_PP_FN(fn(T,                               \
                   T)))
 
 /*
- * encodes the rule precisely. As you can see, we invented the function
- * type_rank(T), which just returns the rank of the specified type as an
- * integer.
+ * encodes the rule precisely.
  *
- * The rule for usual arithmetic conversion on a binary operation is that
- * the type of the result is the type of the higher ranking type after
- * integer promotion. The rule translates to the type_of_conversion(L,R)
- * metafunction below:
+ * Let's examine the 'type_of_promotion(T)' function definition. The first
+ * thing you should notice is that we essentially defined an object-like
+ * macro of the form
+ */
+#if 0
+#define ORDER_PP_DEF_<name> ORDER_PP_FN(<fn-expression>)
+#endif
+/*
+ * The above is the general form of top-level Order function definitions.
+ * We will not discuss the implementation details of the Order interpreter
+ * in this example, but a short explanation might be in order. The prefix
+ * 'ORDER_PP_DEF_' is used for all Order expression definitions. The
+ * purpose of the prefix is to allow an interpreter to deconstruct
+ * expressions in order to evaluate them. The prefix also prevents
+ * accidental macro replacement. The 'ORDER_PP_FN' is used to denote that
+ * the definition is specifically a function definition. We will later see
+ * constant definitions, which use 'ORDER_PP_CONST', and so called macro
+ * definitions, which use 'ORDER_PP_MACRO'.
+ *
+ * The <fn-expression> of a function definition must define an anonymous
+ * function. Anonymous function definitions have the general form:
+ *
+ *      fn(<var-1>, ..., <var-n>, <expression>)
+ *
+ * A function must have at least one argument and exactly one expression,
+ * the body of the function, must follow the arguments.
+ *
+ * By default, only the tokens '[A-Z]', or an uppercase letter, may be
+ * used as variable symbols. By including an extension header, the set of
+ * supported variable symbols can be extended to '[A-Z][a-z0-9]?', which
+ * means an uppercase letter followed by a lowercase letter or a digit.
+ * Other tokens can also be used given appropriate macro definitions.
+ *
+ * A conditional if-expression in Order has the form:
+ *
+ *   if(<cond-exp>, <cons-exp>, <alt-exp>)
+ *
+ * If-expressions in Order behave just like in other strict programming
+ * languages. The <cond-exp> subexpression is evaluated first and if it
+ * evaluates to true, then <cons-exp> is evaluated, otherwise <alt-exp> is
+ * evaluated.
+ *
+ * The body of the 'type_of_promotion(T)' function also contains calls to
+ * other functions. The binary function 'less' compares numbers. The unary
+ * function 'type_rank', which we just invented, is supposed to return the
+ * rank of the specified type as an integer.
+ *
+ * As you have figured out by now, the syntax of the Order language is
+ * very much like the syntax of any ordinary programming language, except
+ * that top-level definitions are embedded in C preprocessor macro
+ * definitions of a particular form.
+ *
+ * We'll now continue encoding the typing rules of C. The rule for usual
+ * arithmetic conversion on a binary operation is that the type of the
+ * result is the type of the higher ranking type after integer promotion.
+ * The rule translates to the 'type_of_conversion(L,R)' metafunction
+ * below:
  */
 
 #define ORDER_PP_DEF_type_of_conversion                 \
@@ -196,7 +241,7 @@ ORDER_PP_FN(fn(L,R,                                     \
  * In C [C89], logical operators produce integer results. The type of an
  * unary operation is thus integer if the operator is logical. Otherwise
  * the type of an unary operation follows the promotion rules. The
- * type_of_uop(O,T) metafunction captures this special case:
+ * 'type_of_uop(O,T)' metafunction captures this special case:
  */
 
 #define ORDER_PP_DEF_type_of_uop                \
@@ -210,7 +255,7 @@ ORDER_PP_FN(fn(O,T,                             \
  * results. Also, if the operator is a shift, then the type of the result
  * is the type of the left hand side operand after promotion. Otherwise
  * the arithmetic conversion rules apply. The rules translate to the
- * type_of_bop(O,L,R) metafunction:
+ * 'type_of_bop(O,L,R)' metafunction:
  */
 
 #define ORDER_PP_DEF_type_of_bop                        \
@@ -232,16 +277,21 @@ ORDER_PP_FN(fn(O,L,R,                                   \
  *
  * In the previous section we simply invented primitive operations on
  * types and operators as we went along. We also know from the arguments
- * of the code generation macros GEN_array_uop(...) and GEN_array_bop(...)
- * that we need certain metadata on types and operators.
+ * of the code generation macros 'GEN_array_uop(...)' and
+ * 'GEN_array_bop(...)' that we need certain metadata on types and
+ * operators.
  *
- * Considering the requirements, we will present an operator by a 6-tuple
- * of the form
+ * Considering the requirements, we will represent an operator by a
+ * 6-tuple of the form
  *
  *   (symbol, mnemonic, arity, does_floating, is_logical, is_shift).
  *
+ * A tuple, in general, is represented simply by a parenthesized list of
+ * comma separated elements. A 6-tuple simply has 6 elements.
+ *
  * We can now implement the primitive metafunctions, some of which we
- * already used earlier, on operators.
+ * already used earlier, on operators. They are just simple projection
+ * operators on tuples.
  */
 
 #define ORDER_PP_DEF_op_symbol(o)        ORDER_PP_MACRO(tuple_at(o,0))
@@ -252,8 +302,20 @@ ORDER_PP_FN(fn(O,L,R,                                   \
 #define ORDER_PP_DEF_op_is_shift(o)      ORDER_PP_MACRO(tuple_at(o,5))
 
 /*
+ * As you should have noticed, the above definitions aren't function
+ * definitions, they are so called Order macro definitions. You might have
+ * also noticed that the above definitions are function-like macros. This
+ * is typical of Order macro definitions. Order macro definitions are
+ * essentially simple rewrite rules like ordinary C preprocessor macros.
+ * Macro definitions are evaluated as if the right hand side immediately
+ * appeared in place of the left hand side--there is no function call
+ * overhead. However, macros are otherwise more limited than functions. In
+ * particular, Order macros can not, in general, be partially applied,
+ * which should be intuitive, because the interpreter really doesn't see
+ * them at all.
+ *
  * We will also encode the metadata on all the applicative operators we
- * will consider in the applicative_ops sequence.
+ * will consider into the 'applicative_ops' constant as a sequence.
  */
 
 #define ORDER_PP_DEF_applicative_ops                            \
@@ -280,6 +342,24 @@ ORDER_PP_CONST((( ~  , compl , 1, false, false, false ))        \
                (( || , or    , 2,  true,  true, false )))
 
 /*
+ * The above is a constant definition, as denoted by the use of
+ * 'ORDER_PP_CONST'. A constant can be any sequence of C preprocessor
+ * tokens that is valid as a macro parameter. This basically means that a
+ * constant may not contain unbalanced parentheses or unparenthesized
+ * commas.
+ *
+ * As we said, the 'applicative_ops' constant is a so called sequence.
+ * In general, a sequence is an aggregate data type of the form
+ *
+ *   (<pp-param-1>) (<pp-param-2>) ... (<pp-param-n>)
+ *
+ * So, the 'applicative_ops' constant is just an aggregate, represented by
+ * a sequence, of 21 elements, each of which is 6-tuple representing an
+ * operator.
+ *
+ * You should also note that boolean values are denoted by 'true' and
+ * 'false'.
+ *
  * The requirements for types are somewhat less demanding and we'll do
  * with 4-tuple of the form
  *
@@ -294,9 +374,8 @@ ORDER_PP_CONST((( ~  , compl , 1, false, false, false ))        \
 #define ORDER_PP_DEF_type_rank(t)        ORDER_PP_MACRO(tuple_at(t,3))
 
 /*
- * While encoding the metadata for types, we must specify the type_int
- * separately. We'll make a point of encoding the signed int type only
- * once.
+ * While encoding the metadata for types, we must specify the 'type_int'
+ * separately. We'll make a point of encoding the data only once.
  */
 
 #define ORDER_PP_DEF_type_int                           \
@@ -317,6 +396,10 @@ ORDER_PP_CONST(((           char, ch, false, 1 ))       \
                ((    long double, ld,  true, 9 )))
 
 /*
+ * Above, 'ORDER_PP_GET_CONST' is C preprocessor macro that extracts the
+ * value of an Order constant definition. It is useful in situations like
+ * this, where we would otherwise need to introduce duplication.
+ *
  * Generating code
  * ---------------
  *
@@ -329,7 +412,7 @@ ORDER_PP_CONST(((           char, ch, false, 1 ))       \
  * types. So, we'll break the generation into a few cases.
  *
  * Let's first define a helper metafunction for emitting the code for an
- * unary operator. The gen_array_uop(O,T) metafunction
+ * unary operator. The 'gen_array_uop(O,T)' metafunction
  */
 
 #define ORDER_PP_DEF_gen_array_uop                              \
@@ -342,11 +425,45 @@ ORDER_PP_FN(fn(O,T,                                             \
                           type_name(type_of_uop(O,T))))))
 
 /*
- * computes the parameter tuple for the GEN_array_uop(...) code generation
- * macro and then emits the expansion.
+ * computes the parameter tuple for the 'GEN_array_uop(...)' code
+ * generation macro and then emits the expansion.
+ *
+ * There are two rather significant new things in the above function. First
+ * of all, 'quote' is a special form, which allows you to define constants
+ * inline. The parameter to 'quote' can be any preprocessor parameter,
+ * like in ordinary top-level constant definitions. 'quote' then simply
+ * evaluates to that preprocessor parameter. You might wonder why we need
+ * to use 'quote' here. The reason is simple. There is no Order definition
+ * for 'GEN_array_uop', hence the interpreter knows nothing about
+ * 'GEN_array_uop', and can not interpret it. Therefore we must quote it
+ * so that the interpreter will not try to interpret it. Of course, we
+ * could have alternatively introduced a constant definition for
+ * 'GEN_array_uop', but since we are not going to refer to it many times,
+ * it is more convenient to just use 'quote'.
+ *
+ * The side-effecting 'emit' operator is different from the functions we
+ * have used so far. It is used to produce output as a side-effect. The
+ * 'emit' operator essentially places all of the given parameters,
+ * separated only by whitespace, to the left of what has been emitted so
+ * far. For example,
+ *
+ *    emit(1,2)
+ *
+ * would produce the output
+ *
+ *    1 2
+ *
+ * In the 'gen_array_uop' metafunction, the first parameter to 'emit' is
+ * the name of a macro, 'GEN_array_uop', and the second parameter is a
+ * tuple that matches the arguments of 'GEN_array_uop'. As you might
+ * guess, this results in expanding the macro 'GEN_array_uop'. This is how
+ * the Order interpreter can be used for generating complex output. You
+ * first design a set of ad hoc code generation macros that capture the
+ * general form of the desired output. Then you design an Order program
+ * that emits expansions of the ad hoc code generation macros.
  *
  * We now generate code for all unary array procedures by invoking the
- * gen_array_uop(O,T) metafunction in two batches. First for the
+ * 'gen_array_uop(O,T)' metafunction in two batches. First for the
  * non-floating point operators and non-floating point types.
  */
 
@@ -361,7 +478,26 @@ ORDER_PP(seq_for_each_in_product
                          builtin_types))))
 
 /*
- * Then for the floating point operators and all types.
+ * The Order interpreter is invoked using the 'ORDER_PP' macro. It takes
+ * as an argument an Order expression and evaluates it. The above
+ * expression uses the higher-order sequence manipulation functions
+ * 'seq_for_each_in_product(Op,Ss)' and 'seq_filter(Pr,S)'.
+ *
+ * The 'seq_filter(Pr,S)' function takes an unary predicate function and a
+ * sequence and produces a new sequence which contains only the elements
+ * of the given sequence that satisfy the given predicate.
+ *
+ * The 'seq_for_each_in_product(Op,Ss)' function computes the cartesian
+ * product of the sequence of sequences given as parameter and invokes the
+ * given function with each element of the cartesian product.
+ *
+ * If you looked carefully, you noticed that we passed 'gen_array_uop',
+ * without any parameters, as the first parameter to
+ * 'seq_for_each_in_product'. This is possible, because functions are
+ * first class values in Order.
+ *
+ * Let's move on and generate code for the floating point operators and
+ * all types.
  */
 
 ORDER_PP(seq_for_each_in_product
@@ -374,7 +510,7 @@ ORDER_PP(seq_for_each_in_product
 
 /*
  * We'll then handle binary operations similarly. First we define the
- * metafunction gen_array_bop(O,L,R):
+ * metafunction 'gen_array_bop(O,L,R)':
  */
 
 #define ORDER_PP_DEF_gen_array_bop                              \
@@ -427,18 +563,18 @@ ORDER_PP(seq_for_each_in_product
  * ---------
  *
  * 1. It turns out that the new C standard [C99] defines several new types
- *    including long long and _Bool. Update the generator to generate code
- *    for these new types. Reconsider the type promotion and conversion
- *    rules as well as operator validity carefully.
+ *    including 'long long' and '_Bool'. Update the generator to generate
+ *    code for these new types. Reconsider the type promotion and
+ *    conversion rules as well as operator validity carefully.
  *
- * 2. Commutative operators, like + and |, produce the same result
+ * 2. Commutative operators, like '+' and '|', produce the same result
  *    regardless of the order of the two parameters while the result of
- *    non-commutative operators, like / and <<, depends on the order of
- *    parameters. The generator we built in this example generates code
+ *    non-commutative operators, like '/' and '<<', depends on the order
+ *    of parameters. The generator we built in this example generates code
  *    for all ordered pairs of types. This means that we generate nearly
  *    twice as many procedures as needed for commutative operators. For
- *    example, we generate the procedures array_add_si_fl(...) and
- *    array_add_fl_si(...) of which only one is necessary. Modify the
+ *    example, we generate the procedures 'array_add_si_fl(...)' and
+ *    'array_add_fl_si(...)' of which only one is necessary. Modify the
  *    generator so that it doesn't generate unnecessary procedures. (Hint:
  *    Specify an ordering relation on types and generate code for an
  *    operator only when the left hand side type precedes the right hand
