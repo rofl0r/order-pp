@@ -237,8 +237,8 @@
 #define ORDER_PP_8SEQ_FOR_EACH_WITH_IDX_NAT(P,_,i,f,s,...) (,ORDER_PP_SEQ_IS_NIL(,P##s)(,,P##i,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##s),8SEQ_FOR_EACH_WITH_IDX_NAT,ORDER_PP_NAT_SUCC P##i,P##f,ORDER_PP_EAT s##P),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_map ORDER_PP_FN_CM(2,8SEQ_MAP)
-#define ORDER_PP_8SEQ_MAP(P,f,in,...) (,ORDER_PP_SEQ_IS_NIL(,P##in)(,,ORDER_PP_SEQ_AT(,0,P##in),ORDER_PP_OPEN f##P,8SEQ_MAP_3,P##f,ORDER_PP_EAT in##P,),P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_MAP_3(P,x,f,in,out,...) (,ORDER_PP_SEQ_IS_NIL(,P##in)(,,ORDER_PP_SEQ_AT(,0,P##in),ORDER_PP_OPEN f##P,8SEQ_MAP_3,P##f,ORDER_PP_EAT in##P,)P##out(P##x),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_MAP(P,f,in,...) (,ORDER_PP_SEQ_IS_NIL(,P##in)(,,ORDER_PP_SEQ_AT(,0,P##in),ORDER_PP_OPEN f##P,8SEQ_MAP_O,P##f,,ORDER_PP_FX(SEQ_OPEN,(,ORDER_PP_EAT in##P))),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_MAP_O(P,y,f,out,b,x,...) (,ORDER_PP_WHEN_##b(,P##x,ORDER_PP_OPEN f##P,8SEQ_MAP_O,P##f,)P##out(P##y),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_merge ORDER_PP_FN_CM(3,8SEQ_MERGE)
 #define ORDER_PP_8SEQ_MERGE(P,f,ls,rs,...) ORDER_PP_8SEQ_MERGE_4(,P##f,P##ls,P##rs,,P##__VA_ARGS__)
