@@ -16,9 +16,9 @@
 #define ORDER_PP_8EVAL_FN(P,e,fnp,ss,G,K,...) ORDER_PP_##K(,(,P##fnp(,P##e)ss##P),P##__VA_ARGS__)
 
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8BIND_1(P,v0,e,s0,t,...) (,(,P##s0,P##v0)P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,P##__VA_ARGS__)
+# define ORDER_PP_8BIND_1(P,v0,e,s0,t,...) (,(,P##s0,P##v0)P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #else
-#define ORDER_PP_8BIND_1(P,v0,e,s0,t,...) (,(,P##s0,P##v0)P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+# define ORDER_PP_8BIND_1(P,v0,e,s0,t,...) (,(,P##s0,P##v0)P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #endif
 #define ORDER_PP_8BIND_2(P,v0,e,s0,s1,t,K,...) ORDER_PP_##K(,(,8BIND_1,(,P##s0,P##v0)P##e,P##s1,P##t),P##__VA_ARGS__)
 #define ORDER_PP_8BIND_3(P,v0,e,s0,s1,s2,t,K,...) ORDER_PP_##K(,(,8BIND_2,(,P##s0,P##v0)P##e,P##s1,P##s2,P##t),P##__VA_ARGS__)
@@ -27,7 +27,7 @@
 
 #define ORDER_PP_8BIND_N(P,v,e,ss,...) (,ORDER_PP_IS_TUPLE_SIZE_2 ss##P(,ORDER_PP_8BIND_N_LAST,)(,8BIND_N,(,ORDER_PP_TUPLE_AT_0 ss##P,P##v)P##e,(,ORDER_PP_TUPLE_REST ss##P)),P##__VA_ARGS__)
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8BIND_N_LAST(P,bind_n,e,t) P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST t())ORDER_PP_DEF_FIRST t
+# define ORDER_PP_8BIND_N_LAST(P,bind_n,e,t) P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST t())ORDER_PP_DEF_FIRST t
 #else
-#define ORDER_PP_8BIND_N_LAST(P,bind_n,e,t) P##e,ORDER_PP_DEF_FIRST t
+# define ORDER_PP_8BIND_N_LAST(P,bind_n,e,t) P##e,ORDER_PP_DEF_FIRST t
 #endif

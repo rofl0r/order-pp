@@ -5,11 +5,11 @@
 #define ORDER_PP_DEF_8tuple(...) 8EVAL_TUPLE,(,__VA_ARGS__,0tuple),
 
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8EVAL_TUPLE(P,e,ts,G,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST P##ts())ORDER_PP_DEF_FIRST P##ts,8EVAL_TUPLE_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_TUPLE_B(P,v,s,e,t,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,8EVAL_TUPLE_B,P##s(,P##v),P##e,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_TUPLE(P,e,ts,G,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST P##ts())ORDER_PP_DEF_FIRST P##ts,8EVAL_TUPLE_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_TUPLE_B(P,v,s,e,t,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,8EVAL_TUPLE_B,P##s(,P##v),P##e,P##__VA_ARGS__)
 #else
-#define ORDER_PP_8EVAL_TUPLE(P,e,ts,G,...) (,P##e,ORDER_PP_DEF_FIRST P##ts,8EVAL_TUPLE_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_TUPLE_B(P,v,s,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_TUPLE_B,P##s(,P##v),P##e,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_TUPLE(P,e,ts,G,...) (,P##e,ORDER_PP_DEF_FIRST P##ts,8EVAL_TUPLE_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_TUPLE_B(P,v,s,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_TUPLE_B,P##s(,P##v),P##e,P##__VA_ARGS__)
 #endif
 
 #define ORDER_PP_DEF_0tuple 0EVAL_TUPLE,
