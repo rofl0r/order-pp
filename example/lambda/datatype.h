@@ -88,7 +88,8 @@ inline P##type_name                                                             
 variant_name(ORDER_PP(8for_each_in_range                                        \
                       (8nat(0), 8(P##field_cnt),                                \
                        8fn(8I,                                                  \
-                           8print(8unless(8is_zero(8I), 8comma)                 \
+                           8print(8unless(8is_zero(8I),                         \
+                                          8emit_comma(8nil))                    \
                                   8cat(8(DATATYPE_FIELD_),                      \
                                        8nat_to_lit(8I),                         \
                                        8(_TYPE_##variant_name))                 \
