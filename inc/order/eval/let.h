@@ -8,11 +8,11 @@
 #define ORDER_PP_ORDER_PP_DEF_8let(P,e,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):8let:(,P##e,P##__VA_ARGS__))
 
 #ifdef ORDER_PP_DEBUG
-# define ORDER_PP_8EVAL_LET(P,e,s0,i0,bs,t,G,...) (,P##e,ORDER_PP_SYNTAX_CHECK(,P##i0,ORDER_PP_DEF)(P##i0),8EVAL_LET_LOOP,P##s0,ORDER_PP_NIL,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##t,P##__VA_ARGS__)
-# define ORDER_PP_8EVAL_LET_LOOP(P,v0,s0,ext,e,s1,i1,bs,...) (,P##e,ORDER_PP_SYNTAX_CHECK(,P##i1,ORDER_PP_DEF)(P##i1),8EVAL_LET_LOOP,P##s1,(,P##s0,P##v0)P##ext,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_LET(P,e,s0,i0,bs,t,G,...) (,P##e,ORDER_PP_SYNTAX_CHECK(,P##i0,ORDER_PP_DEF)(P##i0),8EVAL_LET_L,P##s0,ORDER_PP_NIL,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##t,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_LET_L(P,v0,s0,ext,e,s1,i1,bs,...) (,P##e,ORDER_PP_SYNTAX_CHECK(,P##i1,ORDER_PP_DEF)(P##i1),8EVAL_LET_L,P##s1,(,P##s0,P##v0)P##ext,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##__VA_ARGS__)
 #else
-# define ORDER_PP_8EVAL_LET(P,e,s0,i0,bs,t,G,...) (,P##e,ORDER_PP_DEF_##i0,8EVAL_LET_LOOP,P##s0,ORDER_PP_NIL,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##t,P##__VA_ARGS__)
-# define ORDER_PP_8EVAL_LET_LOOP(P,v0,s0,ext,e,s1,i1,bs,...) (,P##e,ORDER_PP_DEF_##i1,8EVAL_LET_LOOP,P##s1,(,P##s0,P##v0)P##ext,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_LET(P,e,s0,i0,bs,t,G,...) (,P##e,ORDER_PP_DEF_##i0,8EVAL_LET_L,P##s0,ORDER_PP_NIL,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##t,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_LET_L(P,v0,s0,ext,e,s1,i1,bs,...) (,P##e,ORDER_PP_DEF_##i1,8EVAL_LET_L,P##s1,(,P##s0,P##v0)P##ext,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##__VA_ARGS__)
 #endif
 
 #define ORDER_PP_DEF_0let 0EVAL_LET,
