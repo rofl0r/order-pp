@@ -9,6 +9,10 @@
 
 ////////////////////////////////////////////////////////////////////
 
+#define ORDER_PP_DEF_8macro(x) ORDER_PP_MACRO(x)
+
+////////////////////////////////////////////////////////////////////
+
 #define ORDER_PP_DEF_8macro_2 ORDER_PP_MACRO(8macro_1)
 #define ORDER_PP_DEF_8macro_1 ORDER_PP_MACRO(8macro_0)
 #define ORDER_PP_DEF_8macro_0 ORDER_PP_CONST(0)
