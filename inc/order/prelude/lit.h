@@ -3,7 +3,7 @@
 //    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8is_lit ORDER_PP_FN_CM(1,8IS_LIT)
-#define ORDER_PP_8IS_LIT(P,l,...) (,ORDER_PP_IS_SYM(,P##l)(,ORDER_PP_TEST(,ORDER_PP_FX(IS_EDIBLE_TEST,ORDER_PP_LIT_TO_NAT_##l),8true,8false),8false),P##__VA_ARGS__)
+#define ORDER_PP_8IS_LIT(P,l,...) (,ORDER_PP_IS_SYM(,P##l)(,ORDER_PP_TEST(,ORDER_PP_FX(IS_EDIBLE_TEST,ORDER_PP_PRIMITIVE_CAT(ORDER_PP_LIT_TO_NAT_,P##l)),8true,8false),8false),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8lit_add ORDER_PP_OP_LEFT_CM(8LIT_PLUS)
 
