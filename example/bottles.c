@@ -280,6 +280,8 @@ ORDER_PP(8for_each_in_range
                     8tuple(8bottles(8N),
                            8bottles(8dec(8N))))),
           100, 1))
+
+#undef GEN_phrase
 //>
 // Depending on the preprocessor, the above program can be
 // preprocessed significantly faster than the previous program using
