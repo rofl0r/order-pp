@@ -42,9 +42,11 @@ ORDER_PP_FN(8fn(8S,                                             \
                 8stream_cons                                    \
                 (8stream_head(8S),                              \
                  8sieve(8stream_filter                          \
-                        (8chain(8isnt_0,                        \
-                                8flip(8remainder,               \
-                                      8stream_head(8S))),       \
+                        (8or_chain                              \
+                         (8greater(8sq(8stream_head(8S))),      \
+                          8chain(8isnt_0,                       \
+                                 8flip(8remainder,              \
+                                       8stream_head(8S)))),     \
                          8stream_tail(8S))))))
 
 #define ORDER_PP_DEF_8stream_of_primes                  \
