@@ -15,6 +15,7 @@
 #define ORDER_PP_EAT(...)
 #define ORDER_PP_EXPAND(l,r) l r
 #define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
+#define ORDER_PP_REVERSE_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(r,l)
 #define ORDER_PP_PRIMITIVE_CAT(l,r) l##r
 #define ORDER_PP_BOTH(P,...) P##__VA_ARGS__##P
 #define ORDER_PP_LEFT(P,...) P##__VA_ARGS__
