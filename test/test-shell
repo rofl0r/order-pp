@@ -44,6 +44,7 @@ preprocessor=$(cat .preprocessor)
 function eval-in-cpp {
     cpp -P \
         -std=c99 \
+        -Wall \
         -pedantic-errors \
         $(if test $debugFlag = 1 ; then echo '-DORDER_PP_DEBUG' ; fi) \
         -I "../inc/" \
