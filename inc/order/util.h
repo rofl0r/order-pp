@@ -10,6 +10,7 @@
 #define ORDER_PP_DEF_FIRST_B(t,...) ORDER_PP_DEF_##t
 
 #define ORDER_PP_BLOCK
+#define ORDER_PP_NIL()
 #define ORDER_PP_EAT(...)
 #define ORDER_PP_EXPAND(l,...) l __VA_ARGS__
 #define ORDER_PP_FW(f,w) ORDER_PP_##f w
