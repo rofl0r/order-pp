@@ -32,6 +32,8 @@
 
 #define ORDER_PP_8AP(P,f,x,...) (,P##x,ORDER_PP_OPEN f##P,P##__VA_ARGS__)
 
+#define ORDER_PP_8STOP(P,x,...) ,x##P)
+
 #define ORDER_PP_8REMAP_10(P,_0,_1,K,...) ORDER_PP_##K(,_1##P,_0##P,P##__VA_ARGS__)
 
 #define ORDER_PP_8REMAP_021(P,_0,_1,_2,K,...) ORDER_PP_##K(,_0##P,_2##P,_1##P,P##__VA_ARGS__)

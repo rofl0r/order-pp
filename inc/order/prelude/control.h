@@ -14,7 +14,7 @@
 //
 //   8plus(1, 8exit(8nat_to_lit(2)), 3) ==> 2
 #define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
-#define ORDER_PP_8EXIT(P,x,...) ,x##P)
+#define ORDER_PP_8EXIT(P,x,...) ,(,1,x##P))
 
 // `8eval(exp, env)' evaluates the Order expression `exp' in the
 // environment `env'.

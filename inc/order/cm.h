@@ -5,7 +5,7 @@
 #define ORDER_PP_CM(...) ORDER_PP_CM_B(ORDER_PP_CM_UP_0(__VA_ARGS__))
 #define ORDER_PP_CM_B(x) ORDER_PP_CM_ERROR(,x
 
-#define ORDER_PP_CM_ERROR(P,_,...) (,1,__VA_ARGS__##P)
+#define ORDER_PP_CM_ERROR(P,_,...) __VA_ARGS__##P
 
 #define ORDER_PP_CM_D_0(...) ORDER_PP_CM_DN_0 __VA_ARGS__
 #define ORDER_PP_CM_U_0(...) ORDER_PP_CM_UP_1 __VA_ARGS__
