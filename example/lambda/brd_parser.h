@@ -114,7 +114,7 @@ do {                                                                    \
                                                                         \
   ORDER_PP(8seq_for_each                                                \
            (8fn(8M,                                                     \
-                8if(8nat_equal(2,8tuple_size(8M)),                      \
+                8if(8equal(2, 8tuple_size(8M)),                         \
                     8emit(8(BRD_PARSER_GEN_try_sym), 8M),               \
                     8emit(8(BRD_PARSER_GEN_try_match), 8M))),           \
             8(minals)))                                                 \

@@ -49,13 +49,13 @@ ORDER_PP_FN(8fn(8N,                             \
 // Then we'll define the Order function `8linear_fib_iter', which is
 // structurally very similar to the C function `linear_fib_iter':
 
-#define ORDER_PP_DEF_8linear_fib_iter                           \
-ORDER_PP_FN(8fn(8N, 8F0, 8F1,                                   \
-                8if(8nat_is_0(8N),                              \
-                    8F0,                                        \
-                    8linear_fib_iter(8nat_dec(8N),              \
-                                     8F1,                       \
-                                     8nat_add(8F0, 8F1)))))
+#define ORDER_PP_DEF_8linear_fib_iter                   \
+ORDER_PP_FN(8fn(8N, 8F0, 8F1,                           \
+                8if(8is_0(8N),                          \
+                    8F0,                                \
+                    8linear_fib_iter(8dec(8N),          \
+                                     8F1,               \
+                                     8add(8F0, 8F1)))))
 
 // The Order function `8linear_fib' can now be used to compute
 // Fibonacci numbers.
@@ -66,8 +66,8 @@ ORDER_PP_FN(8fn(8N, 8F0, 8F1,                                   \
 
 int main() {
    printf
-     ("The 1000th Fibonacci number is "
-      ORDER_PP(8stringize(8nat_to_lit(8linear_fib(8nat(1,0,0,0)))))
+     ("The 100th Fibonacci number is "
+      ORDER_PP(8stringize(8to_lit(8linear_fib(100))))
       ".\n");
    return 0;
 }
@@ -75,16 +75,16 @@ int main() {
 // Unless you are already convinced, you should check, by
 // preprocessing this example, that the actual parameter to `printf'
 // in the above code is just a single string that contains the
-// 1000th Fibonacci number in base 10.
+// 100th Fibonacci number in base 10.
 //
 // If you know the order of growth of Fibonacci numbers, you
-// probably realized that the result is rather big. In fact, the
-// 1000th Fibonacci number contains 209 digits in base 10. Order
+// probably realized that the result isn't exactly small. In fact,
+// the 100th Fibonacci number contains 21 digits in base 10. Order
 // actually implements full arbitrary precision natural arithmetic.
 //
 // ### Exercises
 //
-// 1. Verify that the 1000th Fibonacci number is computed correctly.
+// 1. Verify that the 100th Fibonacci number is computed correctly.
 //
 // 2. Is the `8linear_fib_iter' function tail recursive? How much
 //    space does the evaluation of `8linear_fib_iter(n)' use in

@@ -8,7 +8,7 @@
 8ap(8ap(8ap(8fn(8X,8Y,8Z,8Z),8act(!)),8act(%)),8act(?))#ACT (?)??????????????????#<ws>
 8ap(8ap(8ap(8identity)),8(0))#0#<ws>
 8ap(8ap(8id),8act(!))#ACT (!)!!!!!!!!!!!!!!!!#<ws>
-8ap(8chain(8nat_to_lit,8nat_dec,8seq_size,8seq_rest),8seq(1,2,3))#1#<ws>
+8ap(8chain(8to_lit,8dec,8seq_size,8seq_rest),8seq(1,2,3))#1#<ws>
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8H),8act(!),8act(%),8act(?),8act(^),8act(~),8act(*),8act(;),8act([))#TCA ([)[[[[[[[[[[[[[[[[[#<ws>
 8ap(8fn(8X,8X),8act(!))#ACT (!)!!!!!!!!!!!!!!!!!!#<ws>
 8ap(8fn(8X,8Y,8X),8act(!),8act(%))#ACT (!)!!!!!!!!!!!!!!!!!!#<ws>
@@ -29,10 +29,10 @@
 8expand(8act(!),8act(%))#TCA (!)!!!!!!!!!!!!!!!!!TCA (%)%%%%%%%%%%%%%%%#<ws>
 8for_each(8seq(8act(!),8act(%),8act(?)),8seq_isnt_nil,8seq_rest,8chain(8put,8seq_first))#TCA (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TCA (?)???????????????????????????????????????????????????????????#<ws>
 8for_each(8seq_nil,8seq_isnt_nil,8seq_rest,8chain(8put,8seq_first))##<ws>
-8for_each_in_range(1,2,8fn(8X,8emit(8(GEN_dim_0),8tuple(8nat_to_lit(8X)))))#(TCA (!)!,1)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (!)!,2)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)#<ws>
-8for_each_in_range(4,7,8chain(8put,8nat_to_lit))#4 5 6 7 8 9 10#<ws>
+8for_each_in_range(1,2,8fn(8X,8emit(8(GEN_dim_0),8tuple(8to_lit(8X)))))#(TCA (!)!,1)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (!)!,2)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)#<ws>
+8for_each_in_range(4,7,8chain(8put,8to_lit))#4 5 6 7 8 9 10#<ws>
 8for_each_in_range(45,0,8put)##<ws>
-8for_each_in_range(5,4,8chain(8emit_rparen,8emit_lparen,8nat_to_lit))#(5)(6)(7)(8)#<ws>
+8for_each_in_range(5,4,8chain(8emit_rparen,8emit_lparen,8to_lit))#(5)(6)(7)(8)#<ws>
 8identity(8act(!))#TCA (!)!!!!!!!!!!!!!!!!!#<ws>
 8if(8false,8act(!),8act(%))#ACT (%)%%%%%%%%%%%%%%#<ws>
 8if(8true,8act(!),8act(%))#ACT (!)!!!!!!!!!!!!!!#<ws>
@@ -41,22 +41,6 @@
 8is_sym(8true)#8true#<ws>
 8let(8X,8id,8ap(8X,8act(!)))#ACT (!)!!!!!!!!!!!!!!!!#<ws>
 8macro_let(8X,8(5),8X)#5#<ws>
-8nat_to_lit(8(ORDER_PP_NAT(1,2,3)))#123#<ws>
-8nat_to_lit(8ap(8chain(8nat_inc),1))#2#<ws>
-8nat_to_lit(8nat(3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,1,9,7,1,6,9,3,9,9,3,7,5,1))#31415926535897932384626433832795028841971693993751#<ws>
-8nat_to_lit(8nat_add(4,5,8nat_mul(1,2,3)))#15#<ws>
-8nat_to_lit(8seq_fold(8fn(8X,8Y,8nat_add(8X,8Y)),3,8seq(1,4,1,5)))#14#<ws>
-8nat_to_lit(8seq_fold(8fn(8X,8Y,8nat_add(8X,8Y)),45,8nil))#45#<ws>
-8nat_to_lit(8seq_select(8nat_greater,0,8seq(1,2,3,4)))#0#<ws>
-8nat_to_lit(8seq_select(8nat_less,0,8seq(1,2,3,4)))#4#<ws>
-8nat_to_lit(8seq_select(8nat_less,15,8seq(10)))#15#<ws>
-8nat_to_lit(8seq_select(8nat_less,2,8seq(1,2,3,4,3,2)))#4#<ws>
-8nat_to_lit(8seq_select(8nat_less,45,8seq_nil))#45#<ws>
-8nat_to_lit(8seq_select(8nat_less,5,8seq(10)))#10#<ws>
-8nat_to_lit(8seq_size(8seq(1,2,3,4,5)))#5#<ws>
-8nat_to_lit(8seq_size(8seq_nil))#0#<ws>
-8nat_to_lit(8tuple_size(8tuple(0,1,2,3)))#4#<ws>
-8nat_to_lit(8tuple_size(8tuple(8nil)))#1#<ws>
 8nil##<ws>
 8not(8not(8false))#8false#<ws>
 8not(8not(8true))#8true#<ws>
@@ -70,9 +54,9 @@
 8print(8parens(8parens(8and(8true,8true))))#((8true))#<ws>
 8print(8rparen 8comma 8lparen)#),(#<ws>
 8print(8rparen 8parens((.) 8(1)) 8comma 8parens(8(1) (.)) 8lparen)#)(. 1),(1 .)(#<ws>
-8rout(8for_each_in_range(0,3,8fn(8I,8rout(8for_each_in_range(0,3,8fn(8J,8put(8tuple(8nat_to_lit(8I),8nat_to_lit(8J)))))))))#(2,0)(2,1)(2,2)(1,0)(1,1)(1,2)(0,0)(0,1)(0,2)#<ws>
-8rout(8for_each_in_range(1,2,8fn(8X,8emit(8(GEN_dim_0),8tuple(8nat_to_lit(8X))))))#(TCA (!)!,2)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (!)!,1)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)#<ws>
-8rout(8for_each_in_range(1,2,8fn(8X,8emit(8(GEN_dimr_0),8tuple(8nat_to_lit(8X))))))#(TCA (!)!,2)(TCA (%)%,2)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (%)%,1)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (!)!,1)(TCA (%)%,2)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (%)%,1)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)#<ws>
+8rout(8for_each_in_range(0,3,8fn(8I,8rout(8for_each_in_range(0,3,8fn(8J,8put(8tuple(8to_lit(8I),8to_lit(8J)))))))))#(2,0)(2,1)(2,2)(1,0)(1,1)(1,2)(0,0)(0,1)(0,2)#<ws>
+8rout(8for_each_in_range(1,2,8fn(8X,8emit(8(GEN_dim_0),8tuple(8to_lit(8X))))))#(TCA (!)!,2)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (!)!,1)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)#<ws>
+8rout(8for_each_in_range(1,2,8fn(8X,8emit(8(GEN_dimr_0),8tuple(8to_lit(8X))))))#(TCA (!)!,2)(TCA (%)%,2)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (%)%,1)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (!)!,1)(TCA (%)%,2)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (%)%,1)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)#<ws>
 8rout(8put(8act(!)),8emit(8act(%),8act(?)),8put(8act(^)),8act(*))#TCA (*)***************ACT (^)^^^^^^^^^^TCA (%)%%%%%%%%%%%%% TCA (?)???????????ACT (!)!!!!!!!!!!#<ws>
 8rout(8rout(8act(!),8act(%)))#TCA (%)%%%%%%%%%%%%%%%%%%%#<ws>
 8rout(8rout(8emit(8act(!),8act(%))))#TCA (!)!!!!!!!!!!!!!!!!!!! TCA (%)%%%%%%%%%%%%%%%%%#<ws>
@@ -85,59 +69,59 @@
 8seq(8seq(8act(!),8act(%)),8seq(8act(?),8act(^)))#((ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!)(TCA (%)%%%%%%%%%%%%%%%%%%%%%%%))((TCA (?)???????????????????)(ACT (^)^^^^^^^^^^^^^^^^^^))#<ws>
 8seq_append(8seq(8act(!),8act(%)),8seq(8act(?),8act(^)),8seq_append(8seq(8act(*),8act(;)),8seq(8act([),8act(]))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)(TCA (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%)(TCA (?)?????????????????????????????????)(ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^)(ACT (*)**************************)(TCA (;);;;;;;;;;;;;;;;;;;;;;;;;;)(TCA ([)[[[[[[[[[[[[[[[[[[[[[)(ACT (])]]]]]]]]]]]]]]]]]]]])#<ws>
 8seq_append(8seq_append(8((1)),8((2))),8seq_append(8((3)),8((4))))#( 1 )( 2 )( 3 )( 4 )#<ws>
-8seq_at(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!#<ws>
-8seq_at(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#ACT (?)????????????????????????????#<ws>
-8seq_at(3,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^#<ws>
+8seq_at(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (!)!!!!!!!!!!!!!!!!!!!!!!!#<ws>
+8seq_at(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (?)???????????????????????#<ws>
+8seq_at(3,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (^)^^^^^^^^^^^^^^^^^^^^^^^#<ws>
 8seq_exists(8same(8(8X5)),8((8X1)(8X2)(8X3)(8X4)(8X5)))#8true#<ws>
 8seq_exists(8same(8(8X5)),8((8X1)(8X2)(8X3)(8X4)))#8false#<ws>
 8seq_exists(8same(8(8X5)),8((8X1)(8X5)(8X3)(8X4)(8X6)))#8true#<ws>
 8seq_exists(8same(8(8X5)),8((8X5)(8X4)(8X3)(8X2)))#8true#<ws>
 8seq_exists(8same(8(8X5)),8())#8false#<ws>
-8seq_filter(8is_sym,8seq(1,8(not symbol),8true))#(8true)#<ws>
+8seq_filter(8is_sym,8seq(1,8(not symbol),8true))#(1)(8true)#<ws>
 8seq_first(8((ACT(;))(ACT([))(ACT(]))))#ACT (;);;;;;;;;;;;;;;;;;;;;;;#<ws>
 8seq_first(8((ACT(;))))#ACT (;);;;;;;;;;;;;;;;;;;;;;;#<ws>
 8seq_first_n(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))##<ws>
-8seq_first_n(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%)#<ws>
-8seq_first_n(4,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%)(ACT (?)??????????????????????????)(ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^^^)#<ws>
-8seq_for_all(8nat_greater(5),8seq(1,2,3,4))#8true#<ws>
-8seq_for_all(8nat_greater(5),8seq(1,2,3,6))#8false#<ws>
-8seq_for_all(8nat_greater(5),8seq(1,2,6,4))#8false#<ws>
-8seq_for_all(8nat_greater(5),8seq(5,2,3,4))#8false#<ws>
-8seq_for_all(8nat_greater(5),8seq_nil)#8true#<ws>
+8seq_first_n(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%)#<ws>
+8seq_first_n(4,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%)(ACT (?)??????????????????????)(ACT (^)^^^^^^^^^^^^^^^^^^^^^^)#<ws>
+8seq_for_all(8greater(5),8seq(1,2,3,4))#8true#<ws>
+8seq_for_all(8greater(5),8seq(1,2,3,6))#8false#<ws>
+8seq_for_all(8greater(5),8seq(1,2,6,4))#8false#<ws>
+8seq_for_all(8greater(5),8seq(5,2,3,4))#8false#<ws>
+8seq_for_all(8greater(5),8seq_nil)#8true#<ws>
 8seq_for_each(8fn(8_,8exit(8act(!))),8seq_nil)##<ws>
 8seq_for_each(8put,8seq(8act(!),8act(%),8act(?),8act(^)))#ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TCA (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ACT (?)??????????????????????????????????TCA (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#<ws>
 8seq_for_each_in_product(8fn(8X,8Y,8Z,8put(8tuple(8X,8Y,8Z))),8(((ACT(!))(ACT(%)))((ACT(*)))((ACT(?))(ACT(^))(ACT(;)))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!,ACT (*)**************************************************,ACT (?)??????????????????????????????????????????????????)(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!,ACT (*)**********************************************************,ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^)(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!,ACT (*)**********************************************************************,ACT (;);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%,ACT (*)************************************************************************************,ACT (?)????????????????????????????????????????????????????????????????????????????????????)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%,ACT (*)************************************************************************************************,ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%,ACT (*)************************************************************************************************************,ACT (;);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;)#<ws>
 8seq_for_each_with_idx(8fn(8I,8X,8put(8tuple(8I,8X))),8())##<ws>
-8seq_for_each_with_idx(8fn(8I,8X,8put(8tuple(8nat_to_lit(8I),8X))),8((ACT(;))(ACT([))(ACT(]))))#(0,TCA (;);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;)(1,TCA ([)[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[)(2,TCA (])]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]])#<ws>
+8seq_for_each_with_idx(8fn(8I,8X,8put(8tuple(8to_lit(8I),8X))),8((ACT(;))(ACT([))(ACT(]))))#(0,TCA (;);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;)(1,TCA ([)[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[)(2,TCA (])]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]])#<ws>
 8seq_is_nil(8seq(8act(1),8act(2),8act(3)))#8false#<ws>
 8seq_is_nil(8seq_nil)#8true#<ws>
 8seq_isnt_nil(8nil)#8false#<ws>
 8seq_isnt_nil(8seq(8act(1),8act(2),8act(3)))#8true#<ws>
-8seq_map(8chain(8nat_to_lit,8nat_dec),8seq(3,1,4,1))#(2)(0)(3)(0)#<ws>
-8seq_map(8chain(8nat_to_lit,8nat_dec,8nat_inc,8lit_to_nat),8seq(8(0),8(1),8(45),8(100)))#(0)(1)(45)(100)#<ws>
-8seq_map(8nat_dec,8nil)##<ws>
-8seq_map(8nat_to_lit,8seq_build(8seq_merge(8nat_less),8seq_map_seq(8seq(0,2,6,2,0,6,2,1,7,8))))#(0)(0)(1)(2)(2)(2)(6)(6)(7)(8)#<ws>
-8seq_map(8nat_to_lit,8seq_merge(8nat_less,8seq(1,2,3),8seq(4,5,6)))#(1)(2)(3)(4)(5)(6)#<ws>
-8seq_map(8nat_to_lit,8seq_merge(8nat_less,8seq(1,3,4,5,6),8seq(0,2,2,9)))#(0)(1)(2)(2)(3)(4)(5)(6)(9)#<ws>
-8seq_map(8nat_to_lit,8seq_merge(8nat_less,8seq(4,5,6),8seq(1,2,3)))#(1)(2)(3)(4)(5)(6)#<ws>
-8seq_map(8nat_to_lit,8seq_merge(8nat_less,8seq_nil,8seq_nil))##<ws>
-8seq_map(8nat_to_lit,8seq_partition_sort(8nat_less,8seq(3,1,4,1,5,9,2,6,5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)#<ws>
-8seq_map(8nat_to_lit,8seq_sort(8nat_greater,8seq(1)))#(1)#<ws>
-8seq_map(8nat_to_lit,8seq_sort(8nat_greater,8seq(1,2,3,4,5,6,7)))#(7)(6)(5)(4)(3)(2)(1)#<ws>
-8seq_map(8nat_to_lit,8seq_sort(8nat_less,8seq(3,1,4,1,5,9,2,6,5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)#<ws>
-8seq_map(8nat_to_lit,8seq_sort(8nat_less,8seq_nil))##<ws>
-8seq_map(8seq_map(8nat_to_lit),8tuple_to_seq(8seq_partition(8nat_less(5),8seq(3,1,4,1,5,9,2,6,5))))#((9)(6))((3)(1)(4)(1)(5)(2)(5))#<ws>
+8seq_map(8chain(8to_lit,8dec),8seq(3,1,4,1))#(2)(0)(3)(0)#<ws>
+8seq_map(8chain(8to_lit,8dec,8inc,8lit_to_nat),8seq(8(0),8(1),8(45),8(100)))#(0)(1)(45)(100)#<ws>
+8seq_map(8dec,8nil)##<ws>
+8seq_map(8seq_map(8to_lit),8tuple_to_seq(8seq_partition(8less(5),8seq(3,1,4,1,5,9,2,6,5))))#((9)(6))((3)(1)(4)(1)(5)(2)(5))#<ws>
+8seq_map(8to_lit,8seq_build(8seq_merge(8less),8seq_map_seq(8seq(0,2,6,2,0,6,2,1,7,8))))#(0)(0)(1)(2)(2)(2)(6)(6)(7)(8)#<ws>
+8seq_map(8to_lit,8seq_merge(8less,8seq(1,2,3),8seq(4,5,6)))#(1)(2)(3)(4)(5)(6)#<ws>
+8seq_map(8to_lit,8seq_merge(8less,8seq(1,3,4,5,6),8seq(0,2,2,9)))#(0)(1)(2)(2)(3)(4)(5)(6)(9)#<ws>
+8seq_map(8to_lit,8seq_merge(8less,8seq(4,5,6),8seq(1,2,3)))#(1)(2)(3)(4)(5)(6)#<ws>
+8seq_map(8to_lit,8seq_merge(8less,8seq_nil,8seq_nil))##<ws>
+8seq_map(8to_lit,8seq_partition_sort(8less,8seq(3,1,4,1,5,9,2,6,5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)#<ws>
+8seq_map(8to_lit,8seq_sort(8greater,8seq(1)))#(1)#<ws>
+8seq_map(8to_lit,8seq_sort(8greater,8seq(1,2,3,4,5,6,7)))#(7)(6)(5)(4)(3)(2)(1)#<ws>
+8seq_map(8to_lit,8seq_sort(8less,8seq(3,1,4,1,5,9,2,6,5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)#<ws>
+8seq_map(8to_lit,8seq_sort(8less,8seq_nil))##<ws>
 8seq_map_seq(8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#((ACT (!)!!!!!!!!!!!!!!!!!!!!!!))((ACT (%)%%%%%%%%%%%%%%%%%%%%%%))((ACT (?)??????????????????????))((ACT (^)^^^^^^^^^^^^^^^^^^^^^^))#<ws>
-8seq_partition_sort(8nat_less,8())##<ws>
-8seq_pop_at(0,8((ACT(;))(ACT([))(ACT(]))(ACT({))))#( TCA ([)[[[[[[[[[[[[[[[[[[[[[[[[[ ) ( TCA (])]]]]]]]]]]]]]]]]]]]]]]]]] ) ( TCA ({){{{{{{{{{{{{{{{{{{{{{{{{{ )#<ws>
+8seq_partition_sort(8less,8())##<ws>
+8seq_pop_at(0,8((ACT(;))(ACT([))(ACT(]))(ACT({))))#( TCA ([)[[[[[[[[[[[[[[[[[[[[[ ) ( TCA (])]]]]]]]]]]]]]]]]]]]]] ) ( TCA ({){{{{{{{{{{{{{{{{{{{{{ )#<ws>
 8seq_pop_at(0,8((ACT([))))##<ws>
-8seq_pop_at(1,8((ACT(;))(ACT([))(ACT(]))(ACT({))))#(ACT (;);;;;;;;;;;;;;;;;;;;;;;;;;;) ( TCA (])]]]]]]]]]]]]]]]]]]]]]]]]] ) ( TCA ({){{{{{{{{{{{{{{{{{{{{{{{{{ )#<ws>
-8seq_pop_at(3,8((ACT(;))(ACT([))(ACT(]))(ACT({))))#(ACT (;);;;;;;;;;;;;;;;;;;;;;;;;;;)(ACT ([)[[[[[[[[[[[[[[[[[[[[[[[[[[)(ACT (])]]]]]]]]]]]]]]]]]]]]]]]]]])#<ws>
+8seq_pop_at(1,8((ACT(;))(ACT([))(ACT(]))(ACT({))))#(ACT (;);;;;;;;;;;;;;;;;;;;;;;) ( TCA (])]]]]]]]]]]]]]]]]]]]]] ) ( TCA ({){{{{{{{{{{{{{{{{{{{{{ )#<ws>
+8seq_pop_at(3,8((ACT(;))(ACT([))(ACT(]))(ACT({))))#(ACT (;);;;;;;;;;;;;;;;;;;;;;;)(ACT ([)[[[[[[[[[[[[[[[[[[[[[[)(ACT (])]]]]]]]]]]]]]]]]]]]]]])#<ws>
 8seq_pop_back(8((ACT(!))(ACT(%))(ACT(?))(ACT([))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%)(ACT (?)????????????????????????)#<ws>
 8seq_pop_back(8((ACT(!))))##<ws>
-8seq_push_at(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))),8act(*))#(ACT (*)******************)( TCA (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ) ( TCA (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ) ( TCA (?)????????????????????????????? ) ( TCA (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ )#<ws>
-8seq_push_at(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))),8act(*))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%)(ACT (*)******************)( TCA (?)????????????????????????????? ) ( TCA (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ )#<ws>
-8seq_push_at(4,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))),8act(*))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%)(ACT (?)??????????????????????????????)(ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^)(ACT (*)******************)#<ws>
+8seq_push_at(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))),8act(*))#(ACT (*)******************)( TCA (!)!!!!!!!!!!!!!!!!!!!!!!!!! ) ( TCA (%)%%%%%%%%%%%%%%%%%%%%%%%%% ) ( TCA (?)????????????????????????? ) ( TCA (^)^^^^^^^^^^^^^^^^^^^^^^^^^ )#<ws>
+8seq_push_at(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))),8act(*))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%)(ACT (*)******************)( TCA (?)????????????????????????? ) ( TCA (^)^^^^^^^^^^^^^^^^^^^^^^^^^ )#<ws>
+8seq_push_at(4,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))),8act(*))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%)(ACT (?)??????????????????????????)(ACT (^)^^^^^^^^^^^^^^^^^^^^^^^^^^)(ACT (*)******************)#<ws>
 8seq_push_back(8act(!),8((ACT(%))(ACT(?))(ACT(^))))#( ACT (%)%%%%%%%%%%%%%%%%%%%% ) ( ACT (?)???????????????????? ) ( ACT (^)^^^^^^^^^^^^^^^^^^^^ )(TCA (!)!!!!!!!!!!!!!!!!!)#<ws>
 8seq_push_back(8act(!),8seq_nil)#(TCA (!)!!!!!!!!!!!!!!!!!)#<ws>
 8seq_push_back(8act(!),8seq_push_back(8act(%),8seq_push_back(8act(?),8seq_nil)))#(TCA (?)???????????????????????)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%%%)(TCA (!)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)#<ws>
@@ -161,35 +145,51 @@
 8seq_to_tuple(8((ACT(!))(ACT(%))(ACT(?))))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!,ACT (%)%%%%%%%%%%%%%%%%%%%%%%,ACT (?)??????????????????????)#<ws>
 8seq_to_tuple(8seq(8nil))#()#<ws>
 8seq_to_tuple(8seq_nil)##<ws>
-8seq_unfold(0,8nat_isnt_0,8nat_dec,8nat_to_lit)##<ws>
-8seq_unfold(10,8nat_isnt_0,8nat_dec,8nat_to_lit)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#<ws>
+8seq_unfold(0,8isnt_0,8dec,8to_lit)##<ws>
+8seq_unfold(10,8isnt_0,8dec,8to_lit)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#<ws>
 8stringize(8(This is a string.))#"This is a string."#<ws>
+8to_lit(8(ORDER_PP_NAT(1,2,3)))#123#<ws>
+8to_lit(8add(4,5,8mul(1,2,3)))#15#<ws>
+8to_lit(8ap(8chain(8inc),1))#2#<ws>
+8to_lit(8nat(3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,1,9,7,1,6,9,3,9,9,3,7,5,1))#31415926535897932384626433832795028841971693993751#<ws>
+8to_lit(8seq_fold(8fn(8X,8Y,8add(8X,8Y)),3,8seq(1,4,1,5)))#14#<ws>
+8to_lit(8seq_fold(8fn(8X,8Y,8add(8X,8Y)),45,8nil))#45#<ws>
+8to_lit(8seq_select(8greater,0,8seq(1,2,3,4)))#0#<ws>
+8to_lit(8seq_select(8less,0,8seq(1,2,3,4)))#4#<ws>
+8to_lit(8seq_select(8less,15,8seq(10)))#15#<ws>
+8to_lit(8seq_select(8less,2,8seq(1,2,3,4,3,2)))#4#<ws>
+8to_lit(8seq_select(8less,45,8seq_nil))#45#<ws>
+8to_lit(8seq_select(8less,5,8seq(10)))#10#<ws>
+8to_lit(8seq_size(8seq(1,2,3,4,5)))#5#<ws>
+8to_lit(8seq_size(8seq_nil))#0#<ws>
+8to_lit(8tuple_size(8tuple(0,1,2,3)))#4#<ws>
+8to_lit(8tuple_size(8tuple(8nil)))#1#<ws>
 8tuple(8act(!),8act(%),8act(?),8act(^),8act(*),8act(;),8act([),8act(]))#(TCA (!)!!!!!!!!!!!!!!!!!!!!!!!!!,ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%,TCA (?)???????????????????????,ACT (^)^^^^^^^^^^^^^^^^^^^^^^,TCA (*)*********************,ACT (;);;;;;;;;;;;;;;;;;;;;,TCA ([)[[[[[[[[[[[[[[[[[[[,ACT (])]]]]]]]]]]]]]]]]]])#<ws>
-8tuple(8is_lit(8true),8is_lit(1),8is_lit(8(1)),8is_lit(8(1000)))#(8false,8false,8true,8false)#<ws>
+8tuple(8is_lit(8true),8is_lit(1),8is_lit(8(1)),8is_lit(8(1000)))#(8false,8true,8true,8false)#<ws>
 8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(8false,8true,8false,8false)#<ws>
-8tuple(8is_tuple(8nil),8is_tuple(5),8is_tuple(8(+)),8is_tuple(8((1,2))))#(8false,8true,8false,8true)#<ws>
+8tuple(8is_tuple(8nil),8is_tuple(5),8is_tuple(8(+)),8is_tuple(8((1,2))))#(8false,8false,8false,8true)#<ws>
 8tuple(8lit_greater(8(1),8(2)),8lit_greater(8(2),8(2)),8lit_greater(8(2),8(1)))#(8false,8false,8true)#<ws>
 8tuple(8lit_greater_eq(8(1),8(2)),8lit_greater_eq(8(2),8(2)),8lit_greater_eq(8(2),8(1)))#(8false,8true,8true)#<ws>
 8tuple(8lit_is_0(8(0)),8lit_is_0(8(1)),8lit_isnt_0(8(0)),8lit_isnt_0(8(1)))#(8true,8false,8false,8true)#<ws>
 8tuple(8lit_less(8(1),8(2)),8lit_less(8(2),8(2)),8lit_less(8(2),8(1)))#(8true,8false,8false)#<ws>
 8tuple(8lit_less_eq(8(1),8(2)),8lit_less_eq(8(2),8(2)),8lit_less_eq(8(2),8(1)))#(8true,8true,8false)#<ws>
-8tuple(8nat_greater(2,5),8nat_greater(4,4),8nat_greater(6,3))#(8false,8false,8true)#<ws>
-8tuple(8nat_greater_eq(3,4),8nat_greater_eq(5,5),8nat_greater_eq(4,2))#(8false,8true,8true)#<ws>
-8tuple(8nat_is_0(0),8nat_is_0(1),8nat_is_0(50))#(8true,8false,8false)#<ws>
-8tuple(8nat_is_0(0),8nat_is_0(1),8nat_is_0(8nat(1,2,3)))#(8true,8false,8false)#<ws>
-8tuple(8nat_isnt_0(0),8nat_isnt_0(1),8nat_isnt_0(50))#(8false,8true,8true)#<ws>
-8tuple(8nat_isnt_0(0),8nat_isnt_0(1),8nat_isnt_0(8nat(1,2,3)))#(8false,8true,8true)#<ws>
-8tuple(8nat_less(4,5),8nat_less(5,5),8nat_less(5,4))#(8true,8false,8false)#<ws>
-8tuple(8nat_less_eq(5,6),8nat_less_eq(6,6),8nat_less_eq(6,4))#(8true,8true,8false)#<ws>
-8tuple(8nat_to_lit(0),8nat_to_lit(25),8nat_to_lit(8nat(3,1,4,1,5,9,2)))#(0,25,3141592)#<ws>
-8tuple(8nat_to_lit(8nat_dec(1)),8nat_to_lit(8nat_dec(8nat(1,2,3))),8nat_to_lit(8nat_dec(100)))#(0,122,99)#<ws>
-8tuple(8nat_to_lit(8nat_div(10,3)),8nat_to_lit(8nat_remainder(10,3)))#(3,1)#<ws>
-8tuple(8nat_to_lit(8nat_div(7)),8nat_to_lit(8nat_div(32,4,2)))#(7,4)#<ws>
-8tuple(8nat_to_lit(8nat_inc(0)),8nat_to_lit(8nat_inc(99)),8nat_to_lit(8nat_inc(8nat(1,9,9))))#(1,100,200)#<ws>
-8tuple(8nat_to_lit(8nat_sub(10,3)),8nat_to_lit(8nat_add(10,3)))#(7,13)#<ws>
-8tuple(8nat_to_lit(8nat_sub(3)),8nat_to_lit(8nat_sub(10,3,2,1)))#(3,4)#<ws>
-8tuple(8nat_to_lit(8seq_of_digits_to_nat(8((2)(0)(0)(4)))),8nat_to_lit(8seq_of_digits_to_nat(8((0)))))#(2004,0)#<ws>
-8tuple(8nat_to_seq_of_digits(0),8nat_to_seq_of_digits(8nat(2,0,0,4)))#((0),(2)(0)(0)(4))#<ws>
+8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)#<ws>
+8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)#<ws>
+8tuple(8is_0(0),8is_0(1),8is_0(50))#(8true,8false,8false)#<ws>
+8tuple(8is_0(0),8is_0(1),8is_0(8nat(1,2,3)))#(8true,8false,8false)#<ws>
+8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(8false,8true,8true)#<ws>
+8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(8nat(1,2,3)))#(8false,8true,8true)#<ws>
+8tuple(8less(4,5),8less(5,5),8less(5,4))#(8true,8false,8false)#<ws>
+8tuple(8less_eq(5,6),8less_eq(6,6),8less_eq(6,4))#(8true,8true,8false)#<ws>
+8tuple(8to_lit(0),8to_lit(25),8to_lit(8nat(3,1,4,1,5,9,2)))#(0,25,3141592)#<ws>
+8tuple(8to_lit(8dec(1)),8to_lit(8dec(8nat(1,2,3))),8to_lit(8dec(100)))#(0,122,99)#<ws>
+8tuple(8to_lit(8div(10,3)),8to_lit(8remainder(10,3)))#(3,1)#<ws>
+8tuple(8to_lit(8div(7)),8to_lit(8div(32,4,2)))#(7,4)#<ws>
+8tuple(8to_lit(8inc(0)),8to_lit(8inc(99)),8to_lit(8inc(8nat(1,9,9))))#(1,100,200)#<ws>
+8tuple(8to_lit(8sub(10,3)),8to_lit(8add(10,3)))#(7,13)#<ws>
+8tuple(8to_lit(8sub(3)),8to_lit(8sub(10,3,2,1)))#(3,4)#<ws>
+8tuple(8to_lit(8seq_of_digits_to_nat(8((2)(0)(0)(4)))),8to_lit(8seq_of_digits_to_nat(8((0)))))#(2004,0)#<ws>
+8tuple(8nat_to_seq_of_digits(8nat(0)),8nat_to_seq_of_digits(8nat(2,0,0,4)))#((0),(2)(0)(0)(4))#<ws>
 8tuple(8true,8false)#(8true,8false)#<ws>
 8tuple(8tuple(8(1)))#((1))#<ws>
 8tuple(8tuple(8(1),8(2)),8tuple(8(3),8(4)))#((1,2),(3,4))#<ws>
@@ -207,4 +207,4 @@
 8vseq_to_seq_of_tuples(8())##<ws>
 8when(8false,8put(8act(!)))##<ws>
 8when(8true,8put(8act(!)),8put(8act(%)),8act(?))#TCA (!)!!!!!!!!!!!!!!!!!ACT (%)%%%%%%%%%%%%%%%%%%%%ACT (?)??????????????????#<ws>
-8with_assert(8and(8true,8false),8nat_add(5,6))#8Assert_Failed(8with_assert(8and ( 8true , 8false ),8nat_add ( 5 , 6 )))#<ws>
+8with_assert(8and(8true,8false),8add(5,6))#8Assert_Failed(8with_assert(8and ( 8true , 8false ),8add ( 5 , 6 )))#<ws>

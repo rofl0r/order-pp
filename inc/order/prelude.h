@@ -12,6 +12,7 @@
 #include "order/prelude/lit.h"
 #include "order/prelude/nat.h"
 #include "order/prelude/nil.h"
+#include "order/prelude/num.h"
 #include "order/prelude/pp.h"
 #include "order/prelude/quote.h"
 #include "order/prelude/seq.h"

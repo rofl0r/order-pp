@@ -15,6 +15,7 @@
 #define ORDER_PP_BLOCK
 #define ORDER_PP_EAT(...)
 #define ORDER_PP_EXPAND(l,...) l __VA_ARGS__
+#define ORDER_PP_FW(f,w) ORDER_PP_##f w
 #define ORDER_PP_FX(f,x) ORDER_PP_##f x
 #define ORDER_PP_FY(f,y) ORDER_PP_##f y
 #define ORDER_PP_FZ(f,z) ORDER_PP_##f z

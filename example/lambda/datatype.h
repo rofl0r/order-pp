@@ -36,7 +36,7 @@ ORDER_PP(8seq_for_each                                                  \
               8seq_for_each_with_idx                                    \
               (8fn(8I, 8TN,                                             \
                    8print((typedef) 8TN 8cat(8(DATATYPE_FIELD_),        \
-                                             8nat_to_lit(8I),           \
+                                             8to_lit(8I),               \
                                              8(_TYPE_),                 \
                                              8dt_variant_name(8V))      \
                           (;))),                                        \
@@ -75,7 +75,7 @@ ORDER_PP(8seq_for_each                                                  \
 struct {                                                                \
   ORDER_PP(8seq_for_each_with_idx                                       \
            (8fn(8I, 8T,                                                 \
-                8print(8T 8cat(8(_),8nat_to_lit(8I)) (;))),             \
+                8print(8T 8cat(8(_),8to_lit(8I)) (;))),                 \
             8(field_types)))                                            \
 } variant_name;
 
@@ -84,12 +84,12 @@ inline type_name                                                                
 variant_name(ORDER_PP(8for_each_in_range                                        \
                       (0, 8(field_cnt),                                         \
                        8fn(8I,                                                  \
-                           8print(8unless(8nat_is_0(8I),                        \
+                           8print(8unless(8is_0(8I),                            \
                                           8emit_comma(8nil))                    \
                                   8cat(8(DATATYPE_FIELD_),                      \
-                                       8nat_to_lit(8I),                         \
+                                       8to_lit(8I),                             \
                                        8(_TYPE_##variant_name))                 \
-                                  8cat(8(_), 8nat_to_lit(8I))))))) {            \
+                                  8cat(8(_), 8to_lit(8I))))))) {                \
   struct type_name* ORDER_PP_FRESH_ID(result) =                                 \
     checked_malloc(sizeof(struct type_name));                                   \
                                                                                 \
@@ -98,7 +98,7 @@ variant_name(ORDER_PP(8for_each_in_range                                        
   ORDER_PP(8for_each_in_range                                                   \
            (0, 8(field_cnt),                                                    \
             8fn(8I,                                                             \
-                8let(8FN, 8cat(8(_),8nat_to_lit(8I)),                           \
+                8let(8FN, 8cat(8(_),8to_lit(8I)),                               \
                      8print((ORDER_PP_FRESH_ID(result)->datum.variant_name.)    \
                             8FN (=) 8FN (;))))))                                \
                                                                                 \
@@ -127,7 +127,7 @@ do {                                                    \
 case DATATYPE_TAG_##variant_name: {                                             \
   ORDER_PP(8seq_for_each_with_idx                                               \
            (8fn(8I, 8FN,                                                        \
-                8let(8I, 8nat_to_lit(8I),                                       \
+                8let(8I, 8to_lit(8I),                                           \
                      8print((const) 8cat(8(DATATYPE_FIELD_),                    \
                                          8I,                                    \
                                          8(_TYPE_##variant_name))               \

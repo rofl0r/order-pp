@@ -143,8 +143,8 @@ void array##mnemo##lhs_a##rhs_a(const lhs_t* lhs_in,                    \
 
 #define ORDER_PP_DEF_8type_of_promotion                 \
 ORDER_PP_FN(8fn(8TY,                                    \
-                8if(8nat_less(8type_rank(8TY),          \
-                              8type_rank(8type_int)),   \
+                8if(8less(8type_rank(8TY),              \
+                          8type_rank(8type_int)),       \
                     8type_int,                          \
                     8TY)))
 
@@ -194,7 +194,7 @@ ORDER_PP_FN(8fn(8TY,                                    \
 // variables are bound lexically.
 //
 // By default, variable symbols are limited to the tokens
-// `8[A-Z][A-Z0-9]?', which means the number `8' followed by an
+// `8[A-Z][A-Z0-9]?', which means the digit `8' followed by an
 // uppercase letter and another optional uppercase letter or a
 // digit. Other tokens can also be used given appropriate macro
 // definitions.
@@ -211,10 +211,10 @@ ORDER_PP_FN(8fn(8TY,                                    \
 // evaluated.
 //
 // The body of the `8type_of_promotion(8TY)' function also contains
-// calls to other functions. The binary function `8nat_less'
-// compares natural numbers. The unary function `8type_rank', which
-// we just invented, is supposed to return the rank of the specified
-// type as a natural number.
+// calls to other functions. The binary function `8less' compares
+// numbers. The unary function `8type_rank', which we just invented,
+// is supposed to return the rank of the specified type as a small
+// signless decimal literal.
 //
 // As you have figured out by now, the syntax of the Order language
 // is very much like the syntax of any ordinary programming
@@ -227,11 +227,11 @@ ORDER_PP_FN(8fn(8TY,                                    \
 // integer promotion. The rule translates to the
 // `8type_of_conversion(8TL,8TR)' metafunction below:
 
-#define ORDER_PP_DEF_8type_of_conversion                                \
-ORDER_PP_FN(8fn(8TL, 8TR,                                               \
-                8type_of_promotion(8if(8nat_less(8type_rank(8TL),       \
-                                                 8type_rank(8TR)),      \
-                                       8TR,                             \
+#define ORDER_PP_DEF_8type_of_conversion                        \
+ORDER_PP_FN(8fn(8TL, 8TR,                                       \
+                8type_of_promotion(8if(8less(8type_rank(8TL),   \
+                                             8type_rank(8TR)),  \
+                                       8TR,                     \
                                        8TL))))
 
 // Integer promotion and usual arithmetic conversion rules ignore
@@ -309,28 +309,28 @@ ORDER_PP_FN(8fn(8OP, 8TL, 8TR,                                  \
 // we will consider into the `8applicative_ops' constant as a
 // sequence.
 
-#define ORDER_PP_DEF_8applicative_ops                                           \
-ORDER_PP_CONST(((~,  _compl,  ORDER_PP_NAT(1), 8false, 8false, 8false))         \
-               ((-,  _neg,    ORDER_PP_NAT(1),  8true, 8false, 8false))         \
-               ((!,  _not,    ORDER_PP_NAT(1),  8true,  8true, 8false))         \
-               ((*,  _mul,    ORDER_PP_NAT(2),  8true, 8false, 8false))         \
-               ((/,  _div,    ORDER_PP_NAT(2),  8true, 8false, 8false))         \
-               ((+,  _add,    ORDER_PP_NAT(2),  8true, 8false, 8false))         \
-               ((-,  _sub,    ORDER_PP_NAT(2),  8true, 8false, 8false))         \
-               ((%,  _mod,    ORDER_PP_NAT(2), 8false, 8false, 8false))         \
-               ((<<, _shl,    ORDER_PP_NAT(2), 8false, 8false,  8true))         \
-               ((>>, _shr,    ORDER_PP_NAT(2), 8false, 8false,  8true))         \
-               ((<,  _lt,     ORDER_PP_NAT(2),  8true,  8true, 8false))         \
-               ((<=, _lt_eq,  ORDER_PP_NAT(2),  8true,  8true, 8false))         \
-               ((>,  _gt,     ORDER_PP_NAT(2),  8true,  8true, 8false))         \
-               ((>=, _gt_eq,  ORDER_PP_NAT(2),  8true,  8true, 8false))         \
-               ((==, _equal,  ORDER_PP_NAT(2),  8true,  8true, 8false))         \
-               ((!=, _not_eq, ORDER_PP_NAT(2),  8true,  8true, 8false))         \
-               ((&,  _bitand, ORDER_PP_NAT(2), 8false, 8false, 8false))         \
-               ((|,  _bitor,  ORDER_PP_NAT(2), 8false, 8false, 8false))         \
-               ((^,  _bitxor, ORDER_PP_NAT(2), 8false, 8false, 8false))         \
-               ((&&, _and,    ORDER_PP_NAT(2),  8true,  8true, 8false))         \
-               ((||, _or,     ORDER_PP_NAT(2),  8true,  8true, 8false)))
+#define ORDER_PP_DEF_8applicative_ops                           \
+ORDER_PP_CONST(((~,  _compl,  1, 8false, 8false, 8false))       \
+               ((-,  _neg,    1,  8true, 8false, 8false))       \
+               ((!,  _not,    1,  8true,  8true, 8false))       \
+               ((*,  _mul,    2,  8true, 8false, 8false))       \
+               ((/,  _div,    2,  8true, 8false, 8false))       \
+               ((+,  _add,    2,  8true, 8false, 8false))       \
+               ((-,  _sub,    2,  8true, 8false, 8false))       \
+               ((%,  _mod,    2, 8false, 8false, 8false))       \
+               ((<<, _shl,    2, 8false, 8false,  8true))       \
+               ((>>, _shr,    2, 8false, 8false,  8true))       \
+               ((<,  _lt,     2,  8true,  8true, 8false))       \
+               ((<=, _lt_eq,  2,  8true,  8true, 8false))       \
+               ((>,  _gt,     2,  8true,  8true, 8false))       \
+               ((>=, _gt_eq,  2,  8true,  8true, 8false))       \
+               ((==, _equal,  2,  8true,  8true, 8false))       \
+               ((!=, _not_eq, 2,  8true,  8true, 8false))       \
+               ((&,  _bitand, 2, 8false, 8false, 8false))       \
+               ((|,  _bitor,  2, 8false, 8false, 8false))       \
+               ((^,  _bitxor, 2, 8false, 8false, 8false))       \
+               ((&&, _and,    2,  8true,  8true, 8false))       \
+               ((||, _or,     2,  8true,  8true, 8false)))
 
 // The above is a constant definition, as denoted by the use of
 // `ORDER_PP_CONST'. A constant can be any sequence of C
@@ -349,9 +349,9 @@ ORDER_PP_CONST(((~,  _compl,  ORDER_PP_NAT(1), 8false, 8false, 8false))         
 // 6-tuple representing an operator.
 //
 // You should also note that boolean values are simply denoted by
-// `8true' and `8false'. On the other hand, the internal
-// representation of natural numbers is not specified, so we use the
-// macro `ORDER_PP_NAT' to specify natural numbers.
+// `8true' and `8false'. The interpreter also supports arithmetic
+// operations on small signless decimal literals, so we have encoded
+// the arities using decimal literals.
 //
 // The requirements for types are somewhat less demanding and we'll
 // do with a 4-tuple of the form
@@ -369,22 +369,22 @@ ORDER_PP_CONST(((~,  _compl,  ORDER_PP_NAT(1), 8false, 8false, 8false))         
 // `8type_int' separately. We'll make a point of encoding the data
 // only once.
 
-#define ORDER_PP_DEF_8type_int                                          \
-ORDER_PP_CONST( (    signed int, _si, 8false, ORDER_PP_NAT(3)) )
+#define ORDER_PP_DEF_8type_int                          \
+ORDER_PP_CONST( (    signed int, _si, 8false, 3) )
 
-#define ORDER_PP_DEF_8builtin_types                                     \
-ORDER_PP_CONST(((          char, _ch, 8false, ORDER_PP_NAT(1)))         \
-               ((   signed char, _sc, 8false, ORDER_PP_NAT(1)))         \
-               (( unsigned char, _uc, 8false, ORDER_PP_NAT(1)))         \
-               ((  signed short, _ss, 8false, ORDER_PP_NAT(2)))         \
-               ((unsigned short, _us, 8false, ORDER_PP_NAT(2)))         \
-               (ORDER_PP_GET_CONST(8type_int)                 )         \
-               ((  unsigned int, _ui, 8false, ORDER_PP_NAT(4)))         \
-               ((   signed long, _sl, 8false, ORDER_PP_NAT(5)))         \
-               (( unsigned long, _ul, 8false, ORDER_PP_NAT(6)))         \
-               ((         float, _fl,  8true, ORDER_PP_NAT(7)))         \
-               ((        double, _db,  8true, ORDER_PP_NAT(8)))         \
-               ((   long double, _ld,  8true, ORDER_PP_NAT(9))))
+#define ORDER_PP_DEF_8builtin_types                     \
+ORDER_PP_CONST(((          char, _ch, 8false, 1))       \
+               ((   signed char, _sc, 8false, 1))       \
+               (( unsigned char, _uc, 8false, 1))       \
+               ((  signed short, _ss, 8false, 2))       \
+               ((unsigned short, _us, 8false, 2))       \
+               (ORDER_PP_GET_CONST(8type_int)   )       \
+               ((  unsigned int, _ui, 8false, 4))       \
+               ((   signed long, _sl, 8false, 5))       \
+               (( unsigned long, _ul, 8false, 6))       \
+               ((         float, _fl,  8true, 7))       \
+               ((        double, _db,  8true, 8))       \
+               ((   long double, _ld,  8true, 9)))
 
 // Above, `ORDER_PP_GET_CONST' is C preprocessor macro that extracts
 // the value of an Order constant definition. It is useful in
@@ -463,7 +463,7 @@ ORDER_PP_FN(8fn(8OP, 8TY,                                               \
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_uop,
           8seq(8seq_filter(8fn(8OP,
-                               8and(8nat_equal(1, 8op_arity(8OP)),
+                               8and(8equal(1, 8op_arity(8OP)),
                                     8not(8op_does_floats(8OP)))),
                            8applicative_ops),
                8seq_filter(8fn(8TY,
@@ -498,7 +498,7 @@ ORDER_PP(8seq_for_each_in_product
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_uop,
           8seq(8seq_filter(8fn(8OP,
-                               8and(8nat_equal(1, 8op_arity(8OP)),
+                               8and(8equal(1, 8op_arity(8OP)),
                                     8op_does_floats(8OP))),
                            8applicative_ops),
                8builtin_types)))
@@ -526,7 +526,7 @@ ORDER_PP(8seq_for_each_in_product
                                     8not(8type_is_float(8TY))),
                                 8builtin_types),
                8seq(8seq_filter(8fn(8OP,
-                                    8and(8nat_equal(2, 8op_arity(8OP)),
+                                    8and(8equal(2, 8op_arity(8OP)),
                                          8not(8op_does_floats(8OP)))),
                                 8applicative_ops),
                     8TS,
@@ -537,7 +537,7 @@ ORDER_PP(8seq_for_each_in_product
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
           8seq(8seq_filter(8fn(8OP,
-                               8and(8nat_equal(2, 8op_arity(8OP)),
+                               8and(8equal(2, 8op_arity(8OP)),
                                     8op_does_floats(8OP))),
                            8applicative_ops),
                8builtin_types,

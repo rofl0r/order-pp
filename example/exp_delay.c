@@ -14,11 +14,11 @@
 //
 // Let's then see the definition of `exp_delay'.
 
-#define ORDER_PP_DEF_8exp_delay                         \
-ORDER_PP_FN(8fn(8N,                                     \
-                8unless(8nat_is_0(8N),                  \
-                        8exp_delay(8nat_dec(8N)),       \
-                        8exp_delay(8nat_dec(8N)))))
+#define ORDER_PP_DEF_8exp_delay                 \
+ORDER_PP_FN(8fn(8N,                             \
+                8unless(8is_0(8N),              \
+                        8exp_delay(8dec(8N)),   \
+                        8exp_delay(8dec(8N)))))
 
 // Given a number $n$, `exp_delay' recursively calls itself /twice/
 // with $n-1$, unless $n$ was zero. The recursive calls essential
