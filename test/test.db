@@ -306,8 +306,6 @@
 8to_lit(8seq_select(8less,2,8seq(1,2,3,4,3,2)))#4#
 8to_lit(8seq_select(8less,45,8seq))#45#
 8to_lit(8seq_select(8less,5,8seq(10)))#10#
-8to_lit(8seq_size(8seq(1,2,3,4,5)))#5#
-8to_lit(8seq_size(8seq))#0#
 8to_lit(8stream_fold(8plus,4,8stream_take(4,8stream_of_naturals)))#10#
 8to_lit(8stream_head(8stream_drop(5,8stream_of_naturals)))#5#
 8to_lit(8tuple_size(8tuple(0,1,2,3)))#4#
@@ -374,6 +372,8 @@
 8tuple_drop(8nat(3),8tuple(1,2,3,4,5))#(4,5)#
 8tuple_drop_2(8tuple(1,2,3,4,5,6))#(3,4,5,6)#
 8tuple_join(8((a,b)),8((+,-)))#(a , b,+ , -)#
+8tuple_map(8to_lit,8tuple(8seq_size(8seq(1,2,3,4,5)),8seq_size(8seq),8seq_size(8seq_iota(0,34))))#(5,0,34)#
+8tuple_map(8to_lit,8tuple(8vseq_size(8((1)(1,2)(3,4,5))),8vseq_size(8seq),8vseq_size(8(()()()()()()()()()()()()))))#(3,0,12)#
 8tuple_to_seq(8((!,1,b,2,c,3,d,%)))#(!)(1)(b)(2)(c)(3)(d)(%)#
 8tuple_to_seq(8((!,1,b,2,c,3,d,4,e,5,f,6,g,7,h,8,i,9,j,10,k,11,l,12,m,13,n,14,o,15,p,16,q,17,r,18,s,19,t,%)))#(!)(1)(b)(2)(c)(3)(d)(4)(e)(5)(f)(6)(g)(7)(h)(8)(i)(9)(j)(10)(k)(11)(l)(12)(m)(13)(n)(14)(o)(15)(p)(16)(q)(17)(r)(18)(s)(19)(t)(%)#
 8tuple_to_seq(8(()))#()#

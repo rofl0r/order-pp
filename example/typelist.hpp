@@ -65,9 +65,25 @@ namespace typelist {
 //
 // To eliminate the need to count the number of elements, we could
 // simply take advantage of variadic macros \cite{c:1999}. However,
-// we would still not be able to have commas in types. To allow
-// commas, the elements need to be parenthesized. A natural approach
-// would be to specify the list of elements as a variadic sequence:
+// we would still not be able to have commas in types. For example,
+// a `TYPELIST' invocation of the form
+//<
+//   TYPELIST(int,
+//            std::pair<int, float>,
+//            float)
+//>
+// would not work.
+//
+// In general, a type containing commas must be parenthesized. As we
+// can distinguish parenthesized elements from unparenthesized
+// elements, we could use the syntax:
+//<
+//   TYPELIST(int,
+//            (std::pair<int, float>),
+//            float)
+//>
+// Another approach would be to specify the list of elements as a
+// variadic sequence:
 //<
 //   TYPELIST((int)
 //            (std::pair<int, float>)
@@ -75,8 +91,9 @@ namespace typelist {
 //>
 // Each parenthesized element of a variadic sequence can contain an
 // arbitrary number of commas. We'll adopt this interface, because
-// it solves the two main notational problems. The last problem to
-// solve is to implement the `TYPELIST'-macro:
+// the syntax is particularly simple to describe.
+//
+// The last problem to solve is to implement the `TYPELIST'-macro:
 //<
 #define TYPELIST(type_vseq)                                     \
 ORDER_PP(8seq_for_each                                          \
@@ -86,7 +103,7 @@ ORDER_PP(8seq_for_each                                          \
   ::typelist::nil                                               \
 ORDER_PP(8for_each_in_range                                     \
          (8delay(8put(8(>))),                                   \
-          0, 8seq_size(8vseq_to_seq_of_tuples(8(type_vseq)))))
+          0, 8vseq_size(8(type_vseq))))
 //>
 // The above macro executes two Order-programs. The first program
 // outputs a sequence of open `cons'-calls. The second program
