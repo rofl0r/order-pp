@@ -11,6 +11,7 @@
 
 #define ORDER_PP_DEF(t) ORDER_PP_DEF_##t
 
+#define ORDER_PP_BLOCK
 #define ORDER_PP_EAT(...)
 #define ORDER_PP_EXPAND(l,r) l r
 #define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
