@@ -27,6 +27,7 @@
 8do(8emit(8act(!),8act(%)),8emit(8act(?),8act(^)))#ACT (!)!!!!!!!!!!!!!!!!!! TCA (%)%%%%%%%%%%%%%%%%%%%TCA (?)????????????????? ACT (^)^^^^^^^^^^^^^^^^^^#<ws>
 8do(8emit_cat(1,2),3)#3 12#<ws>
 8do(8emit_rparen,8emit_comma,8emit_lparen)#),(#<ws>
+8do(8emitq(!),8emitq(%),8quote(?))#?!%#<ws>
 8emit_params(10,8quote(class B))# class B0 , class B1 , class B2 , class B3 , class B4 , class B5 , class B6 , class B7 , class B8 , class B9#<ws>
 8emit_trailing_params(10,8quote(class A))#, class A0 , class A1 , class A2 , class A3 , class A4 , class A5 , class A6 , class A7 , class A8 , class A9#<ws>
 8emitq(This is implicitly quoted.)#This is implicitly quoted.#<ws>
@@ -47,6 +48,7 @@
 8is_sym(8true)#8true#<ws>
 8let(8X,8id,8ap(8X,8act(!)))#ACT (!)!!!!!!!!#<ws>
 8macro_let(8X,5,8X)#5#<ws>
+8nat(3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,1,9,7,1,6,9,3,9,9,3,7,5,1)#(1)(5)(7)(3)(9)(9)(3)(9)(6)(1)(7)(9)(1)(4)(8)(8)(2)(0)(5)(9)(7)(2)(3)(8)(3)(3)(4)(6)(2)(6)(4)(8)(3)(2)(3)(9)(7)(9)(8)(5)(3)(5)(6)(2)(9)(5)(1)(4)(1)(03)#<ws>
 8nil##<ws>
 8not(8not(8false))#8false#<ws>
 8not(8not(8true))#8true#<ws>
