@@ -50,11 +50,3 @@
 #define ORDER_PP_8WHILE(P,x,s,c,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##s,P##__VA_ARGS__)
 #define ORDER_PP_8WHILE_B(P,b,x,c,s,...) (,P##x,ORDER_PP_WHEN_##b(,ORDER_PP_OPEN s##P,8WHILE_C,P##c,P##s,)P##__VA_ARGS__)
 #define ORDER_PP_8WHILE_C(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##__VA_ARGS__)
-
-#ifdef ORDER_PP_DEBUG
-# define ORDER_PP_DEF_8with_assert(cond,...) 8EVAL_IF,cond,ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),8exit_error(8(8Assert_Failed(8with_assert(cond,__VA_ARGS__))),8(ORDER_PP_ASSERTION_FAILURE)),
-#else
-# define ORDER_PP_DEF_8with_assert(cond,...) ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(ORDER_PP_DEF,,_8do)(__VA_ARGS__)
-#endif
-
-#define ORDER_PP_ASSERTION_FAILURE() ORDER_PP_ASSERTION_FAILURE
