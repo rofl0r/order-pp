@@ -6,6 +6,7 @@
 //    Distributed under the Boost Software License, Version 1.0.
 
 #include "chaos/preprocessor/seq/reverse.h"
+#include "order/util.h"
 
 #define ORDER_PP_CM                  ORDER_PP_CM_IS_SCAN_ACTIVE(0)(,ORDER_PP_CM_FIND_SCAN_1,ORDER_PP_CM_GO_0)(0)
 #define ORDER_PP_CM_FIND_SCAN_1(...) ORDER_PP_CM_IS_SCAN_ACTIVE(1)(,ORDER_PP_CM_FIND_SCAN_2,ORDER_PP_CM_GO_N)(1)
