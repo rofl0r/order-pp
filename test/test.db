@@ -291,6 +291,7 @@
 8tokens_to_seq_with(8(),8(TOKEN))##<ws>
 8tokens_to_seq_with(8(x y (d) x),8(TOKEN))#(x)(y)((d))(x)#<ws>
 8tuple(8(!),8(%),8(?),8(^),8(*),8(;),8([),8(]))#(!,%,?,^,*,;,[,])#<ws>
+8tuple(8adjoin(8(;)),8adjoin(8(;),8(;),8(;)))#(;,;;;)#<ws>
 8tuple(8always(1),8always(8false),8ap(8always,8nil))#(8true,8true,8true)#<ws>
 8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)#<ws>
 8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)#<ws>
