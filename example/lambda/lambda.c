@@ -2,9 +2,9 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
+#include "brd_parser.h"
 #include "datatype.h"
 #include "error.h"
-#include "ll1_parser.h"
 #include "str.h"
 #include <assert.h>
 #include <ctype.h>
@@ -13,13 +13,42 @@
 
 typedef str_type sym_type;
 
-DATATYPE_define(exp_type,
-                ((Exp_Lambda,
-                  (sym_type)(exp_type)))
-                ((Exp_Apply,
-                  (exp_type)(exp_type)))
-                ((Exp_Ref,
-                  (sym_type))))
+DATATYPE_define(/*** Program ***/
+                ((prg_type,
+                  ((Prg_Def,
+                    (def_type)(prg_type)))
+                  ((Prg_Exp,
+                    (exp_type)))))
+                /*** Definition ***/
+                ((def_type,
+                  ((Def,
+                    (sym_type)(exp_type)))))
+                /*** Expression ***/
+                ((exp_type,
+                  ((Exp_Lambda,
+                    (sym_type)(exp_type)))
+                  ((Exp_Apply,
+                    (exp_type)(exp_type)))
+                  ((Exp_Ref,
+                    (sym_type))))))
+
+DATATYPE_define(/*** Environment ***/
+                ((env_type,
+                  ((Env_Bind,
+                    (sym_type)(exp_type)(env_type)))
+                  ((Env_Nil,
+                    )))))
+
+static exp_type env_get(env_type env, sym_type var) {
+  DATATYPE_switch
+    ( env, env_type,
+      ((Env_Bind,(key)(value)(rest),
+        ({ return key == var
+             ? value
+             : env_get(rest, var); })))
+      ((Env_Nil,,
+        ({ ERROR_exit("Unbound variable '%s'.", var); }))));
+}
 
 static _Bool sym_parse(str_type *pstr, sym_type *sym) {
   assert(pstr);
@@ -39,8 +68,21 @@ static _Bool sym_parse(str_type *pstr, sym_type *sym) {
   return 1;
 }
 
-LL1_PARSER(static, exp_parse, str_skip_spaces, str_match_prefix,
+BRD_PARSER(static, prg_parse,
+           str_skip_spaces, str_match_prefix,
+           /*** Symbol terminal ***/
            ((sym, sym_type, sym_parse)),
+           /*** Program ***/
+           ((prg, prg_type,
+             ((((def, first)) ((prg, rest)),
+               ({ *prg = Prg_Def(first, rest); })))
+             ((((exp, last)),
+               ({ *prg = Prg_Exp(last); })))))
+           /*** Definition ***/
+           ((def, def_type,
+             ((("def") ((sym, var)) ("=") ((exp, body)),
+               ({ *def = Def(var, body); })))))
+           /*** Expression ***/
            ((exp, exp_type,
              ((("\\") ((sym, var)) (".") ((exp, body)),
                ({ *exp = Exp_Lambda(var, body); })))
@@ -53,12 +95,34 @@ static str_type exp_unparse(exp_type exp) {
   DATATYPE_switch
     ( exp, exp_type,
       ((Exp_Lambda, (var)(body),
-        ({ return str_cat("\\", var, ".", exp_unparse(body), str_end); })))
+        ({ return str_cat("\\", var, ".", exp_unparse(body),
+                          str_end); })))
       ((Exp_Apply,(lhs)(rhs),
-        ({ return str_cat("(", exp_unparse(lhs), " ", exp_unparse(rhs), ")", str_end); })))
+        ({ return str_cat("(", exp_unparse(lhs),
+                          " ", exp_unparse(rhs),
+                          ")",
+                          str_end); })))
       ((Exp_Ref,(var),
-        ({ return var; }))) );
-  assert(0);
+        ({ return var; }))));
+}
+
+static str_type def_unparse(def_type def) {
+  DATATYPE_switch
+    ( def, def_type,
+      ((Def,(var)(body),
+        ({ return str_cat("def ", var, " = ", exp_unparse(body),
+                          str_end); }))));
+}
+
+static str_type prg_unparse(prg_type prg) {
+  DATATYPE_switch
+    ( prg, prg_type,
+      ((Prg_Def,(first)(rest),
+        ({ return str_cat(def_unparse(first), " ",
+                          prg_unparse(rest),
+                          str_end); })))
+      ((Prg_Exp,(last),
+        ({ return exp_unparse(last); }))));
 }
 
 static exp_type exp_subst(sym_type sym, exp_type in, exp_type with) {
@@ -75,38 +139,57 @@ static exp_type exp_subst(sym_type sym, exp_type in, exp_type with) {
       ((Exp_Ref,(var),
         ({ return var == sym
              ? with
-             : in; }))) );
-  assert(0);
+             : in; }))));
 }
 
-static exp_type exp_reduce(exp_type exp) {
+static exp_type exp_reduce(exp_type exp, env_type env) {
   DATATYPE_switch
     ( exp, exp_type,
       ((Exp_Lambda,,
         ({ return exp; })))
       ((Exp_Apply,(lhs)(rhs),
         ({ DATATYPE_switch
-             ( exp_reduce(lhs), exp_type,
+             ( exp_reduce(lhs, env), exp_type,
                ((Exp_Lambda,(var)(body),
                  ({ return exp_reduce(exp_subst(var,
                                                 body,
-                                                exp_reduce(rhs))); })))
+                                                exp_reduce(rhs, env)),
+                                      env); })))
                ((Exp_Apply,,
-                 ({ error("'%s' doesn't reduce to a Lambda.",
-                          exp_unparse(lhs)); })))
+                 ({ ERROR_exit("'%s' doesn't reduce to a Lambda.",
+                               exp_unparse(lhs)); })))
                ((Exp_Ref,,
-                 ({ error("'%s' doesn't reduce to a Lambda.",
-                          exp_unparse(lhs)); })))); })))
+                 ({ ERROR_exit("'%s' doesn't reduce to a Lambda.",
+                               exp_unparse(lhs)); })))); })))
       ((Exp_Ref,(var),
-        ({ error("Unbound variable '%s'.", var); }))) );
-  assert(0);
+        ({ return env_get(env, var); }))));
+}
+
+static exp_type prg_eval(prg_type prg, env_type env) {
+  DATATYPE_switch
+    ( prg, prg_type,
+      ((Prg_Def,(first)(rest),
+        ({ DATATYPE_switch
+             ( first, def_type,
+               ((Def,(var)(body),
+                 ({ return prg_eval(rest,
+                                    Env_Bind(var,
+                                             exp_reduce(body, env),
+                                             env)); })))); })))
+      ((Prg_Exp,(last),
+        ({ return exp_reduce(last, env); }))));
 }
 
 int main(int argc, char* argv[]) {
   if (argc < 2) {
-    printf("Usage: lambda '<exp>'\n"
+    printf("Usage: lambda '<prg>'\n"
            "\n"
            "Syntax:\n"
+           "\n"
+           "  <prg> ::= <def> <prg>\n"
+           "         |  <exp>\n"
+           "\n"
+           "  <def> ::= def sym = <exp>\n"
            "\n"
            "  <exp> ::= \\ sym . <exp>\n"
            "         |  ( <exp> <exp> )\n"
@@ -117,13 +200,17 @@ int main(int argc, char* argv[]) {
   }
 
   str_type str = argv[1];
-  exp_type exp = 0;
-  if (!exp_parse(&str, &exp))
-    error("Couldn't parse '%s'\n", str);
-  printf("exp = %s\n", exp_unparse(exp));
+  prg_type prg = 0;
+  if (!prg_parse(&str, &prg))
+    ERROR_exit("Couldn't parse '%s'.", str);
+  str_skip_spaces(&str);
+  if ('\0' != *str)
+    ERROR_exit("Garbage '%s' following program.", str);
 
-  exp_type reduced_exp = exp_reduce(exp);
-  printf("reduced exp = %s\n", exp_unparse(reduced_exp));
+  printf("program: %s\n", prg_unparse(prg));
+
+  exp_type reduced_exp = prg_eval(prg, Env_Nil());
+  printf("reduced: %s\n", exp_unparse(reduced_exp));
 
   return EXIT_SUCCESS;
 }

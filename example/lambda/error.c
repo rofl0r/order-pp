@@ -10,7 +10,8 @@
 void error(const char* msg, ...) {
   va_list args;
   va_start(args, msg);
+  fprintf(stderr, "ERROR: ");
   vfprintf(stderr, msg, args);
+  fprintf(stderr, "\n");
   va_end(args);
-  exit(EXIT_FAILURE);
 }

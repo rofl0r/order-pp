@@ -8,50 +8,63 @@
 #include "order/interpreter.h"
 #include "checked_malloc.h"
 
-#define DATATYPE_define(type_name, variants)                    \
-typedef const struct type_name *type_name;                      \
+#define DATATYPE_define(datatypes)                              \
+ORDER_PP(8seq_for_each                                          \
+         (8fn(8DT,                                              \
+              8let(8N,8tuple_at(0,8DT),                         \
+                   8emit(8quote(typedef const struct),8N,       \
+                         8quote(*),8N,8quote(;)))),             \
+          8quote(datatypes)))                                   \
                                                                 \
 ORDER_PP(8seq_for_each                                          \
-         (8fn(8V,                                               \
-              8seq_for_each_with_idx                            \
-              (8fn(8I, 8T,                                      \
-                   8emit(8quote(DATATYPE_GEN_field_typedef),    \
-                         8tuple(8tuple_at(0,8V),                \
-                                8I,                             \
-                                8T))),                          \
-               8tuple_at(1,8V))),                               \
-          8quote(variants)))                                    \
-                                                                \
-struct type_name {                                              \
-  enum {                                                        \
-    ORDER_PP(8seq_for_each                                      \
-             (8fn(8V,                                           \
-                  8emit(8quote(DATATYPE_GEN_tag),               \
-                        8tuple(8tuple_at(0,8V)))),              \
-              8quote(variants)))                                \
-  } tag;                                                        \
-                                                                \
-  union {                                                       \
-    ORDER_PP(8seq_for_each                                      \
-             (8fn(8V,                                           \
-                  8emit(8quote(DATATYPE_GEN_variant_struct),    \
-                        8V)),                                   \
-              8quote(variants)))                                \
-  } datum;                                                      \
-};                                                              \
-                                                                \
-ORDER_PP(8seq_for_each                                          \
-         (8fn(8V,                                               \
-              8emit(8quote(DATATYPE_GEN_ctor),                  \
-                    8tuple(8quote(type_name),                   \
-                           8tuple_at(0,8V),                     \
-                           8seq_size(8tuple_at(1,8V))))),       \
+         (8fn(8DT,                                              \
+              8emit(8quote(DATATYPE_GEN_datatype),              \
+                    8DT)),                                      \
+          8quote(datatypes)))
+
+#define DATATYPE_GEN_datatype(type_name, variants)                      \
+ORDER_PP(8seq_for_each                                                  \
+         (8fn(8V,                                                       \
+              8seq_for_each_with_idx                                    \
+              (8fn(8I, 8T,                                              \
+                   8emit(8quote(DATATYPE_GEN_field_typedef),            \
+                         8tuple(8tuple_at(0,8V),                        \
+                                8I,                                     \
+                                8T))),                                  \
+               8tuple_at(1,8V))),                                       \
+          8quote(variants)))                                            \
+                                                                        \
+struct type_name {                                                      \
+  enum {                                                                \
+    ORDER_PP(8seq_for_each                                              \
+             (8fn(8V,                                                   \
+                  8emit(8quote(DATATYPE_GEN_tag),                       \
+                        8tuple(8tuple_at(0,8V)))),                      \
+              8quote(variants)))                                        \
+  } tag;                                                                \
+                                                                        \
+  union {                                                               \
+    ORDER_PP(8seq_for_each                                              \
+             (8fn(8V,                                                   \
+                  8when(8seq_isnt_nil(8tuple_at(1,8V)),                 \
+                        8emit(8quote(DATATYPE_GEN_variant_struct),      \
+                              8V))),                                    \
+              8quote(variants)))                                        \
+  } datum;                                                              \
+};                                                                      \
+                                                                        \
+ORDER_PP(8seq_for_each                                                  \
+         (8fn(8V,                                                       \
+              8emit(8quote(DATATYPE_GEN_ctor),                          \
+                    8tuple(8quote(type_name),                           \
+                           8tuple_at(0,8V),                             \
+                           8seq_size(8tuple_at(1,8V))))),               \
           8quote(variants)))
 
 #define DATATYPE_GEN_tag(ctor_name) DATATYPE_TAG_##ctor_name,
 
-#define DATATYPE_GEN_field_typedef(ctor_name, field_idx, field_type)    \
-typedef field_type DATATYPE_FIELD_##field_idx##_TYPE_##ctor_name;
+#define DATATYPE_GEN_field_typedef(ctor_name, idx, type)        \
+typedef type DATATYPE_FIELD_##idx##_TYPE_##ctor_name;
 
 #define DATATYPE_GEN_variant_struct(ctor_name, field_types)     \
 struct {                                                        \
@@ -89,8 +102,8 @@ ORDER_PP(8when(8isnt_0(field_idx),                              \
                8emit_comma))                                    \
      DATATYPE_FIELD_##field_idx##_TYPE_##ctor_name _##field_idx
 
-#define DATATYPE_GEN_ctor_assign(ctor_name, field_idx)                  \
-ORDER_PP_FRESH_ID(result)->datum.ctor_name._##field_idx = _##field_idx;
+#define DATATYPE_GEN_ctor_assign(ctor_name, idx)                \
+ORDER_PP_FRESH_ID(result)->datum.ctor_name._##idx = _##idx;
 
 #define DATATYPE_switch(expr, type_name, cases)         \
 do {                                                    \
@@ -102,6 +115,9 @@ do {                                                    \
                   8emit(8quote(DATATYPE_GEN_case),      \
                         8C)),                           \
               8quote(cases)))                           \
+  default:                                              \
+    ERROR_exit("Invalid tag %d resulting from '%s'.",   \
+               ORDER_PP_FRESH_ID(value)->tag, #expr);   \
   }                                                     \
 } while (0)
 
@@ -118,8 +134,8 @@ case DATATYPE_TAG_##ctor_name: {                        \
   break;                                                \
 }
 
-#define DATATYPE_GEN_var(ctor_name, field_idx, field_name)      \
-const DATATYPE_FIELD_##field_idx##_TYPE_##ctor_name field_name  \
-= ORDER_PP_FRESH_ID(value)->datum.ctor_name._##field_idx;
+#define DATATYPE_GEN_var(ctor_name, idx, name)          \
+const DATATYPE_FIELD_##idx##_TYPE_##ctor_name name      \
+= ORDER_PP_FRESH_ID(value)->datum.ctor_name._##idx;
 
 #endif

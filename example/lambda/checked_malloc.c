@@ -8,9 +8,9 @@
 
 void* checked_malloc(ptrdiff_t size) {
   if (size < 0)
-    error("Negative size of %d bytes specified to checked_malloc.", size);
+    ERROR_exit("Negative size of %d bytes specified to checked_malloc.", size);
   void* result = malloc(size);
   if (!result)
-    error("Allocation of %d bytes failed.", size);
+    ERROR_exit("Allocation of %d bytes failed.", size);
   return result;
 }
