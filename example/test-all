@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# (C) Copyright Vesa Karvonen 2004.
+#
+#    Distributed under the Boost Software License, Version 1.0.
+
+for f in *.h *.hpp *.c *.cpp ; do
+    if test -f "$f" ; then
+        echo "Testing '$f'..."
+
+        cpp -P -std=c99 -I ../inc/ -I ../../chaos-pp/ "$f" &> ".$f.new"
+
+        if test -f ".$f.out" ; then
+            if diff -q ".$f.out" ".$f.new" > /dev/null ; then
+                rm ".$f.new"
+            else
+                diff ".$f.out" ".$f.new" | less
+
+                read -e -n 1 -p "[(U)se result | (E)xit without removing new output | (Q)uit | Skip]? "
+                case "$REPLY" in
+                    ("u"|"U")
+                        echo "Using new result..."
+                        mv ".$f.new" ".$f.out" ;;
+                    ("e"|"E")
+                        echo "Quitting... See the file '.$f.new'."
+                        exit ;;
+                    ("q"|"Q")
+                        echo "Quitting and removing '.$f.new'..."
+                        rm ".$f.new" 
+                        exit ;;
+                    (*)
+                        echo "Skipping and removing '.$f.new'..."
+                        rm ".$f.new" ;;
+                esac
+            fi
+        else
+            less ".$f.new"
+
+            read -e -n 1 -p "[(E)xit without removing output | (Q)uit | Use result]? "
+            case "$REPLY" in
+                ("e"|"E")
+                    echo "Quitting... See the file '.$f.new'."
+                    exit ;;
+                ("q"|"Q")
+                    echo "Quitting and removing '.$f.new'..."
+                    rm ".$f.new" 
+                    exit ;;
+                (*)
+                    echo "Using result..."
+                    mv ".$f.new" ".$f.out" ;;
+            esac
+        fi
+    fi
+done
