@@ -10,6 +10,12 @@
 
 ////////////////////////////////////////////////////////////////////
 
+#define ORDER_PP_DEF_8fn_test                   \
+ORDER_PP_FN(8fn(8A, 8B,                         \
+                8nil))
+
+////////////////////////////////////////////////////////////////////
+
 #define ORDER_PP_DEF_8macro_error_neither_nil_nor_paren \
 ORDER_PP_MACRO(syntax_error)
 
