@@ -7,6 +7,8 @@
 
 // ### Testing
 //
+// To test the `is_integral<T>' type trait, we will write a few
+// simple sanity checks.
 //<
 STATIC_ASSERT(!is_integral<void>::value);
 STATIC_ASSERT(!is_integral<float>::value);

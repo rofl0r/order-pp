@@ -7,7 +7,7 @@
 
 # include "order/interpreter.h"
 
-#define STATIC_ASSERT(const_exp)                                        \
-typedef int ORDER_PP_FRESH_ID(static_assert)[(const_exp) ? 1 : -1];
+#define STATIC_ASSERT(...)\
+typedef int ORDER_PP_FRESH_ID(static_assert)[(__VA_ARGS__) ? 1 : -1];
 
 # endif
