@@ -4,6 +4,8 @@
 // (See accompanying file LICENSE.)
 
 # include <utility>
+# include "static_assert.h"
+# include "is_same.hpp"
 # include "typelist.hpp"
 
 // ### Testing
@@ -11,23 +13,30 @@
 // To test our `TYPELIST'-macro, we'll first exercise the base
 // case:
 //<
-typedef TYPELIST()
-  nil_list;
+using namespace typelist;
+
+STATIC_ASSERT(is_same<TYPELIST(), nil>::value);
 //>
 // Then we'll try a list of 3-types:
 //<
-typedef TYPELIST((float)
-                 (double)
-                 (long double))
-  floating_types;
+STATIC_ASSERT(is_same<TYPELIST((float)
+                               (double)
+                               (long double)),
+              cons<float,
+              cons<double,
+              cons<long double, nil> > > >::value);
 //>
 // Finally we'll try a list containing commas:
 //<
-typedef TYPELIST((std::pair<signed  char, unsigned  char>)
-                 (std::pair<signed short, unsigned short>)
-                 (std::pair<signed   int, unsigned   int>)
-                 (std::pair<signed  long, unsigned  long>))
-  signed_and_unsigned_type_pairs;
+STATIC_ASSERT
+(is_same<TYPELIST((std::pair<signed  char, unsigned  char>)
+                  (std::pair<signed short, unsigned short>)
+                  (std::pair<signed   int, unsigned   int>)
+                  (std::pair<signed  long, unsigned  long>)),
+ cons<std::pair<signed  char, unsigned  char>,
+ cons<std::pair<signed short, unsigned short>,
+ cons<std::pair<signed   int, unsigned   int>,
+ cons<std::pair<signed  long, unsigned  long> > > > > >::value);
 //>
 //
 // \begin{exercise}
