@@ -2,8 +2,10 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#include "is_integral.hpp"
+# include "is_integral.hpp"
 
+//<
 int main() {
   return 0;
 }
+//>
