@@ -11,18 +11,18 @@
 // ## Binary Constants
 //
 // In this example, we will implement a macro for specifying binary
-// constants. \cite{c:1999} has decimal, octal and hexadecimal
+// constants. C \cite{c:1999} has decimal, octal and hexadecimal
 // contants, but no binary constants. Programmers often use octal or
 // hexadecimal constants when binary constants would be more
-// appropriate, which can be error prone. The `BINARY(digits)'
-// macro that we will implement will allow us to write
+// appropriate, which can be error prone. The `BINARY(digits)' macro
+// that we will implement will allow us to write
 //<
 //   BINARY(0 1 0 1)
 //>
-// to get the constant `5'. In general, any sequence of the
-// tokens `0' and `1' given to the `BINARY' macro is
-// interpreted as a binary number and converted to the corresponding
-// decimal constant.
+// to get the constant `5'. In general, any sequence of the tokens
+// `0' and `1' given to the `BINARY' macro is interpreted as a
+// binary number and converted to the corresponding decimal
+// constant.
 //
 // ### Token Extraction Macros
 //
@@ -31,37 +31,39 @@
 // possible to deconstruct a sequence of identifiers and pp-numbers
 // by defining one macro for each distinct token and then using
 // concatenation to invoke the macros. We refer to macros defined
-// for the purpose of deconstructing token sequences as token
-// extraction macros. Order supports the deconstruction of token
+// for the purpose of deconstructing token sequences as \emph{token
+// extraction macros}. Order supports the deconstruction of token
 // sequences through object-like token extraction macros of the
-// form
+// form:
 //<
 //   #define <prefix>_<token> (<value>)<more>
 //>
 // `<prefix>' is just a name for referring to a set of token
-// extraction macros. `<token>' is the token whose value is
-// being extracted. The parenthesized element `<value>' will be
-// the first value extracted, while the trailing `<more>' may
-// contain further tokens to extract. In the simplest case,
-// `<more>' is empty and `<token>' and `<value>' are
-// the same. For our immediate needs, it is sufficient to provide
-// two token extraction macros; one macro for the token `1' and
-// another for `0':
+// extraction macros. `<token>' is the token whose value is being
+// extracted. The parenthesized element `<value>' will be the first
+// value extracted, while the trailing `<more>' may contain further
+// tokens to extract. In the simplest case, `<more>' is empty and
+// `<token>' and `<value>' are the same. For our immediate needs, it
+// is sufficient to provide two token extraction macros; one macro
+// for the token `1' and another for `0':
 //<
 #define BINARY_TOKEN_0 (0)
 #define BINARY_TOKEN_1 (1)
 //>
 // As a safety measure, it also makes sense to explicitly define the
-// prefix as a self-evaluating macro:
+// prefix as a self-expanding macro:
 //<
 #define BINARY_TOKEN BINARY_TOKEN
 //>
 // The purpose of the above definition is to prevent the possibility
-// that someone might unknowingly define a macro by the name of the
-// prefix and break the deconstruction mechanism. Of course, it is
-// still possible to redefine the `BINARY_TOKEN' macro, but
-// doing so without a diagnostic from a reasonable preprocessor
-// requires an explicit `#undef'.
+// that someone might \emph{accidentally} define a macro by the name
+// of the prefix and break the token extraction mechanism. Of
+// course, it is still possible to \emph{redefine} the
+// `BINARY_TOKEN' macro, but doing so without a diagnostic from a
+// reasonable preprocessor requires an \emph{explicit} `#undef',
+// which practically eliminates the possibility of an uninformed
+// accident.\footnote{The permissive semantics of the C preprocessor
+// makes it impossible to guard against deliberate mischief.}
 //
 // ### The Binary Macro
 //
@@ -77,51 +79,51 @@ ORDER_PP(8to_lit(8seq_fold                                      \
                                       8quote(tokens)))))
 //>
 // The above macro invokes the Order interpreter through the
-// `ORDER_PP' macro to evaluate a simple Order program. Let's
-// take a brief look at the program.
+// `ORDER_PP' macro to evaluate a simple Order program. Let's take a
+// brief look at the program.
 //
-// The syntactic form `8quote' is used for quoting constants.
-// Both the `tokens' being converted and the
-// `BINARY_TOKEN' prefix are quoted. `8quote(<value>)' can
-// also be abbreviated as `8(<value>)', which is convenient
-// when a program contains many quoted constants.
+// The syntactic form `8quote' is used for quoting constants. Both
+// the `tokens' being converted and the `BINARY_TOKEN' prefix are
+// quoted. `8quote(<value>)' can also be abbreviated as
+// `8(<value>)', which is convenient when a program contains many
+// quoted constants.
 //
 // To deconstruct a token sequence, the Order prelude provides the
 // function `8tokens_to_seq_with(prefix, tokens)'. Given the prefix
 // of a set of tokenizing macros and a token sequence, the
 // `8tokens_to_seq_with' function returns a sequence of the
-// extracted tokens. Sequence is the name of the primary aggregate
-// data type supported by Order. The representation of a sequence is
-// a sequence of parenthesized elements. For example, the token
-// sequence `1' `0' `1' corresponds to the sequence `(1)(0)(1)'.
+// extracted tokens. \emph{Sequence} is the name of the primary
+// aggregate data type supported by Order. The representation of a
+// sequence is a sequence of parenthesized elements. For example,
+// the token sequence `1' `0' `1' would be converted to the sequence
+// `(1)(0)(1)'.
 //
-// The higher-order function `8seq_fold' folds a sequence to a
-// value with a given binary function. In this case, the function is
-// defined using a lambda expression `8fn(...)'. The function
-// multiplies the folded value, bound to the variable `8R', by
-// `2' and adds the next value from the sequence, bound to the
-// variable `8X', to the result. The Order prelude provides a
-// comprehensive set of both first-order and higher-order
-// functions for manipulating sequences.
+// The higher-order function `8seq_fold' folds a sequence to a value
+// with a given binary function. In this case, the binary function
+// is defined using a lambda expression `8fn(...)'. The function
+// multiplies the folded value, bound to `8R', by `2' and adds the
+// next value from the sequence, bound to `8X', to the result. The
+// Order prelude provides a comprehensive set of both first-order
+// and higher-order functions for manipulating sequences.
 //
-// The arithmetic operators `8mul' and `8add' accept both
-// small signless integer literals in the range `[0, 100]' and
-// arbitrary precision natural numbers, whose representation is an
+// The arithmetic operators `8mul' and `8add' accept both small
+// signless integer literals in the range `[0, 100]' and arbitrary
+// precision natural numbers, whose representation is an
 // implementation detail of the Order prelude. The result of an
 // arithmetic operation may be a small literal or a natural number.
-// The function `8to_lit' converts a number, whether a small
-// literal or a natural number, to an integer literal. The
-// conversion is needed, because the C language doesn't understand
-// the representation of natural numbers used by Order.
+// The function `8to_lit' converts a number, whether a small literal
+// or a natural number, to an integer literal. The conversion is
+// needed, because the C language doesn't understand the
+// representation of natural numbers used by Order.
 //
 // ### Grouping Digits
 //
 // The previously defined macro only supports digits in groups of
-// one. To specify a 32-bit constant, one needs to write at least
-// 63 characters consisting of 32 digits and 31 spaces plus the
-// macro invocation. It would be nice to have a shorter syntax.
-// Also, in many cases, a range of bits forms a logical unit and it
-// would make sense to show such grouping explicitly. Consider the
+// one. To specify a 32-bit constant, one needs to write at least 63
+// characters consisting of 32 digits and 31 spaces plus the macro
+// invocation. It would be nice to have a shorter syntax. Also, in
+// many cases, a range of bits forms a logical unit and it would
+// make sense to show such grouping explicitly. Consider the
 // difference between
 //<
 //   BINARY(1 1 0 1 0 1 0 1 1 1 0 1)
@@ -136,13 +138,13 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // binary constants.
 //
 // To support such grouping, we need to provide further token
-// extraction macros. Recalling the general form of token extraction
-// macros
+// extraction macros. Recall the general form of token extraction
+// macros:
 //<
 //   #define <prefix>_<token> (<value>)<more>
 //>
-// we will take advantage of the trailing `<more>'. To support
-// digits in groups of two, we defined the following four macros:
+// We will take advantage of the trailing `<more>'. To support
+// digits in groups of two, we define the following four macros:
 //<
 #define BINARY_TOKEN_00 (0)0
 #define BINARY_TOKEN_01 (0)1
@@ -156,7 +158,7 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 //
 // As we said earlier, one macro per token is required. To support
 // groups of three and four digits, we need to define a total of 24
-// macros:
+// more macros:
 //<
 #define BINARY_TOKEN_000 (0)00
 #define BINARY_TOKEN_001 (0)01

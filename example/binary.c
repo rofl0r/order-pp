@@ -16,8 +16,8 @@
 // generate the tests, which reduces the chance of having an
 // undetected typo.
 //
-// First we'll implement an Order function to convert a number
-// to a sequence of binary digits.
+// First we'll implement an Order function to convert a number to a
+// sequence of binary digits.
 //<
 #define ORDER_PP_DEF_8num_to_seq_of_binary_digits               \
 ORDER_PP_FN(8fn(8N,                                             \
@@ -38,13 +38,11 @@ printf(BINARY(digits) == value                       \
        : #digits " != " #value " -- ERROR!\n");
 //>
 // We are then ready to generate the tests. We will use the Order
-// interpreter to generate invocations of the above `CHECK'
-// macro. We'll also write one simple sanity check that contains
-// multiple tokens. These test cases should give a fairly good
-// coverage.
+// interpreter to generate invocations of the above `CHECK' macro.
+// We'll also write one simple sanity check that contains multiple
+// tokens. These test cases should give a fairly good coverage.
 //<
 int main(void) {
-
   ORDER_PP
     (8for_each_in_range
      (8fn(8B,
@@ -74,8 +72,8 @@ int main(void) {
 // Mensonides for the Chaos preprocessor library.
 //
 // \begin{exercise}
-// Why limit to binary literals? Implement an Order function
-// `8tokens_to_num(digits, base)' that converts a token string of
+// Why only binary literals? Implement an Order function
+// `8tokens_to_num(base, digits)' that converts a token string of
 // digits in base $\{1, \ldots, 36\}$ to a number. Use the tokens
 // `[0-9A-Z]' as digits. Change the `BINARY' macro to use the
 // `8tokens_to_num' function. (Hint: Use token extraction macros to
