@@ -18,7 +18,7 @@ ORDER_PP_FN(8fn(8S,                                                             
                                     8tuple_at_1(8N),                                                    \
                                     8seq_map(8fn(8P,                                                    \
                                                  8tuple(8vseq_to_seq_of_tuples(8tuple_at_0(8P)),        \
-                                                        8tuple_rest_1(8P))),                            \
+                                                        8tuple_drop_1(8P))),                            \
                                              8vseq_to_seq_of_tuples(8tuple_at_2(8N))))),                \
                          8vseq_to_seq_of_tuples(8S))))
 
