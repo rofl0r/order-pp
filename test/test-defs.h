@@ -21,11 +21,6 @@ ORDER_PP_FN(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8
 #define GEN_dim_2(x) (ACT(?),x)ORDER_PP(8for_each_in_range(8fn(8X,8emit(8(GEN_dim_3),8tuple(8to_lit(8X)))),1,3))
 #define GEN_dim_3(x) (ACT(*),x)
 
-#define GEN_dimr_0(x) (ACT(!),x)ORDER_PP(8rout(8for_each_in_range(8fn(8X,8emit(8(GEN_dimr_1),8tuple(8to_lit(8X)))),1,3)))
-#define GEN_dimr_1(x) (ACT(%),x)ORDER_PP(8rout(8for_each_in_range(8fn(8X,8emit(8(GEN_dimr_2),8tuple(8to_lit(8X)))),1,3)))
-#define GEN_dimr_2(x) (ACT(?),x)ORDER_PP(8rout(8for_each_in_range(8fn(8X,8emit(8(GEN_dimr_3),8tuple(8to_lit(8X)))),1,3)))
-#define GEN_dimr_3(x) (ACT(*),x)
-
 #define ORDER_PP_DEF_8id ORDER_PP_FN(8fn(8X,8X))
 #define ORDER_PP_DEF_1st ORDER_PP_FN(8fn(8X,8Y,8X))
 #define ORDER_PP_DEF_2nd ORDER_PP_FN(8fn(8X,8Y,8Y))

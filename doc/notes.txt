@@ -30,7 +30,6 @@ SYNTAX
                 | 8seq | 8seq(<exp>+)
                 | 8tuple(<exp>+)
                 | 8do(<exp>+)
-                | 8rout(<exp>+)
 -               | 8let((<var>, <exp_{init}>)+, <exp_{in}>)
                 | 8print(<print-exp>+)
 -               | 8match(<exp_{val}>, (<pat>, <exp>+)+)
