@@ -14,7 +14,7 @@ time cpp -I ../inc/ -I ../../chaos-pp/ "$f" > ".tmp"
 
 numPrefixLines=$(grep -n -e 'order/interpreter.h' ".tmp" | tail -n1 | grep -o '^[0-9]\+')
 numLines=$(cat ".tmp" | wc -l)
-cat ".tmp" | tail -n$(($numLines - $numPrefixLines)) > ".$f.new"
+cat ".tmp" | tail -n$(($numLines - $numPrefixLines)) | grep -v -e '^#' -e '^$' > ".$f.new"
 rm ".tmp"
 
 if test -f ".$f.out" ; then
@@ -27,18 +27,18 @@ if test -f ".$f.out" ; then
         read -e -n 1 -p "[(U)se new result | (E)xit without removing new output | (Q)uit | Skip]? "
         case "$REPLY" in
             ("u"|"U")
-                echo "Using new result..."
-                mv ".$f.new" ".$f.out" ;;
+            echo "Using new result..."
+            mv ".$f.new" ".$f.out" ;;
             ("e"|"E")
-                echo "Quitting... See the file '.$f.new'."
-                exit ;;
+            echo "Quitting... See the file '.$f.new'."
+            exit ;;
             ("q"|"Q")
-                echo "Quitting and removing '.$f.new'..."
-                rm ".$f.new"
-                exit ;;
+            echo "Quitting and removing '.$f.new'..."
+            rm ".$f.new"
+            exit ;;
             (*)
-                echo "Skipping and removing '.$f.new'..."
-                rm ".$f.new" ;;
+            echo "Skipping and removing '.$f.new'..."
+            rm ".$f.new" ;;
         esac
     fi
 else
@@ -47,14 +47,14 @@ else
     read -e -n 1 -p "[(E)xit without removing output | (Q)uit | Use result]? "
     case "$REPLY" in
         ("e"|"E")
-            echo "Quitting... See the file '.$f.new'."
-            exit ;;
+        echo "Quitting... See the file '.$f.new'."
+        exit ;;
         ("q"|"Q")
-            echo "Quitting and removing '.$f.new'..."
-            rm ".$f.new"
-            exit ;;
+        echo "Quitting and removing '.$f.new'..."
+        rm ".$f.new"
+        exit ;;
         (*)
-            echo "Using result..."
-            mv ".$f.new" ".$f.out" ;;
+        echo "Using result..."
+        mv ".$f.new" ".$f.out" ;;
     esac
 fi
