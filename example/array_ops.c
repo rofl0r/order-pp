@@ -367,12 +367,16 @@ ORDER_PP(8seq_for_each_in_product
 //<
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_uop,
-          8seq(8seq_filter(8fn(8O,
-                               8and(8equal(1, 8op_arity(8O)),
-                                    8op_does_floats(8O))),
+          8seq(8seq_filter(8and_chain(8chain(8equal(1), 8op_arity),
+                                      8op_does_floats),
                            8applicative_ops),
                8builtin_types)))
 //>
+// Above, we've defined the predicate for `8seq_filter' by composing
+// two unary predicates using `8and_chain'. In theory, it is
+// possible to replace all `8fn'-expressions using a finite number
+// of combinators.
+//
 // We'll then handle binary operations similarly. First we define
 // the metafunction `8gen_array_bop(o,l,r)':
 //<
@@ -394,10 +398,10 @@ ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
           8let((8S, 8seq_filter(8chain(8not, 8type_is_float),
                                 8builtin_types)),
-               8seq(8seq_filter(8fn(8O,
-                                    8and(8equal(2, 8op_arity(8O)),
-                                         8not(8op_does_floats(8O)))),
-                                8applicative_ops),
+               8seq(8seq_filter
+                    (8and_chain(8chain(8equal(2), 8op_arity),
+                                8chain(8not, 8op_does_floats)),
+                     8applicative_ops),
                     8S,
                     8S))))
 //>
@@ -405,9 +409,8 @@ ORDER_PP(8seq_for_each_in_product
 //<
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
-          8seq(8seq_filter(8fn(8O,
-                               8and(8equal(2, 8op_arity(8O)),
-                                    8op_does_floats(8O))),
+          8seq(8seq_filter(8and_chain(8chain(8equal(2), 8op_arity),
+                                      8op_does_floats),
                            8applicative_ops),
                8builtin_types,
                8builtin_types)))
