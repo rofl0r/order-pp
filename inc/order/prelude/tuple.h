@@ -4,7 +4,7 @@
 // (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8is_tuple ORDER_PP_FN_CM(1,8IS_TUPLE,0IS_ANY)
-#define ORDER_PP_8IS_TUPLE(P,t,...) (,ORDER_PP_IS_EDIBLE(,P##t)(,8true,8false),P##__VA_ARGS__)
+#define ORDER_PP_8IS_TUPLE(P,t,...) (,ORDER_PP_0IS_TUPLE(,P##t)(,8true,8false),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8pair ORDER_PP_FN_CM(2,8PAIR,0IS_ANY,0IS_ANY)
 #define ORDER_PP_8PAIR(P,r,l,...) (,(P##l,P##r),P##__VA_ARGS__)
@@ -122,7 +122,8 @@
 
 // Details
 
-#define ORDER_PP_0IS_TUPLE(P,x) ORDER_PP_AND(and)(ORDER_PP_IS_EDIBLE(,P##x))(and)(ORDER_PP_FX(IS_NIL,(,ORDER_PP_EAT P##x)))()
+#define ORDER_PP_0IS_TUPLE(P,x) ORDER_PP_TEST(ORDER_PP_,ORDER_PP_IS_EDIBLE_TEST x##P,0IS_TUPLE_B,0NEVER)(ORDER_PP_EAT x##P)
+#define ORDER_PP_0IS_TUPLE_B(x) ORDER_PP_IS_NIL(,x)
 
 #define ORDER_PP_IS_TUPLE_SIZE_1(P,...) ORDER_PP_IS_TUPLE_SIZE_1_B(P##__VA_ARGS__,ORDER_PP_COMMA_1,)
 #define ORDER_PP_IS_TUPLE_SIZE_1_B(_,x,...) ORDER_PP_TUPLE_AT_1(ORDER_PP_IF_,x,0,)
