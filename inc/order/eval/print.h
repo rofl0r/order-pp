@@ -11,6 +11,7 @@
 
 #define ORDER_PP_8EVAL_PRINT_LOOP(P,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_PRINT_PUT(P,x,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)(,1,P##x)
+#define ORDER_PP_8EVAL_PRINT_PUT_OPEN(P,x,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)(,1,ORDER_PP_REM x##P)
 
 #define ORDER_PP_8EVAL_PRINT_QUOTE_FIRST(...) __VA_ARGS__ ORDER_PP_EAT(
 #define ORDER_PP_8EVAL_PRINT_QUOTE(P,expr,...) (,ORDER_PP_EAT expr##P,8EVAL_PRINT_LOOP,P##__VA_ARGS__)(,1,ORDER_PP_8EVAL_PRINT_QUOTE_FIRST P##expr))
@@ -26,6 +27,13 @@
 
 #define ORDER_PP_DEF_8lparen 8EVAL_LPAREN,
 #define ORDER_PP_8EVAL_LPAREN(P,e,G,put,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)(,4,)
+
+#define ORDER_PP_DEF_8open(t) 8EVAL_OPEN,t,
+#ifdef ORDER_PP_DEBUG
+#define ORDER_PP_8EVAL_OPEN(P,e,t,G,put,...) (,P##e,ORDER_PP_SYNTAX_CHECK(,P##t,ORDER_PP_DEF)(P##t),8EVAL_PRINT_PUT_OPEN,P##__VA_ARGS__)
+#else
+#define ORDER_PP_8EVAL_OPEN(P,e,t,G,put,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_PRINT_PUT_OPEN,P##__VA_ARGS__)
+#endif
 
 #define ORDER_PP_DEF_8parens(expr) 8EVAL_PARENS,expr,
 #define ORDER_PP_8EVAL_PARENS(P,e,head,G,put,tail,...) ORDER_PP_IS_EDIBLE(,P##head)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,head##P 8rparen P##tail,P##__VA_ARGS__)(,4,)

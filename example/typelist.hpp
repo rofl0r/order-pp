@@ -81,7 +81,7 @@ namespace typelist {
 #define TYPELIST(type_vseq)                                     \
 ORDER_PP(8seq_for_each                                          \
          (8fn(8X,                                               \
-              8print((::typelist::cons<ORDER_PP_REM) 8X (,))),  \
+              8print((::typelist::cons<) 8open(8X) (,))),       \
           8vseq_to_seq_of_tuples(8(type_vseq))))                \
   ::typelist::nil                                               \
 ORDER_PP(8for_each_in_range                                     \

@@ -118,6 +118,7 @@
 8plus(1,8true)#ORDER_PP_TYPE_ERROR:0IS_NUM(8true):(,(,0)(ORDER_PP_8NATIVE_L_,LAST,MORE)(,0,9PLUS,(,0IS_NUM,),(,1,8true)),8EXIT,,)#ORDER_PP_TYPE_ERROR
 8print((!)8space 8lparen 8space 8rparen)#! ( )#
 8print((This is implicitly quoted.))#This is implicitly quoted.#
+8print(8open(8(())) (x) 8open(8((a))) (y) 8open(8((1,2,3))))#x a y 1 , 2 , 3#
 8print(8parens(8parens(8and(8true,8true))))#((8true))#
 8print(8rparen 8comma 8lparen)#),(#
 8print(8rparen 8parens((.) 8(1)) 8comma 8parens(8(1) (.)) 8lparen)#)(. 1),(1 .)(#
