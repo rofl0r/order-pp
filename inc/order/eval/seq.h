@@ -12,4 +12,4 @@
 #define ORDER_PP_8EVAL_SEQ_B(P,v,s,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_SEQ_B,P##s(P##v),P##e,P##__VA_ARGS__)
 #endif
 #define ORDER_PP_DEF_0seq 0EVAL_SEQ,
-#define ORDER_PP_0EVAL_SEQ(P,e1,G,eval_seq_b,s,e2,...) (,P##s,P##__VA_ARGS__)
+#define ORDER_PP_0EVAL_SEQ(P,e1,G,eval_seq_b,s,e2,K,...) ORDER_PP_##K(,P##s,P##__VA_ARGS__)

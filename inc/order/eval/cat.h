@@ -12,4 +12,4 @@
 #define ORDER_PP_8EVAL_CAT_B(P,v,r,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_CAT_B,r##v,P##e,P##__VA_ARGS__)
 #endif
 #define ORDER_PP_DEF_0cat 0EVAL_CAT,
-#define ORDER_PP_0EVAL_CAT(P,e1,G,eval_cat_b,r,e2,...) (,P##r,P##__VA_ARGS__)
+#define ORDER_PP_0EVAL_CAT(P,e1,G,eval_cat_b,r,e2,K,...) ORDER_PP_##K(,P##r,P##__VA_ARGS__)
