@@ -4,6 +4,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 // `error(fmt, ...)' prints the formatted string, along with the
 // prefix "ERROR: " and the suffix "\n", to `stderr' and then calls
