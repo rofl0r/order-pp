@@ -2,7 +2,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_FN_CM(arity,K) 8DEF_FN_CM,(ORDER_PP_FN_CM_##arity,K),ORDER_PP_ARGS
+#define ORDER_PP_FN_CM(arity,K) 8DEF_FN,(ORDER_PP_FN_CM_##arity,K),ORDER_PP_ARGS
 
 #define ORDER_PP_FN_CM_1
 #define ORDER_PP_FN_CM_2 ,8CM_2
@@ -12,8 +12,6 @@
 #define ORDER_PP_FN_CM_6 ,8CM_6
 #define ORDER_PP_FN_CM_7 ,8CM_7
 #define ORDER_PP_FN_CM_8 ,8CM_8
-
-#define ORDER_PP_8DEF_FN_CM(P,e,f,na,...) ORDER_PP_8EVAL_AP_##na(,P##f,P##e,P##__VA_ARGS__)
 
 #define ORDER_PP_8CM_2(P,A,K,...) (,(,P##K,P##A),P##__VA_ARGS__)
 

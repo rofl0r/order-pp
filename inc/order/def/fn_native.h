@@ -2,9 +2,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_FN_NATIVE(arity,m) 8DEF_FN_NATIVE,arity,m,ORDER_PP_ARGS
-
-#define ORDER_PP_8DEF_FN_NATIVE(P,e,np,m,na,...) ORDER_PP_8EVAL_AP_##na(,(,8NATIVE_##np,P##m),P##e,P##__VA_ARGS__)
+#define ORDER_PP_FN_NATIVE(arity,m) 8DEF_FN,(,8NATIVE_##arity,m),ORDER_PP_ARGS
 
 #define ORDER_PP_8NATIVE_1(P,A,m,...) (,ORDER_PP_##m(,P##A),P##__VA_ARGS__)
 

@@ -2,9 +2,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_FN_MACRO(arity,m) 8DEF_FN_MACRO,arity,m,ORDER_PP_ARGS
-
-#define ORDER_PP_8DEF_FN_MACRO(P,e,np,m,na,...) ORDER_PP_8EVAL_AP_##na(,(,8MACRO_##np,P##m),P##e,P##__VA_ARGS__)
+#define ORDER_PP_FN_MACRO(arity,m) 8DEF_FN,(,8MACRO_##arity,m),ORDER_PP_ARGS
 
 #define ORDER_PP_8MACRO_1(P,A,m,...) (,P##m(P##A),P##__VA_ARGS__)
 
