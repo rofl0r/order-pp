@@ -2,8 +2,8 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#include "order/interpreter.h"
 #include <stdio.h>
+#include "order/interpreter.h"
 
 // This simple example shows how you can implement algorithms in Order
 // using recursion.

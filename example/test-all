@@ -4,11 +4,18 @@
 #
 #    Distributed under the Boost Software License, Version 1.0.
 
+TIMEFORMAT='Time: %R seconds'
+
 for f in *.h *.hpp *.c *.cpp ; do
     if test -f "$f" ; then
         echo "Testing '$f'..."
 
-        cpp -P -std=c99 -I ../inc/ -I ../../chaos-pp/ "$f" &> ".$f.new"
+        time cpp -std=c99 -pedantic -I ../inc/ -I ../../chaos-pp/ "$f" > ".tmp"
+
+        numPrefixLines=$(grep -n -e 'order/interpreter.h' ".tmp" | tail -n1 | grep -o '^[0-9]\+')
+        numLines=$(cat ".tmp" | wc -l)
+        cat ".tmp" | tail -n$(($numLines - $numPrefixLines)) > ".$f.new"
+        rm ".tmp"
 
         if test -f ".$f.out" ; then
             if diff -q ".$f.out" ".$f.new" > /dev/null ; then

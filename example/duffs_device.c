@@ -2,8 +2,8 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
+#include <stdio.h>
 #include "order/interpreter.h"
-#include <assert.h>
 
 // This example uses the Order interpreter to implement a generalized
 // macro for implementing Duff's Device.
@@ -46,8 +46,8 @@ do {                                                                            
 int main(void) {
   int i = 0;
   GEN_duffs_device(UNROLLING_FACTOR, int, 0, ++i);
-  assert(i == 0);
+  if (i != 0) printf("Error!");
   GEN_duffs_device(UNROLLING_FACTOR, int, N, ++i);
-  assert(i == N);
+  if (i != N) printf("Error!");
   return 0;
 }
