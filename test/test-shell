@@ -39,6 +39,10 @@ function get-test {
 
 function add-test {
     echo "$1#$2#<ws>" >> $dbFile
+    clean-test-db
+}
+
+function clean-test-db {
     local tmp="$(cat $dbFile)"
     echo "$tmp" | sort | uniq > $dbFile
 }
@@ -190,7 +194,7 @@ while true ; do
         REPLY="$1"
         shift
     else
-        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (Q)uit | (D)ebug | Eval]? "
+        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (C)lean DB | (Q)uit | (D)ebug | Eval]? "
     fi
     case "$REPLY" in
         ("a"|"A")
@@ -199,6 +203,8 @@ while true ; do
             run-tests ;;
         ("s"|"S")
             less $dbFile ;;
+        ("c"|"C")
+            clean-test-db ;;
         ("-q"|"q"|"Q")
             exit ;;
         ("d"|"D")
