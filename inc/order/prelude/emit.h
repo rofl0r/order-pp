@@ -28,6 +28,18 @@
 #define ORDER_PP_DEF_8emitq 8EMITQ,
 #define ORDER_PP_CM_8EMITQ(P,e,x,K,...) ORDER_PP_CM_##K(,,P##__VA_ARGS__)(,1,ORDER_PP_OPEN_NP x##P)
 
+#define ORDER_PP_DEF_8emit_comma 8EMIT_COMMA
+#define ORDER_PP_CM_8EMIT_COMMA(P,e,K,...) ORDER_PP_CM_##K(,,P##__VA_ARGS__)(,2C,ORDER_PP_,8COMMA)
+#define ORDER_PP_8COMMA ,
+
+#define ORDER_PP_DEF_8emit_lparen 8EMIT_LPAREN
+#define ORDER_PP_CM_8EMIT_LPAREN(P,e,K,...) ORDER_PP_CM_##K(,,P##__VA_ARGS__)(,2C,ORDER_PP_,8LPAREN)
+#define ORDER_PP_8LPAREN (
+
+#define ORDER_PP_DEF_8emit_rparen 8EMIT_RPAREN
+#define ORDER_PP_CM_8EMIT_RPAREN(P,e,K,...) ORDER_PP_CM_##K(,,P##__VA_ARGS__)(,2C,ORDER_PP_,8RPAREN)
+#define ORDER_PP_8RPAREN )
+
 #define ORDER_PP_DEF_8emit_trailing_params(n,p) ORDER_PP_MACRO(8emit(8quote(CHAOS_PP_ENUM_TRAILING_PARAMS),8tuple(n,p)))
 #include "chaos/preprocessor/repetition/enum_trailing_params.h"
 

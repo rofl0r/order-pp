@@ -24,6 +24,7 @@
 8do(8emit(1),8emit(2),8exit(5),8emit(3),8emit(4))#5 1 2
 8do(8emit(1,2),8emit(3,4))# 1 2 3 4
 8do(8emit_cat(1,2),3)#3 12
+8do(8emit_rparen,8emit_comma,8emit_lparen)# ),(
 8do(8emitq(Hello),8emitq(, World),8emitq(!))# Hello, World!
 8emit_params(10,8quote(class B))# class B0 , class B1 , class B2 , class B3 , class B4 , class B5 , class B6 , class B7 , class B8 , class B9
 8emit_trailing_params(10,8quote(class A))# , class A0 , class A1 , class A2 , class A3 , class A4 , class A5 , class A6 , class A7 , class A8 , class A9
