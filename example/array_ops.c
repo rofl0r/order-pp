@@ -4,13 +4,13 @@
 
 #include "order/interpreter.h"
 
-// # PROCEDURES FOR ARRAY MANIPULATION
+// ## PROCEDURES FOR ARRAY MANIPULATION
 //
 // This example shows how metadata can be used for directing code
 // generation. We use metadata to direct the generation of procedures for
 // 1-dimensional array manipulation in C.
 //
-// ## Introduction
+// ### Introduction
 //
 // What we mean by an array manipulation procedure is simply a procedure
 // that takes an array (or two), applies an operation to each element (or
@@ -103,7 +103,7 @@ void array##mnemo##lhs_a##rhs_a(const lhs_t* lhs_in,                    \
 // the `GEN_array_bop(...)' macro expands to a binary array manipulation
 // procedure.
 //
-// ## The goal
+// ### The goal
 //
 // We'd like to have array manipulation procedures for all sensible
 // combinations of operators, both unary and binary, and types. We'd also
@@ -120,7 +120,7 @@ void array##mnemo##lhs_a##rhs_a(const lhs_t* lhs_in,                    \
 // like to have a metaprogram that invokes the code generation macros for
 // all sensible combinations of operators and types.
 //
-// ## Type promotion and conversion rules
+// ### Type promotion and conversion rules
 //
 // The rules for determining the type of an operation are specified in the
 // C standard [C99,C89]. In order for our generator to be intelligent
@@ -254,7 +254,7 @@ ORDER_PP_FN(8fn(8OP,8TL,8TR,                                    \
 // Given an operator and the types of the operands, we can now compute the
 // type of the result.
 //
-// ## The representation of types and operators
+// ### The representation of types and operators
 //
 // In the previous section we simply invented primitive operations on
 // types and operators as we went along. We also know from the arguments
@@ -373,7 +373,7 @@ ORDER_PP_CONST(((           char, _ch, 8false, 1 ))     \
 // value of an Order constant definition. It is useful in situations like
 // this, where we would otherwise need to introduce duplication.
 //
-// ## Generating code
+// ### Generating code
 //
 // In order to generate the code for all valid combinations of operators
 // and types, we could produce all combinations of one operator and two
@@ -522,7 +522,7 @@ ORDER_PP(8seq_for_each_in_product
 
 // That's it!
 //
-// ## Exercises
+// ### Exercises
 //
 // 1. It turns out that the new C standard [C99] defines several new types
 //    including `long long' and `_Bool'. Update the generator to generate
