@@ -2,13 +2,13 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#include <stdio.h>
-#include "binary.h"
+# include <stdio.h>
+# include "binary.h"
 
-// ### Test
+// \subsection*{Testing} %==========================================
 //
 // The last thing to do is to test our macro. Unlike in most of the
-// examples, the `BINARY' macro implementation uses many hand
+// examples, the \code{BINARY} macro implementation uses many hand
 // written token extraction macros that might contain errors. In
 // order to test all the token extraction macros, we could manually
 // write a corresponding test for each macro, but a better way is to
@@ -17,7 +17,7 @@
 //
 // First we'll implement an Order function to convert a number
 // to a sequence of binary digits.
-
+// \begin{verbatim}
 #define ORDER_PP_DEF_8num_to_seq_of_binary_digits               \
 ORDER_PP_FN(8fn(8N,                                             \
                 8if(8is_0(8N),                                  \
@@ -27,20 +27,21 @@ ORDER_PP_FN(8fn(8N,                                             \
                                   8ap(8flip(8quotient), 2),     \
                                   8ap(8flip(8remainder), 2),    \
                                   8N)))))
-
+// \end{verbatim}
 // We'll also use an ad hoc code generation macro to generate a
 // single test case.
-
+// \begin{verbatim}
 #define CHECK(digits, value)                         \
 printf(BINARY(digits) == value                       \
        ? #digits " == " #value " -- OK.\n"           \
        : #digits " != " #value " -- ERROR!\n");
-
+// \end{verbatim}
 // We are then ready to generate the tests. We will use the Order
-// interpreter to generate invocations of the above `CHECK' macro.
-// We'll also write one simple sanity check that contains multiple
-// tokens. These test cases should give a fairly good coverage.
-
+// interpreter to generate invocations of the above \code{CHECK}
+// macro. We'll also write one simple sanity check that contains
+// multiple tokens. These test cases should give a fairly good
+// coverage.
+// \begin{verbatim}
 int main(void) {
 
   ORDER_PP
@@ -64,19 +65,23 @@ int main(void) {
 
   return 0;
 }
-
-// ### Acknowledgements
+// \end{verbatim}
+//
+// \subsection*{Acknowledgements} %=================================
 //
 // This example was inspired by an example written by Paul
 // Mensonides for the Chaos preprocessor library.
 //
-// ### Exercises
+// \subsection*{Exercises} %========================================
 //
-// 1. Why limit to binary literals? Implement an Order function
-//    `8tokens_to_num(digits, base)' that converts a token string of
-//    digits in base `{1, ..., 36}' to a number. Use the tokens
-//    `[0-9A-Z]' as digits. Change the `BINARY' macro to use the
-//    `8tokens_to_num' function. (Hint: Use token extraction macros
-//    to convert the characters directly to the corresponding
-//    decimal values (e.g. extracting an `A' should produce `10' and
-//    `B' should produce `11').)
+// \begin{enumerate}
+// \item Why limit to binary literals? Implement an Order function
+//       \code{8tokens_to_num(digits, base)} that converts a token
+//       string of digits in base $\{1, \ldots, 36\}$ to a number.
+//       Use the tokens \code{[0-9A-Z]} as digits. Change the
+//       \code{BINARY} macro to use the \code{8tokens_to_num}
+//       function. (Hint: Use token extraction macros to convert the
+//       characters directly to the corresponding decimal values
+//       (e.g. extracting an \code{A} should produce \code{10} and a
+//       \code{B} should produce \code{11}).)
+// \end{enumerate}
