@@ -96,10 +96,10 @@
 // evaluates to a new token sequence that consists of the two token
 // arguments separated by a space. The expression `8N' is a
 // variable reference. By default, variable identifiers in the Order
-// interpreter are limited to the tokens \verb/8[A-Z]/, meaning the
-// digit `8' followed by a capital letter.\footnote{The
-// interpreter can be extended to be able to use additional variable
-// symbols by defining suitable macros.}
+// interpreter are limited to the tokens `8[A-Z]', meaning digit `8'
+// followed by a capital letter.\footnote{The interpreter can be
+// extended to be able to use additional variable symbols by
+// defining suitable macros.}
 //
 // Let's then continue with the example. To make the above
 // conditional expression really useful, we can wrap it inside a

@@ -132,12 +132,12 @@ int main() {
 // program as used in the implementation of
 // `log_builtin_type_exceptions'.
 //
-// One last note. You might have noticed the unbalanced brace
-// \verb/(})/ above. The preprocessor actually treats only
-// parentheses and commas specially and parentheses usually must be
-// balanced. The preprocessor is not concerned about the balancing
-// of other tokens, such as \verb/{[<>]}/, so we don't need to
-// handle them specially.
+// One last note. You might have noticed the unbalanced brace `(})'
+// above. The preprocessor actually treats only parentheses and
+// commas specially and parentheses usually must be balanced. The
+// preprocessor is not concerned about the balancing of other
+// tokens, such as `{[<>]}', so we don't need to handle them
+// specially.
 //
 // \begin{exercise}
 // Does your compiler support built-in types, e.g. `long' `long',
