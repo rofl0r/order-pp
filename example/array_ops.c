@@ -184,10 +184,12 @@ ORDER_PP_FN(8fn(8TY,                                    \
  *
  * The purpose of the '8', which is a prefix of all Order expressions, is
  * to completely prevent unwanted macro replacement. A preprocessing token
- * that begins with a digit is not subject to macro replacement.
- * Admittedly it is an unfortunate detail, but there is no safe
- * alternative, because even the C standard [C99,C89] defines many macros
- * that would otherwise clash with Order programs.
+ * that begins with a digit is not subject to macro replacement. The use
+ * of such prefixing is a most unfortunate detail, but there is no safe
+ * alternative, because even the C standard [C99] defines many macros,
+ * such as 'and', 'not_eq', 'true' and 'false', that would otherwise clash
+ * with Order programs. There is no guarantee that important C libraries
+ * wouldn't define other macro names that might cause problems.
  *
  * The 'ORDER_PP_FN' is used to denote that the definition is specifically
  * a function definition. We will later see constant definitions, which
