@@ -6,13 +6,6 @@
 
 TIMEFORMAT='  Time: %R seconds'
 
-f=$1
-
-if ! echo "$f" | grep -e '\.cpp$' -e '\.c$' > /dev/null ; then
-    echo "Error '$f' is neither a C nor C++ implementation file."
-    exit 1
-fi
-
 function is-cpp {
     echo "$1" | grep '\.\(cpp\|ii\)$' > /dev/null
 }
@@ -27,7 +20,7 @@ function compile {
     else
         time gcc -c -std=c99 -Wall -Werror -pedantic-errors "$1"
     fi && \
-    rm "$(echo "$1" | sed 's#\.[^.]\+$#.o#g')"
+        rm "$(echo "$1" | sed 's#\.[^.]\+$#.o#g')"
 }
 
 function preprocess {
@@ -39,68 +32,75 @@ function preprocess {
     fi
 }
 
-echo "Testing '$f':"
+for f in "$@" ; do
+    if ! echo "$f" | grep -e '\.cpp$' -e '\.c$' > /dev/null ; then
+        echo "Warning: Skipping '$f' which is neither a C nor C++ implementation file."
+        continue
+    fi
 
-echo " Preprocessing..."
-if ! preprocess "$f" > "$(preprocessed-file "$f")" ; then
-    echo "Error preprocessing '$f'."
-    exit 1
-fi
+    echo "Testing '$f':"
 
-if grep '\{' "$(preprocessed-file "$f")" > /dev/null && \
-    grep '\}' "$(preprocessed-file "$f")" > /dev/null && \
-    grep '\;' "$(preprocessed-file "$f")" > /dev/null ; then
-    echo " Compiling..."
-    if ! compile "$(preprocessed-file "$f")" ; then
-        echo "Error compiling '$f'."
+    echo " Preprocessing..."
+    if ! preprocess "$f" > "$(preprocessed-file "$f")" ; then
+        echo "Error preprocessing '$f'."
         exit 1
     fi
-else
-    echo " Output doesn't look like code. Skipping compilation."
-fi
 
-numPrefixLines=$(grep -n -e 'order/interpreter.h' "$(preprocessed-file "$f")" | tail -n1 | grep -o '^[0-9]\+')
-numLines=$(cat "$(preprocessed-file "$f")" | wc -l)
-cat "$(preprocessed-file "$f")" | tail -n$(($numLines - $numPrefixLines)) | grep -v -e '^#' -e '^$' > ".$f.new"
-
-if test -f ".$f.out" ; then
-    if diff -q ".$f.out" ".$f.new" > /dev/null ; then
-        rm ".$f.new"
+    if grep '\{' "$(preprocessed-file "$f")" > /dev/null && \
+        grep '\}' "$(preprocessed-file "$f")" > /dev/null && \
+        grep '\;' "$(preprocessed-file "$f")" > /dev/null ; then
+        echo " Compiling..."
+        if ! compile "$(preprocessed-file "$f")" ; then
+            echo "Error compiling '$f'."
+            exit 1
+        fi
     else
-        echo " The old and new output differ!"
-        diff ".$f.out" ".$f.new" | less
+        echo " Output doesn't look like code. Skipping compilation."
+    fi
 
-        read -e -n 1 -p " [(Q)uit | (U)se new result | (S)kip without removing new output | Skip]? "
+    numPrefixLines=$(grep -n -e 'order/interpreter.h' "$(preprocessed-file "$f")" | tail -n1 | grep -o '^[0-9]\+')
+    numLines=$(cat "$(preprocessed-file "$f")" | wc -l)
+    cat "$(preprocessed-file "$f")" | tail -n$(($numLines - $numPrefixLines)) | grep -v -e '^#' -e '^$' > ".$f.new"
+
+    if test -f ".$f.out" ; then
+        if diff -q ".$f.out" ".$f.new" > /dev/null ; then
+            rm ".$f.new"
+        else
+            echo " The old and new output differ!"
+            diff ".$f.out" ".$f.new" | less
+
+            read -e -n 1 -p " [(Q)uit | (U)se new result | (S)kip without removing new output | Skip]? "
+            case "$REPLY" in
+                ("u"|"U")
+                echo " Using new result..."
+                mv ".$f.new" ".$f.out" ;;
+                ("s"|"S")
+                echo " Skipping... See the file '.$f.new'."
+                exit ;;
+                ("q"|"Q")
+                echo " Quitting and removing '.$f.new'..."
+                rm ".$f.new"
+                exit 1 ;;
+                (*)
+                echo " Skipping and removing '.$f.new'..."
+                rm ".$f.new" ;;
+            esac
+        fi
+    else
+        less ".$f.new"
+
+        read -e -n 1 -p " [(Q)uit | (S)kip without removing output | Use result]? "
         case "$REPLY" in
-            ("u"|"U")
-            echo " Using new result..."
-            mv ".$f.new" ".$f.out" ;;
-            ("s"|"S")
-            echo " Skipping... See the file '.$f.new'."
-            exit ;;
             ("q"|"Q")
             echo " Quitting and removing '.$f.new'..."
             rm ".$f.new"
             exit 1 ;;
+            ("s"|"S")
+            echo " Skipping... See the file '.$f.new'."
+            exit ;;
             (*)
-            echo " Skipping and removing '.$f.new'..."
-            rm ".$f.new" ;;
+            echo " Using result..."
+            mv ".$f.new" ".$f.out" ;;
         esac
     fi
-else
-    less ".$f.new"
-
-    read -e -n 1 -p " [(Q)uit | (S)kip without removing output | Use result]? "
-    case "$REPLY" in
-        ("q"|"Q")
-        echo " Quitting and removing '.$f.new'..."
-        rm ".$f.new"
-        exit 1 ;;
-        ("s"|"S")
-        echo " Skipping... See the file '.$f.new'."
-        exit ;;
-        (*)
-        echo " Using result..."
-        mv ".$f.new" ".$f.out" ;;
-    esac
-fi
+done
