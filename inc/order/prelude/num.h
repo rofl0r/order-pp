@@ -44,6 +44,20 @@
 #define ORDER_PP_DEF_8plus ORDER_PP_FN_NATIVE(2,9PLUS)
 #define ORDER_PP_9PLUS ORDER_PP_NUM_PLUS
 
+// TBD: Optimize 8pow
+#define ORDER_PP_DEF_8pow                                       \
+ORDER_PP_FN(8fn(8B, 8E,                                         \
+                8cond((8is_0(8E),                               \
+                       1)                                       \
+                      (8equal(8E, 1),                           \
+                       8B)                                      \
+                      (8else,                                   \
+                       8let((8R, 8pow(8mul(8B, 8B),             \
+                                      8div(8E, 2))),            \
+                            8if(8is_0(8remainder(8E, 2)),       \
+                                8R,                             \
+                                8mul(8R, 8B)))))))
+
 #define ORDER_PP_DEF_8quotient ORDER_PP_FN_NATIVE(2,9QUOTIENT)
 #define ORDER_PP_9QUOTIENT ORDER_PP_NUM_QUOTIENT
 

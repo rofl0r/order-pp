@@ -36,21 +36,29 @@ printf(BINARY(digits) == value                       \
        ? #digits " == " #value " -- OK.\n"           \
        : #digits " != " #value " -- ERROR!\n");
 
-// We are then ready to start implementing the tests. We will use
-// the Order interpreter to generate invocations of the above
-// `CHECK' macro for all integers in the range `[0,15]', which is
-// enough to cover all the token extraction macros we defined. We'll
-// also write one simple sanity check that contains multiple tokens.
-// These test cases should give a fairly good coverage.
+// We are then ready to generate the tests. We will use the Order
+// interpreter to generate invocations of the above `CHECK' macro.
+// We'll also write one simple sanity check that contains multiple
+// tokens. These test cases should give a fairly good coverage.
 
 int main(void) {
 
-  ORDER_PP(8for_each_in_range
-           (8chain(8emit(8(CHECK)),
-                   8fn(8N,
-                       8tuple(8seq_cat(8num_to_seq_of_binary_digits(8N)),
-                              8to_lit(8N)))),
-            0, 15))
+  ORDER_PP
+    (8for_each_in_range
+     (8fn(8B,
+          8for_each_in_range
+          (8chain
+           (8emit(8(CHECK)),
+            8fn(8N,
+                8tuple(8seq_cat
+                       (8let((8D, 8num_to_seq_of_binary_digits(8N)),
+                             8seq_append
+                             (8seq_repeat(8sub(8B, 8seq_size(8D)),
+                                          8seq(0)),
+                              8D))),
+                       8to_lit(8N)))),
+           0, 8pow(2, 8B))),
+      1, 5))
 
   CHECK(1 01 010 0010 11, 0xA8B)
 

@@ -102,6 +102,20 @@
 #define ORDER_PP_DEF_8seq_range ORDER_PP_FN_NATIVE(3,9SEQ_RANGE)
 #define ORDER_PP_9SEQ_RANGE(P,i,n,s) ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_FX(SEQ_SPLIT_AT,(,P##n,ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_SEQ_SPLIT_AT(,P##i,P##s),)))),))()
 
+// TBD: Optimize 8seq_repeat
+#define ORDER_PP_DEF_8seq_repeat                                \
+ORDER_PP_FN(8fn(8N, 8S,                                         \
+                8cond((8is_0(8N),                               \
+                       8seq)                                    \
+                      (8equal(8N, 1),                           \
+                       8S)                                      \
+                      (8else,                                   \
+                       8seq_append                              \
+                       (8unless(8is_0(8remainder(8N, 2)),       \
+                                8S),                            \
+                        8seq_repeat(8div(8N, 2),                \
+                                    8seq_append(8S, 8S)))))))
+
 #define ORDER_PP_DEF_8seq_rest ORDER_PP_FN_CM(1,8SEQ_REST)
 #define ORDER_PP_8SEQ_REST(P,s,...) (,ORDER_PP_EAT P##s,P##__VA_ARGS__)
 
