@@ -167,9 +167,10 @@ ORDER_PP_FN(8fn(8TY,                                    \
 // that begins with a digit is not subject to macro replacement. The use
 // of such prefixing is a most unfortunate detail, but there is no safe
 // alternative, because even the C standard [C99] defines many macros,
-// such as `and', `not_eq', `true' and `false', that would otherwise clash
-// with Order programs. There is no guarantee that important C libraries
-// wouldn't define other macro names that might cause problems.
+// such as `and', `not_eq', `true', `false' and even `I', that would
+// otherwise clash with Order programs. There is no guarantee that
+// important C libraries wouldn't define other macro names that might
+// cause problems.
 //
 // The `ORDER_PP_FN' is used to denote that the definition is specifically
 // a function definition. We will later see constant definitions, which
