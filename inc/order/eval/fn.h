@@ -29,7 +29,8 @@
 //       4) ==> 9
 #define ORDER_PP_DEF_8fn(...) 8EVAL_FN,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),(,__VA_ARGS__),
 
-#define ORDER_PP_8EVAL_FN(P,e,n,ss,G,K,...) ORDER_PP_CM_INVOKE(K,(,8BIND_##n,P##e,ORDER_PP_OPEN ss##P)),P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_FN(P,e,n,ss,G,K,...) ORDER_PP_##K(,(,8BIND_##n,P##e,ORDER_PP_8EVAL_FN_OPEN ss##P),P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_FN_OPEN(P,...) P##__VA_ARGS__
 
 #define ORDER_PP_8BIND_1(P,v0,e,s0,...) (,(,P##s0,P##v0)P##e,ORDER_PP_DEF_##__VA_ARGS__)
 #define ORDER_PP_8BIND_2(P,v0,e,s0,s1,t,K,...) ORDER_PP_##K(,(,8BIND_1,(,P##s0,P##v0)P##e,P##s1,P##t),P##__VA_ARGS__)
