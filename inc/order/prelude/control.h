@@ -10,7 +10,11 @@
 #define ORDER_PP_8EXIT(P,x,...) ,(,1,x##P))
 
 #define ORDER_PP_DEF_8eval ORDER_PP_FN_CM(2,8EVAL)
+#ifdef ORDER_PP_DEBUG
 #define ORDER_PP_8EVAL(P,t,e,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+#else
+#define ORDER_PP_8EVAL(P,t,e,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+#endif
 
 #define ORDER_PP_DEF_8for_each_in_range ORDER_PP_FN_CM(3,8FOR_EACH_IN_RANGE)
 #define ORDER_PP_8FOR_EACH_IN_RANGE(P,i0,i1,...) (,,ORDER_PP_FX(8FOR_EACH_IN_RANGE_B,(,ORDER_PP_NUM_BOP(,LESS,P##i0,P##i1)(ORDER_PP_8FOR_EACH_IN_RANGE_,INC,DEC)(,P##i0,P##i1))),P##__VA_ARGS__)
@@ -39,7 +43,7 @@
 #define ORDER_PP_8WHILE(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##__VA_ARGS__)
 #define ORDER_PP_8WHILE_B(P,b,x,c,s,...) (,P##x,ORDER_PP_WHEN_##b(,ORDER_PP_OPEN s##P,8WHILE,P##c,P##s,)P##__VA_ARGS__)
 
-#ifndef ORDER_PP_NDEBUG
+#ifdef ORDER_PP_DEBUG
 #define ORDER_PP_DEF_8with_assert(cond,body) 8EVAL_IF,cond,body,8exit(8(8Assert_Failed(8with_assert(cond,body)))),
 #else
 #define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(body)
