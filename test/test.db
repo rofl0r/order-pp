@@ -8,6 +8,7 @@ ap(fn(X,Y,X),const(x),const(y))#x
 ap(fn(X,Y,tuple(X,Y)),const(a),const(b))#(a,b)
 const(0)#0
 constant_embedding#This constant is in two parts!
+do(do(1,2),do(3,4))#4
 macro_let(X,5,X)#5
 seq(const(a),const(b),const(c),const(d),const(e),const(f),const(g),const(h))#(a)(b)(c)(d)(e)(f)(g)(h)
 seq(const(x))#(x)

@@ -13,6 +13,7 @@
 #include "order/def/numeric.h"
 #include "order/def/op.h"
 #include "order/eval/ap.h"
+#include "order/eval/do.h"
 #include "order/eval/fn.h"
 #include "order/eval/ref.h"
 #include "order/eval/seq.h"
