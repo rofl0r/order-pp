@@ -18,9 +18,9 @@
 // the backtracking recursive descent parser generator
 // ("brd_parser.h"). We will discuss the generators here only
 // briefly. The reader should refer to their documentation for
-// detailed description of their design and usage. We will also not
-// introduce lambda calculus here, but assume that the reader is
-// sufficiently familiar with it.
+// detailed description of their design and usage. We will also
+// assume that the reader is familiar with lambda calculus and do
+// not introduce it here.
 //
 // ### The representation of programs
 //
@@ -37,11 +37,11 @@ typedef str_type id_type;
 // Like many language processors do, our intepreter uses an abstract
 // syntax tree representation of programs. A natural way to
 // represent abstract syntax trees is to use variant records. In our
-// little language, a program consist of a list of definitions, a
-// rather minimal syntactic extension to pure lambda calculus
-// intended to simplify the writing of longer programs, and a single
-// lambda calculus expression to evaluate. A definition simply
-// associates an identifier with the value of an expression.
+// little language, a program consist of a list of definitions,
+// which is a rather minimal syntactic extension to pure lambda
+// calculus intended to simplify the writing of longer programs, and
+// a single lambda calculus expression to evaluate. A definition
+// simply associates an identifier with the value of an expression.
 // Finally, a lambda calculus expression is either a lambda
 // abstraction, a function application or a variable reference.
 //
@@ -161,11 +161,11 @@ static str_type exp_unparse(exp_type exp) {
 // `DATATYPE_switch' macro. Everything else should be quite obvious.
 //
 // The `DATATYPE_switch' macro takes three parameters. The first
-// parameter is the expression whose value is to be deconstructed.
-// The second is the type of the value. The third parameter is a
+// parameter is the expression whose value is to be examined. The
+// second is the type of the value. The third parameter is a
 // sequence of cases. Each case, represented by a variadic tuple,
-// names a constructor and a sequence variables to be bound to the
-// fields of the constructor followed by a block of code to be
+// names a constructor and a sequence of variables to be bound to
+// the fields of the constructor followed by a block of code to be
 // executed if the value matches the constructor. Strictly speaking,
 // it isn't necessary to make the code into a block, like is done
 // above, by surrouding it with braces, but it makes the code stand
@@ -184,7 +184,7 @@ static str_type exp_unparse(exp_type exp) {
 // a natural way to implement algorithms on inductive data types.
 // While C doesn't require a compiler to implement tail recursion
 // optimization, a good compiler implements it anyway and the
-// performance cost of using recursion is not prohibitive.
+// cost of using recursion is not prohibitive.
 //
 // ### Evaluating programs
 //
@@ -214,7 +214,7 @@ static exp_type exp_subst(exp_type exp, id_type id, exp_type in) {
 
 // Then we will define the function `exp_reduce', which reduces, or
 // evaluates, a given expression. Our `exp_reduce' has the strict
-// semantics, meaning that arguments are evaluated before
+// semantics, meaning that actual parameters are evaluated before
 // substitution. We leave it as exercise to change the interpreter
 // to use lazy evaluation.
 
@@ -256,9 +256,9 @@ static exp_type exp_reduce(exp_type exp) {
 // We could have handled alpha conversion in `exp_reduce', like is
 // often done in mathematical definitions of beta reduction, but
 // doing so would be inefficient, leading to repeated alpha
-// conversion of the same expressions. Instead, we will implement
-// full renaming of all binding prior to beta reduction, which is
-// usually more efficient.
+// conversion. Instead, we will implement full renaming of all bound
+// variables prior to beta reduction, which is usually more
+// efficient.
 //
 // First we'll define the function `id_fresh' that generates a fresh
 // identifier. We make a point of making the form of the generated
@@ -269,7 +269,7 @@ static id_type id_fresh(id_type base) {
   static unsigned int counter = 0;
 
   if (!++counter)
-    ERROR_exit("Counter overflow.");
+    ERROR_exit("Internal counter overflow.");
 
   return str_cat(base, "{", uint_to_str(counter), "}", str_end);
 }
@@ -291,7 +291,7 @@ static exp_type exp_fresh(exp_type exp) {
 }
 
 // The above `exp_fresh' function is still rather inefficient, but
-// it is still usually more efficient than performing alpha
+// it is still usually much more efficient than performing alpha
 // conversion repeatedly.
 //
 // There is one more thing left to do. Definitions are not a part of
@@ -301,8 +301,8 @@ static exp_type exp_fresh(exp_type exp) {
 // convert a program into an expression by turning each definition
 // into an expression that applies the body of the definition to a
 // lambda whose variable is the name of the definition and whose
-// body is the rest of the program. Definitions are just syntactic
-// sugar.
+// body is the rest of the program. This shows that definitions are
+// just syntactic sugar.
 
 static exp_type prg_to_exp(prg_type prg) {
   DATATYPE_switch
@@ -320,7 +320,8 @@ static exp_type prg_to_exp(prg_type prg) {
 // We could now build programs by calling the variant constructors
 // by hand and then calling the evaluation functions. However, we
 // will not do it, because it is much more convenient to define a
-// parser and then use the much shorter concrete syntax.
+// parser and then use the significantly more concise concrete
+// syntax.
 //
 // ### The parser
 //
@@ -374,25 +375,30 @@ BRD_PARSER(static, prg_parse,
 // name of the main entry point to the generated parser. The next
 // two parameters specify what to do between tokens and how to match
 // punctuation tokens. The next parameter is a sequence of token
-// specification each being a triple of the name, type and lexing
+// specifications each being a triple of the name, type and lexing
 // function. The last parameter is a sequence of productions,
 // defining the grammar, with semantic actions.
 //
 // The `BRD_PARSER' macro then generates a simple backtracking
 // recursive descent parser according to the grammar that executes
-// the semantic actions while parsing. The semantics actions should
+// the semantic actions while parsing. The semantic actions should
 // not have side effects, because, for simplicity, the generated
 // parser doesn't wait until it has a complete parse, but rather
 // calls the actions immediately upon recognizing a complete
 // production.
 //
 // The above parser doesn't recognize `def' as a keyword, but
-// instead allows an identifier named def. This could lead to
-// syntactic errors being reported too late. We leave it as an
-// exercise to treat `def' properly as a keyword that is not allowed
-// as an identifier.
+// instead allows an identifier named `def'. This could lead to
+// syntax errors being reported late. We leave it as an exercise to
+// treat `def' properly as a keyword that is not allowed as an
+// identifier.
 //
 // ### Putting it all together
+//
+// We now have all the ingredients to write a function that
+// evaluates a given program. The below `eval' function takes a
+// string, parses the string to yeild a program, and then executes
+// the program using the functions we defined in previous sections.
 
 static str_type eval(str_type code) {
   str_type str = code;
@@ -405,6 +411,11 @@ static str_type eval(str_type code) {
 
   return exp_unparse(exp_reduce(exp_fresh(prg_to_exp(prg))));
 }
+
+// The only thing left to do in `main' is to check the command line
+// arguments and display usage instructions when appropriate. As a
+// final twist, we use the interpreter to evaluate the simple
+// example that is part of the instructions.
 
 int main(int argc, char* argv[]) {
   if (2 != argc) {
@@ -440,6 +451,9 @@ int main(int argc, char* argv[]) {
 
 // ### Exercises
 //
-// 1. Extend the parser to allow comments.
+// 1. Extend the parser to allow comments and to treat `def' as a
+//    keyword.
+//
 // 2. Change the interpreter to use lazy evaluation.
-// 3. Design and implement better error handling and messages.
+//
+// 3. Design and implement better error handling and error messages.
