@@ -16,7 +16,7 @@ function stats {
   Macros           : $(echo "$code" | grep "^#[ \t]*define" | wc -l)
   Order DEF_8 defs : $(echo "$code" | grep "^#[ \t]*define[ \t]\\+ORDER_PP_DEF_8" | wc -l)
   Order SYM   defs : $(echo "$code" | grep "^#[ \t]*define[ \t]\\+ORDER_PP_SYM_" | wc -l)
-  Order TOKEN defs : $(echo "$code" | grep "^#[ \t]*define[ \t]\\+ORDER_PP_TOKEN_" | wc -l)"
+  Order TOKEN defs : $(echo "$code" | grep "^#[ \t]*define[ \t]\\+[A-Z_]\\+_TOKEN_[^ ]\\+[ \t]\\+(" | wc -l) (approximate)"
 }
 
 echo "\
@@ -26,4 +26,8 @@ $(stats "$(find inc -name '*.h' -a -not -path '*/lib/*')")
 
 Order library statistics
 
-$(stats "$(find inc -name '*.h' -a -path '*/lib/*')")"
+$(stats "$(find inc -name '*.h' -a -path '*/lib/*')")
+
+Order examples statistics
+
+$(stats "$(find example -name '*.h*' -o -name '*.c*')")"
