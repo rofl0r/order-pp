@@ -7,14 +7,14 @@
  */
 
 #include "order/cm.h"
+#include "order/def/cm.h"
+#include "order/def/const.h"
 #include "order/eval/ap.h"
 #include "order/eval/fn.h"
 #include "order/eval/ref.h"
-#include "order/eval/val.h"
+#include "order/eval/tuple.h"
 #include "order/util.h"
 
 #define ORDER(t) ORDER_CM(,,ORDER_DEF(t),8STOP,)
-
-#define ORDER_DEF(t) ORDER_DEF_##t
 
 #endif
