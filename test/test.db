@@ -251,6 +251,12 @@
 8seq_to_tuple(8seq)##<ws>
 8seq_unfold(8isnt_0,8dec,8to_lit,0)##<ws>
 8seq_unfold(8isnt_0,8dec,8to_lit,10)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#<ws>
+8seq_zip_with(8pair,8seq,8seq)##<ws>
+8seq_zip_with(8pair,8seq,8seq_iota(1,5))##<ws>
+8seq_zip_with(8pair,8seq_iota(1,5),8seq)##<ws>
+8seq_zip_with(8pair,8seq_iota(1,5),8seq_iota(10,3))#((1,9))((2,8))((3,7))((4,6))#<ws>
+8seq_zip_with(8pair,8seq_iota(1,5),8seq_iota(10,6))#((1,9))((2,8))((3,7))((4,6))#<ws>
+8seq_zip_with(8pair,8seq_iota(1,7),8seq_iota(10,6))#((1,9))((2,8))((3,7))((4,6))#<ws>
 8stream_for_each(8compose(8put,8to_lit),8stream_take(3,8stream_filter(8fn(8X,8is_0(8remainder(8X,2))),8stream_of_naturals)))#0 2 4#<ws>
 8stream_head(8stream_cons(1,8stream_nil))#1#<ws>
 8stream_head(8stream_tail(8stream_cons(1,8stream_cons(2,8stream_nil))))#2#<ws>
