@@ -364,6 +364,7 @@
 8until(8less(8),8plus(2),0)#10#
 8vseq_to_seq_of_tuples(8((!)(%,?)(^,*,;,{)(})))#((!))((% , ?))((^ , * , ; , {))((}))#
 8vseq_to_seq_of_tuples(8())##
+8vseq_zip(8seq_iota(0,5),8seq_iota(5,10),8seq_iota(10,15))#(0,5,10)(1,6,11)(2,7,12)(3,8,13)(4,9,14)#
 8when(8false,8put(8(!)))##
 8when(8true,8put(8(!)),8put(8(%)),8(?))#!%?#
 8while(8greater(8),8plus(2),0)#8#
