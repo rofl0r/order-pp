@@ -33,9 +33,11 @@ ORDER_PP_FN(8fn(8S,                             \
 #define ORDER_PP_DEF_8stream_head ORDER_PP_FN_CM(1,8STREAM_HEAD,0IS_STREAM_CONS)
 #define ORDER_PP_8STREAM_HEAD(P,s,...) (,ORDER_PP_STREAM_HEAD s##P,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8stream_is_cons ORDER_PP_MACRO(8seq_isnt_nil)
+#define ORDER_PP_DEF_8stream_is_cons ORDER_PP_FN_CM(1,8STREAM_IS_CONS,0IS_STREAM)
+#define ORDER_PP_8STREAM_IS_CONS(P,s,...) (,ORDER_PP_TEST(,ORDER_PP_IS_EDIBLE_TEST P##s,8true,8false),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8stream_is_nil ORDER_PP_MACRO(8seq_is_nil)
+#define ORDER_PP_DEF_8stream_is_nil ORDER_PP_FN_CM(1,8STREAM_IS_NIL,0IS_STREAM)
+#define ORDER_PP_8STREAM_IS_NIL(P,s,...) (,ORDER_PP_TEST(,ORDER_PP_IS_EDIBLE_TEST P##s,8false,8true),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8stream_tail ORDER_PP_FN_CM(1,8STREAM_TAIL,0IS_STREAM_CONS)
 #define ORDER_PP_8STREAM_TAIL(P,s,...) (,,ORDER_PP_STREAM_TAIL s##P,P##__VA_ARGS__)

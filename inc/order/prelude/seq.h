@@ -318,10 +318,9 @@ ORDER_PP_FN(8fn(8N, 8S,                                         \
 
 // Details
 
-// TBD: 0IS_SEQ, 0IS_SEQ_CONS, 0IS_VSEQ
-#define ORDER_PP_0IS_SEQ(P,x) ORDER_PP_IF_8true
-#define ORDER_PP_0IS_SEQ_CONS(P,x) ORDER_PP_IF_8true
-#define ORDER_PP_0IS_VSEQ(P,x) ORDER_PP_IF_8true
+#define ORDER_PP_0IS_SEQ(P,x) ORDER_PP_OR(or)(ORDER_PP_0IS_SEQ_CONS(,P##x))(or)(ORDER_PP_IS_NIL(,P##x))()
+#define ORDER_PP_0IS_SEQ_CONS(P,x) ORDER_PP_AND(and)(ORDER_PP_IS_EDIBLE(,P##x))(and)(ORDER_PP_FX(IS_TUPLE_SIZE_1,(,ORDER_PP_REM P##x)))()
+#define ORDER_PP_0IS_VSEQ(P,x) ORDER_PP_OR(or)(ORDER_PP_IS_EDIBLE(,P##x))(or)(ORDER_PP_IS_NIL(,P##x))()
 
 #define ORDER_PP_SEQ_FIRST_2(x) x,ORDER_PP_SEQ_AT_0
 
