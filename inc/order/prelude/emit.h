@@ -6,7 +6,7 @@
 #define ORDER_PP_8PUT(P,x,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,1,P##x)
 
 #define ORDER_PP_DEF_8emit ORDER_PP_FN_CM(2,8EMIT)
-#define ORDER_PP_8EMIT(P,m,a,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,P##m,P##a)
+#define ORDER_PP_8EMIT(P,m,a,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,P##m,a##P)
 
 #define ORDER_PP_DEF_8emit_comma ORDER_PP_FN_CM(1,8EMIT_COMMA)
 #define ORDER_PP_8EMIT_COMMA(P,x,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,3,P##x)
