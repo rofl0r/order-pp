@@ -9,6 +9,9 @@
 #define ORDER_PP_DEF_FIRST(P,...) ORDER_PP_DEF_FIRST_B(__VA_ARGS__##P,)
 #define ORDER_PP_DEF_FIRST_B(t,...) ORDER_PP_DEF_##t
 
+#define ORDER_PP_ASSERT_SYNTAX(def_t_p) ORDER_PP_FX(EAT,(ORDER_PP_TUPLE_AT_1(,def_t_p,ORDER_PP_SYNTAX_ERROR(!),)))
+#define ORDER_PP_SYNTAX_ERROR()
+
 #define ORDER_PP_BLOCK
 #define ORDER_PP_NIL()
 #define ORDER_PP_EAT(...)

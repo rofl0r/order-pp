@@ -75,11 +75,11 @@
 8seq_at(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (!)!!!!!!!!!!!!!!!!!!!!!!!#<ws>
 8seq_at(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (?)???????????????????????#<ws>
 8seq_at(3,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (^)^^^^^^^^^^^^^^^^^^^^^^^#<ws>
-8seq_exists(8same(8(8E)),8((8A)(8B)(8C)(8D)(8E)))#8true#<ws>
-8seq_exists(8same(8(8E)),8((8A)(8B)(8C)(8D)))#8false#<ws>
-8seq_exists(8same(8(8C)),8((8A)(8B)(8C)(8D)(8E)))#8true#<ws>
 8seq_exists(8same(8(8A)),8((8A)(8B)(8C)(8D)))#8true#<ws>
 8seq_exists(8same(8(8A)),8())#8false#<ws>
+8seq_exists(8same(8(8C)),8((8A)(8B)(8C)(8D)(8E)))#8true#<ws>
+8seq_exists(8same(8(8E)),8((8A)(8B)(8C)(8D)(8E)))#8true#<ws>
+8seq_exists(8same(8(8E)),8((8A)(8B)(8C)(8D)))#8false#<ws>
 8seq_filter(8is_sym,8seq(1,8(not symbol),8true))#(1)(8true)#<ws>
 8seq_first(8((ACT(;))(ACT([))(ACT(]))))#ACT (;);;;;;;;;;;;;;;;;;;;;;;#<ws>
 8seq_first(8((ACT(;))))#ACT (;);;;;;;;;;;;;;;;;;;;;;;#<ws>

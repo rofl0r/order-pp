@@ -10,7 +10,7 @@
 #define ORDER_PP_8EXIT(P,x,...) ,(,1,x##P))
 
 #define ORDER_PP_DEF_8eval ORDER_PP_FN_CM(2,8EVAL)
-#define ORDER_PP_8EVAL(P,t,e,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL(P,t,e,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8for_each_in_range ORDER_PP_FN_CM(3,8FOR_EACH_IN_RANGE)
 #define ORDER_PP_8FOR_EACH_IN_RANGE(P,i0,i1,...) (,,ORDER_PP_FX(8FOR_EACH_IN_RANGE_B,(,ORDER_PP_NUM_BOP(,LESS,P##i0,P##i1)(ORDER_PP_8FOR_EACH_IN_RANGE_,INC,DEC)(,P##i0,P##i1))),P##__VA_ARGS__)

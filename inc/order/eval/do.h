@@ -4,16 +4,16 @@
 
 #define ORDER_PP_DEF_8do(...) 8EVAL_DO,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),__VA_ARGS__,
 
-#define ORDER_PP_8EVAL_DO(P,e,n,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_##n,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO(P,e,n,t,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_##n,P##e,P##__VA_ARGS__)
 
 #define ORDER_PP_8EVAL_DO_0(P,v,e,G,...)   (,P##v,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_1(P,_,e,t,G,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_2(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_1,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_3(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_2,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_4(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_3,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_5(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_4,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_6(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_5,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_7(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_6,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_8(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_7,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_9(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_8,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_10(P,_,e,t,...)  (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_9,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_1(P,_,e,t,G,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_2(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_1,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_3(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_2,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_4(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_3,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_5(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_4,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_6(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_5,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_7(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_6,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_8(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_7,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_9(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_8,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_10(P,_,e,t,...)  ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_9,P##e,P##__VA_ARGS__)
