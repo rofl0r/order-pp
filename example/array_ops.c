@@ -424,14 +424,14 @@ ORDER_PP_FN(8fn(8OP, 8TY,                                               \
 // or the shorthand `8', can be any preprocessor argument, like in
 // ordinary top-level constant definitions. `8quote' then simply
 // evaluates to that preprocessor argument. You might wonder why we
-// need to use `8quote' here. The reason is simple. There is no
+// need to use quotation here. The reason is simple. There is no
 // Order definition for `GEN_array_uop', hence the interpreter knows
 // nothing about `GEN_array_uop', and can not interpret it.
 // Therefore we must quote it so that the interpreter will not try
 // to interpret it. Of course, we could have alternatively
 // introduced a constant definition for `GEN_array_uop', but since
 // we are not going to refer to it many times, it is more convenient
-// to just use `8quote'.
+// to just use quotation.
 //
 // The side-effecting `8emit' procedure is different from the
 // functions we have used so far. It is used to produce output as a
@@ -466,8 +466,7 @@ ORDER_PP(8seq_for_each_in_product
                                8and(8equal(1, 8op_arity(8OP)),
                                     8not(8op_does_floats(8OP)))),
                            8applicative_ops),
-               8seq_filter(8fn(8TY,
-                               8not(8type_is_float(8TY))),
+               8seq_filter(8chain(8not, 8type_is_float),
                            8builtin_types))))
 
 // The Order interpreter is invoked using the `ORDER_PP' macro. It
@@ -476,9 +475,13 @@ ORDER_PP(8seq_for_each_in_product
 // The `8seq_filter(Pr,S)' function takes an unary predicate
 // function and a sequence and produces a new sequence which
 // contains only the elements of the given sequence that satisfy the
-// given predicate. Above, we've defined the predicate using an
-// anonymous function. This is typical when using higher-order
-// functions.
+// given predicate. Above, we've defined the predicate for filtering
+// the `8applicative_ops' sequence using an anonymous function. This
+// is typical when using higher-order functions. New functions can
+// also be formed through other means. The predicate for filtering
+// the `8builtin_types' sequence is implemented above by chaining,
+// or composing, together the unary `8not' function with the unary
+// `8type_is_float' accessor.
 //
 // The `8seq_for_each_in_product(8OP,8Ss)' function computes the
 // cartesian product of the sequence of sequences given as arguments
@@ -522,8 +525,7 @@ ORDER_PP_FN(8fn(8OP, 8TL, 8TR,                                          \
 
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
-          8let(8TS, 8seq_filter(8fn(8TY,
-                                    8not(8type_is_float(8TY))),
+          8let(8TS, 8seq_filter(8chain(8not, 8type_is_float),
                                 8builtin_types),
                8seq(8seq_filter(8fn(8OP,
                                     8and(8equal(2, 8op_arity(8OP)),
