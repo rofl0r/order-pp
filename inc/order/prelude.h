@@ -9,6 +9,7 @@
 #include "order/prelude/control.h"
 #include "order/prelude/emit.h"
 #include "order/prelude/fun.h"
+#include "order/prelude/nat.h"
 #include "order/prelude/nil.h"
 #include "order/prelude/numeric.h"
 #include "order/prelude/pp.h"
