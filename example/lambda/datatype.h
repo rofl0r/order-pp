@@ -31,24 +31,23 @@ ORDER_PP(8let(8S, 8dt_import_datatypes(8(datatypes)),                           
 
 #define DATATYPE_GEN_datatype(type_name, variants)                      \
 ORDER_PP(8seq_for_each                                                  \
-         (8fn(8V,                                                       \
-              8seq_for_each_with_idx                                    \
-              (8fn(8I, 8N,                                              \
-                   8print((typedef) 8N 8cat(8(DATATYPE_FIELD_),         \
-                                            8to_lit(8I),                \
-                                            8(_TYPE_),                  \
-                                            8dt_variant_name(8V))       \
-                          (;))),                                        \
-               8dt_variant_field_types(8V))),                           \
+         (8apply(8fn(8C,                                                \
+                     8seq_for_each_with_idx                             \
+                     (8fn(8I, 8N,                                       \
+                          8print((typedef) 8N 8cat(8(DATATYPE_FIELD_),  \
+                                                   8to_lit(8I),         \
+                                                   8(_TYPE_),           \
+                                                   8C)                  \
+                                 (;)))))),                              \
           8(variants)))                                                 \
                                                                         \
 struct type_name {                                                      \
   enum {                                                                \
     ORDER_PP(8seq_for_each                                              \
-             (8fn(8V,                                                   \
-                  8print(8cat(8(DATATYPE_TAG_), 8dt_variant_name(8V))   \
+             (8fn(8N,                                                   \
+                  8print(8cat(8(DATATYPE_TAG_), 8N)                     \
                          (,))),                                         \
-              8(variants)))                                             \
+              8seq_map(8dt_variant_name, 8(variants))))                 \
   } tag;                                                                \
                                                                         \
   union {                                                               \
@@ -61,18 +60,18 @@ struct type_name {                                                      \
 };                                                                      \
                                                                         \
 ORDER_PP(8seq_for_each                                                  \
-         (8fn(8V,                                                       \
-              8emit(8(DATATYPE_GEN_ctor),                               \
-                    8tuple(8(type_name),                                \
-                           8dt_variant_name(8V),                        \
-                           8seq_size(8dt_variant_field_types(8V))))),   \
+         (8apply(8fn(8C, 8F,                                            \
+                     8emit(8(DATATYPE_GEN_ctor),                        \
+                           8tuple(8(type_name),                         \
+                                  8C,                                   \
+                                  8seq_size(8F))))),                    \
           8(variants)))
 
 #define DATATYPE_GEN_variant_struct(variant_name, field_types)          \
 struct {                                                                \
   ORDER_PP(8seq_for_each_with_idx                                       \
            (8fn(8I, 8T,                                                 \
-                8print(8T 8cat(8(_),8to_lit(8I)) (;))),                 \
+                8print(8T 8cat(8(_), 8to_lit(8I)) (;))),                \
             8(field_types)))                                            \
 } variant_name;
 

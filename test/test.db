@@ -17,6 +17,8 @@
 8ap(8fn(8X,8Y,8X),8act(!),8act(%))#ACT (!)!!!!!!!!!!!!!!!!!!#<ws>
 8ap(8fn(8X,8Y,8tuple(8X,8Y)),8act(!),8act(%))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!!!,TCA (%)%%%%%%%%%%%%%%%%%%%%%%%)#<ws>
 8ap(8identity,8act(!))#ACT (!)!!!!!!!!!!!!!!!!#<ws>
+8apply(8inc,8tuple(4))#5#<ws>
+8apply(8plus,8tuple(1,2))#3#<ws>
 8cat(1,2)#12#<ws>
 8cat(1,2,3,4,5,6,7,8)#12345678#<ws>
 8cat(8cat(1,2),8cat(1,2))#1212#<ws>
@@ -107,6 +109,7 @@
 8seq_is_nil(8seq_nil)#8true#<ws>
 8seq_isnt_nil(8nil)#8false#<ws>
 8seq_isnt_nil(8seq(8act(1),8act(2),8act(3)))#8true#<ws>
+8seq_map(8apply(8remainder),8(((5,2))((6,4))((9,5))((6,6))((9,10))))#(1)(2)(4)(0)(9)#<ws>
 8seq_map(8chain(8to_lit,8dec),8seq(3,1,4,1))#(2)(0)(3)(0)#<ws>
 8seq_map(8chain(8to_lit,8dec,8inc,8lit_to_nat),8seq(8(0),8(1),8(45),8(100)))#(0)(1)(45)(100)#<ws>
 8seq_map(8dec,8nil)##<ws>
