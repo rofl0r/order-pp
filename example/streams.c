@@ -47,7 +47,7 @@ ORDER_PP_MACRO(8stream_map                              \
                 8stream_iterate                         \
                 (8step(8tuple(8tuple_at_1,              \
                               8uncurry(8plus))),        \
-                 8((0,1)))))
+                 8tuple(0, 1))))
 //>
 
 //<
@@ -58,7 +58,7 @@ fib[] = {
   ORDER_PP(8stream_for_each
            (8chain(8emit_comma,
                    8put,
-                   8flip(8paste,8(ul)),
+                   8flip(8paste, 8(ul)),
                    8to_lit),
             8stream_take_while(8greater_eq(8ullong_max),
                                8stream_of_fibs)))
@@ -83,17 +83,15 @@ ORDER_PP_FN(8fn(8S,                                             \
 #define ORDER_PP_DEF_8stream_of_primes                  \
 ORDER_PP_MACRO(8stream_cons                             \
                (2,                                      \
-                8sieve(8stream_iterate(8plus(2),3))))
+                8sieve(8stream_iterate(8plus(2), 3))))
 //>
 
 //<
 const int
 prime[] = {
   ORDER_PP(8stream_for_each
-           (8chain(8emit_comma,
-                   8put,
-                   8to_lit),
-            8stream_take(16,8stream_of_primes)))
+           (8chain(8emit_comma, 8put, 8to_lit),
+            8stream_take(16, 8stream_of_primes)))
 };
 //>
 
