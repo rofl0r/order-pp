@@ -14,20 +14,19 @@
 #define ORDER_PP_DEF_8dt_variant_name ORDER_PP_MACRO(8tuple_at_0)
 #define ORDER_PP_DEF_8dt_variant_field_types ORDER_PP_MACRO(8tuple_at_1)
 
-#define ORDER_PP_DEF_8dt_import_datatypes ORDER_PP_FN                   \
-(8fn(8S,                                                                \
-     8seq_map(8fn(8D,                                                   \
-                  8tuple(8tuple_at_0(8D),                               \
-                         8vseq_to_seq_of_tuples(8tuple_at_1(8D)))),     \
-              8vseq_to_seq_of_tuples(8S))))
+#define ORDER_PP_DEF_8dt_import_datatypes                                       \
+ORDER_PP_FN(8fn(8S,                                                             \
+                8seq_map(8fn(8D,                                                \
+                             8tuple(8tuple_at_0(8D),                            \
+                                    8vseq_to_seq_of_tuples(8tuple_at_1(8D)))),  \
+                         8vseq_to_seq_of_tuples(8S))))
 
-#define DATATYPE_define(datatypes)                                                      \
-ORDER_PP(8let(8S, 8dt_import_datatypes(8(datatypes)),                                   \
-              8do(8seq_for_each(8fn(8D,                                                 \
-                                    8let(8N, 8dt_type_name(8D),                         \
-                                         8print((typedef const struct) 8N (*)8N(;)))),  \
-                                8S),                                                    \
-                  8seq_for_each(8emit(8(DATATYPE_GEN_datatype)),                        \
+#define DATATYPE_define(datatypes)                                              \
+ORDER_PP(8let(8S, 8dt_import_datatypes(8(datatypes)),                           \
+              8do(8seq_for_each(8fn(8N,                                         \
+                                    8print((typedef const struct)8N(*)8N(;))),  \
+                                8seq_map(8dt_type_name, 8S)),                   \
+                  8seq_for_each(8emit(8(DATATYPE_GEN_datatype)),                \
                                 8S))))
 
 #define DATATYPE_GEN_datatype(type_name, variants)                      \
@@ -47,19 +46,17 @@ struct type_name {                                                      \
   enum {                                                                \
     ORDER_PP(8seq_for_each                                              \
              (8fn(8V,                                                   \
-                  8print(8cat(8(DATATYPE_TAG_),                         \
-                              8dt_variant_name(8V))                     \
+                  8print(8cat(8(DATATYPE_TAG_), 8dt_variant_name(8V))   \
                          (,))),                                         \
               8(variants)))                                             \
   } tag;                                                                \
                                                                         \
   union {                                                               \
     ORDER_PP(8seq_for_each                                              \
-             (8fn(8V,                                                   \
-                  8when(8seq_isnt_nil(8dt_variant_field_types(8V)),     \
-                        8emit(8(DATATYPE_GEN_variant_struct),           \
-                              8V))),                                    \
-              8(variants)))                                             \
+             (8emit(8(DATATYPE_GEN_variant_struct)),                    \
+              8seq_filter(8chain(8seq_isnt_nil,                         \
+                                 8dt_variant_field_types),              \
+                          8(variants))))                                \
   } datum;                                                              \
 };                                                                      \
                                                                         \
