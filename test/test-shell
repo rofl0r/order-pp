@@ -76,6 +76,13 @@ function preprocess-all-tests {
     tail -n $(test-cnt)
 }
 
+function first-diff-line {
+    local tmpFile=$(tempfile)
+    echo "$1" > $tmpFile
+    echo "$2" | cmp $tmpFile | grep -o '[0-9]\+$'
+    rm $tmpFile
+}
+
 function run-tests {
     echo "Running $(test-cnt) tests..."
 
@@ -85,7 +92,7 @@ function run-tests {
 
     if test "$allResult" != "$allExpected" ; then
         echo -n "Errors"
-        for ((i=0, n=$(test-cnt) ; i < n ; ++i )) ; do
+        for ((i=$(($(first-diff-line "$allResult" "$allExpected") - 1)), n=$(test-cnt) ; i < n ; ++i )) ; do
             result=$(get-line-from $i "$allResult")
             term=$(get-line-from $i "$allTerm")
             expected=$(get-line-from $i "$allExpected")
