@@ -18,7 +18,16 @@
 //
 // In order to portably distinguish function types from other types,
 // the implementation of the `is_function<T>' type trait could use
-// function templates of the form:
+// a couple of auxiliary types
+
+struct yes_type { int type[2]; };
+typedef int no_type;
+
+// an ellipsis function
+
+no_type is_function_tester(...);
+
+// and function templates of the form
 
 #if 0
 template<class R>
@@ -33,11 +42,15 @@ yes_type is_function_tester(R (*)(A0,A1));
 // ...
 #endif
 
+// It is then possible to distinguish between function types and
+// other types taking advantage of overload resolution and the
+// compile-time 'sizeof' operator.
+//
 // One function template is required for each number of parameters
 // and, as can easily be seen, in order to support $n$ parameters,
-// $\Theta(n^2)$ tokens are needed. So, instead of laboriously
-// writing the repetitive templates by hand, we'd like to generate
-// them using a simple metaprogram.
+// $\Theta(n^2)$ tokens are needed. Instead of laboriously writing
+// the repetitive templates by hand, we'd like to generate them
+// using a simple metaprogram.
 //
 // Even if we would be willing to write the repetitive code by hand,
 // we would still have one problem. We don't know how many
