@@ -27,7 +27,7 @@ SYNTAX
                 | 8and(<exp>+)
                 | 8or(<exp>+)
                 | 8cat(<exp>+)
-                | 8seq(<exp>+)
+                | 8seq | 8seq(<exp>+)
                 | 8tuple(<exp>+)
                 | 8do(<exp>+)
                 | 8rout(<exp>+)
@@ -284,10 +284,6 @@ Symbols
 
 Sequences
 ---------
-
-  Constants:
-
-   8seq_nil                       : Seq
 
   Predicates:
 

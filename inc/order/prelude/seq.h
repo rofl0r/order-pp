@@ -72,8 +72,6 @@
 
 #define ORDER_PP_DEF_8seq_map_seq ORDER_PP_FN_NATIVE(1,9VSEQ_TO_SEQ_OF_TUPLES)
 
-#define ORDER_PP_DEF_8seq_nil 8DEF_CONST,,
-
 #define ORDER_PP_DEF_8seq_pop_at ORDER_PP_FN_NATIVE(2,9SEQ_POP_AT)
 #define ORDER_PP_9SEQ_POP_AT(P,i,s) ORDER_PP_FX(SEQ_POP_AT_B,(,ORDER_PP_SEQ_SPLIT_AT(,P##i,P##s)))
 #define ORDER_PP_SEQ_POP_AT_B(P,l,r) l##P r##P
