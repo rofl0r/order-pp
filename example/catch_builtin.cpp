@@ -8,8 +8,8 @@
 
 // ## Catching built-in types
 //
-// This example demonstrates the usage of the Order interpreter for
-// generating repetitive C++ code.
+// This example shows how the Order interpreter can be used to
+// generate repetitive C++ code.
 //
 // ### Motivation
 //
@@ -28,10 +28,10 @@
 // Normally, you probably couldn't care less about handling
 // exceptions of built-in types, because it rarely makes sense to
 // throw values of built-in types, but suppose you want to write an
-// exception handler that simply handles exceptions of all built-in
-// types by, for example, simply writing a simple message to the
-// standard error stream `cerr'. You could use such an exception
-// handler to help debugging, for example.
+// exception handler that handles exceptions of all built-in types
+// by, for example, simply writing a simple message to the standard
+// error stream `cerr'. You could use such an exception handler to
+// help debugging, for example.
 //
 // ### A sequence of built-in types
 //
@@ -90,7 +90,7 @@ bool log_builtin_type_exceptions() {
 // macro must be followed by a parenthesized Order expression that
 // is the program to interpret.
 //
-// The program above, uses the higher-order function `8seq_for_each'
+// The above program uses the higher-order function `8seq_for_each'
 // to apply an anonymous function, `8fn(...)', to each element of
 // the `8builtin_types' sequence we defined earlier. The Order
 // prelude defines a comprehensive set of first-order and
@@ -131,10 +131,10 @@ int main() {
 //
 // One last note. You might have noticed the unbalanced brace `(})'
 // above. The preprocessor actually treats only parentheses and
-// commas specially and parentheses usually need be balanced. The
+// commas specially and parentheses usually must be balanced. The
 // preprocessor is not concerned about the balancing of other
 // tokens, such as `{[<>]}', so we don't need to handle them
-// specially either.
+// specially.
 //
 // ### Exercises
 //
