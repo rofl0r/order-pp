@@ -20,3 +20,6 @@
 
 #define ORDER_PP_DEF_8put ORDER_PP_FN_CM(1,8PUT,0IS_ANY)
 #define ORDER_PP_8PUT(P,x,...) (,,P##__VA_ARGS__)(,1,P##x)
+
+#define ORDER_PP_DEF_8put_open ORDER_PP_FN_CM(1,8PUT_OPEN,0IS_TUPLE)
+#define ORDER_PP_8PUT_OPEN(P,t,...) (,,P##__VA_ARGS__)(,1,ORDER_PP_REM t##P)

@@ -60,6 +60,7 @@
 8do(8put(8(!)),8put(8(%)),8exit(8(?)),8put(8(*)),8put(8(;)))#!%?#
 8do(8put(8(!)),8put(8(%)),8put(8(?)))#!%?#
 8do(8put(8(ORDER_PP_ID)),8put(8(())),8put(8((8seq_for_each(8put,8seq_iota(2,5))))))#2 3 4#
+8do(8put_open(8(())),8put_open(8((a))),8put_open(8((1,2,3))))#a 1 , 2 , 3#
 8emit(8(ORDER_PP_ID),8(()(8seq_for_each(8put,8seq_iota(2,5)))))#2 3 4#
 8emit(8(REC_FAILURE),8(()))#ORDER_PP_EVAL_OUT_OF_INTERPRETERS_ERROR(8emit(8(REC_FAILURE_63),8(())))#ORDER_PP_EVAL_OUT_OF_INTERPRETERS_ERROR
 8emit_params(1,11,8(class B))#class B1,class B2,class B3,class B4,class B5,class B6,class B7,class B8,class B9,class B10#
