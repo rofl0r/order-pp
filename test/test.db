@@ -42,6 +42,7 @@
 8apply(8plus,8tuple(1,2))#3#
 8cat(1,2)#12#
 8cat(1,2,3,4,5,6,7,8)#12345678#
+8cat(1,2,8tuple(3),4)#ORDER_PP_PRECONDITION_FAILURE:9PASTE(12,(3)):(,(,,4,9PASTE)(,12,(3)),0IS_ANY,0op_ln,8EXIT,,)#ORDER_PP_PRECONDITION_FAILURE
 8cat(8cat(1,2),8cat(1,2))#1212#
 8cond((8else,1))#1#
 8cond((8false,1)(8else,2))#2#
