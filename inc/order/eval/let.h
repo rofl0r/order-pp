@@ -22,7 +22,7 @@
 // `<exp_b>' is then evaluated in the the extended environment.
 #define ORDER_PP_DEF_8let(...) 8EVAL_LET,__VA_ARGS__
 
-#define ORDER_PP_CM_8EVAL_LET(P,e,s,i,...) (,P##e,ORDER_PP_DEF_##i,8EVAL_LET_B,P##s,P##e,P##__VA_ARGS__)
-#define ORDER_PP_CM_8EVAL_LET_B(P,v,s,e,...) (,(,P##s,P##v)P##e,ORDER_PP_DEF_##__VA_ARGS__)
+#define ORDER_PP_8EVAL_LET(P,e,s,i,...) (,P##e,ORDER_PP_DEF_##i,8EVAL_LET_B,P##s,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_LET_B(P,v,s,e,...) (,(,P##s,P##v)P##e,ORDER_PP_DEF_##__VA_ARGS__)
 
 #endif

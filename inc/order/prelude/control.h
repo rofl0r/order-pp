@@ -17,6 +17,6 @@
 #endif
 
 #define ORDER_PP_DEF_8for_each_in_range ORDER_PP_FN_CM(3,8REMAP_3012,,8FOR_EACH_IN_RANGE_4)
-#define ORDER_PP_CM_8FOR_EACH_IN_RANGE_4(P,_,f,lo,hi,...) (,ORDER_PP_EQUAL(,P##lo,P##hi)(,(,),P##lo,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_4,P##f,ORDER_PP_INC_##lo,P##hi),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_IN_RANGE_4(P,_,f,lo,hi,...) (,ORDER_PP_EQUAL(,P##lo,P##hi)(,,P##lo,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_4,P##f,ORDER_PP_INC_##lo,P##hi),P##__VA_ARGS__)
 
 #endif

@@ -5,7 +5,7 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_CM_8EVAL_REF(P,e,s,K,...) ORDER_PP_CM_INVOKE(P##K,ORDER_PP_EXPAND(ORDER_PP_ENV_REF,(,ORDER_PP_ENV_REF_##s e##P))),P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_REF(P,e,s,K,...) ORDER_PP_CM_INVOKE(P##K,ORDER_PP_EXPAND(ORDER_PP_ENV_REF,(,ORDER_PP_ENV_REF_##s e##P))),P##__VA_ARGS__)
 
 #define ORDER_PP_ENV_REF(P,_,x,...) P##x
 

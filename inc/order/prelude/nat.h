@@ -7,7 +7,7 @@
 
 #define ORDER_PP_DEF_8is_zero ORDER_PP_FN_CM(1,8IS_ZERO)
 #define ORDER_PP_IS_ZERO(d) ORDER_PP_PTUPLE_AT_0(,ORDER_PP_IS_ZERO_##d,
-#define ORDER_PP_CM_8IS_ZERO(P,x,...) (,ORDER_PP_IS_ZERO x##P),P##__VA_ARGS__)
+#define ORDER_PP_8IS_ZERO(P,x,...) (,ORDER_PP_IS_ZERO x##P),P##__VA_ARGS__)
 #define ORDER_PP_IS_ZERO_0 8false
 #define ORDER_PP_IS_ZERO_1 8false
 #define ORDER_PP_IS_ZERO_2 8false
@@ -31,7 +31,7 @@
 
 #define ORDER_PP_DEF_8isnt_zero ORDER_PP_FN_CM(1,8ISNT_ZERO)
 #define ORDER_PP_ISNT_ZERO(d) ORDER_PP_PTUPLE_AT_0(,ORDER_PP_ISNT_ZERO_##d,
-#define ORDER_PP_CM_8ISNT_ZERO(P,x,...) (,ORDER_PP_ISNT_ZERO x##P),P##__VA_ARGS__)
+#define ORDER_PP_8ISNT_ZERO(P,x,...) (,ORDER_PP_ISNT_ZERO x##P),P##__VA_ARGS__)
 #define ORDER_PP_ISNT_ZERO_0 8true
 #define ORDER_PP_ISNT_ZERO_1 8true
 #define ORDER_PP_ISNT_ZERO_2 8true
@@ -54,7 +54,7 @@
 #define ORDER_PP_ISNT_ZERO_09 8true
 
 #define ORDER_PP_DEF_8nat(...) 8NAT,ORDER_PP_PTUPLE_SIZE(,0##__VA_ARGS__),(,0##__VA_ARGS__)
-#define ORDER_PP_CM_8NAT(P,e,n,d,...) (,ORDER_PP_NAT_##n d##P,P##__VA_ARGS__)
+#define ORDER_PP_8NAT(P,e,n,d,...) (,ORDER_PP_NAT_##n d##P,P##__VA_ARGS__)
 #define ORDER_PP_NAT(...) ORDER_PP_CAT(ORDER_PP_NAT_,ORDER_PP_PTUPLE_SIZE(,0##__VA_ARGS__))(,0##__VA_ARGS__)
 #define ORDER_PP_NAT_1(P,_0) (P##_0)
 #define ORDER_PP_NAT_2(P,_0,_1) (P##_1)(P##_0)
@@ -68,15 +68,15 @@
 #define ORDER_PP_NAT_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9) (P##_9)(P##_8)(P##_7)(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
 
 #define ORDER_PP_DEF_8nat_to_lit ORDER_PP_FN_CM(1,8NAT_TO_LIT)
-#define ORDER_PP_CM_8NAT_TO_LIT(P,n,...) (,ORDER_PP_NAT_TO_LIT_OPEN_A n##P ORDER_PP_NAT_TO_LIT_CLOSE_A n##P,P##__VA_ARGS__)
+#define ORDER_PP_8NAT_TO_LIT(P,n,...) (,ORDER_PP_NAT_TO_LIT_OPEN_A n##P ORDER_PP_NAT_TO_LIT_CLOSE_A n##P,P##__VA_ARGS__)
 #define ORDER_PP_NAT_TO_LIT_OPEN_A(d) ORDER_PP_REVERSE_CAT ORDER_PP_BLOCK(ORDER_PP_DIGIT_##d,ORDER_PP_IS_SENTINEL_##d(,,ORDER_PP_NAT_TO_LIT_OPEN_B)
 #define ORDER_PP_NAT_TO_LIT_OPEN_B(d) ORDER_PP_REVERSE_CAT ORDER_PP_BLOCK(ORDER_PP_DIGIT_##d,ORDER_PP_IS_SENTINEL_##d(,,ORDER_PP_NAT_TO_LIT_OPEN_A)
 #define ORDER_PP_NAT_TO_LIT_CLOSE_A(d) )ORDER_PP_IS_SENTINEL_##d(,,ORDER_PP_NAT_TO_LIT_CLOSE_B)
 #define ORDER_PP_NAT_TO_LIT_CLOSE_B(d) )ORDER_PP_IS_SENTINEL_##d(,,ORDER_PP_NAT_TO_LIT_CLOSE_A)
 
 #define ORDER_PP_DEF_8plus ORDER_PP_OP_LEFT_CM(8PLUS)
-#define ORDER_PP_CM_8PLUS(P,x,y,...) ORDER_PP_CM_INVOKE(8PLUS_5,,ORDER_PP_PLUS_SPLIT_L x##P,ORDER_PP_PLUS_SPLIT_R y##P),P##__VA_ARGS__)
-#define ORDER_PP_CM_8PLUS_5(P,r,x,xs,y,ys,...) (,ORDER_PP_PLUS_L_##x P##y(,r##P,P##xs,P##ys),P##__VA_ARGS__)
+#define ORDER_PP_8PLUS(P,x,y,...) ORDER_PP_CM_INVOKE(8PLUS_5,,ORDER_PP_PLUS_SPLIT_L x##P,ORDER_PP_PLUS_SPLIT_R y##P),P##__VA_ARGS__)
+#define ORDER_PP_8PLUS_5(P,r,x,xs,y,ys,...) (,ORDER_PP_PLUS_L_##x P##y(,r##P,P##xs,P##ys),P##__VA_ARGS__)
 #define ORDER_PP_PLUS_SPLIT_L(d) 0##d,
 #define ORDER_PP_PLUS_SPLIT_R(d) ORDER_PP_PLUS_R_##d,
 #define ORDER_PP_PLUS_SPLIT_RC(d) ORDER_PP_PLUS_RC_##d,
@@ -222,7 +222,7 @@
 #define ORDER_PP_PLUS_L19R(P,r,xs,ys) r##P(9)(01)
 
 #define ORDER_PP_DEF_8pred ORDER_PP_FN_CM(1,8PRED)
-#define ORDER_PP_CM_8PRED(P,n,...) (,ORDER_PP_PRED n##P,P##__VA_ARGS__)
+#define ORDER_PP_8PRED(P,n,...) (,ORDER_PP_PRED n##P,P##__VA_ARGS__)
 #define ORDER_PP_PRED(d) ORDER_PP_PRED_##d
 #define ORDER_PP_PRED_0 ORDER_PP_PRED_A
 #define ORDER_PP_PRED_1 (0)
@@ -286,7 +286,7 @@
 #define ORDER_PP_PRED_B_09 (9)(08)
 
 #define ORDER_PP_DEF_8succ ORDER_PP_FN_CM(1,8SUCC)
-#define ORDER_PP_CM_8SUCC(P,n,...) (,ORDER_PP_SUCC n##P,P##__VA_ARGS__)
+#define ORDER_PP_8SUCC(P,n,...) (,ORDER_PP_SUCC n##P,P##__VA_ARGS__)
 #define ORDER_PP_SUCC(d) ORDER_PP_SUCC_##d
 #define ORDER_PP_SUCC_0 (1)
 #define ORDER_PP_SUCC_1 (2)
