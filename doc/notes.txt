@@ -240,26 +240,26 @@ Sequences
   First-order:
 
    8seq(8X0,...,8XN)            : Any+ -> Seq
-  -8seq_append(8S0,...,8SN)     : Seq -> Seq -> Seq
    8seq_at(8I,8S)               : Num -> Seq -> Any
    8seq_first(8S)               : Seq -> Any
    8seq_first_n(8N,8S)          : Num -> Seq -> Seq
-   8seq_insert(8I,8S,8X)        : Num -> Seq -> Any -> Seq
-  -8seq_insert_range(8I,8S,8SS) : Num -> Seq -> Seq -> Seq
+   8seq_pop_at(8I,8S)           : Num -> Seq -> Seq
    8seq_pop_back(8S)            : Seq -> Seq
    8seq_pop_front(8S)           : Seq -> Seq
+   8seq_push_at(8I,8S,8X)       : Num -> Seq -> Any -> Seq
    8seq_push_back(8X,8S)        : Any -> Seq -> Seq
    8seq_push_front(8X,8S)       : Any -> Seq -> Any -> Seq
-  -8seq_remove(8I,8S)           : Num -> Seq -> Seq
-  -8seq_remove_range(8I,8N,8S)  : Num -> Num -> Seq -> Seq
+   8seq_range(8I,8N,8S)         : Num -> Num -> Seq -> Seq
    8seq_rest(8S)                : Seq -> Seq
    8seq_rest_n(8N,8S)           : Num -> Seq -> Seq
    8seq_reverse(8S)             : Seq -> Seq
    8seq_set(8I,8S,8X)           : Num -> Seq -> Any -> Seq
    8seq_size(8S)                : Seq -> Num
-  -8seq_split(8I,8S)            : Num -> Seq -> Tuple(Seq, Seq)
-   8seq_range(8I,8N,8S)         : Num -> Num -> Seq -> Seq
    8seq_to_tuple(8S)            : Seq -> Tuple
+  -8seq_append(8S0,...,8SN)     : Seq -> Seq -> Seq
+  -8seq_insert_range(8I,8S,8SS) : Num -> Seq -> Seq -> Seq
+  -8seq_remove_range(8I,8N,8S)  : Num -> Num -> Seq -> Seq
+  -8seq_split(8I,8S)            : Num -> Seq -> Tuple(Seq, Seq)
 
   Higher-order:
 
@@ -272,14 +272,29 @@ Sequences
    8seq_for_each_with_idx(8OP,8S)           : (Num -> Any -> Nil) -> Seq -> Nil
    8seq_map(8FN,8S)                         : (Any -> Any) -> Seq -> Seq
    8seq_merge(8PR,8LS,8RS)                  : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
+   8seq_merge_sort(8PR,8S)                  : (Any -> Any -> Bool) -> Seq -> Seq
+   8seq_partition(8PR,8S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
+   8seq_partition_sort(8PR,8S)              : (Any -> Any -> Bool) -> Seq -> Seq
+   8seq_select(8PR,8X,8S)                   : (Any -> Any -> Bool) -> Any -> Seq -> Any
+   8seq_sort(8PR,8S)                        : (Any -> Any -> Bool) -> Seq -> Seq
+  -8seq_binary_search
+  -8seq_difference(8PR,8LS,8RS)             : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
+  -8seq_for_each_permutation(8OP,8S)        : (Seq -> Nil) -> Seq -> Nil
+  -8seq_insert(8PR,8X,8OS)                  : (Any -> Any -> Bool) -> Any -> Seq -> Seq
+  -8seq_intersection(8PR,8LS,8RS)           : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
+  -8seq_linear_search
   -8seq_parallel_fold(8FN,8S,8SS)           : (Any+ -> Any) -> Seq -> Seq(Seq) -> Any
   -8seq_parallel_for_each(8OP,8SS)          : (Any+ -> Nil) -> Seq(Seq) -> Nil
   -8seq_parallel_for_each_with_idx(8OP,8SS) : (Num -> Any+ -> Nil) -> Seq(Seq) -> Nil
   -8seq_parallel_map(8FN,8SS)               : (Any+ -> Any) -> Seq(Seq) -> Seq
-   8seq_partition(8PR,8S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
-   8seq_select(8PR,8X,8S)                   : (Any -> Any -> Bool) -> Any -> Seq -> Any
-   8seq_sort(8PR,8S)                        : (Any -> Any -> Bool) -> Seq -> Seq
+  -8seq_symmetric_difference(8PR,8LS,8RS)   : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
   -8seq_unfold(8CN,8ST,8FN,8X)              : (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Any -> Seq
+  -8seq_union(8PR,8LS,8RS)                  : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
+  -8seq_unique(8PR,8OS)                     : (Any -> Any -> Bool) -> Seq -> Seq
+
+  -8seq_is_sorted
+  -8seq_count
+
 
 --------------------------------------------------------------------------
 
