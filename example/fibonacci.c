@@ -62,8 +62,8 @@ ORDER_PP_FN(8fn(8N, 8I, 8J,                                     \
 //<
 int main(void) {
    printf
-     ("The 100th Fibonacci number is "
-      ORDER_PP(8stringize(8to_lit(8fib(100))))
+     ("The 500th Fibonacci number is "
+      ORDER_PP(8stringize(8to_lit(8fib(8nat(5,0,0)))))
       ".\n");
    return 0;
 }
@@ -71,15 +71,15 @@ int main(void) {
 // Unless you are already convinced, you should check, by
 // preprocessing this example, that the actual parameter to
 // `printf' in the above code is just a single string that
-// contains the 100th Fibonacci number in base 10.
+// contains the 500th Fibonacci number in base 10.
 //
 // If you know the order of growth of Fibonacci numbers, you
 // probably realized that the result isn't exactly small. In fact,
-// the 100th Fibonacci number contains 21 digits in base 10. Order
+// the 500th Fibonacci number contains 105 digits in base 10. Order
 // actually implements full arbitrary precision natural arithmetic.
 //
 // \begin{exercise}
-// Verify that the 100th Fibonacci number is computed correctly.
+// Verify that the 500th Fibonacci number is computed correctly.
 // \end{exercise}
 //
 // \begin{exercise}
