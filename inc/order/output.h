@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_OUTPUT(s) ORDER_PP_OUTPUT_EMIT_A ORDER_PP_OUTPUT_SCAN(ORDER_PP_OUTPUT_REV_OUT_A(9,)s(9,)(0,))(0,0,)
 #define ORDER_PP_OUTPUT_SCAN(x) x

@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_TUPLE_AT_0(_,A,...) _##A
 #define ORDER_PP_TUPLE_AT_1(_,A,B,...) _##B

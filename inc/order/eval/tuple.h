@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8tuple(...) 8EVAL_TUPLE,(,__VA_ARGS__,0tuple),
 

@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8ref(sym) 8EVAL_REF,sym,
 #define ORDER_PP_8EVAL_REF(P,e,s,G,K,...) ORDER_PP_CM_INVOKE(P##K,ORDER_PP_ENV_REF(,P##s,P##e)),P##__VA_ARGS__)

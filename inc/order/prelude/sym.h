@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8is_sym ORDER_PP_FN_CM(1,8IS_SYM)
 #define ORDER_PP_8IS_SYM(P,x,...) (,ORDER_PP_IS_SYM(,P##x)(,8true,8false),P##__VA_ARGS__)

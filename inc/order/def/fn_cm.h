@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_FN_CM(arity,...) 8DEF_FN_CM,arity,ORDER_PP_PREPARE_CONTINUATION(,__VA_ARGS__,),ORDER_PP_PARAMS
 

@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8vseq_to_seq_of_tuples ORDER_PP_FN_CM(1,8VSEQ_TO_SEQ_OF_TUPLES)
 #define ORDER_PP_8VSEQ_TO_SEQ_OF_TUPLES(P,s,...) (,ORDER_PP_SEQ_TERMINATE(ORDER_PP_VSEQ_TO_SEQ_OF_TUPLES_A P##s),P##__VA_ARGS__)

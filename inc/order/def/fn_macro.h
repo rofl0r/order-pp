@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_FN_MACRO(arity,macro_name) 8DEF_FN_CM,arity,8MACRO_##arity,(,macro_name,),ORDER_PP_PARAMS
 

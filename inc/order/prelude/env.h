@@ -1,6 +1,6 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
-//    Distributed under the Boost Software License, Version 1.0.
+// Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8env_bind ORDER_PP_FN_CM(3,8ENV_BIND)
 #define ORDER_PP_8ENV_BIND(P,s,e,v,...) (,(,P##s,P##v)P##e,P##__VA_ARGS__)
