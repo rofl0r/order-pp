@@ -5,7 +5,7 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_PM(P,...) ORDER_PP_PM_B(ORDER_PP_PM_UP_0(,P##__VA_ARGS__))
+#define ORDER_PP_PM(...) ORDER_PP_PM_B(ORDER_PP_PM_UP_0(__VA_ARGS__))
 #define ORDER_PP_PM_B(x) ORDER_PP_PM_ERROR(,x
 
 #define ORDER_PP_PM_ERROR(P,_,x) P##x

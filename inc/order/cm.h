@@ -18,7 +18,7 @@
 #define ORDER_PP_CM_GO_0(i) ORDER_PP_CM_0
 #define ORDER_PP_CM_GO_N(i) ORDER_PP_CM_##i ORDER_PP_BLOCK
 
-#define ORDER_PP_CM_0(P,x,f,...) ORDER_PP_CM_B_0(ORDER_PP_CM_UP_0(,x,f,__VA_ARGS__##P))
+#define ORDER_PP_CM_0(...) ORDER_PP_CM_B_0(ORDER_PP_CM_UP_0(__VA_ARGS__))
 #define ORDER_PP_CM_1(P,...) ORDER_PP_CM_B_1(ORDER_PP_CM_UP_0(,__VA_ARGS__##P))
 #define ORDER_PP_CM_2(P,...) ORDER_PP_CM_B_2(ORDER_PP_CM_UP_0(,__VA_ARGS__##P))
 #define ORDER_PP_CM_3(P,...) ORDER_PP_CM_B_3(ORDER_PP_CM_UP_0(,__VA_ARGS__##P))
@@ -57,6 +57,8 @@
 #define ORDER_PP_CM_REV_OUT_6(P,i,...) (,6,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_OUT_7(P,i,...) (,7,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_OUT_8(P,i,...) (,8,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
+#define ORDER_PP_CM_REV_OUT_9(P,i,...) (,9,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
+#define ORDER_PP_CM_REV_OUT_10(P,i,...) (,10,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_OUT_1C(P,i,...) (,1C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_OUT_2C(P,i,...) (,2C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_OUT_3C(P,i,...) (,3C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
@@ -65,6 +67,8 @@
 #define ORDER_PP_CM_REV_OUT_6C(P,i,...) (,6C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_OUT_7C(P,i,...) (,7C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_OUT_8C(P,i,...) (,8C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
+#define ORDER_PP_CM_REV_OUT_9C(P,i,...) (,9C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
+#define ORDER_PP_CM_REV_OUT_10C(P,i,...) (,10C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 
 #define ORDER_PP_CM_REV_IN_1T(P,i,...) )ORDER_PP_CM_REV_OUT_##i
 #define ORDER_PP_CM_REV_IN_0(P,i,...) ORDER_PP_CM_ERROR_ODD_NUMBER_OF_TOGGLES(!)
@@ -76,6 +80,8 @@
 #define ORDER_PP_CM_REV_IN_6(P,i,...) (,6,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_7(P,i,...) (,7,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_8(P,i,...) (,8,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
+#define ORDER_PP_CM_REV_IN_9(P,i,...) (,9,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
+#define ORDER_PP_CM_REV_IN_10(P,i,...) (,10,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_1C(P,i,...) (,1C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_2C(P,i,...) (,2C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_3C(P,i,...) (,3C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
@@ -84,6 +90,8 @@
 #define ORDER_PP_CM_REV_IN_6C(P,i,...) (,6C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_7C(P,i,...) (,7C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_8C(P,i,...) (,8C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
+#define ORDER_PP_CM_REV_IN_9C(P,i,...) (,9C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
+#define ORDER_PP_CM_REV_IN_10C(P,i,...) (,10C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 
 #define ORDER_PP_CM_ERROR_ODD_NUMBER_OF_TOGGLES()
 
@@ -116,6 +124,8 @@
 #define ORDER_PP_CM_EMIT_6(P,_0,_1,_2,_3,_4,...) _0##P _1##P _2##P _3##P _4##P __VA_ARGS__##P
 #define ORDER_PP_CM_EMIT_7(P,_0,_1,_2,_3,_4,_5,...) _0##P _1##P _2##P _3##P _4##P _5##P __VA_ARGS__##P
 #define ORDER_PP_CM_EMIT_8(P,_0,_1,_2,_3,_4,_5,_6,...) _0##P _1##P _2##P _3##P _4##P _5##P _6##P __VA_ARGS__##P
+#define ORDER_PP_CM_EMIT_9(P,_0,_1,_2,_3,_4,_5,_6,_7,...) _0##P _1##P _2##P _3##P _4##P _5##P _6##P _7##P __VA_ARGS__##P
+#define ORDER_PP_CM_EMIT_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,...) _0##P _1##P _2##P _3##P _4##P _5##P _6##P _7##P _8##P __VA_ARGS__##P
 #define ORDER_PP_CM_EMIT_1C(P,...) __VA_ARGS__##P
 #define ORDER_PP_CM_EMIT_2C(P,_0,...) _0##__VA_ARGS__
 #define ORDER_PP_CM_EMIT_3C(P,_0,_1,...) _0##_1##__VA_ARGS__
@@ -124,6 +134,8 @@
 #define ORDER_PP_CM_EMIT_6C(P,_0,_1,_2,_3,_4,...) _0##_1##_2##_3##_4##__VA_ARGS__
 #define ORDER_PP_CM_EMIT_7C(P,_0,_1,_2,_3,_4,_5,...) _0##_1##_2##_3##_4##_5##__VA_ARGS__
 #define ORDER_PP_CM_EMIT_8C(P,_0,_1,_2,_3,_4,_5,_6,...) _0##_1##_2##_3##_4##_5##_6##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_9C(P,_0,_1,_2,_3,_4,_5,_6,_7,...) _0##_1##_2##_3##_4##_5##_6##_7##__VA_ARGS__
+#define ORDER_PP_CM_EMIT_10C(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,...) _0##_1##_2##_3##_4##_5##_6##_7##_8##__VA_ARGS__
 
 #define ORDER_PP_CM_SCAN_0(...) __VA_ARGS__
 #define ORDER_PP_CM_SCAN_1(...) __VA_ARGS__

@@ -18,5 +18,7 @@
 #define ORDER_PP_8EVAL_DO_6(P,_,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_5,P##e,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_DO_7(P,_,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_6,P##e,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_DO_8(P,_,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_7,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_9(P,_,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_8,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_10(P,_,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_9,P##e,P##__VA_ARGS__)
 
 #endif

@@ -17,5 +17,7 @@
 #define ORDER_PP_8EVAL_OR_6(P,b,e,t1,t2,t3,t4,t5,...) (,ORDER_PP_IF_##b(,8true,P##e,ORDER_PP_DEF_##t1,8EVAL_OR_5,P##e,P##t2,P##t3,P##t4,P##t5),P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_OR_7(P,b,e,t1,t2,t3,t4,t5,t6,...) (,ORDER_PP_IF_##b(,8true,P##e,ORDER_PP_DEF_##t1,8EVAL_OR_6,P##e,P##t2,P##t3,P##t4,P##t5,P##t6),P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_OR_8(P,b,e,t1,t2,t3,t4,t5,t6,t7,...) (,ORDER_PP_IF_##b(,8true,P##e,ORDER_PP_DEF_##t1,8EVAL_OR_7,P##e,P##t2,P##t3,P##t4,P##t5,P##t6,P##t7),P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_OR_9(P,b,e,t1,t2,t3,t4,t5,t6,t7,t8,...) (,ORDER_PP_IF_##b(,8true,P##e,ORDER_PP_DEF_##t1,8EVAL_OR_8,P##e,P##t2,P##t3,P##t4,P##t5,P##t6,P##t7,P##t8),P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_OR_10(P,b,e,t1,t2,t3,t4,t5,t6,t7,t8,t9,...) (,ORDER_PP_IF_##b(,8true,P##e,ORDER_PP_DEF_##t1,8EVAL_OR_9,P##e,P##t2,P##t3,P##t4,P##t5,P##t6,P##t7,P##t8,P##t9),P##__VA_ARGS__)
 
 #endif

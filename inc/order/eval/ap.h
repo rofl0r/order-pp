@@ -30,5 +30,7 @@
 #define ORDER_PP_8EVAL_AP_6(P,f,e,p,...) (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_5,P##e,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_AP_7(P,f,e,p,...) (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_6,P##e,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_AP_8(P,f,e,p,...) (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_7,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_AP_9(P,f,e,p,...) (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_8,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_AP_10(P,f,e,p,...) (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_9,P##e,P##__VA_ARGS__)
 
 #endif

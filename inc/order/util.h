@@ -9,6 +9,8 @@
 #define ORDER_PP_FRESH_ID_B(line,name) ORDER_PP_ID_##line##_##name
 
 #define ORDER_PP_DEF(t) ORDER_PP_DEF_##t
+#define ORDER_PP_DEF_FIRST(P,...) ORDER_PP_DEF_FIRST_B(__VA_ARGS__##P,)
+#define ORDER_PP_DEF_FIRST_B(t,...) ORDER_PP_DEF_##t
 
 #define ORDER_PP_BLOCK
 #define ORDER_PP_EAT(...)
@@ -43,12 +45,6 @@
 
 #define ORDER_PP_8REMAP_01120(P,_0,_1,_2,K,...) ORDER_PP_##K(,_0##P,_1##P,_1##P,_2##P,_0##P,P##__VA_ARGS__)
 #define ORDER_PP_8REMAP_10021(P,_0,_1,_2,K,...) ORDER_PP_##K(,_1##P,_0##P,_0##P,_2##P,_1##P,P##__VA_ARGS__)
-
-#define ORDER_PP_FST(_0,...) _0
-#define ORDER_PP_8FST(P,x,...) (,ORDER_PP_FST x##P,P##__VA_ARGS__)
-
-#define ORDER_PP_RST(_0,...) __VA_ARGS__
-#define ORDER_PP_8RST(P,x,...) (,ORDER_PP_RST x##P,P##__VA_ARGS__)
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
 
@@ -86,5 +82,16 @@
 
 #define ORDER_PP_TEST(P,x,c,a) ORDER_PP_TEST_B(,x,P##c,,P##a,)
 #define ORDER_PP_TEST_B(P,_1,_2,_3,x,...) x##P
+
+#define ORDER_PP_IS_1_1(P,t,...) P##t
+#define ORDER_PP_IS_1_2(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_3(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_4(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_5(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_6(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_7(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_8(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_9(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_IS_1_10(P,t,...) P##__VA_ARGS__
 
 #endif

@@ -35,6 +35,8 @@
 #define ORDER_PP_8SEQ_6(P,_0,_1,_2,_3,_4,_5,...) (,(,P##_0)(,P##_1)(,P##_2)(,P##_3)(,P##_4)(,P##_5),P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_7(P,_0,_1,_2,_3,_4,_5,_6,...) (,(,P##_0)(,P##_1)(,P##_2)(,P##_3)(,P##_4)(,P##_5)(,P##_6),P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_8(P,_0,_1,_2,_3,_4,_5,_6,_7,...) (,(,P##_0)(,P##_1)(,P##_2)(,P##_3)(,P##_4)(,P##_5)(,P##_6)(,P##_7),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_9(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,...) (,(,P##_0)(,P##_1)(,P##_2)(,P##_3)(,P##_4)(,P##_5)(,P##_6)(,P##_7)(,P##_8),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,...) (,(,P##_0)(,P##_1)(,P##_2)(,P##_3)(,P##_4)(,P##_5)(,P##_6)(,P##_7)(,P##_8)(,P##_9),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_append ORDER_PP_OP_LEFT_CM(8SEQ_APPEND_2)
 #define ORDER_PP_8SEQ_APPEND_2(P,r,l,...) (,ORDER_PP_OPEN(,l##P)P##r,P##__VA_ARGS__)
