@@ -10,9 +10,7 @@ dbFile=test.db
 
 debugFlag=0
 
-if test -f .preprocessor ; then
-    preprocessor=$(cat .preprocessor)
-else
+if ! test -f .preprocessor ; then
     availablePreprocessors=''
 
     if cpp --help &> /dev/null ; then
@@ -22,11 +20,23 @@ else
         availablePreprocessors="[wave] $availablePreprocessors"
     fi
 
-    read -e -p "Choose preprocessor $availablePreprocessors? "
+    read -e -p "Choose preprocessor: $availablePreprocessors? "
+    if test "$(echo "$availablePreprocessors" | grep "\\[$REPLY\\]")" != "$availablePreprocessors" ; then
+        echo "
+Sorry, \"$REPLY\" isn't one of the preprocessors:
+
+  $availablePreprocessors
+
+If you wish to use another preprocessor, you need to customize this
+script for the preprocessor, because there is no standard on the
+command line options accepted by a preprocessor."
+        exit 1
+    fi
     echo "$REPLY" > .preprocessor
     echo "Wrote $REPLY to the .preprocessor file."
-    preprocessor=$(cat .preprocessor)
 fi
+
+preprocessor=$(cat .preprocessor)
 
 function eval-in-cpp {
     cpp -P \
