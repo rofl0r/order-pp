@@ -77,18 +77,20 @@ int main(void) {
 // the 100th Fibonacci number contains 21 digits in base 10. Order
 // actually implements full arbitrary precision natural arithmetic.
 //
-// ### Exercises
+// \begin{exercise}
+// Verify that the 100th Fibonacci number is computed correctly.
+// \end{exercise}
 //
-// \begin{enumerate}
-// \item Verify that the 100th Fibonacci number is computed
-//       correctly.
+// \begin{exercise}
+// Is the `8fib_iter' function tail recursive? How much space does
+// the evaluation of `8fib_iter(n)' require in terms of `n'? Try
+// evaluating this program using a considerably larger `n' like
+// `8nat(1,0,0,0,0)'. Does your preprocessor run out of memory? If
+// so, ask your preprocessor vendor why it happens.
+// \end{exercise}
 //
-// \item Is the `8fib_iter' function tail recursive? How
-//       much space does the evaluation of `8fib_iter(n)' use
-//       in terms of `n'?
-//
-// \item Modify this example so that it prints the first 50
-//       Fibonacci numbers computed using the `8fib' function.
-//       (Hint: Use the function `8for_each_in_range' and the
-//       operator `8emit'.)
-// \end{enumerate}
+// \begin{exercise}
+// Modify this example so that it prints the first 50 Fibonacci
+// numbers computed using the `8fib' function. (Hint: Use the
+// function `8for_each_in_range' and the operator `8emit'.)
+// \end{exercise}

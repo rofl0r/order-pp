@@ -26,12 +26,9 @@ int main(void) {
 // Scheme `syntax-case' macros and Common Lisp macros admit an even
 // simpler and more robust implementation of the concept.
 //
-// ### Exercises
-//
-// \begin{enumerate}
-// \item Implement an `average' macro using the `syntax-rules' macro
-//       system of Scheme. You'll get an extra point if your macro
-//       does not have an arbitrary limit on the number of arguments
-//       and the number of elements is actually computed in macro
-//       expansion time.
-// \end{enumerate}
+// \begin{exercise}
+// Implement an `average' macro using the `syntax-rules' macro
+// system of Scheme. You'll get an extra point if your macro does
+// not have an arbitrary limit on the number of arguments and the
+// number of elements is actually computed in macro expansion time.
+// \end{exercise}

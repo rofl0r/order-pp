@@ -139,10 +139,8 @@ int main() {
 // of other tokens, such as \verb/{[<>]}/, so we don't need to
 // handle them specially.
 //
-// ### Exercises
-//
-// \begin{enumerate}
-// \item Does your compiler support built-in types, e.g. `long'
-//       `long', that our example doesn't handle? Extend the example
-//       to handle those types.
-// \end{enumerate}
+// \begin{exercise}
+// Does your compiler support built-in types, e.g. `long' `long',
+// that our example doesn't handle? Extend the example to handle
+// those types.
+// \end{exercise}

@@ -154,27 +154,25 @@ int main(void) {
 // This example was inspired by an original macro written by Joerg
 // Walter for generating Duff's device.
 //
-// ### Exercises
+// \begin{exercise}
+// The `array_ops.c' example generates array manipulation
+// procedures. The generated procedures use an a simple loop to
+// process the arrays. Change the `array_ops.c' example to use the
+// `GEN_duffs_device' macro to generate unrolled array manipulation
+// procedures. Did the unrolling improve the performance of the
+// generated array manipulation procedures?
+// \end{exercise}
 //
-// \begin{enumerate}
-// \item The `array_ops.c' example generates array manipulation
-//       procedures. The generated procedures use an a simple loop
-//       to process the arrays. Change the `array_ops.c'
-//       example to use the `GEN_duffs_device' macro to
-//       generate unrolled array manipulation procedures. Did the
-//       unrolling improve the performance of the generated array
-//       manipulation procedures?
-//
-// \item The use of the switch-case statement for unrolling can
-//       actually make it difficult for a compiler to take full
-//       advantage of unrolling, because it may make it more
-//       difficult to reorder the generated machine instructions in
-//       the unrolled loop for optimal CPU pipeline usage. Implement
-//       a new macro `UNROLL', with parameters identical to
-//       `GEN_duffs_device', that generates an unrolled loop
-//       without using a switch-case. The inner loop of the
-//       generated code should simply repeat the given statements by
-//       the unrolling factor. The remainder elements can be handled
-//       using an additional loop. Which technique allows your
-//       compiler to generate better code?
-// \end{enumerate}
+// \begin{exercise}
+// The use of the switch-case statement for unrolling can actually
+// make it difficult for a compiler to take full advantage of
+// unrolling, because it may make it more difficult to reorder the
+// generated machine instructions in the unrolled loop for optimal
+// CPU pipeline usage. Implement a new macro `UNROLL', with
+// parameters identical to `GEN_duffs_device', that generates an
+// unrolled loop without using a switch-case. The inner loop of the
+// generated code should simply repeat the given statements by the
+// unrolling factor. The remainder elements can be handled using an
+// additional loop. Which technique allows your compiler to generate
+// better code?
+// \end{exercise}

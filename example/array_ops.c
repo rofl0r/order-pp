@@ -556,32 +556,32 @@ ORDER_PP(8seq_for_each_in_product
 //>
 // That's it!
 //
-// ### Exercises
+// \begin{exercise}
+// It turns out that the newer \cite{c:1999} standard defines
+// several new types including `long' `long' and `_Bool'. Update the
+// generator to generate code for these new types. Reconsider the
+// type promotion and conversion rules as well as operator validity
+// carefully.
+// \end{exercise}
 //
-// \begin{enumerate}
-// \item It turns out that the newer \cite{c:1999} standard defines
-//       several new types including `long' `long' and `_Bool'.
-//       Update the generator to generate code for these new types.
-//       Reconsider the type promotion and conversion rules as well
-//       as operator validity carefully.
+// \begin{exercise}
+// Commutative operators, like `+' and `|', produce the same result
+// regardless of the order of the two arguments while the result of
+// non--commutative operators, like `/' and `<<', depends on the
+// order of arguments. The generator we built in this example
+// generates code for all ordered pairs of types. This means that we
+// generate nearly twice as many procedures as needed for
+// commutative operators. For example, we generate the procedures
+// `array_add_si_fl' and `array_add_fl_si' of which only one is
+// necessary. Modify the generator so that it doesn't generate
+// unnecessary procedures. (Hint: Specify an ordering relation on
+// types and generate code for an operator only when the left hand
+// side type precedes the right hand side type.)
+// \end{exercise}
 //
-// \item Commutative operators, like `+' and `|', produce the same
-//       result regardless of the order of the two arguments while
-//       the result of non--commutative operators, like `/' and
-//       `<<', depends on the order of arguments. The generator we
-//       built in this example generates code for all ordered pairs
-//       of types. This means that we generate nearly twice as many
-//       procedures as needed for commutative operators. For
-//       example, we generate the procedures `array_add_si_fl' and
-//       `array_add_fl_si' of which only one is necessary. Modify
-//       the generator so that it doesn't generate unnecessary
-//       procedures. (Hint: Specify an ordering relation on types
-//       and generate code for an operator only when the left hand
-//       side type precedes the right hand side type.)
-//
-// \item In order to call the generated procedures from other
-//       translation units, we need a header with prototypes for all
-//       the procedures. Write code to generate the prototypes for
-//       all procedures. Then refactor the code into a separate
-//       header and implementation file.
-// \end{enumerate}
+// \begin{exercise}
+// In order to call the generated procedures from other translation
+// units, we need a header with prototypes for all the procedures.
+// Write code to generate the prototypes for all procedures. Then
+// refactor the code into a separate header and implementation file.
+// \end{exercise}
