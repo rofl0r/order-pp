@@ -7,6 +7,7 @@
  */
 
 #include "order/cm.h"
+#include "order/def/boolean.h"
 #include "order/def/cm.h"
 #include "order/def/const.h"
 #include "order/def/numeric.h"
