@@ -255,21 +255,26 @@ Sequences
     seq_set(S,I,X)             : Seq -> Num -> Any -> Seq
     seq_size(S)                : Seq -> Num
     seq_split(S,I)             : Seq -> Seq -> Tuple(Seq, Seq)
-    seq_subseq(S,I0,I1)        : Seq -> Num -> Num -> Seq
+    seq_subseq(S,I,N)          : Seq -> Num -> Num -> Seq
     seq_to_tuple(S)            : Seq -> Tuple
 
   Higher-order:
 
+    seq_exists(Pr,Seq)                    : (Any -> Bool) -> Seq -> Bool
     seq_filter(Pr,S)                      : (Any -> Bool) -> Seq -> Seq
     seq_fold(Fn,X,S)                      : (Any -> Any -> Any) -> Any -> Seq -> Any
+    seq_for_all(Pr,Seq)                   : (Any -> Bool) -> Seq -> Bool
     seq_for_each(Op,S)                    : (Any -> Nil) -> Seq -> Nil
     seq_for_each_in_product(Op,Ss)        : (Any+ -> Nil) -> Seq(Seq) -> Nil
     seq_for_each_with_idx(Op,S)           : (Num -> Any -> Nil) -> Seq -> Nil
     seq_map(Fn,S)                         : (Any -> Any) -> Seq -> Seq
+    seq_merge(Pr,S0,S1)                   : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
     seq_parallel_fold(Fn,S,Ss)            : (Any+ -> Any) -> Seq -> Seq(Seq) -> Any
     seq_parallel_for_each(Op,Ss)          : (Any+ -> Nil) -> Seq(Seq) -> Nil
     seq_parallel_for_each_with_idx(Op,Ss) : (Num -> Any+ -> Nil) -> Seq(Seq) -> Nil
     seq_parallel_map(Fn,Ss)               : (Any+ -> Any) -> Seq(Seq) -> Seq
+    seq_partition(Pr,S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
+    seq_sort(Pr,S)                        : (Any -> Any -> Bool) -> Seq -> Seq
     seq_unfold(Cn,St,Fn,X)                : (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Any -> Seq
 
 --------------------------------------------------------------------------
