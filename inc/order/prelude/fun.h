@@ -26,4 +26,10 @@
 #define ORDER_PP_DEF_8ignore ORDER_PP_FN_CM(1,8IGNORE,0IS_ANY)
 #define ORDER_PP_8IGNORE(P,_,...) (,,P##__VA_ARGS__)
 
+#define ORDER_PP_DEF_8step ORDER_PP_FN_CM(1,8STEP,0IS_TUPLE)
+#define ORDER_PP_8STEP(P,o,...) (,(,8STEP_B,ORDER_PP_REM P##o,(,8STEP_D)),P##__VA_ARGS__)
+#define ORDER_PP_8STEP_B(P,x,f,...) (,P##x,ORDER_PP_OPEN f##P,8STEP_C,,P##x,P##__VA_ARGS__)
+#define ORDER_PP_8STEP_C(P,v,vs,x,f,...) (,P##x,ORDER_PP_OPEN f##P,8STEP_C,P##vs(,P##v),P##x,P##__VA_ARGS__)
+#define ORDER_PP_8STEP_D(P,x,step_c,vs,x2,...) (,(ORDER_PP_PSEQ_TO_TUPLE_A P##vs(0,)),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8uncurry ORDER_PP_FN_NATIVE(2,9APPLY,0IS_FN,0IS_TUPLE)

@@ -279,6 +279,7 @@
 8seq_to_tuple(8seq)##
 8seq_unfold(8isnt_0,8dec,8to_lit,0)##
 8seq_unfold(8isnt_0,8dec,8to_lit,10)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#
+8step(8tuple(8tuple_at_1,8uncurry(8plus)),8tuple(3,4))#(4,7)#
 8stream_for_each(8chain(8put,8to_lit),8stream_take_while(8greater(5),8stream_drop_while(8greater(2),8stream_of_naturals)))#2 3 4#
 8stream_for_each(8compose(8put,8to_lit),8stream_take(3,8stream_filter(8fn(8X,8is_0(8remainder(8X,2))),8stream_of_naturals)))#0 2 4#
 8stream_head(8stream_cons(1,8stream_nil))#1#
