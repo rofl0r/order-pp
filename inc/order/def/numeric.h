@@ -1,5 +1,5 @@
-#ifndef ORDER_DEF_NUMERIC_H
-#define ORDER_DEF_NUMERIC_H
+#ifndef ORDER_DEF_NUMERIC_H_VAJK20040620
+#define ORDER_DEF_NUMERIC_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *

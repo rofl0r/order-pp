@@ -1,5 +1,5 @@
-#ifndef ORDER_UTIL_H
-#define ORDER_UTIL_H
+#ifndef ORDER_UTIL_H_VAJK20040620
+#define ORDER_UTIL_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *
@@ -26,8 +26,23 @@
 
 #define ORDER_PP_EAT(...)
 #define ORDER_PP_EXPAND(l,r) l r
+#define ORDER_PP_PASTE(l,r) ORDER_PP_PRIMITIVE_PASTE(l,r)
+#define ORDER_PP_PRIMITIVE_PASTE(l,r) l##r
 #define ORDER_PP_OPEN(P,...) P##__VA_ARGS__
+#define ORDER_PP_OPEN_COND(P,...) P##__VA_ARGS__
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
+
+#define ORDER_PP_IF_true(P,c,a) P##c
+#define ORDER_PP_IF_false(P,c,a) P##a
+
+#define ORDER_PP_IF_OPEN_true(P,c,a) ORDER_PP_OPEN_COND P##c
+#define ORDER_PP_IF_OPEN_false(P,c,a) ORDER_PP_OPEN_COND P##a
+
+#define ORDER_PP_WHEN_true(P,...) P##__VA_ARGS__
+#define ORDER_PP_WHEN_false(...)
+
+#define ORDER_PP_UNLESS_true(...)
+#define ORDER_PP_UNLESS_false(P,...) P##__VA_ARGS__
 
 #endif

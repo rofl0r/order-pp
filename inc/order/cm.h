@@ -1,5 +1,5 @@
-#ifndef ORDER_CM_H
-#define ORDER_CM_H
+#ifndef ORDER_CM_H_VAJK20040620
+#define ORDER_CM_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *

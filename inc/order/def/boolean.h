@@ -1,5 +1,5 @@
-#ifndef ORDER_DEF_BOOLEAN_H
-#define ORDER_DEF_BOOLEAN_H
+#ifndef ORDER_DEF_BOOLEAN_H_VAJK20040620
+#define ORDER_DEF_BOOLEAN_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *

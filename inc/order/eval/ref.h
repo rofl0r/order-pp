@@ -1,5 +1,5 @@
-#ifndef ORDER_EVAL_REF_H
-#define ORDER_EVAL_REF_H
+#ifndef ORDER_EVAL_REF_H_VAJK20040620
+#define ORDER_EVAL_REF_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *

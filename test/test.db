@@ -1,3 +1,7 @@
+and(false)#false
+and(true)#true
+and(true,5)#5
+and(true,true,true,false,0)#false
 ap(2nd(1,1st(id(id),2)),3)#3
 ap(ap(ap(ap(fn(A,B,A),fn(C,D,C),fn(E,F,E)),ap(fn(G,H,G),fn(I,J,I),fn(K,L,K)),ap(fn(M,N,M),fn(O,P,O),fn(Q,R,Q))),const(i)),const(j))#i
 ap(ap(ap(fn(X,Y,Z,Z),const(x)),const(y)),const(z))#z
@@ -8,8 +12,20 @@ ap(fn(X,Y,X),const(x),const(y))#x
 ap(fn(X,Y,tuple(X,Y)),const(a),const(b))#(a,b)
 const(0)#0
 constant_embedding#This constant is in two parts!
+do(7)#7
+do(ap(emit_expand,2,3),ap(emit,1),0)#0 1 2 3
 do(do(1,2),do(3,4))#4
+do(emit(1),emit(2),emit(3))#3 2 1
+do(emit_paste(1,2),3)#3 12
+if(false,1,2)#2
+if(true,1,2)#1
+let(X,id,ap(X,5))#5
 macro_let(X,5,X)#5
+nil#
+or(false)#false
+or(false,6)#6
+or(false,false,false,true,0)#true
+or(true)#true
 seq(const(a),const(b),const(c),const(d),const(e),const(f),const(g),const(h))#(a)(b)(c)(d)(e)(f)(g)(h)
 seq(const(x))#(x)
 tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)

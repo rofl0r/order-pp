@@ -1,10 +1,16 @@
-#ifndef ORDER_EVAL_CONST_H
-#define ORDER_EVAL_CONST_H
+#ifndef ORDER_EVAL_CONST_H_VAJK20040620
+#define ORDER_EVAL_CONST_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *
  *    Distributed under the Boost Software License, Version 1.0.
  */
+
+#define ORDER_CONST(x) 8DEF_CONST,x
+
+#define ORDER_GET_CONST(name) ORDER_GET_CONST_1(ORDER_DEF_##name)
+#define ORDER_GET_CONST_1(x) ORDER_GET_CONST_2(x)
+#define ORDER_GET_CONST_2(_,x) x
 
 #define ORDER_DEF_const(x) 8DEF_CONST,x
 
