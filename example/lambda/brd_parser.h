@@ -12,15 +12,15 @@
 
 #define ORDER_PP_DEF_8bp_import_terminals ORDER_PP_MACRO(8vseq_to_seq_of_tuples)
 
-#define ORDER_PP_DEF_8bp_import_nonterminals                                                            \
-ORDER_PP_FN(8fn(8S,                                                                                     \
-                8seq_map(8fn(8N,                                                                        \
-                             8tuple(8tuple_at_0(8N),                                                    \
-                                    8tuple_at_1(8N),                                                    \
-                                    8seq_map(8fn(8P,                                                    \
-                                                 8tuple(8vseq_to_seq_of_tuples(8tuple_at_0(8P)),        \
-                                                        8tuple_drop_1(8P))),                            \
-                                             8vseq_to_seq_of_tuples(8tuple_at_2(8N))))),                \
+#define ORDER_PP_DEF_8bp_import_nonterminals                                                                    \
+ORDER_PP_FN(8fn(8S,                                                                                             \
+                8seq_map(8fn(8N,                                                                                \
+                             8tuple(8tuple_at_0(8N),                                                            \
+                                    8tuple_at_1(8N),                                                            \
+                                    8seq_map(8fn(8P,                                                            \
+                                                 8tuple_append(8tuple(8vseq_to_seq_of_tuples(8tuple_at_0(8P))), \
+                                                               8tuple_drop_1(8P))),                             \
+                                             8vseq_to_seq_of_tuples(8tuple_at_2(8N))))),                        \
                          8vseq_to_seq_of_tuples(8S))))
 
 #define BRD_PARSER(qr, name, skip_fn, match_fn, terminals, nonterminals)        \
@@ -109,7 +109,7 @@ static _Bool ORDER_PP_FRESH_ID(sym)                             \
   return 0;                                                     \
 }
 
-#define BRD_PARSER_GEN_alternative(minals, body)                \
+#define BRD_PARSER_GEN_alternative(minals, ...)                 \
 do {                                                            \
   str_type ORDER_PP_FRESH_ID(alt_pstr) =                        \
     *ORDER_PP_FRESH_ID(pstr);                                   \
@@ -122,7 +122,7 @@ do {                                                            \
                       8M)),                                     \
             8(minals)))                                         \
                                                                 \
-  do { ORDER_PP_REM body } while (0);                           \
+  do { __VA_ARGS__ } while (0);                                 \
   *ORDER_PP_FRESH_ID(pstr) = ORDER_PP_FRESH_ID(alt_pstr);       \
   return 1;                                                     \
 } while (0);
