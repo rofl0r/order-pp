@@ -41,6 +41,8 @@ function preprocess {
 }
 
 for f in "$@" ; do
+    f=$(echo "$f" | sed 's#^\./##g')
+
     if ! echo "$f" | grep -e '\.cpp$' -e '\.c$' > /dev/null ; then
         echo "Warning: Skipping '$f' which is neither a C nor C++ implementation file."
         continue

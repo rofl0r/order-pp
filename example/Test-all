@@ -5,4 +5,4 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.)
 
-./Test "$@" $(echo *.c *.cpp | sort)
+./Test "$@" $(find -maxdepth 1 -name '*.c' -o -name '*.cpp' | sort -r)
