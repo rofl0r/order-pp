@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "datatype.h"
 #include "ll1_parser.h"
 
@@ -34,9 +35,13 @@ static int match(c_string pat, c_string str) {
     : 0;
 }
 
+static c_string intern_sym(char* start, char* stop) {
+  return 0; // TBD
+}
+
 static sym_type parse_sym(c_string* str) {
   if (!isalpha(**str))
-    return null;
+    return 0;
   sym_type start = *str;
   while (isalnum(**str) || '_' == **str)
     ++*str;
@@ -55,6 +60,10 @@ static term_type parse_term(c_string str) {
                ({ return term_type_Ref(var); }))));
 }
 
+static c_string unparse_term(term_type term) {
+  return 0; // TBD
+}
+
 static term_type subst(sym_type sym, term_type in, term_type with) {
   DATATYPE_switch
     ( in, term_type,
@@ -69,7 +78,12 @@ static term_type subst(sym_type sym, term_type in, term_type with) {
       ((Ref,(var),
         ({ return (var == sym)
              ? with
-             : var; }))) );
+             : in; }))) );
+}
+
+static void error(c_string msg, ...) {
+  fprintf(stderr, msg);
+  exit(EXIT_FAILURE);
 }
 
 static term_type reduce(term_type term) {
@@ -86,10 +100,10 @@ static term_type reduce(term_type term) {
                                         reduce(rhs))); })))
                ((Apply,,
                  ({ error("'%s' doesn't reduce to a Lambda.",
-                          term_to_string(lhs)); })))
+                          unparse_term(lhs)); })))
                ((Ref,,
                  ({ error("'%s' doesn't reduce to a Lambda.",
-                          term_to_string(lhs)); })))); })))
+                          unparse_term(lhs)); })))); })))
       ((Ref,(var),
         ({ error("Unbound variable '%s'.", var); }))) );
 }
@@ -108,7 +122,7 @@ int main(int argc, c_string argv[]) {
     return 0;
   }
 
-  printf(term_to_string(reduce(parse_term(&argv[1]))));
+  printf(unparse_term(reduce(parse_term(argv[1]))));
 
   return 0;
 }

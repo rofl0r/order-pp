@@ -5,6 +5,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define LL1_PARSER(...) return null; // TBD
+#define LL1_PARSER(...) return 0; // TBD
 
 #endif
