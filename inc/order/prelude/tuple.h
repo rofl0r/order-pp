@@ -15,6 +15,9 @@
 #define ORDER_PP_CM_8TUPLE_2(P,_0,_1,...) (,(P##_0,P##_1),P##__VA_ARGS__)
 #define ORDER_PP_CM_8TUPLE_1(P,_0,...) (,(P##_0),P##__VA_ARGS__)
 
+#define ORDER_PP_DEF_8is_tuple ORDER_PP_FN_CM(1,8IS_TUPLE)
+#define ORDER_PP_CM_8IS_TUPLE(P,t,...) (,ORDER_PP_IS_EDIBLE(,P##t)(,(,8true),8false),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8tuple_at ORDER_PP_FN_CM(2,8TUPLE_AT)
 #define ORDER_PP_CM_8TUPLE_AT(P,n,t,...) (,ORDER_PP_EXPAND(ORDER_PP_TUPLE_AT_##n,(,ORDER_PP_OPEN_NP t##P,)),P##__VA_ARGS__)
 #define ORDER_PP_TUPLE_AT_0(P,_0,...) P##_0
