@@ -34,7 +34,7 @@ while test "$REPLY" != 'q' ; do
         prompt='[ (R)ebuild | (Q)uit ]: '
         REPLY=''
     fi
-    read -t 2 -n 1 -p "$prompt"
+    read -t 10 -n 1 -p "$prompt"
     prompt=''
 done
 echo

@@ -67,12 +67,11 @@ namespace detail {
 // here.\footnote{Actually, in this particular case, given a fully
 // conforming C++ compiler, we wouldn't need the repetition, but the
 // repetition is needed for portability and structurally identical
-// (isomorphic) repetition is needed, even on conforming C++
-// compilers in other cases.} The next best thing is that the
-// maximum number of parameters could easily be specified, making
-// the `is_function<T>' type trait configurable. So, let's do it by
-// using a conditional macro definition, that can be externally
-// overridden by a user.
+// (isomorphic) repetition is needed in other cases.} The next best
+// thing is that the maximum number of parameters could easily be
+// specified, making the `is_function<T>' type trait configurable.
+// So, let's make it so it by using a conditional macro definition,
+// that can be externally overridden by a user.
 //<
 #ifndef IS_FUNCTION_MAX_ARGS
 #define IS_FUNCTION_MAX_ARGS 10
@@ -122,11 +121,11 @@ namespace detail {
 //
 // As you can see, no ad hoc code generation macros were needed to
 // produce the output. In fact, the Order interpreter is complete in
-// the sense that it can theoretically produce any sequence of up to
-// a few billion tokens without requiring the use of additional
-// macros. However, it usually makes sense to use ad hoc code
-// generation macros, as well as Order definition macros, because
-// they can both simplify and speed up the generator program.
+// the sense that it can theoretically produce any sequence of
+// tokens without requiring the use of additional macros. However,
+// it usually makes sense to use ad hoc code generation macros, as
+// well as Order definition macros, because they can both simplify
+// and speed up the generator program.
 //
 // We can then implement the actual type trait:
 //<
