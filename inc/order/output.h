@@ -2,7 +2,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_OUTPUT(s) ORDER_PP_OUTPUT_EMIT_A ORDER_PP_CM(,ORDER_PP_OUTPUT_PAIR_A (,0,)s(0,),8OUTPUT_STOP,))
+#define ORDER_PP_OUTPUT(s) ORDER_PP_FX(OUTPUT_EMIT_A,ORDER_PP_CM(,ORDER_PP_OUTPUT_PAIR_A (,0,)s(0,),8OUTPUT_STOP,)))
 
 #define ORDER_PP_8OUTPUT_PAIR(P,s,...) (,ORDER_PP_OUTPUT_PAIR_A P##s(0,),8OUTPUT_SWAP,P##__VA_ARGS__)
 
