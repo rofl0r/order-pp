@@ -6,7 +6,7 @@
 //    Distributed under the Boost Software License, Version 1.0.
 
 // `error(fmt, ...)' prints the formatted string to `stderr' and exits the
-// progra.
+// program with exit status `EXIT_FAILURE'.
 extern void error(const char* fmt, ...);
 
 #endif
