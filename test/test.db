@@ -72,6 +72,7 @@
 8inc(8call_cc(8fn(8K,8add(1,2,8ap(8K,4)))))#5#<ws>
 8is_sym(8(this is not a symbol))#8false#<ws>
 8is_sym(8true)#8true#<ws>
+8let((8P,8delay(8put(3))),8force(8P),8force(8P))#3 3#<ws>
 8let((8X,0),8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#10#<ws>
 8let((8X,1)(8Y,5),8let((8X,8inc(8X))(8Y,8inc(8X))(8Z,8inc(8Y)),8put(8X),8put(8Y),8Z))#2 2 6#<ws>
 8let((8X,1),8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#11#<ws>
@@ -260,6 +261,7 @@
 8tokens_to_seq(8())##<ws>
 8tokens_to_seq(8(1 2 (a)(b) 3 4))#(1)(2)(a)(b)(3)(4)#<ws>
 8tuple(8act(!),8act(%),8act(?),8act(^),8act(*),8act(;),8act([),8act(]))#(TCA (!)!!!!!!!!!!!!!!!!!!!!!!!,ACT (%)%%%%%%%%%%%%%%%%%%%%%%,TCA (?)?????????????????????,ACT (^)^^^^^^^^^^^^^^^^^^^^,TCA (*)*******************,ACT (;);;;;;;;;;;;;;;;;;;,TCA ([)[[[[[[[[[[[[[[[[[,ACT (])]]]]]]]]]]]]]]]])#<ws>
+8tuple(8always(1),8always(8false),8ap(8always,8nil))#(8true,8true,8true)#<ws>
 8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)#<ws>
 8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)#<ws>
 8tuple(8is_0(0),8is_0(1),8is_0(50))#(8true,8false,8false)#<ws>
@@ -277,6 +279,7 @@
 8tuple(8lit_less(8(1),8(2)),8lit_less(8(2),8(2)),8lit_less(8(2),8(1)))#(8true,8false,8false)#<ws>
 8tuple(8lit_less_eq(8(1),8(2)),8lit_less_eq(8(2),8(2)),8lit_less_eq(8(2),8(1)))#(8true,8true,8false)#<ws>
 8tuple(8nat_to_seq_of_digits(8nat(0)),8nat_to_seq_of_digits(8nat(2,0,0,4)))#((0),(2)(0)(0)(4))#<ws>
+8tuple(8never(1),8never(8false),8ap(8never,8nil))#(8false,8false,8false)#<ws>
 8tuple(8to_lit(0),8to_lit(25),8to_lit(8nat(3,1,4,1,5,9,2)))#(0,25,3141592)#<ws>
 8tuple(8to_lit(8dec(1)),8to_lit(8dec(8nat(1,2,3))),8to_lit(8dec(100)))#(0,122,99)#<ws>
 8tuple(8to_lit(8div(10,3)),8to_lit(8remainder(10,3)))#(3,1)#<ws>

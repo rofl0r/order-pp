@@ -22,6 +22,7 @@ SYNTAX
                 | 8ref(<sym>)
                 | 8remap(<exp_{fn}>, <lit_{n}>{, <lit_{i}>+}?)
                 | 8quote(<pp-arg>) | 8(<pp-arg>) | 8
+                | 8delay(<exp>)
                 | 8if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>+)
                 | 8cond((<exp_{cond}>, <exp_{cons}>+)+ (8else, <exp_{alt}>+)?)
                 | 8and(<exp>+)
@@ -202,6 +203,8 @@ Control
 
    8exit(x) : a -> b
 
+   8force(p) : Promise(a) -> a
+
    8for_each(cn, st, op, x) : (a -> Bool) -> (a -> a) -> (a -> b) -> a -> Nil
 
    8for_each_in_range(op, i0, i1) : (Num -> a) -> Num -> Num -> Nil
@@ -242,6 +245,9 @@ Functional primitives
 
    8identity(x) : a -> a
    8ignore(x)   : a -> Nil
+
+   8always(x) : Any -> True
+   8never(x)  : Any -> False
 
 Nil
 ---
@@ -398,10 +404,3 @@ Tuples
    8tuple_size(t)       : Tuple -> Num
 
    8tuple_to_seq(t)     : Tuple(a+) -> Seq(a)
-
---------------------------------------------------------------------------
-
-LIBRARIES
-=========
-
-  "enum.h":

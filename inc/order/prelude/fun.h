@@ -2,6 +2,9 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
+#define ORDER_PP_DEF_8always ORDER_PP_FN_CM(1,8ALWAYS)
+#define ORDER_PP_8ALWAYS(P,_,...) (,8true,P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8apply ORDER_PP_FN_NATIVE(2,9APPLY)
 #define ORDER_PP_9APPLY(P,f,ps) ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_REM ps##P,)),ORDER_PP_OPEN f##P ORDER_PP_FX(IS_TUPLE_SIZE_1,(,ORDER_PP_REM ps##P))(,,,8APPLY_LOOP,(,ORDER_PP_FX(TUPLE_REST,(,ORDER_PP_REM ps##P)),))
 #define ORDER_PP_8APPLY_LOOP(P,f,ps,...) (,ORDER_PP_TUPLE_AT_0 ps##P,ORDER_PP_OPEN f##P,ORDER_PP_IS_TUPLE_SIZE_2 ps##P(,,8APPLY_LOOP,(,ORDER_PP_TUPLE_REST ps##P),)P##__VA_ARGS__)
@@ -20,9 +23,6 @@
 
 #define ORDER_PP_DEF_8ignore ORDER_PP_FN_CM(1,8IGNORE)
 #define ORDER_PP_8IGNORE(P,_,...) (,,P##__VA_ARGS__)
-
-#define ORDER_PP_DEF_8always ORDER_PP_FN_CM(1,8ALWAYS)
-#define ORDER_PP_8ALWAYS(P,_,...) (,8true,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8never ORDER_PP_FN_CM(1,8NEVER)
 #define ORDER_PP_8NEVER(P,_,...) (,8false,P##__VA_ARGS__)
