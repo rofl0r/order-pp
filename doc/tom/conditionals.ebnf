@@ -1,0 +1,9 @@
+
+        <exp> ::= `8if'(<exp_cond>, <exp_cons>, {<exp_alt>}+{,})     ;; conditional
+               |  `8cond'({<cond-cl>}*)                              ;; full conditional
+               |  `8and'({<exp>}+{,})                                ;; logical AND
+               |  `8or'({<exp>}+{,})                                 ;; logical OR
+
+    <cond-cl> ::= (<exp_cond>, {<exp_cons>}+{,})                     ;; conditionally taken
+               |  (`8else', {<exp_cons>}+{,})                        ;; always taken
+

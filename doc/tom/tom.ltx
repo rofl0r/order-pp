@@ -1,15 +1,24 @@
 % (C) Copyright Vesa Karvonen 2004.
 %
 % Distributed under the Boost Software License, Version 1.0.
+% (See accompanying file LICENSE.)
 
 \documentclass[10pt,a4paper]{report}
 
-\usepackage{graphicx,syntax,url}
-
-\setlength{\grammarparsep}{3pt}
-\setlength{\grammarindent}{5em}
+\usepackage{graphicx,url}
 
 \begin{document}
+
+%% Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\code}{\url}
+
+\def\ebnf#1{
+  \begin{tabular}{rclr}
+    \input{#1.ltx}
+  \end{tabular}
+}
 
 %% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -80,15 +89,15 @@ and metaprogramming as well as desire to make something original,
 fascinating and beautiful. My work on the Boost.Preprocessor library
 \cite{boost.pp} had left me unsatisfied. While it was clear to me
 that it could theoretically be used to implement \emph{useful}
-non--trivial metaprograms, it would have been quite tedious work,
+non-trivial metaprograms, it would have been quite tedious work,
 full of nasty little details and limitations to trip you up. I
 considered the prospects for further enhancements to the library,
 but it didn't seem possible to provide a programming model that I
 would have considered pleasant to think in. It occured to me that
 instead of attempting to provide semimodular enhancements on top of
-the C preprocessor in a bottom--up fashion, it might be possible to
+the C preprocessor in a bottom-up fashion, it might be possible to
 lift the limitations by designing a complete monolithic interpreter
-for a high--level source language in a top--down fashion. After some
+for a high-level source language in a top-down fashion. After some
 experiments at interpreting lambda calculus and a couple of
 prototype interpreters for early versions of the Order language, I
 was left with a feeling that it would be too inefficient to be
@@ -106,25 +115,31 @@ At least I know I've had a lot of fun designing the language.
 
 This book introduces the complete Order language and prelude and
 presents several complete examples of using the Order language.
+
 While this isn't a formal definition of the Order language, key
 constructs of the language will be given approximate\footnote{The C
-preprocessor macro replacement mechanism will not be modelled
-completely.} formal specifications. The main purpose of presenting
+preprocessor macro replacement mechanism will not be completely
+modelled.} formal specifications. The main purpose of presenting
 the semantics is to show that the Order language is actually very
-much like any ordinary programming language. While the
-implementation of the Order interpreter has required working through
-a considerable number of technical obstacles, we will largely ignore
-such low--level details and concentrate on the high--level design
-and use of the language.
+much like any ordinary programming language. Also, as this isn't a
+book about theoretical aspects of programming languages intended
+for students of computer science, but rather the manual of a
+programming language intended for practitioners, we will be rather
+lax in the definition and use of the formal notations we employ.
+
+While the implementation of the Order interpreter has required
+working through a considerable number of technical obstacles, we
+will largely ignore such low-level details and concentrate on the
+high-level design and use of the language.
 
 \subsection*{Audience}
 
 This book is written for programmers working on C and C++ projects
 who would like to use metaprogramming techniques in their work. The
-reader should be familiar with the C and C++ programming language
+reader should be familiar with the C and C++ programming languages
 and have a basic understanding of the C preprocessor. Previous
 knowledge of lambda calculus and functional programming will help
-understanding the material.
+to understand the material.
 
 \subsection*{Electronic Resources}
 
@@ -168,20 +183,20 @@ is an example using the Order interpreter.
 Order is a \emph{complete} programming language designed to be
 \emph{interpreted} using the \emph{C preprocessor} \cite{c:1999}.
 Rather than being a general purpose language, Order is a
-\emph{metalanguage}, that can be used to \emph{generate} sequences
+\emph{metalanguage} that can be used to \emph{generate} sequences
 of \emph{preprocessing tokens}.
 
-Order is a \emph{high--level} \emph{functional} language with
-\emph{call--by--value} semantics, providing \emph{first--class
+Order is a \emph{high-level} \emph{functional} language with
+\emph{call-by-value} semantics, providing \emph{first-class
 anonymous functions} with \emph{lexically scoped variables} and
 supporting \emph{partial application} of functions. The Order
 interpreter is implemented in \emph{continuation passing style} and
 is fully \emph{tail recursive}. Order is a \emph{reflective}
 language providing \emph{first class continuations}, \emph{first
 class environments} and an \emph{eval} function. Memory management
-in Order is implicit. Order provides \emph{arbitrary--precision
+in Order is implicit. Order provides \emph{arbitrary-precision
 arithmetic} on natural numbers, a comprehensive set of primitive and
-\emph{higher--order} functions for an aggregate data type called
+\emph{higher-order} functions for an aggregate data type called
 \emph{sequence} and \emph{more}.\footnote{If you are not familiar
 with some of the terms used here, rest assured, all will become
 clear.}
@@ -193,7 +208,7 @@ Scheme \cite{dybvig:1996,abelson:1996} and SML, in addition to C and
 the C preprocessor, should find Order particularly easy to learn.}
 Compared to other C preprocessor metaprogramming systems, such as
 the Boost Preprocessor library \cite{boost.pp}, Order provides a
-clearly higher--level alternative. Rather than providing some
+clearly higher-level alternative. Rather than providing some
 enhancements over the plain C preprocessor designed one problem at a
 time, Order implements a complete solution at once.
 
@@ -201,17 +216,18 @@ time, Order implements a complete solution at once.
 
 The C preprocessor (Cpp) is part of both C \cite{c:1999} and C++
 \cite{c++:1998} and is mainly used to compose \emph{translation
-units} out of \emph{source files} using the \url{#include} directive
-and a family of conditional directives (\url{#if}, \url{#ifdef},
-\ldots, \url{#endif}). The Cpp is a \emph{low--level}
-\emph{macroprocessor} enabling the definition of \emph{object--like}
-and \emph{function--like} macros using the \url{#define}
+units} out of \emph{source files} using the \code{#include}
+directive and a family of conditional directives (\code{#if},
+\code{#ifdef},
+\ldots, \code{#endif}). The Cpp is a \emph{low-level}
+\emph{macroprocessor} enabling the definition of \emph{object-like}
+and \emph{function-like} macros using the \code{#define}
 directive.\footnote{The Cpp also has some other features and uses,
 but they are not relevant to Order.} The Order interpreter is
 implemented using the macro mechanism of the Cpp.
 
-The preprocessor defined by the C standard includes a number of
-important extensions, namely \emph{variadic} macros and
+The preprocessor defined by the \cite{c:1999} standard includes a
+number of important extensions, namely \emph{variadic} macros and
 \emph{placemarkers}, that aren't provided by standard C++. Apart
 from those extensions, and a few minor differences, the C and C++
 preprocessors are essentially the same and many modern C++
@@ -223,25 +239,26 @@ Bjarne Stroustrup, the inventor of C++, has said that ``I'd like to
 see Cpp abolished'' \cite{stroustrup:1994}. Indeed, many consider
 the Cpp to be one of the \emph{worst} macroprocessors in history and
 for good reasons. We will assume that the reader is all too familiar
-with the problems \cite{stroustrup:1994} and we will only discuss
-issues that are directly relevant to our subject.
+with the problems described in \cite{stroustrup:1994} and many other
+sources and we will only discuss issues that are directly relevant
+to our subject.
 
 The main strength of the Cpp is that it comes with every standards
 conforming C and C++ implementation. Compared to external
 metaprogramming facilities for C and C++, Cpp ``Works out of the
-box.'' This strength should not be underestimated. Library authors,
+box.''. This strength should not be underestimated. Library authors,
 and programmers in general, would often like to use generative
-programming techniques \cite{czarnecki:2000,graham:1993}. However,
-code generation with external, non--standard tools introduces a host
-of problems typically making the maintenance, distribution and
-porting of software much harder.
+programming techniques as described in \cite{czarnecki:2000,
+graham:1993}. However, code generation with external, non-standard
+tools introduces a host of problems typically making the
+maintenance, distribution and porting of software much harder.
 
 As implied, the macro mechanism of the Cpp hasn't been designed to
 be very powerful. It explicitly disallows recursion by implementing
 a \emph{name disabling} scheme, which marks recursively generated
 macro names as disabled from macro replacement.\footnote{The include
-mechanism can be used recursively, but it is much too low--level a
-mechanism to be used for anything non--trivial.} The macro mechanism
+mechanism can be used recursively, but it is much too low-level a
+mechanism to be used for anything non-trivial.} The macro mechanism
 also doesn't directly support repetition of any kind. Despite these
 limitations, and the fact that the Cpp macro mechanism can't get
 into an infinite loop, it has turned out that the Cpp macro
@@ -250,7 +267,7 @@ mechanism is, from a practical point of view, \emph{Turing complete}
 for any predefined number of computational steps using an evaluator
 consisting of a number of macros logarithmic to the number of
 computational steps. The practical computational completeness of the
-Cpp opens up the possibility of using the Cpp for non--trivial
+Cpp opens up the possibility of using the Cpp for non-trivial
 \emph{code generation}.
 
 Before we continue, let's put the strong claim of practical Turing
@@ -290,7 +307,7 @@ Order interpreter.
 \section{Requirements} %********************************************
 
 The Order interpreter, which is fully \cite{c:1999} conforming, has
-been developed with the GNU CPP version 3.x and contains no
+been developed with the \cite{gcc} CPP version 3.x and contains no
 workarounds for broken preprocessors. The Order interpreter
 \emph{requires variadics and placemarkers} as defined in
 \cite{c:1999}. The Wave preprocessor \cite{kaiser:2002} is also
@@ -301,19 +318,25 @@ despite the simplicity of the C preprocessor and the existence
 of stable standard for years and years, many preprocessors are
 broken beyond repair, either strictly not conforming to the standard
 or employing macro replacement algorithms that seem to take at least
-exponential time.
+exponential time. At the time of writing, even GNU CPP, a rather
+highly standards conforming\footnote{But \emph{not} 100\%
+conforming, at the time of writing, due to eager elimination of
+whitespace separations.} and relatively efficient preprocessor,
+doesn't free memory during macro replacement, which makes the
+evaluation of non-trivial C preprocessor metaprograms extremely
+inefficient.
 
 \section{The Interactive Test Shell} %******************************
 
-The interpreter comes with a simple Bash--shell script\footnote{The
+The interpreter comes with a simple Bash-shell script\footnote{The
 script also makes use of some standard commands such as \emph{grep},
 \emph{sed} and \emph{head}. You'll probably have those commands if
-you have the Bash--shell.} that can be used for writing simple
+you have the Bash-shell.} that can be used for writing simple
 regression tests and interactive evaluation of Order expressions.
-The \url{test-shell} script can be found in the \url{test}
+The \code{test-shell} script can be found in the \code{test}
 directory.
 
-When you start the test shell by typing \url{./test-shell}, the
+When you start the test shell by typing \code{./test-shell}, the
 script first tries to find a preprocessor to use and will ask you
 which preprocessor you wish to use:
 \begin{verbatim}
@@ -331,24 +354,25 @@ It then greets you with the main menu:
 \begin{verbatim}
 Database: test.db
 Backed up database to: test.db.bak
-[(A)dd | (C)lean | (D)ebug | (M)ode: 0 | (Q)uit | (S)how | (T)est | Eval]?
+[(A)dd | (C)lean | (D)ebug | (M)ode: 1 | (Q)uit | (S)how | (T)est | Eval]?
 \end{verbatim}
-
 To make a selection in the menus, press a single key. The default
 action can be activated with any key other than the explicitly
-assigned keys for non--default actions. In the main menu above, the
-\url{Eval}--action is the default action.
+assigned keys for non-default actions. In the main menu above, the
+\code{Eval}-action is the default action.
 
 Most of the test shell should be quite intuitive. To run all the
-tests, you can press \url{t} in the main menu, and assuming you have
+tests, you can press \code{t} in the main menu, and assuming you have
 a conforming preprocessor, you should see something like this:
 \begin{verbatim}
-Running 338 tests...
-Time: 0.461 seconds
+RTotal of 360 tests.
+Running positive tests...
+Comparing results...
+Running and comparing negative tests...
+Time: 3.460 seconds
 \end{verbatim}
-
-To evaluate an expression just press enter (any key will do) in the
-main menu and you'll get the prompt:
+To evaluate an expression just press enter in the main menu and
+you'll get the prompt:
 \begin{verbatim}
 Term:
 \end{verbatim}
@@ -364,19 +388,19 @@ Result: 23
 \end{verbatim}
 which shows that it took \verb/0.082 seconds/\footnote{Most of that
 time is overhead of starting the C preprocessor.} to evaluate the
-expression and the result of the expression was \url{23}.
+expression and the result of the expression was \code{23}.
 
-If you make a typo, the C preprocessor may essentially eat all memory
-causing your computer to become unresponsive. In such a case you can
-safely hit \url{Ctrl-C} to break the C preprocessor and then restart
-the test shell. In most cases, however, a typo simply causes garbage
-output. The test shell does not immediately display the result
-unless it fits within one line. This helps to avoid having to watch
-(hundreds of) thousands of garbage tokens scroll through.
-Theoretically, the Order interpreter can generate output whose
-length is counted in billions of billions of tokens. Most likely
-your computer runs out of memory before that many tokens are
-generated.
+If you make a programming error, the C preprocessor may essentially
+eat all memory causing your computer to become unresponsive. In such
+a case you can safely hit \code{Ctrl-C} to break the C preprocessor
+and then restart the test shell. In most cases, however, a typo
+simply causes garbage output. The test shell does not immediately
+display the result unless it fits within one line. This helps to
+avoid having to watch (hundreds of) thousands of garbage tokens
+scroll through. Theoretically, the Order interpreter can generate
+output whose length is counted in billions of billions of tokens.
+Most likely your computer runs out of memory before that many tokens
+are generated.
 
 The debug command of the main menu is used to trace the execution of
 Order programs at the \emph{continuation machine} level. It is
@@ -385,11 +409,13 @@ useful for the purpose of understanding how the interpreter actually
 works.\footnote{The primary purpose of the test shell is to simplify
 testing the interpreter.}
 
-The mode flag in the main menu refers to the use of the built--in
-\emph{debug mode} of the interpreter. In the debug mode, the
-interpreter performs some additional syntax and type checks. These
-checks are normally disabled, but they can greatly help to pinpoint
-errors in programs during development.
+The mode flag in the main menu refers to the use of the built-in
+\emph{debug mode} of the interpreter. When the flag is \code{1}
+debug mode is active. In the debug mode, the interpreter performs
+some syntax, type and precondition checks. These checks are normally
+disabled, because they have a significant performance penalty, but
+they can greatly help to pinpoint errors in Order programs during
+development.
 
 You should now be ready to follow the introduction to the Order
 language with the help of the interactive test shell. Please do try
@@ -399,18 +425,260 @@ the Order interpreter, but using the test shell for trying out
 simple expressions is probably much quicker. For longer programs,
 involving definitions, you will need to create CPP source files.
 
+\chapter{Core Language} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This chapter describes the core of the Order language. The Order
+interpreter can be thougth of consisting of just just one macro
+\code{ORDER_PP(<exp>)}. What is interesting is the expressions that
+it can evaluate.
+
+\section{Abstraction, Application and Variables} %******************
+
+Like in other functional programming languages, the semantics of the
+Order language are rooted in the lambda calculus.
+
+Lambda calculus is basically a tiny programming language, or a
+formalization of computation, suitable for mathematical analysis.
+You can find dozens of introductions to the lambda calculus on the
+net (e.g. \cite{wikipedia:lambda-calculus}) and there are several
+books (e.g. \cite{pierce:2002, mitchell:1996}) and articles that
+contain a more thorought treatment of lambda calculus. The following
+very minimal introduction describes the lambda calculus using the
+syntax of the Order language.
+
+Before we continue, it should be noted that the Order interpreter
+has not been designed as a pure lambda calculus evaluator. An
+evaluator for the lambda calculus should output only lambda-terms.
+Although the Order interpreter can interpret \emph{closed} pure
+lambda-terms, it does not output only \emph{pure} lambda-terms.
+The output may, and usually does, contain \emph{closures}, which are
+used internally by the interpreter during evaluation.\footnote{This
+not unlike in most practical functional languages, such as Scheme
+\cite{dybvig:1996,abelson:1996}.} % TBD: Explain closure
+
+There are only three kinds of terms (or expressions) in the pure
+lambda calculus as shown in the EBNF-grammar\footnote{For an
+introduction to context-free grammars see \cite{aho:1986}.} snippet
+below.\\
+\ebnf{pure-lambda-subset}\\
+In plain English, \code{8fn(v,b)} is a function of one parameter
+and \code{8ap(f,x)} applies the function \code{f} to the parameter
+\code{x}. You may wonder why the syntax is so terse. The reason is
+that while programming in Order you will be writing lots of
+\code{8fn} expressions. After a while, you will be happy that the
+syntax isn't any longer. As you can see, in the Order language,
+variable symbols are, by default, limited to the capital alphabetic
+characters prefixed by \code{8}.
+
+The above grammar snippet described the strict lambda calculus
+subset of the Order language, where a function has exactly one
+parameter. The unrestricted Order language supports the definition
+of functions with an arbitrary non-zero number of parameters and
+the application of a function to an arbitrary number of
+parameters as well as the use of any predefined symbol as a
+variable:\\
+\ebnf{full-lambda-subset}\\
+Above, we used an extended BNF notation.\footnote{Similar extended
+BNF notation is used in \cite{friedman:2001}.} In general,
+$\{x\}^{+(y)}$ indicates a sequence of one or more $x$s separated by
+$y$s, i.e. strings of the form $x$, $xyx$, $xyxyx$, \ldots{} In
+general, $\{x\}^*$ indicates a sequence of zero or more $x$s.
+
+In the \emph{pure} lambda calculus, everything is a function. In
+other words, there are no built-in operators or constants.
+Booleans, arithmetic on natural numbers, and even lists, are
+represented using functions. For example, the Church-booleans are
+represented as functions:
+\begin{verbatim}
+#define ORDER_PP_8TRUE  ORDER_PP_FN(8fn(8T, 8fn(8F, 8T)))
+#define ORDER_PP_8FALSE ORDER_PP_FN(8fn(8T, 8fn(8F, 8F)))
+\end{verbatim}
+\code{8TRUE} is a function that takes two parameters (one by one) and
+returns the first parameter. \code{8FALSE}, on the other hand,
+returns the second parameter. To compute with Church-booleans, you
+apply them to functions. For example, logical conjunction can be
+defined as:
+\begin{verbatim}
+#define ORDER_PP_8AND                    \
+ORDER_PP_FN(8fn(8L, 8fn(8R,              \
+                        8ap(8ap(8L, 8R), \
+                            8FALSE))))
+\end{verbatim}
+\code{8AND} is a function that takes two parameters, \code{8L} and
+\code{8R}, which are assumed to be Church-booleans. It first applies
+\code{8L} to \code{8R}, i.e. \code{8ap(8L,8R)}, and then applies the
+result to \code{8FALSE}, i.e. \code{8ap(8ap(8L,8R),8FALSE)}. Assuming
+the parameters \code{8L} and \code{8R} were Church-booleans, the
+result will be another Church-boolean. For example, the value of
+the expression
+\begin{verbatim}
+  8ap(8ap(8AND, 8TRUE), 8FALSE)
+\end{verbatim}
+would be equivalent to \code{8FALSE}.
+
+There are several different strategies for the evaluation, or
+reduction, of lambda calculus terms. Most programming languages use
+the \emph{call-by-value} strategy, which basically means that
+parameters are evaluated before application and that no evaluation
+happens inside abstractions (functional values). Another strategy is
+the \emph{call-by-name} strategy, which is one form of lazy
+evaluation. Like most languages, the Order language uses the
+call-by-value strategy. There are three main reasons for choosing
+call-by-value semantics. Call-by-value is the main strategy used
+by most programming languages, including C and C++, and its
+performance and other characteristics are intuitively understood by
+programmers.\footnote{In contrast, according to
+\cite{thompson:1999}, even experts have trouble understanding the
+space and time efficiency of lazy evaluation.} While the Order
+language is pure, the Order language has non-mutable side-effecting
+output operations, which must be sequenced properly, which is
+easiest to do in a call-by-value language. The third reason is that
+the purely functional nature of the underlying C preprocessor macro
+expansion mechanism makes it impossible to use any of the tricks
+based on mutation used by efficient non-strict languages.
+
+
+
+
+%%%%%%%%%%%%%% \footnote{In this document, \code{X ==> Y} means that \code{X} evaluates to \code{Y}.}
+
+\subsection{Closed Terms} %=========================================
+
+As you have already seen, the Order language implements lexical binding
+and allows you to manipulate functions as first-class values. It is very
+easy to create and use higher-order functions in the Order language.
+
+When an occurrence of a symbol as a variable in an expression is
+ultimately lexically surrounded by a function-abstraction with a pattern
+that contains the same symbol, the occurrence of the variable is called
+\emph{bound}. For example, in the expression \code{8fn(8X,8X)} the second
+\code{8X} is a bound variable. If a variable is not bound it is called
+\emph{free}. For example, in the expression \code{8fn(8X,8Y)} the variable
+\code{8Y} is free.
+
+The Order language only assigns semantics to terms that are closed. For
+example, if you try to evaluate the expression \code{8ap(8fn(8X,8Y),8fn(8X,8X))},
+the output from the interpreter is undefined.\footnote{Try to evaluate the
+expression in the test shell. Try the expression in both debug and non-debug
+mode. Can you count on getting the same result with the next version of the interpreter?}
+
+\subsection{Binding} %==============================================
+
+Even though the pure lambda calculus is Turing complete, it is not a
+very practical programming language. Order, like all real
+programming languages, extends the pure lambda calculus with many
+syntactic forms to make programming easier and the results of
+computations immediately useful.
+
+The first extension we'll look at is the \code{8let}-expression used
+for local lexical bindings. The following production describes the
+syntax of the \code{8let}-derived form:\\
+\ebnf{let}\\
+Extending the lambda-calculus with the \code{8let}-derived form doesn't
+make the language stronger. An expression of the form \code{8let(8X,i,e)}
+means that the value of the expression \code{i} is bound to the variable
+\code{8X} in the expression \code{e}. A \code{8let} expression of the
+previous form is equivalent to an expression of the form
+\code{8ap(8fn(8X,e),i)}. In other words, the \code{8let}-derived form can
+be described in terms of the pure lambda calculus. The following example
+simply illustrates the semantics of \code{8let} and Church-booleans:
+\begin{verbatim}
+8let((8T, 8fn(8T, 8F,
+              8T)),
+     8ap(8T, 8T, 8T)) == 8fn(8T, 8F,
+                             8T)
+\end{verbatim}
+
+\section{Built-in Features} %**************************************
+
+This section describes some of the basic built-in operators, special
+forms, derived forms and constants of the Order language.
+
+Built-in operators, in the Order language, are basically just built-in
+functions of the Order language that are applied using an operator
+application expression rather than a function application
+expression.\footnote{You could think that a function application is really
+an application of the binary operator \code{8ap}.} The following grammar
+snippet describes the syntax of function application expressions:\\
+\ebnf{function-application}\\
+For example, the expression \code{8inc(1)} applies the unary operator
+\code{8inc} to the value of the constant \code{1}.\footnote{We will get back
+to the issues regarding constants and values later.}
+
+\subsection{Conditionals} %=========================================
+
+Like we saw earlier, it is possible to represent booleans in the pure
+lambda calculus as functions. Order also provides direct support for
+booleans and conditional expressions.
+
+\subsubsection{Conditional Expressions and Boolean Constants} %---
+
+The following grammar snippet describes the syntax for boolean constants
+and conditional expressions:\\
+{\small \ebnf{conditionals} }\\
+The conditional special form \code{8if}, and the derived forms \code{8and} and
+\code{8or} are lazy. Only the first subexpression of these forms is always
+evaluated. In particular,
+\begin{itemize}
+\item an \code{8if} evaluates to the value of the second or third
+      subexpression depending on whether the first subexpression evaluates
+      to the boolean true or false value, respectively.
+\item an \code{8and} evaluates to the boolean false value if the first
+      subexpression evaluates to the boolean false value and otherwise it
+      evaluates to the value of the second subexpression.
+\item an \code{8or} evaluates to the boolean true value if the first
+      subexpression evaluates to boolean true value and otherwise it
+      evaluates to the value of the second subexpression.
+\end{itemize}
+It is important to see that only the first subexpression of the forms
+\code{8if}, \code{8and} and \code{8or} needs to have a boolean value. Consider
+the following example:
+\begin{verbatim}
+8and(8true, 8fn(8X, 8X)) == 8fn(8X, 8X)
+\end{verbatim}
+
+
+
 \chapter{Examples} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This chapter presents several Order programming examples. All of the
+examples in this chapter are also available in complete source code
+form. In fact, a simple script extracts the text of the examples
+from the actual source code.
+
+An attempt has been made to make each example mostly self-contained
+at the cost of repeating some explanations. A reader having a good
+understanding of programming should be able to follow the examples
+with a minimal understanding of the Order language. The narrative
+body of each example briefly motivates the example and gives a bit
+of background information, but doesn't aim to explain every detail
+of each Order language feature used.
+
+Most of the examples are meant to apply programming techniques that
+are likely to be useful in practice to the kind of problems that one
+might encounter in practice, but none of the examples is meant to be
+an industry strength solution. This is emphasized by exercises,
+given at the end of each example, that ask the reader to modify and
+extend the examples in various ways. While it is probably too much
+to ask the reader to complete all the exercises, all readers are
+strongly recommended to preprocess one or more examples to actually
+see what is ultimately being generated.
 
 \input{fibonacci.ltx}
 \input{exp-delay.ltx}
-\input{catch-builtin.ltx}
 \input{average.ltx}
 \input{binary.ltx}
 \input{duffs-device.ltx}
-\input{is-function.ltx}
 \input{array-ops.ltx}
+\input{catch-builtin.ltx}
+\input{is-function.ltx}
+\input{is-integral.ltx}
 
 \appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{The Order Grammar} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\small \label{grammar-summary} \ebnf{grammar-summary} }
 
 % Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

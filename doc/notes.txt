@@ -32,7 +32,7 @@ SYNTAX
                 | 8tuple(<exp>+)
                 | 8do(<exp>+)
                 | 8let((<var>, <exp_{init}>)+, <exp_{body}>+)
-                | 8letn((<var>, <exp_{init}>)+, <exp_{body}>+)
+                | 8lets((<var>, <exp_{init}>)+, <exp_{body}>+)
                 | 8print(<print-exp>+)
 -               | 8match(<exp_{val}>, (<pat>, <exp>+)+)
 -               | 8try(<exp_{body}>, <var>, <exp_{handler}>)
@@ -53,6 +53,7 @@ SYNTAX
                 | 8lparen
                 | 8rparen
                 | 8parens(<print-exp>+)
+                | 8space
 
 -       <pat> ::= 8tuple(<pat>+{,8rest(<sym>)}?)
 -               | 8seq(<pat>+{,8rest(<sym>)}?)
