@@ -46,7 +46,7 @@ no_type is_function_tester(...);
 //
 // One function template is required for each number of parameters
 // and, as can easily be seen, in order to support $n$ parameters,
-// %$\Theta(n^2)$ tokens are needed. Instead of laboriously writing
+// $\Theta(n^2)$ tokens are needed. Instead of laboriously writing
 // the repetitive templates by hand, we'd like to generate them
 // using a simple metaprogram.
 //
