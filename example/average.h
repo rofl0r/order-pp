@@ -21,7 +21,7 @@
 // values of the elements may not be known until run-time. For
 // example,
 //<
-//   GEN_average(x, y, z)
+//   AVERAGE(x, y, z)
 //>
 // should expand to something like
 //<
@@ -43,7 +43,7 @@
 // So, without further ado, the following is our average macro
 // implementation.
 //<
-#define GEN_average(...)                                \
+#define AVERAGE(...)                                    \
 ((ORDER_PP(8seq_for_each_with_delimiter                 \
            (8put,                                       \
             8emit(8quote(+)),                           \
