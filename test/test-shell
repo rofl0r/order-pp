@@ -210,12 +210,14 @@ function run-tests {
 }
 
 function do-eval {
-    errors=""
     result=$(echo "ORDER_PP($term)" | spacify | eval-in 2>"$tmpFile" | tail -n1)
     resultChars=$(echo "$result" | wc -m | sed 's# ##g')
     resultLines=$(echo "$result" | wc -l | sed 's# ##g')
-    if test -n "$(cat "$tmpFile")" ; then
-        errors=$(cat "$tmpFile" | grep -o 'ORDER_PP_[a-zA-Z0-9_]\+' | sort | uniq | tr $'\n' ' ' | sed 's# $##g')
+    messages="$(cat "$tmpFile")"
+    if test -n "$messages" ; then
+        errors=$(echo "$messages" | grep -o 'ORDER_PP_[a-zA-Z0-9_]\+' | sort | uniq | tr $'\n' ' ' | sed 's# $##g')
+    else
+        errors=""
     fi
 }
 
@@ -232,7 +234,7 @@ function interactive-eval {
     if test -n "$errors" ; then
         echo "Errors: $errors"
         echo
-        cat "$tmpFile"
+        echo "$messages"
         echo
     fi
     if test $(($COLUMNS-9)) -lt $resultChars ; then
