@@ -47,22 +47,6 @@ ORDER_PP_FN(8fn(8N,                             \
 ORDER_PP_FN(8fn(8N,                             \
                 8linear_fib_iter(8N, 0, 1)))
 
-#define ORDER_PP_DEF_8bottles                                                   \
-ORDER_PP_MACRO(8let((8B, 8fn(8N,                                                \
-                             8cond((8greater(8N, 1),                            \
-                                    8separate(8N, 8quote(bottles)))             \
-                                   (8equal(8N, 1),                              \
-                                    8separate(8N, 8quote(bottle)))              \
-                                   (8else,                                      \
-                                    8quote(no more bottles))))),                \
-                    8for_each_in_range                                          \
-                    (8fn(8N,                                                    \
-                         8print(8ap(8B, 8N) (of beer on the wall,) 8space       \
-                                8ap(8B, 8N) (of beer,) 8space                   \
-                                (take one down, pass it around,) 8space         \
-                                8ap(8B, 8dec(8N)) (of beer on the wall.))),     \
-                     100, 1)))
-
 #define ORDER_PP_DEF_8linear_fib_iter                   \
 ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
                 8if(8is_0(8N),                          \
@@ -70,5 +54,20 @@ ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
                     8linear_fib_iter(8dec(8N),          \
                                      8J,                \
                                      8plus(8I, 8J)))))
+
+#define ORDER_PP_DEF_8bottles                                                                   \
+ORDER_PP_MACRO(8let((8B, 8fn(8N,                                                                \
+                             8cond((8greater(8N, 1),                                            \
+                                    8separate(8N, 8quote(bottles)))                             \
+                                   (8isnt_0(8N),                                                \
+                                    8separate(8N, 8quote(bottle)))                              \
+                                   (8else,                                                      \
+                                    8quote(no more bottles))))),                                \
+                    8for_each_in_range                                                          \
+                    (8fn(8N,                                                                    \
+                         8print(8ap(8B, 8N) (of beer on the wall,) 8space                       \
+                                8ap(8B, 8N) (of beer, take one down, pass it around,) 8space    \
+                                8ap(8B, 8dec(8N)) (of beer on the wall.))),                     \
+                     100, 1)))
 
 #endif
