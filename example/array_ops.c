@@ -47,12 +47,12 @@ void array##mnemo##in_a(const in_t* in,                 \
   } while (--n);                                        \
 }
 
-// Given an
-// - operation mnemonic,
+// Given
+// - an operation mnemonic (e.g. `_neg'),
 // - an operator symbol (e.g. `-'),
-// - an abbreviation of the input array element type,
-// - the input array element type, and
-// - the output array element type,
+// - an abbreviation of the input array element type (e.g. `si'),
+// - the input array element type (e.g. `signed int'), and
+// - the output array element type (e.g. `signed int'),
 // the `GEN_array_uop(...)' macro expands to an unary array
 // manipulation procedure.
 //
@@ -93,14 +93,15 @@ void array##mnemo##lhs_a##rhs_a(const lhs_t* lhs_in,                    \
   } while (--n);                                                        \
 }
 
-// Given an
-// - operation mnemonic,
+// Given
+// - an operation mnemonic (e.g. `_add'),
 // - an operator symbol (e.g. `+'),
-// - an abbreviation of the left hand side input array element type and
-// - array element type,
+// - an abbreviation of the left hand side input array element type
+//   (e.g `_si') and
+// - array element type (e.g. `signed short'),
 // - an abbreviation of the right hand side input array element type and
 // - array element type, and
-// - the output array element type,
+// - the output array element type (e.g. `signed int'),
 // the `GEN_array_bop(...)' macro expands to a binary array
 // manipulation procedure.
 //
@@ -175,7 +176,7 @@ ORDER_PP_FN(8fn(8T,                                     \
 // `not_eq', `true', `false' and even `I', that would otherwise
 // clash with Order programs. There is no guarantee that important C
 // libraries wouldn't define other macro names that might cause
-// problems.
+// problems unless we used the prefix.
 //
 // The `ORDER_PP_FN' is used to denote that the definition is
 // specifically a function definition. We will later see constant
@@ -216,14 +217,15 @@ ORDER_PP_FN(8fn(8T,                                     \
 //
 // As you have figured out by now, the syntax of the Order language
 // is very much like the syntax of any ordinary programming
-// language, except that top-level definitions are embedded in C
+// language. The main technical difference to an ordinary language
+// is that top-level Order definitions are embedded in C
 // preprocessor macro definitions of a particular form.
 //
 // We'll now continue encoding the typing rules of C. The rule for
 // usual arithmetic conversion on a binary operation is that the
 // type of the result is the type of the higher ranking type after
 // integer promotion. The rule translates to the
-// `8type_of_conversion(tl,tr)' metafunction below:
+// `8type_of_conversion(tl, tr)' metafunction below:
 
 #define ORDER_PP_DEF_8type_of_conversion                        \
 ORDER_PP_FN(8fn(8L, 8R,                                         \
@@ -239,7 +241,7 @@ ORDER_PP_FN(8fn(8L, 8R,                                         \
 // In C [C89], logical operators produce integer results. The type
 // of an unary operation is thus integer if the operator is logical.
 // Otherwise the type of an unary operation follows the promotion
-// rules. The `8type_of_uop(o,t)' metafunction captures this
+// rules. The `8type_of_uop(o, t)' metafunction captures this
 // special case:
 
 #define ORDER_PP_DEF_8type_of_uop               \
@@ -252,7 +254,7 @@ ORDER_PP_FN(8fn(8O, 8T,                         \
 // integer results. Also, if the operator is a shift, then the type
 // of the result is the type of the left hand side operand after
 // promotion. Otherwise the arithmetic conversion rules apply. The
-// rules translate to the `8type_of_bop(o,l,r)' metafunction:
+// rules translate to the `8type_of_bop(o, l, r)' metafunction:
 
 #define ORDER_PP_DEF_8type_of_bop                       \
 ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
@@ -278,8 +280,8 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
 //
 //   (symbol, mnemonic, arity, does_floats, is_logical, is_shift)
 //
-// A tuple, in general, is represented by a parenthesized list of
-// comma separated elements.
+// A tuple, in general, is a parenthesized list of comma separated
+// elements.
 //
 // We can now implement the primitive metafunctions, some of which
 // we already used earlier, on operators. They are just simple
@@ -332,9 +334,9 @@ ORDER_PP_CONST(((~,  _compl,  1, 8false, 8false, 8false))       \
 
 // The above is a constant definition, as denoted by the use of
 // `ORDER_PP_CONST'. A constant can be any sequence of C
-// preprocessor tokens that is valid as a macro argument. This
-// basically means that a constant may not contain unbalanced
-// parentheses or unparenthesized commas.
+// preprocessor tokens that is valid as an actual parameter to a
+// macro. This basically means that a constant may not contain
+// unbalanced parentheses nor unparenthesized commas.
 //
 // As we said, the `8applicative_ops' constant is a so called
 // sequence. In general, a sequence is an aggregate data type of the
@@ -343,7 +345,7 @@ ORDER_PP_CONST(((~,  _compl,  1, 8false, 8false, 8false))       \
 //   (<pp-arg>) (<pp-arg>) ... (<pp-arg>)
 //
 // So, the `8applicative_ops' constant is just an aggregate,
-// represented by a sequence, of 21 elements, each of which is
+// represented by a sequence, of 21 elements, each of which is a
 // 6-tuple representing an operator.
 //
 // You should also note that boolean values are simply denoted by
@@ -386,7 +388,7 @@ ORDER_PP_CONST(((          char, _ch, 8false, 1))       \
 
 // Above, `ORDER_PP_GET_CONST' is C preprocessor macro that extracts
 // the value of an Order constant definition. It is useful in
-// situations like this, where we would otherwise need to introduce
+// situations where we would otherwise need to introduce
 // duplication.
 //
 // ### Generating code
@@ -401,7 +403,7 @@ ORDER_PP_CONST(((          char, _ch, 8false, 1))       \
 // So, we'll break the generation into a few cases.
 //
 // Let's first define a helper metafunction for emitting the code
-// for an unary operator. The `gen_array_uop(o,t)' metafunction
+// for an unary operator. The `gen_array_uop(o, t)' metafunction
 
 #define ORDER_PP_DEF_8gen_array_uop                                     \
 ORDER_PP_FN(8fn(8O, 8T,                                                 \
@@ -413,39 +415,40 @@ ORDER_PP_FN(8fn(8O, 8T,                                                 \
                              8type_name(8type_of_uop(8O, 8T))))))
 
 // computes the argument tuple for the `GEN_array_uop(...)' code
-// generation macro and then emits the expansion.
+// generation macro we defined earlier and then emits the expansion.
 //
 // There are two rather significant new things in the above
 // function. First of all, `8' followed by parenthesis, is a
 // convenient shorthand for `8quote', which is a special form that
-// allows you to define constants inline. The argument to `8quote',
-// or the shorthand `8', can be any preprocessor argument, like in
-// ordinary top-level constant definitions. `8quote' then simply
-// evaluates to that preprocessor argument. You might wonder why we
-// need to use quotation here. The reason is simple. There is no
-// Order definition for `GEN_array_uop', hence the interpreter knows
-// nothing about `GEN_array_uop', and can not interpret it.
-// Therefore we must quote it so that the interpreter will not try
-// to interpret it. Of course, we could have alternatively
-// introduced a constant definition for `GEN_array_uop', but since
-// we are not going to refer to it many times, it is more convenient
-// to just use quotation.
+// allows you to define constants inline. The parameter to `8quote',
+// or the shorthand `8', can be any sequence of tokens that is
+// allowed as an actual macro parameter like in ordinary top-level
+// constant definitions. `8quote' then simply evaluates to the
+// argument. You might wonder why we need to use quotation here. The
+// reason is simple. There is no Order definition for
+// `GEN_array_uop', hence the interpreter knows nothing about
+// `GEN_array_uop', and can not interpret it. Therefore we must
+// quote it so that the interpreter will not try to interpret it. Of
+// course, we could have alternatively introduced a constant
+// definition for `GEN_array_uop', but since we are not going to
+// refer to it many times, it is more convenient to just use
+// quotation.
 //
 // The side-effecting `8emit' procedure is different from the
 // functions we have used so far. It is used to produce output as a
-// side-effect. The `8emit' procedure essentially places both of the
-// given arguments, separated by whitespace, to the end of what has
-// been emitted so far. For example,
+// non-mutating side-effect. The `8emit' procedure essentially
+// places both of the given arguments, separated by whitespace, to
+// the end of what has been emitted so far. For example,
 //
-//   8emit(8quote(1), 8quote(2))
+//   8emit(8quote(A_MACRO_FOR_EXAMPLE), 8tuple(1, 2))
 //
 // would produce the output
 //
-//   1 2
+//   A_MACRO_FOR_EXAMPLE (1,2)
 //
 // In the `8gen_array_uop' metafunction, the first argument to
 // `8emit' is the name of a macro, `GEN_array_uop', and the second
-// argument is a tuple that matches the parameter list of
+// argument is a tuple that matches the formal parameters of
 // `GEN_array_uop'. As you might guess, this results in expanding
 // the macro `GEN_array_uop'. This is how the Order interpreter can
 // be used to generate complex output efficiently. You first design
@@ -454,7 +457,7 @@ ORDER_PP_FN(8fn(8O, 8T,                                                 \
 // emits expansions of the ad hoc code generation macros.
 //
 // We now generate code for all unary array procedures by invoking
-// the `8gen_array_uop(o,t)' metafunction in two batches. First for
+// the `8gen_array_uop(o, t)' metafunction in two batches. First for
 // the non-floating point operators and non-floating point types.
 
 ORDER_PP(8seq_for_each_in_product
@@ -467,28 +470,29 @@ ORDER_PP(8seq_for_each_in_product
                            8builtin_types))))
 
 // The Order interpreter is invoked using the `ORDER_PP' macro. It
-// takes as an argument an Order expression and evaluates it.
+// takes an Order expression and evaluates it.
 //
-// The `8seq_filter(pr,s)' function takes an unary predicate
-// function and a sequence and produces a new sequence which
-// contains only the elements of the given sequence that satisfy the
-// given predicate. Above, we've defined the predicate for filtering
-// the `8applicative_ops' sequence using an anonymous function. This
-// is typical when using higher-order functions. New functions can
-// also be formed through other means. The predicate for filtering
-// the `8builtin_types' sequence is implemented above by chaining,
-// or composing, together the unary `8not' function with the unary
-// `8type_is_float' accessor.
+// The `8seq_filter(pr, s)' function takes an unary predicate and a
+// sequence and produces a new sequence which contains only the
+// elements that satisfy the predicate. Above, we've defined the
+// predicate for filtering the `8applicative_ops' sequence using an
+// anonymous function. This is typical when using higher-order
+// functions. New functions can also be formed through other means,
+// which often yeilds slightly shorter and slightly more efficient
+// programs. The predicate for filtering the `8builtin_types'
+// sequence is implemented above by chaining, or composing, together
+// the unary `8not' function with the unary `8type_is_float'
+// accessor.
 //
-// The `8seq_for_each_in_product(op,ss)' function computes the
-// cartesian product of the sequence of sequences given as arguments
-// and invokes the given function with each element of the cartesian
-// product. Above, we use `8seq_for_each_in_product' to compute the
-// cartesian product of operators that do not work on floating point
-// types and the non-floating point types.
+// The `8seq_for_each_in_product(op, ss)' function computes the
+// cartesian product of the given sequence of sequences and invokes
+// the given function with each element of the cartesian product.
+// Above, we use `8seq_for_each_in_product' to compute the cartesian
+// product of operators that do not work on floating point types and
+// the non-floating point types.
 //
 // If you looked carefully, you noticed that we passed
-// `8gen_array_uop', without any arguments, as the first argument to
+// `8gen_array_uop', as the first parameter to
 // `8seq_for_each_in_product'. This is possible, because functions
 // are first class values in Order.
 //
@@ -504,7 +508,7 @@ ORDER_PP(8seq_for_each_in_product
                8builtin_types)))
 
 // We'll then handle binary operations similarly. First we define
-// the metafunction `8gen_array_bop(o,l,r)':
+// the metafunction `8gen_array_bop(o, l, r)':
 
 #define ORDER_PP_DEF_8gen_array_bop                                     \
 ORDER_PP_FN(8fn(8O, 8L, 8R,                                             \
