@@ -13,10 +13,9 @@
 //
 // Semantics:
 //
-//   [[8if(exp_b, exp_c, exp_a)]] env = match [[exp_b]] env with
-//                                        | 8true  -> [[exp_c]] env
-//                                        | 8false -> [[exp_a]] env
-//                                        | _      -> undefined
+//   [[8if(<exp_b>, <exp_c>, <exp_a>)]] env = match [[<exp_b>]] env with
+//                                              | 8true  -> [[<exp_c>]] env
+//                                              | 8false -> [[<exp_a>]] env
 //
 // The boolean expression `<exp_b>' is evaluated first. If the boolean
 // expression evaluates to `8true', then the consequent expression
