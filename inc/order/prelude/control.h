@@ -1,6 +1,3 @@
-#ifndef ORDER_PRELUDE_CONTROL_H_VAJK20040620
-#define ORDER_PRELUDE_CONTROL_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -55,6 +52,4 @@
 #define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(8if(cond,body,8exit(8quote(8Assert_Failed(8with_assert(cond,body))))))
 #else
 #define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(body)
-#endif
-
 #endif

@@ -1,6 +1,3 @@
-#ifndef ORDER_EVAL_PRINT_H_VAJK20040620
-#define ORDER_EVAL_PRINT_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -71,5 +68,3 @@
 
 #define ORDER_PP_DEF_8rparen 8EVAL_RPAREN,
 #define ORDER_PP_8EVAL_RPAREN(P,e,G,put,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)(,5,)
-
-#endif

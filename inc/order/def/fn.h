@@ -1,6 +1,3 @@
-#ifndef ORDER_DEF_FN_H_VAJK20040620
-#define ORDER_DEF_FN_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -28,5 +25,3 @@ ORDER_PP_FN(8fn(8N,                                     \
 
 #define ORDER_PP_8DEF_FN(P,e,ns,ss,np,...) ORDER_PP_8EVAL_AP_##np(,(,8BIND_##ns,,ORDER_PP_8DEF_FN_OPEN ss##P),P##e,P##__VA_ARGS__)
 #define ORDER_PP_8DEF_FN_OPEN(P,...) P##__VA_ARGS__
-
-#endif

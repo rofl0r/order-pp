@@ -1,6 +1,3 @@
-#ifndef ORDER_EVAL_TUPLE_H_VAJK20040620
-#define ORDER_EVAL_TUPLE_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -22,5 +19,3 @@
 #define ORDER_PP_EVAL_TUPLE_A0
 #define ORDER_PP_EVAL_TUPLE_B(P,x) ,ORDER_PP_LEFT(,x##P)ORDER_PP_EVAL_TUPLE_A
 #define ORDER_PP_EVAL_TUPLE_B0
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef ORDER_INTERPRETER_H_VAJK20040620
-#define ORDER_INTERPRETER_H_VAJK20040620
+#ifndef ORDER_PP
 
 // (C) Copyright Vesa Karvonen 2004.
 //

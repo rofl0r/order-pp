@@ -1,6 +1,3 @@
-#ifndef ORDER_PRELUDE_EMIT_H_VAJK20040620
-#define ORDER_PRELUDE_EMIT_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -68,5 +65,3 @@
 #define ORDER_PP_8EMIT_TRAILING_PARAM(P,i,p,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,1,ORDER_PP_CAT(P##p,ORDER_PP_NAT_TO_LIT(,P##i)))(,3,)
 
 #define ORDER_PP_ENUM_SCAN(...) __VA_ARGS__
-
-#endif

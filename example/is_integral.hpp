@@ -19,8 +19,8 @@ template<class T> struct is_integral
 // each integral type and cv-qualifier pair.
 
 ORDER_PP(8seq_for_each_in_product
-         (8fn(8CV, 8TY,
-              8print((template<> struct is_integral<) 8CV 8TY (>)
+         (8fn(8Q, 8T,
+              8print((template<> struct is_integral<) 8Q 8T (>)
                      ({ enum { value = true }; };))),
           8((()(const)(volatile)(const volatile))
             ((char)

@@ -1,6 +1,3 @@
-#ifndef ORDER_PP_DEF_FN_CM_H_VAJK20040620
-#define ORDER_PP_DEF_FN_CM_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -75,5 +72,3 @@
 #define ORDER_PP_8WAIT_10_7(P,v7,v6,v5,v4,v3,v2,v1,v0,f,r,...)       (,(,8WAIT_10_8,P##v7,P##v6,P##v5,P##v4,P##v3,P##v2,P##v1,P##v0,P##f,P##r),P##__VA_ARGS__)
 #define ORDER_PP_8WAIT_10_8(P,v8,v7,v6,v5,v4,v3,v2,v1,v0,f,r,...)    (,(,8WAIT_10_9,P##v8,P##v7,P##v6,P##v5,P##v4,P##v3,P##v2,P##v1,P##v0,P##f,P##r),P##__VA_ARGS__)
 #define ORDER_PP_8WAIT_10_9(P,v9,v8,v7,v6,v5,v4,v3,v2,v1,v0,f,r,...) (,P##v0,P##f,P##v1,P##v2,P##v3,P##v4,P##v5,P##v6,P##v7,P##v8,P##v9,ORDER_PP_OPEN r##P P##__VA_ARGS__)
-
-#endif

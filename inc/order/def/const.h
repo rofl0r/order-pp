@@ -1,6 +1,3 @@
-#ifndef ORDER_EVAL_CONST_H_VAJK20040620
-#define ORDER_EVAL_CONST_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -36,5 +33,3 @@
 #define ORDER_PP_GET_CONST(name) ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_DEF_##name))
 
 #define ORDER_PP_8DEF_CONST(P,e,v,G,K,...) ORDER_PP_##K(,v##P,P##__VA_ARGS__)
-
-#endif

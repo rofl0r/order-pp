@@ -11,9 +11,9 @@ int main() {
      throw 10;
    }
    ORDER_PP(8seq_for_each
-            (8fn(8TN,
-                 8print((catch) 8parens(8TN (t))
-                        ({ std::cerr << "Caught a ") 8stringize(8TN) (" = " << t; }))),
+            (8fn(8T,
+                 8print((catch) 8parens(8T (t))
+                        ({ std::cerr << "Caught a ") 8stringize(8T) (" = " << t; }))),
              8((bool)
                (char)(signed char)(unsigned char)
                (wchar_t)

@@ -1,6 +1,3 @@
-#ifndef ORDER_PRELUDE_NUM_H_VAJK20040620
-#define ORDER_PRELUDE_NUM_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -77,5 +74,3 @@
 #define ORDER_PP_NUM_BOP_NAT_LIT(P,op,x,y) ORDER_PP_FW(NAT_##op,(,P##x,ORDER_PP_LIT_TO_NAT(,P##y)))
 #define ORDER_PP_NUM_BOP_LIT_NAT(P,op,x,y) ORDER_PP_FW(NAT_##op,(,ORDER_PP_LIT_TO_NAT(,P##x),P##y))
 #define ORDER_PP_NUM_BOP_LIT_LIT(P,op,x,y) ORDER_PP_LIT_##op(,P##x,P##y)
-
-#endif

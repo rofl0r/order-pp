@@ -12,45 +12,45 @@
 #define ORDER_PP_DEF_8BRD_PARSER_import_terminals ORDER_PP_MACRO(8vseq_to_seq_of_tuples)
 
 #define ORDER_PP_DEF_8BRD_PARSER_import_nonterminals ORDER_PP_FN                        \
-(8fn(8NS,                                                                               \
-     8seq_map(8fn(8NT,                                                                  \
-                  8tuple(8tuple_at_0(8NT),                                              \
-                         8tuple_at_1(8NT),                                              \
+(8fn(8S,                                                                                \
+     8seq_map(8fn(8N,                                                                   \
+                  8tuple(8tuple_at_0(8N),                                               \
+                         8tuple_at_1(8N),                                               \
                          8seq_map(8fn(8P,                                               \
                                       8tuple(8vseq_to_seq_of_tuples(8tuple_at_0(8P)),   \
                                              8tuple_rest_1(8P))),                       \
-                                  8vseq_to_seq_of_tuples(8tuple_at_2(8NT))))),          \
-              8vseq_to_seq_of_tuples(8NS))))
+                                  8vseq_to_seq_of_tuples(8tuple_at_2(8N))))),           \
+              8vseq_to_seq_of_tuples(8S))))
 
 #define BRD_PARSER(qr, name, skip_fn, match_fn, terminals, nonterminals)        \
 ORDER_PP(8seq_for_each                                                          \
-         (8fn(8ST,                                                              \
+         (8fn(8M,                                                               \
               8emit(8(BRD_PARSER_GEN_sym_typedef),                              \
-                    8tuple(8tuple_at_0(8ST),                                    \
-                           8tuple_at_1(8ST)))),                                 \
+                    8tuple(8tuple_at_0(8M),                                     \
+                           8tuple_at_1(8M)))),                                  \
           8seq_append                                                           \
           (8BRD_PARSER_import_terminals(8(terminals)),                          \
            8BRD_PARSER_import_nonterminals(8(nonterminals)))))                  \
                                                                                 \
-ORDER_PP(8let(8NS, 8BRD_PARSER_import_nonterminals(8(nonterminals)),            \
-              8do(8seq_for_each(8fn(8NT,                                        \
+ORDER_PP(8let(8S, 8BRD_PARSER_import_nonterminals(8(nonterminals)),             \
+              8do(8seq_for_each(8fn(8N,                                         \
                                     8emit(8(BRD_PARSER_GEN_prototype),          \
-                                          8tuple(8tuple_at_0(8NT)))),           \
-                                8NS),                                           \
+                                          8tuple(8tuple_at_0(8N)))),            \
+                                8S),                                            \
                   8emit(8(BRD_PARSER_GEN_entry_point),                          \
                         8tuple(8(qr),                                           \
                                8(name),                                         \
-                               8tuple_at_0(8seq_at(0,8NS)))))))                 \
+                               8tuple_at_0(8seq_at(0,8S)))))))                  \
                                                                                 \
 inline void                                                                     \
 ORDER_PP_FRESH_ID(skip)(str_type *ORDER_PP_FRESH_ID(pstr)) {                    \
   skip_fn(ORDER_PP_FRESH_ID(pstr));                                             \
 }                                                                               \
                                                                                 \
-ORDER_PP(8seq_for_each(8fn(8TE,                                                 \
+ORDER_PP(8seq_for_each(8fn(8T,                                                  \
                            8emit(8(BRD_PARSER_GEN_terminal),                    \
-                                 8tuple(8tuple_at_0(8TE),                       \
-                                        8tuple_at_2(8TE)))),                    \
+                                 8tuple(8tuple_at_0(8T),                        \
+                                        8tuple_at_2(8T)))),                     \
                        8BRD_PARSER_import_terminals(8(terminals))))             \
                                                                                 \
 inline _Bool                                                                    \
@@ -62,10 +62,10 @@ ORDER_PP_FRESH_ID(match)(str_type *ORDER_PP_FRESH_ID(pstr),                     
                   ORDER_PP_FRESH_ID(maybe_prefix));                             \
 }                                                                               \
                                                                                 \
-ORDER_PP(8seq_for_each(8fn(8NT,                                                 \
+ORDER_PP(8seq_for_each(8fn(8N,                                                  \
                            8emit(8(BRD_PARSER_GEN_nonterminal),                 \
-                                 8tuple(8tuple_at_0(8NT),                       \
-                                        8tuple_at_2(8NT)))),                    \
+                                 8tuple(8tuple_at_0(8N),                        \
+                                        8tuple_at_2(8N)))),                     \
                        8BRD_PARSER_import_nonterminals(8(nonterminals))))
 
 #define BRD_PARSER_GEN_sym_typedef(sym, type)   \

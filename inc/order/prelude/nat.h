@@ -1,6 +1,3 @@
-#ifndef ORDER_PRELUDE_NAT_H_VAJK20040620
-#define ORDER_PRELUDE_NAT_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -449,5 +446,3 @@
 #define ORDER_PP_NAT_CHAOS_BPR(P,pr,l,r) ORDER_PP_OVERLOAD(NAT_CHAOS_BPR,CHAOS_PP_##pr##_AP(ORDER_PP_NAT_TO_SEQ_OF_DIGITS(,P##l),ORDER_PP_NAT_TO_SEQ_OF_DIGITS(,P##r)))
 #define ORDER_PP_NAT_CHAOS_BPR_0(P,t,...) P##__VA_ARGS__
 #define ORDER_PP_NAT_CHAOS_BPR_1(P,t,...) P##t
-
-#endif

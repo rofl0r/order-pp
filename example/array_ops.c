@@ -138,19 +138,19 @@ void array##mnemo##lhs_a##rhs_a(const lhs_t* lhs_in,                    \
 // unary operation. Rephrasing the C standard, if the rank of the
 // type of the operand is lower than the rank of int then the result
 // of integer promotion is int, otherwise the type of integer
-// promotion is the type of the operand. The
-// `8type_of_promotion(8TY)' metafunction
+// promotion is the type of the operand. The `8type_of_promotion(t)'
+// metafunction
 
 #define ORDER_PP_DEF_8type_of_promotion                 \
-ORDER_PP_FN(8fn(8TY,                                    \
-                8if(8less(8type_rank(8TY),              \
+ORDER_PP_FN(8fn(8T,                                     \
+                8if(8less(8type_rank(8T),               \
                           8type_rank(8type_int)),       \
                     8type_int,                          \
-                    8TY)))
+                    8T)))
 
 // encodes the rule precisely.
 //
-// Let's examine the `8type_of_promotion(8TY)' function definition.
+// Let's examine the `8type_of_promotion(t)' function definition.
 // The first thing you should notice is that we essentially defined
 // an object-like macro of the form
 
@@ -193,11 +193,9 @@ ORDER_PP_FN(8fn(8TY,                                    \
 // Functions, in the Order language, are first class values and
 // variables are bound lexically.
 //
-// By default, variable symbols are limited to the tokens
-// `8[A-Z][A-Z0-9]?', which means the digit `8' followed by an
-// uppercase letter and another optional uppercase letter or a
-// digit. Other tokens can also be used given appropriate macro
-// definitions.
+// By default, variable symbols are limited to the tokens `8[A-Z]',
+// which means the digit `8' followed by an uppercase letter. Other
+// tokens can also be used given appropriate macro definitions.
 //
 // A conditional if-expression in Order has the form:
 //
@@ -210,7 +208,7 @@ ORDER_PP_FN(8fn(8TY,                                    \
 // must evaluate to `8false', and the alternative, `<alt-exp>', is
 // evaluated.
 //
-// The body of the `8type_of_promotion(8TY)' function also contains
+// The body of the `8type_of_promotion(t)' function also contains
 // calls to other functions. The binary function `8less' compares
 // numbers. The unary function `8type_rank', which we just invented,
 // is supposed to return the rank of the specified type as a small
@@ -225,14 +223,14 @@ ORDER_PP_FN(8fn(8TY,                                    \
 // usual arithmetic conversion on a binary operation is that the
 // type of the result is the type of the higher ranking type after
 // integer promotion. The rule translates to the
-// `8type_of_conversion(8TL,8TR)' metafunction below:
+// `8type_of_conversion(tl,tr)' metafunction below:
 
 #define ORDER_PP_DEF_8type_of_conversion                        \
-ORDER_PP_FN(8fn(8TL, 8TR,                                       \
-                8type_of_promotion(8if(8less(8type_rank(8TL),   \
-                                             8type_rank(8TR)),  \
-                                       8TR,                     \
-                                       8TL))))
+ORDER_PP_FN(8fn(8L, 8R,                                         \
+                8type_of_promotion(8if(8less(8type_rank(8L),    \
+                                             8type_rank(8R)),   \
+                                       8R,                      \
+                                       8L))))
 
 // Integer promotion and usual arithmetic conversion rules ignore
 // the operator. For the actual type of an operation, we will also
@@ -241,28 +239,28 @@ ORDER_PP_FN(8fn(8TL, 8TR,                                       \
 // In C [C89], logical operators produce integer results. The type
 // of an unary operation is thus integer if the operator is logical.
 // Otherwise the type of an unary operation follows the promotion
-// rules. The `8type_of_uop(8OP,8TY)' metafunction captures this
+// rules. The `8type_of_uop(o,t)' metafunction captures this
 // special case:
 
 #define ORDER_PP_DEF_8type_of_uop               \
-ORDER_PP_FN(8fn(8OP, 8TY,                       \
-                8if(8op_is_logical(8OP),        \
+ORDER_PP_FN(8fn(8O, 8T,                         \
+                8if(8op_is_logical(8O),         \
                     8type_int,                  \
-                    8type_of_promotion(8TY))))
+                    8type_of_promotion(8T))))
 
 // Like unary logical operators, binary logical operators produce
 // integer results. Also, if the operator is a shift, then the type
 // of the result is the type of the left hand side operand after
 // promotion. Otherwise the arithmetic conversion rules apply. The
-// rules translate to the `8type_of_bop(O,L,R)' metafunction:
+// rules translate to the `8type_of_bop(o,l,r)' metafunction:
 
-#define ORDER_PP_DEF_8type_of_bop                               \
-ORDER_PP_FN(8fn(8OP, 8TL, 8TR,                                  \
-                8if(8op_is_logical(8OP),                        \
-                    8type_int,                                  \
-                    8if(8op_is_shift(8OP),                      \
-                        8type_of_promotion(8TL),                \
-                        8type_of_conversion(8TL, 8TR)))))
+#define ORDER_PP_DEF_8type_of_bop                       \
+ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
+                8if(8op_is_logical(8O),                 \
+                    8type_int,                          \
+                    8if(8op_is_shift(8O),               \
+                        8type_of_promotion(8L),         \
+                        8type_of_conversion(8L, 8R)))))
 
 // Given an operator and the types of the operands, we can now
 // compute the type of the result.
@@ -403,16 +401,16 @@ ORDER_PP_CONST(((          char, _ch, 8false, 1))       \
 // So, we'll break the generation into a few cases.
 //
 // Let's first define a helper metafunction for emitting the code
-// for an unary operator. The `gen_array_uop(O,T)' metafunction
+// for an unary operator. The `gen_array_uop(o,t)' metafunction
 
 #define ORDER_PP_DEF_8gen_array_uop                                     \
-ORDER_PP_FN(8fn(8OP, 8TY,                                               \
+ORDER_PP_FN(8fn(8O, 8T,                                                 \
                 8emit(8(GEN_array_uop),                                 \
-                      8tuple(8op_mnemonic(8OP),                         \
-                             8op_symbol(8OP),                           \
-                             8type_abbrev(8TY),                         \
-                             8type_name(8TY),                           \
-                             8type_name(8type_of_uop(8OP, 8TY))))))
+                      8tuple(8op_mnemonic(8O),                          \
+                             8op_symbol(8O),                            \
+                             8type_abbrev(8T),                          \
+                             8type_name(8T),                            \
+                             8type_name(8type_of_uop(8O, 8T))))))
 
 // computes the argument tuple for the `GEN_array_uop(...)' code
 // generation macro and then emits the expansion.
@@ -456,15 +454,14 @@ ORDER_PP_FN(8fn(8OP, 8TY,                                               \
 // emits expansions of the ad hoc code generation macros.
 //
 // We now generate code for all unary array procedures by invoking
-// the `8gen_array_uop(8OP,8TY)' metafunction in two batches. First
-// for the non-floating point operators and non-floating point
-// types.
+// the `8gen_array_uop(o,t)' metafunction in two batches. First for
+// the non-floating point operators and non-floating point types.
 
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_uop,
-          8seq(8seq_filter(8fn(8OP,
-                               8and(8equal(1, 8op_arity(8OP)),
-                                    8not(8op_does_floats(8OP)))),
+          8seq(8seq_filter(8fn(8O,
+                               8and(8equal(1, 8op_arity(8O)),
+                                    8not(8op_does_floats(8O)))),
                            8applicative_ops),
                8seq_filter(8chain(8not, 8type_is_float),
                            8builtin_types))))
@@ -472,7 +469,7 @@ ORDER_PP(8seq_for_each_in_product
 // The Order interpreter is invoked using the `ORDER_PP' macro. It
 // takes as an argument an Order expression and evaluates it.
 //
-// The `8seq_filter(Pr,S)' function takes an unary predicate
+// The `8seq_filter(pr,s)' function takes an unary predicate
 // function and a sequence and produces a new sequence which
 // contains only the elements of the given sequence that satisfy the
 // given predicate. Above, we've defined the predicate for filtering
@@ -483,7 +480,7 @@ ORDER_PP(8seq_for_each_in_product
 // or composing, together the unary `8not' function with the unary
 // `8type_is_float' accessor.
 //
-// The `8seq_for_each_in_product(8OP,8Ss)' function computes the
+// The `8seq_for_each_in_product(op,ss)' function computes the
 // cartesian product of the sequence of sequences given as arguments
 // and invokes the given function with each element of the cartesian
 // product. Above, we use `8seq_for_each_in_product' to compute the
@@ -500,47 +497,47 @@ ORDER_PP(8seq_for_each_in_product
 
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_uop,
-          8seq(8seq_filter(8fn(8OP,
-                               8and(8equal(1, 8op_arity(8OP)),
-                                    8op_does_floats(8OP))),
+          8seq(8seq_filter(8fn(8O,
+                               8and(8equal(1, 8op_arity(8O)),
+                                    8op_does_floats(8O))),
                            8applicative_ops),
                8builtin_types)))
 
 // We'll then handle binary operations similarly. First we define
-// the metafunction `8gen_array_bop(O,L,R)':
+// the metafunction `8gen_array_bop(o,l,r)':
 
 #define ORDER_PP_DEF_8gen_array_bop                                     \
-ORDER_PP_FN(8fn(8OP, 8TL, 8TR,                                          \
+ORDER_PP_FN(8fn(8O, 8L, 8R,                                             \
                 8emit(8(GEN_array_bop),                                 \
-                      8tuple(8op_mnemonic(8OP),                         \
-                             8op_symbol(8OP),                           \
-                             8type_abbrev(8TL),                         \
-                             8type_name(8TL),                           \
-                             8type_abbrev(8TR),                         \
-                             8type_name(8TR),                           \
-                             8type_name(8type_of_bop(8OP, 8TL, 8TR))))))
+                      8tuple(8op_mnemonic(8O),                          \
+                             8op_symbol(8O),                            \
+                             8type_abbrev(8L),                          \
+                             8type_name(8L),                            \
+                             8type_abbrev(8R),                          \
+                             8type_name(8R),                            \
+                             8type_name(8type_of_bop(8O, 8L, 8R))))))
 
 // Then we'll generate code for all binary array procedures in two
 // batches. First the non-floating point operators:
 
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
-          8let(8TS, 8seq_filter(8chain(8not, 8type_is_float),
-                                8builtin_types),
-               8seq(8seq_filter(8fn(8OP,
-                                    8and(8equal(2, 8op_arity(8OP)),
-                                         8not(8op_does_floats(8OP)))),
+          8let(8S, 8seq_filter(8chain(8not, 8type_is_float),
+                               8builtin_types),
+               8seq(8seq_filter(8fn(8O,
+                                    8and(8equal(2, 8op_arity(8O)),
+                                         8not(8op_does_floats(8O)))),
                                 8applicative_ops),
-                    8TS,
-                    8TS))))
+                    8S,
+                    8S))))
 
 // Then the floating point operators:
 
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
-          8seq(8seq_filter(8fn(8OP,
-                               8and(8equal(2, 8op_arity(8OP)),
-                                    8op_does_floats(8OP))),
+          8seq(8seq_filter(8fn(8O,
+                               8and(8equal(2, 8op_arity(8O)),
+                                    8op_does_floats(8O))),
                            8applicative_ops),
                8builtin_types,
                8builtin_types)))

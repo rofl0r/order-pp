@@ -13,18 +13,18 @@
 // Let's start with a recursive C implementation of the Fibonacci
 // function. First we'll define the `linear_fib_iter' function:
 
-int linear_fib_iter(int n, int f0, int f1) {
+int linear_fib_iter(int n, int i, int j) {
   if (!n)
-    return f0;
+    return i;
   else
     return linear_fib_iter(n-1,
-                           f1,
-                           f0+f1);
+                           j,
+                           i+j);
 }
 
 // `linear_fib_iter(n,i,j)' recursively performs `n' steps of
-// Fibonacci iteration, starting with the values `f0' and `f1'.
-// During recursion, `f0' and `f1' act as accumulators.
+// Fibonacci iteration, starting with the values `i' and `j'. During
+// recursion, `i' and `j' act as accumulators.
 //
 // Then we'll define the function `linear_fib', which is just a
 // simple driver for the Fibonacci iterator function.
@@ -33,7 +33,7 @@ int linear_fib(int n) {
   return linear_fib_iter(n, 0, 1);
 }
 
-// We can easily translate the same algorithm to Order code. First
+// We can easily translate the above algorithm to Order code. First
 // we'll define the driver function `8linear_fib':
 
 #define ORDER_PP_DEF_8linear_fib                \
@@ -50,12 +50,12 @@ ORDER_PP_FN(8fn(8N,                             \
 // structurally very similar to the C function `linear_fib_iter':
 
 #define ORDER_PP_DEF_8linear_fib_iter                   \
-ORDER_PP_FN(8fn(8N, 8F0, 8F1,                           \
+ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
                 8if(8is_0(8N),                          \
-                    8F0,                                \
+                    8I,                                 \
                     8linear_fib_iter(8dec(8N),          \
-                                     8F1,               \
-                                     8add(8F0, 8F1)))))
+                                     8J,                \
+                                     8add(8I, 8J)))))
 
 // The Order function `8linear_fib' can now be used to compute
 // Fibonacci numbers.

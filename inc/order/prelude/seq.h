@@ -1,6 +1,3 @@
-#ifndef ORDER_PRELUDE_SEQ_H_VAJK20040620
-#define ORDER_PRELUDE_SEQ_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -461,5 +458,3 @@
 #define ORDER_PP_SEQ_SPLIT_AT_98(x) (x)ORDER_PP_SEQ_SPLIT_AT_97
 #define ORDER_PP_SEQ_SPLIT_AT_99(x) (x)ORDER_PP_SEQ_SPLIT_AT_98
 #define ORDER_PP_SEQ_SPLIT_AT_100(x) (x)ORDER_PP_SEQ_SPLIT_AT_99
-
-#endif

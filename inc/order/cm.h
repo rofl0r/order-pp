@@ -1,6 +1,3 @@
-#ifndef ORDER_CM_H_VAJK20040620
-#define ORDER_CM_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -178,5 +175,3 @@
 #define ORDER_PP_CM_UP_41(P,...) ,ORDER_PP_CM_ERROR_OUT_OF_ITERATIONS(!))
 
 #define ORDER_PP_CM_ERROR_OUT_OF_ITERATIONS()
-
-#endif

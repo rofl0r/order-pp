@@ -1,6 +1,3 @@
-#ifndef ORDER_EVAL_AP_H_VAJK20040620
-#define ORDER_EVAL_AP_H_VAJK20040620
-
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
@@ -33,5 +30,3 @@
 #define ORDER_PP_8EVAL_AP_8(P,f,e,p,...)   (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_7,P##e,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_AP_9(P,f,e,p,...)   (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_8,P##e,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_AP_10(P,f,e,p,...)  (,P##e,ORDER_PP_DEF_##p,ORDER_PP_OPEN f##P,8EVAL_AP_9,P##e,P##__VA_ARGS__)
-
-#endif
