@@ -28,7 +28,7 @@ ORDER_PP_FN(8fn(8S,                             \
 #define ORDER_PP_DEF_8stream_cons(f,r) ORDER_PP_MACRO(8pair(f,8delay(r)))
 
 #define ORDER_PP_DEF_8stream_drop ORDER_PP_FN_CM(2,8STREAM_DROP,0IS_NUM,0IS_STREAM)
-#define ORDER_PP_8STREAM_DROP(P,s,n,...) (,ORDER_PP_OR(,ORDER_PP_NUM_IS_0(,P##n),ORDER_PP_ISNT_EDIBLE(,P##s))(,P##s,,ORDER_PP_STREAM_TAIL P##s,8STREAM_DROP,ORDER_PP_NUM_DEC(,P##n)),P##__VA_ARGS__)
+#define ORDER_PP_8STREAM_DROP(P,s,n,...) (,ORDER_PP_OR(,ORDER_PP_NUM_IS_0(,P##n))(,ORDER_PP_ISNT_EDIBLE(,P##s))(,P##s,,ORDER_PP_STREAM_TAIL P##s,8STREAM_DROP,ORDER_PP_NUM_DEC(,P##n)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8stream_head ORDER_PP_FN_CM(1,8STREAM_HEAD,0IS_STREAM_CONS)
 #define ORDER_PP_8STREAM_HEAD(P,s,...) (,ORDER_PP_STREAM_HEAD s##P,P##__VA_ARGS__)
@@ -40,8 +40,8 @@ ORDER_PP_FN(8fn(8S,                             \
 #define ORDER_PP_DEF_8stream_tail ORDER_PP_FN_CM(1,8STREAM_TAIL,0IS_STREAM_CONS)
 #define ORDER_PP_8STREAM_TAIL(P,s,...) (,,ORDER_PP_STREAM_TAIL s##P,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8stream_take ORDER_PP_FN_CM(2,8STREAM_TAKE,0IS_STREAM)
-#define ORDER_PP_8STREAM_TAKE(P,s,n,...) (,ORDER_PP_OR(ORDER_PP_,NUM_IS_0(,P##n),ISNT_EDIBLE(,P##s))(,,(ORDER_PP_STREAM_TAKE s##P,8STREAM_TAKE,ORDER_PP_NUM_DEC(,P##n))ORDER_PP_RPAREN),P##__VA_ARGS__)
+#define ORDER_PP_DEF_8stream_take ORDER_PP_FN_CM(2,8STREAM_TAKE,0IS_NUM,0IS_STREAM)
+#define ORDER_PP_8STREAM_TAKE(P,s,n,...) (,ORDER_PP_OR(,ORDER_PP_NUM_IS_0(,P##n))(,ORDER_PP_ISNT_EDIBLE(,P##s))(,,(ORDER_PP_STREAM_TAKE s##P,8STREAM_TAKE,ORDER_PP_NUM_DEC(,P##n))ORDER_PP_RPAREN),P##__VA_ARGS__)
 #define ORDER_PP_STREAM_TAKE(h,t) h,(,ORDER_PP_OPEN t
 
 #define ORDER_PP_DEF_8stream_to_seq             \
@@ -110,6 +110,10 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
                                                       8stream_tail(8R))))))
 
 // Detail
+
+// TBD: 0IS_STREAM, 0IS_STREAM_CONS
+#define ORDER_PP_0IS_STREAM(P,x) ORDER_PP_IF_8true
+#define ORDER_PP_0IS_STREAM_CONS(P,x) ORDER_PP_IF_8true
 
 #define ORDER_PP_STREAM_HEAD(h,t) h
 #define ORDER_PP_STREAM_TAIL(h,t) ORDER_PP_OPEN t

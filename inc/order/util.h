@@ -15,6 +15,9 @@
 
 #define ORDER_PP_8EXIT_ERROR(P,err,msg,...) )(,1,P##err(!):P##msg:(,P##__VA_ARGS__))
 
+#define ORDER_PP_TYPE_ERROR() ORDER_PP_TYPE_ERROR
+#define ORDER_PP_TYPE_CHECK(P,p,v,e) ORDER_PP_##p(,P##v)(,P##e,ORDER_PP_TYPE_ERROR,8EXIT_ERROR,P##p(P##v),)
+
 #define ORDER_PP_BLOCK
 #define ORDER_PP_NIL()
 #define ORDER_PP_EAT(...)
@@ -42,6 +45,11 @@
 #define ORDER_PP_8STOP(P,x,...) )x##P
 #define ORDER_PP_8STOP_NIL(...) )
 #define ORDER_PP_8STOP_REM(P,x,...) )ORDER_PP_REM x##P
+
+#define ORDER_PP_0IS_ANY(P,x) ORDER_PP_IF_8true
+
+// TBD: 0IS_FN
+#define ORDER_PP_0IS_FN(P,x) ORDER_PP_IF_8true
 
 #define ORDER_PP_IF(c) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_IF_,c)
 #define ORDER_PP_IF_(P,c,...) P##c
@@ -77,10 +85,11 @@
 #define ORDER_PP_SELECT_4_01(P,tt,tf,ft,...) P##ft
 #define ORDER_PP_SELECT_4_00(P,tt,tf,ft,...) P##__VA_ARGS__
 
-#define ORDER_PP_OR(P,c0,c1) ORDER_PP_CAT(P##c0(ORDER_PP_OR_,,0),P##c1(,,0))
-#define ORDER_PP_OR_(P,c,...) P##c
-#define ORDER_PP_OR_0(P,c,...) P##c
-#define ORDER_PP_OR_00(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_OR(P,c) P##c(ORDER_PP_,EAT_TRUE,OR_B)
+#define ORDER_PP_OR_B(P,c) P##c
+
+#define ORDER_PP_NOR(P,c) P##c(ORDER_PP_,EAT_FALSE,NOR_B)
+#define ORDER_PP_NOR_B(P,c) ORDER_PP_CAT(ORDER_PP_IF_,P##c(,0,))
 
 #define ORDER_PP_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x(ORDER_PP_SYM_##y)(,,),0,)
 #define ORDER_PP_NOT_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x(ORDER_PP_SYM_##y)(,,),,0)
@@ -92,11 +101,10 @@
 #define ORDER_PP_IS_SYM(P,x) ORDER_PP_IS_EDIBLE(,P##x)(ORDER_PP_,EAT_FALSE,IS_SYM_NOT_EDIBLE)(P##x)
 #define ORDER_PP_IS_SYM_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x(,,),,0)
 
-#define ORDER_PP_IS_NIL(P,x) ORDER_PP_IS_EDIBLE(,P##x)(ORDER_PP_,EAT_FALSE,IS_NIL_NOT_EDIBLE)(P##x)
-#define ORDER_PP_IS_NIL_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_IS_NIL_##x,,0)
-#define ORDER_PP_IS_NIL_ ,,
+#define ORDER_PP_IS_NIL(P,x) ORDER_PP_IS_EDIBLE(,P##x)(ORDER_PP_,EAT_FALSE,IS_EDIBLE)(,P##x())
 
 #define ORDER_PP_EAT_FALSE(...) ORDER_PP_IF_0
+#define ORDER_PP_EAT_TRUE(...) ORDER_PP_IF_1
 
 #define ORDER_PP_TEST(P,x,c,a) ORDER_PP_TUPLE_AT_3(,x,P##c,,P##a,)
 

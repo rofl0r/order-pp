@@ -313,10 +313,15 @@ ORDER_PP_FN(8fn(8N, 8S,                                         \
 #define ORDER_PP_8SEQ_UNFOLD_C(P,y,x,c,s,f,ys,...) (,P##x,ORDER_PP_OPEN s##P,8SEQ_UNFOLD_5,P##c,P##s,P##f,P##ys(P##y),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_zip_with ORDER_PP_FN_CM(3,8SEQ_ZIP_WITH,0IS_FN,0IS_SEQ,0IS_SEQ)
-#define ORDER_PP_8SEQ_ZIP_WITH(P,sr,sl,f,...) (,ORDER_PP_OR(ORDER_PP_,SEQ_IS_NIL(,P##sl),SEQ_IS_NIL(,P##sr))(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_ZIP_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,),P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_ZIP_WITH_L(P,x,sr,sl,f,out,...) (,ORDER_PP_OR(ORDER_PP_,SEQ_IS_NIL(,P##sl),SEQ_IS_NIL(,P##sr))(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_ZIP_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,)P##out(P##x),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_ZIP_WITH(P,sr,sl,f,...) (,ORDER_PP_OR(,ORDER_PP_SEQ_IS_NIL(,P##sl))(,ORDER_PP_SEQ_IS_NIL(,P##sr))(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_ZIP_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_ZIP_WITH_L(P,x,sr,sl,f,out,...) (,ORDER_PP_OR(,ORDER_PP_SEQ_IS_NIL(,P##sl))(,ORDER_PP_SEQ_IS_NIL(,P##sr))(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_ZIP_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,)P##out(P##x),P##__VA_ARGS__)
 
 // Details
+
+// TBD: 0IS_SEQ, 0IS_SEQ_CONS, 0IS_VSEQ
+#define ORDER_PP_0IS_SEQ(P,x) ORDER_PP_IF_8true
+#define ORDER_PP_0IS_SEQ_CONS(P,x) ORDER_PP_IF_8true
+#define ORDER_PP_0IS_VSEQ(P,x) ORDER_PP_IF_8true
 
 #define ORDER_PP_SEQ_FIRST_2(x) x,ORDER_PP_SEQ_AT_0
 

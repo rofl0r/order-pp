@@ -30,3 +30,9 @@
 #define ORDER_PP_9OR_COMPOSE(P,p0,p1) (,8OR_COMPOSE,P##p0,P##p1)
 #define ORDER_PP_8OR_COMPOSE(P,x,p0,p1,...) (,P##x,ORDER_PP_OPEN p0##P,8OR_COMPOSE_B,P##x,P##p1,P##__VA_ARGS__)
 #define ORDER_PP_8OR_COMPOSE_B(P,b,x,p1,...) (,ORDER_PP_IF_##b(,8true,P##x,ORDER_PP_OPEN p1##P),P##__VA_ARGS__)
+
+// Detail
+
+// TBD: 0IS_BOOL
+#define ORDER_PP_0IS_BOOL(P,x) ORDER_PP_IF_8true
+

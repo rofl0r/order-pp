@@ -10,3 +10,8 @@
 
 #define ORDER_PP_DEF_8same ORDER_PP_FN_NATIVE(2,9SAME,0IS_SYM,0IS_SYM)
 #define ORDER_PP_9SAME(P,x,y) ORDER_PP_SAME(,P##x,P##y)(,8true,8false)
+
+// Detail
+
+// TBD: 0IS_SYM
+#define ORDER_PP_0IS_SYM(P,x) ORDER_PP_IF_8true
