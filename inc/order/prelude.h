@@ -11,6 +11,7 @@
 #include "order/prelude/emit.h"
 #include "order/prelude/nil.h"
 #include "order/prelude/numeric.h"
+#include "order/prelude/pp.h"
 #include "order/prelude/seq.h"
 #include "order/prelude/sym.h"
 #include "order/prelude/tuple.h"

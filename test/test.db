@@ -10,6 +10,7 @@ ap(fn(A,B,C,D,E,F,G,H,H),const(a),const(b),const(c),const(d),const(e),const(f),c
 ap(fn(X,X),const(x))#x
 ap(fn(X,Y,X),const(x),const(y))#x
 ap(fn(X,Y,tuple(X,Y)),const(a),const(b))#(a,b)
+cat(1,2)#12
 const(0)#0
 constant_embedding#This constant is in two parts!
 div_mod(10,3)#(3,1)
@@ -22,6 +23,7 @@ do(emit_paste(1,2),3)#3 12
 equal(1,1)#true
 equal(1,2)#false
 equal(1,tuple_at(tuple(1,2),0))#true
+expand(1,2)#1 2
 if(false,1,2)#2
 if(true,1,2)#1
 is_sym(const(this is not a symbol))#false
@@ -48,6 +50,7 @@ seq_for_each(fn(_,exit(0)),nil)#
 seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , const( ((1)(2)) ((*)) ((A)(B)(C)) ) )#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
 seq_transform(dec,nil)#
 seq_transform(inc,const((3)(1)(4)(1)))#(4)(2)(5)(2)
+stringize(const(This is a string.))#"This is a string."
 tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
 tuple(dec(0),dec(1),dec(256))#(0,0,255)
 tuple(div(10,3),mod(10,3))#(3,1)
