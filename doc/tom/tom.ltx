@@ -237,11 +237,11 @@ an extension as they are likely to be adopted into the next C++
 standard.
 
 Bjarne Stroustrup, the inventor of C++, has said that ``I'd like to
-see Cpp abolished'' \cite{stroustrup:1994}. Indeed, many consider
-the Cpp to be one of the \emph{worst} macroprocessors in history and
-for good reasons. We will assume that the reader is all too familiar
-with the problems and we will only discuss issues that are directly
-relevant to our subject.
+see Cpp abolished'' \cite[p. 426]{stroustrup:1994}. Indeed, many
+consider the Cpp to be one of the \emph{worst} macroprocessors in
+history and for good reasons. We will assume that the reader is all
+too familiar with the problems and we will only discuss issues that
+are directly relevant to our subject.
 
 The main strength of the Cpp is that it comes with every standards
 conforming C and C++ implementation. Compared to external
@@ -314,8 +314,9 @@ interpreter \emph{requires variadics and placemarkers} as defined in
 the C standard \cite{c:1999}. The Wave preprocessor \cite{wave} is
 also known to be able to preprocess Order. A standards conforming C
 preprocessor and a fast computer with plenty of memory is
-recommended for experimenting with the interpreter. Be aware that
-despite the simplicity of the C preprocessor and the existence of
+recommended for experimenting with the interpreter.
+
+Despite the simplicity of the C preprocessor and the existence of a
 stable standard for years and years, many preprocessors are broken
 beyond repair, either strictly not conforming to the standard or
 employing macro replacement algorithms that seem to take at least
@@ -679,6 +680,7 @@ see what is ultimately being generated.
 \input{is-integral.ltx}
 \input{streams.ltx}
 \input{typelist.ltx}
+\input{enum.ltx}
 
 \appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
