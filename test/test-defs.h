@@ -5,6 +5,10 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
+#define ORDER_PP_DEF_8seq_26                                                                            \
+ORDER_PP_FN(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z,          \
+                8seq(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z)))
+
 #define ORDER_PP_DEF_8diverge 8DIVERGE,
 #define ORDER_PP_8DIVERGE(...) (,,8DIVERGE,)
 
@@ -23,8 +27,8 @@
 #define GEN_dimr_3(x) (ACT(*),x)
 
 #define ORDER_PP_DEF_8id ORDER_PP_FN(8fn(8X,8X))
-#define ORDER_PP_DEF_1st ORDER_PP_FN(8fn(8X,,8X))
-#define ORDER_PP_DEF_2nd ORDER_PP_FN(8fn(,8Y,8Y))
+#define ORDER_PP_DEF_1st ORDER_PP_FN(8fn(8X,8Y,8X))
+#define ORDER_PP_DEF_2nd ORDER_PP_FN(8fn(8X,8Y,8Y))
 
 #define ORDER_PP_DEF_8exp_size_seq                              \
 ORDER_PP_FN(8fn(8N, 8S,                                         \

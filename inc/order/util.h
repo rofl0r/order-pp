@@ -40,8 +40,6 @@
 
 #define ORDER_PP_8PAIR(P,l,r,...) (,(P##l,P##r),P##__VA_ARGS__)
 
-#define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
-
 #define ORDER_PP_IF(c) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_IF_,c)
 #define ORDER_PP_IF_(P,c,...) P##c
 #define ORDER_PP_IF_0(P,c,...) P##__VA_ARGS__
@@ -92,6 +90,7 @@
 #define ORDER_PP_TEST(P,x,c,a) ORDER_PP_TEST_B(,x,P##c,,P##a,)
 #define ORDER_PP_TEST_B(P,_1,_2,_3,x,...) x##P
 
+#define ORDER_PP_COMMA_0 ,0
 #define ORDER_PP_COMMA_1 ,1
 #define ORDER_PP_COMMA_2 ,2
 #define ORDER_PP_COMMA_3 ,3
