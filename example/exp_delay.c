@@ -19,8 +19,8 @@
 #define ORDER_PP_DEF_exp_delay                  \
 ORDER_PP_OP(fn(N,                               \
                unless(is_0(N),                  \
-                      do(exp_delay(dec(N)),     \
-                         exp_delay(dec(N))))))
+                      exp_delay(dec(N)),        \
+                      exp_delay(dec(N)))))
 
 #ifndef EXP_DELAY_MAX
 #define EXP_DELAY_MAX 10
