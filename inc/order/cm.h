@@ -66,7 +66,7 @@
 #define ORDER_PP_CM_REV_OUT_8C(P,i,...) (,8C,P##__VA_ARGS__)ORDER_PP_CM_REV_OUT_##i
 
 #define ORDER_PP_CM_REV_IN_1T(P,i,...) )ORDER_PP_CM_REV_OUT_##i
-#define ORDER_PP_CM_REV_IN_0(P,i,...)
+#define ORDER_PP_CM_REV_IN_0(P,i,...) ORDER_PP_CM_ERROR_ODD_NUMBER_OF_TOGGLES(!)
 #define ORDER_PP_CM_REV_IN_1(P,i,...) (,1,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_2(P,i,...) (,2,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_3(P,i,...) (,3,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
@@ -83,6 +83,8 @@
 #define ORDER_PP_CM_REV_IN_6C(P,i,...) (,6C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_7C(P,i,...) (,7C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
 #define ORDER_PP_CM_REV_IN_8C(P,i,...) (,8C,P##__VA_ARGS__)ORDER_PP_CM_REV_IN_##i
+
+#define ORDER_PP_CM_ERROR_ODD_NUMBER_OF_TOGGLES()
 
 #define ORDER_PP_CM_EMIT_A(P,m,...) ORDER_PP_CM_EMIT_##m(,P##__VA_ARGS__)ORDER_PP_CM_EMIT_B##P
 #define ORDER_PP_CM_EMIT_B(P,m,...) ORDER_PP_CM_EMIT_##m(,P##__VA_ARGS__)ORDER_PP_CM_EMIT_A##P
