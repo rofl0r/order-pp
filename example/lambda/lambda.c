@@ -181,7 +181,7 @@ static exp_type prg_eval(prg_type prg, env_type env) {
 }
 
 int main(int argc, char* argv[]) {
-  if (argc < 2) {
+  if (2 != argc) {
     printf("Usage: lambda '<prg>'\n"
            "\n"
            "Syntax:\n"
@@ -207,10 +207,8 @@ int main(int argc, char* argv[]) {
   if ('\0' != *str)
     ERROR_exit("Garbage '%s' following program.", str);
 
-  printf("program: %s\n", prg_unparse(prg));
-
   exp_type reduced_exp = prg_eval(prg, Env_Nil());
-  printf("reduced: %s\n", exp_unparse(reduced_exp));
+  printf("%s\n", exp_unparse(reduced_exp));
 
   return EXIT_SUCCESS;
 }
