@@ -30,6 +30,13 @@
 #define ORDER_PP_PRIMITIVE_PASTE(l,r) l##r
 #define ORDER_PP_OPEN(P,...) P##__VA_ARGS__
 #define ORDER_PP_OPEN_COND(P,...) P##__VA_ARGS__
+#define ORDER_PP_OPEN_NP(...) __VA_ARGS__
+
+#define ORDER_PP_FST(_0,...) _0
+#define ORDER_CM_8FST(P,x,...) (,ORDER_PP_FST P##x,P##__VA_ARGS__)
+
+#define ORDER_PP_RST(_0,...) __VA_ARGS__
+#define ORDER_CM_8RST(P,x,...) (,ORDER_PP_RST P##x,P##__VA_ARGS__)
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
 

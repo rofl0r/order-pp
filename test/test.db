@@ -12,6 +12,7 @@ ap(fn(X,Y,X),const(x),const(y))#x
 ap(fn(X,Y,tuple(X,Y)),const(a),const(b))#(a,b)
 const(0)#0
 constant_embedding#This constant is in two parts!
+div_mod(10,3)#(3,1)
 do(7)#7
 do(ap(emit_expand,2,3),ap(emit,1),0)#0 1 2 3
 do(do(1,2),do(3,4))#4
@@ -42,6 +43,14 @@ seq_for_each(emit,seq(1,2,3,4))#4 3 2 1
 seq_for_each(fn(_,exit(0)),nil)#
 seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , const( ((1)(2)) ((*)) ((A)(B)(C)) ) )#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
 tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
+tuple(dec(0),dec(1),dec(256))#(0,0,255)
+tuple(div(10,3),mod(10,3))#(3,1)
+tuple(inc(0),inc(128),inc(255),inc(256))#(1,129,256,256)
+tuple(is_0(0),is_0(1),is_0(50))#(true,false,false)
+tuple(is_not_0(0),is_not_0(1),is_not_0(50))#(false,true,true)
+tuple(sub(10,3),add(10,3))#(7,13)
 tuple(true,false)#(true,false)
 tuple(tuple(1))#((1))
 tuple(tuple(const(a)),tuple(const(b)))#((a),(b))
+tuple_at(tuple(1,2,3,4,5,6,7,8),7)#8
+tuple_at(tuple(4,5),0)#4

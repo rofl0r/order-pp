@@ -356,8 +356,8 @@ ORDER(seq_for_each_in_product
                          and(equal(1,op_arity(O)),
                              not(op_does_floating(O)))),
                       applicative_ops),
-           seq_filter(fn(O,
-                         not(type_is_floating(O))),
+           seq_filter(fn(T,
+                         not(type_is_floating(T))),
                       builtin_types))))
 
 /*
