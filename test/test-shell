@@ -4,9 +4,49 @@
 #
 # Distributed under the Boost Software License, Version 1.0.
 
-source test-functions
+TIMEFORMAT='Time: %R seconds'
 
 dbFile=test.db
+
+if test -f .preprocessor ; then
+    preprocessor=$(cat .preprocessor)
+else
+    availablePreprocessors=''
+
+    if cpp --help &> /dev/null ; then
+        availablePreprocessors="[cpp] $availablePreprocessors"
+    fi
+    if wave -v &> /dev/null ; then
+        availablePreprocessors="[wave] $availablePreprocessors"
+    fi
+
+    read -e -p "Choose preprocessor $availablePreprocessors? "
+    echo "$REPLY" > .preprocessor
+    echo "Wrote $REPLY to the .preprocessor file."
+    preprocessor=$(cat .preprocessor)
+fi
+
+function eval-in-cpp {
+    cpp -P \
+        -std=c99 \
+        -pedantic-errors \
+        -I "../inc/" \
+        -I "../../chaos-pp/" \
+        -include "../inc/order/interpreter.h" \
+        -include "test-defs.h"
+}
+
+function eval-in-wave {
+    wave --c++0x \
+         --include "../inc/" \
+         --include "../../chaos-pp/" \
+         --forceinclude "order/interpreter.h" \
+         --forceinclude "test-defs.h"
+}
+
+function eval-in {
+    eval-in-$preprocessor
+}
 
 function spacify {
     sed -e 's|,| , |g' \
