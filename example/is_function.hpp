@@ -14,7 +14,7 @@
 // example.
 
 ORDER_PP(8for_each_in_range
-         (0, 30,
+         (0, 41,
           8fn(8I,
               8print((template<class R) 8emit_trailing_params(0, 8I, 8(class A)) (>)
                      (yes_type is_function_tester)
@@ -33,7 +33,7 @@ ORDER_PP(8for_each_in_range
 //
 // 1. Rewrite this example using a ad-hoc code generation macro and
 //    `8emit' instead of `8print'. Do you prefer one style over the
-//    other? Which one is faster (try generating more than 30
+//    other? Which one is faster (try generating more than 41
 //    specializations)?
 
 #endif
