@@ -56,6 +56,10 @@ void array##mnemo##in_a(const in_t* in,                 \
 // the `GEN_array_uop(...)' macro expands to an unary array
 // manipulation procedure.
 //
+// We refer to macros like `GEN_array_uop' as ad hoc code generation
+// macros, because they are macros defined for the purpose of
+// generating a particular sequence of tokens.
+//
 // A binary array manipulation procedure takes two arrays as input,
 // applies a binary operator to the corresponding elements of the
 // arrays and then writes the result to a third array. For example,
@@ -178,7 +182,7 @@ ORDER_PP_FN(8fn(8T,                                     \
 // libraries wouldn't define other macro names that might cause
 // problems unless we used the prefix.
 //
-// The `ORDER_PP_FN' is used to denote that the definition is
+// The `ORDER_PP_FN' macro is used to denote that the definition is
 // specifically a function definition. We will later see constant
 // definitions, which use `ORDER_PP_CONST', and so called macro
 // definitions, which use `ORDER_PP_MACRO'.
@@ -215,11 +219,12 @@ ORDER_PP_FN(8fn(8T,                                     \
 // is supposed to return the rank of the specified type as a small
 // signless decimal literal.
 //
-// As you have figured out by now, the syntax of the Order language
-// is very much like the syntax of any ordinary programming
-// language. The main technical difference to an ordinary language
-// is that top-level Order definitions are embedded in C
-// preprocessor macro definitions of a particular form.
+// As you have figured out by now, the syntax and semantics of the
+// Order language are very much like the syntax and semantics of any
+// ordinary programming language. The main technical difference to
+// an ordinary language is that top-level Order definitions are
+// embedded in C preprocessor macro definitions of a particular
+// form.
 //
 // We'll now continue encoding the typing rules of C. The rule for
 // usual arithmetic conversion on a binary operation is that the
@@ -273,10 +278,8 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
 // on types and operators as we went along. We also know from the
 // parameters of the code generation macros `GEN_array_uop(...)' and
 // `GEN_array_bop(...)' that we need certain metadata on types and
-// operators.
-//
-// Considering the requirements, we will represent an operator by a
-// 6-tuple of the form
+// operators. Considering the requirements, we will represent an
+// operator by a 6-tuple of the form
 //
 //   (symbol, mnemonic, arity, does_floats, is_logical, is_shift)
 //
@@ -298,10 +301,11 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
 // definitions, they are so called Order macro definitions. Order
 // macro definitions are essentially simple rewrite rules like
 // ordinary C preprocessor macros. Macro definitions are evaluated
-// as if the right hand side immediately appeared in place of the
-// left hand side--there is no function call overhead. However,
-// macros are otherwise more limited than functions. In particular,
-// Order macros can not, in general, be partially applied, which
+// as if the tokens inside `ORDER_PP_MACRO(...)' immediately
+// appeared in place of the macro identifier--there is no function
+// call overhead. However, macros are otherwise more limited than
+// functions. In particular, parameterized Order macros, implemented
+// using function-like macros, can not be partially applied, which
 // should be intuitive, because the interpreter really doesn't see
 // them at all.
 //
