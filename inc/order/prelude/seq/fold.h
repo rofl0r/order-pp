@@ -7,7 +7,6 @@
  */
 
 #define ORDER_PP_DEF_8seq_fold ORDER_PP_FN_CM(3,8REMAP_102,8SEQ_FOLD)
-#define ORDER_PP_CM_8SEQ_FOLD(P,x,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,P##x),P##x,ORDER_PP_OPEN f##P,8SEQ_FOLD_B,P##f,ORDER_PP_SEQ_AT_0 s##P),P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_FOLD_B(P,fx,f,y,...) (,P##y,ORDER_PP_OPEN fx##P,8SEQ_FOLD,P##f,P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_FOLD(P,x,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,P##x),P##x,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_FIRST(,P##s),8SEQ_FOLD,P##f,ORDER_PP_EAT s##P),P##__VA_ARGS__)
 
 #endif

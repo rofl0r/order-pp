@@ -13,6 +13,7 @@
 #include "order/prelude/seq/fold.h"
 #include "order/prelude/seq/for_each.h"
 #include "order/prelude/seq/for_each_in_product.h"
+#include "order/prelude/seq/for_each_with_idx.h"
 #include "order/prelude/seq/map.h"
 
 #endif

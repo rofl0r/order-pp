@@ -36,7 +36,7 @@
 #define ORDER_PP_DEF_8seq_push_back ORDER_PP_FN_CM(2,8SEQ_PUSH_BACK)
 #define ORDER_PP_CM_8SEQ_PUSH_BACK(P,x,s,...) (,P##s(P##x),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8seq_append ORDER_PP_FN_CM(2,8SEQ_APPEND)
-#define ORDER_PP_CM_8SEQ_APPEND(P,l,r,...) (,l##P P##r,P##__VA_ARGS__)
+#define ORDER_PP_DEF_8seq_append ORDER_PP_OP_LEFT_CM(8SEQ_APPEND)
+#define ORDER_PP_CM_8SEQ_APPEND(P,r,l,...) (,l##P P##r,P##__VA_ARGS__)
 
 #endif

@@ -269,7 +269,7 @@ Sequences
   -8seq_for_all(8PR,8S)                     : (Any -> Bool) -> Seq -> Bool
    8seq_for_each(8OP,8S)                    : (Any -> Nil) -> Seq -> Nil
    8seq_for_each_in_product(8OP,8SS)        : (Any+ -> Nil) -> Seq(Seq) -> Nil
-  -8seq_for_each_with_idx(8OP,8S)           : (Num -> Any -> Nil) -> Seq -> Nil
+   8seq_for_each_with_idx(8OP,8S)           : (Num -> Any -> Nil) -> Seq -> Nil
    8seq_map(8FN,8S)                         : (Any -> Any) -> Seq -> Seq
   -8seq_merge(8PR,8LS,8RS)                  : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
   -8seq_parallel_fold(8FN,8S,8SS)           : (Any+ -> Any) -> Seq -> Seq(Seq) -> Any
