@@ -96,8 +96,8 @@ int main() {
 //
 // ### Exercises
 //
-// 1. Implement the same program using the syntax-rules macro system
-//    of Scheme. You'll get an extra point if your implementation
-//    does not have an arbitrary limit on the number of arguments to
-//    the macro and the number of elements is actually computed in
-//    macro expansion time.
+// 1. Implement an `average' macro using the syntax-rules macro
+//    system of Scheme. You'll get an extra point if your macro does
+//    not have an arbitrary limit on the number of arguments and the
+//    number of elements is actually computed in macro expansion
+//    time.
