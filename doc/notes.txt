@@ -146,8 +146,6 @@ Constants
 Operators
 ---------
 
-   8chain(8F1,...,8FN) : Fn+ -> Fn
-
    8add(8N1,...,8NN) : Num+ -> Num
    8sub(8N1,...,8NN) : Num+ -> Num
    8mul(8N1,...,8NN) : Num+ -> Num
@@ -200,8 +198,10 @@ Reflection
   -8call_ce(8FN)  : (Env -> Any) -> Any
   -8eval(8EX,8EN) : Exp -> Env -> Any
 
-Higher-order functions
-----------------------
+Higher-order functions and operators
+------------------------------------
+
+   8chain(8F0,...,8FN) : Fn* -> Fn
 
   -8for_each(8CN,8ST,8OP,8X) : (Any -> Bool) -> (Any -> Any) -> (Any -> Nil) -> Any -> Nil
 

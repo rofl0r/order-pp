@@ -18,17 +18,18 @@
 
 #define ORDER_PP_CM_INVOKE(K,...) ORDER_PP_CM_##K(,__VA_ARGS__
 
-#define ORDER_PP_CM_8PASS_NIL_3(P,v0,v1,K,...) ORDER_PP_CM_##K(,,P##v0,P##v1,P##__VA_ARGS__)
-#define ORDER_PP_CM_8PASS_NIL_4(P,v0,v1,v2,K,...) ORDER_PP_CM_##K(,,P##v0,P##v1,P##v2,P##__VA_ARGS__)
+#define ORDER_PP_CM_8REMAP_01120(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_0,P##_1,P##_1,P##_2,P##_0,P##__VA_ARGS__)
+#define ORDER_PP_CM_8REMAP_10(P,_0,_1,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##__VA_ARGS__)
+#define ORDER_PP_CM_8REMAP_10021(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##_0,P##_2,P##_1,P##__VA_ARGS__)
+#define ORDER_PP_CM_8REMAP_102(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##_2,P##__VA_ARGS__)
+#define ORDER_PP_CM_8REMAP_201(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_2,P##_0,P##_1,P##__VA_ARGS__)
+#define ORDER_PP_CM_8REMAP_3012(P,_0,_1,_2,_3,K,...) ORDER_PP_CM_##K(,P##_3,P##_0,P##_1,P##_2,P##__VA_ARGS__)
 
 #define ORDER_PP_FST(_0,...) _0
 #define ORDER_PP_CM_8FST(P,x,...) (,ORDER_PP_FST x##P,P##__VA_ARGS__)
 
 #define ORDER_PP_RST(_0,...) __VA_ARGS__
 #define ORDER_PP_CM_8RST(P,x,...) (,ORDER_PP_RST x##P,P##__VA_ARGS__)
-
-#define ORDER_PP_CM_8REMAP_10(P,_0,_1,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##__VA_ARGS__)
-#define ORDER_PP_CM_8REMAP_102(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##_2,P##__VA_ARGS__)
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
 
