@@ -18,6 +18,6 @@
 #define ORDER_PP_8EVAL_AND_7(P,b,e,t1,t2,t3,t4,t5,t6,...) (,ORDER_PP_IF_NOT_##b(,8false,P##e,ORDER_PP_DEF_##t1,8EVAL_AND_6,P##e,P##t2,P##t3,P##t4,P##t5,P##t6),P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_AND_8(P,b,e,t1,t2,t3,t4,t5,t6,t7,...) (,ORDER_PP_IF_NOT_##b(,8false,P##e,ORDER_PP_DEF_##t1,8EVAL_AND_7,P##e,P##t2,P##t3,P##t4,P##t5,P##t6,P##t7),P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_AND_9(P,b,e,t1,t2,t3,t4,t5,t6,t7,t8,...) (,ORDER_PP_IF_NOT_##b(,8false,P##e,ORDER_PP_DEF_##t1,8EVAL_AND_8,P##e,P##t2,P##t3,P##t4,P##t5,P##t6,P##t7,P##t8),P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_AND_10(P,b,e,t1,t2,t3,t4,t5,t6,t7,t8,t9,...) (,ORDER_PP_IF_NOT_##b(,8false,P##e,ORDER_PP_DEF_##t1,8EVAL_AND_8,P##e,P##t2,P##t3,P##t4,P##t5,P##t6,P##t7,P##t8,P##t9),P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_AND_10(P,b,e,t1,t2,t3,t4,t5,t6,t7,t8,t9,...) (,ORDER_PP_IF_NOT_##b(,8false,P##e,ORDER_PP_DEF_##t1,8EVAL_AND_9,P##e,P##t2,P##t3,P##t4,P##t5,P##t6,P##t7,P##t8,P##t9),P##__VA_ARGS__)
 
 #endif
