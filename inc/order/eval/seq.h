@@ -7,8 +7,8 @@
 #define ORDER_PP_ORDER_PP_DEF_8seq(P,e,...) (,,P##__VA_ARGS__)
 
 #ifdef ORDER_PP_DEBUG
-# define ORDER_PP_8EVAL_SEQ(P,e,ts,G,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST P##ts())ORDER_PP_DEF_FIRST P##ts,8EVAL_SEQ_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
-# define ORDER_PP_8EVAL_SEQ_B(P,v,s,e,t,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,8EVAL_SEQ_B,P##s(P##v),P##e,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_SEQ(P,e,ts,G,...) (,P##e,ORDER_PP_SYNTAX_CHECK(,ORDER_PP_TUPLE_FIRST P##ts,ORDER_PP_DEF_FIRST)P##ts,8EVAL_SEQ_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
+# define ORDER_PP_8EVAL_SEQ_B(P,v,s,e,t,...) (,P##e,ORDER_PP_SYNTAX_CHECK(,P##t,ORDER_PP_DEF)(P##t),8EVAL_SEQ_B,P##s(P##v),P##e,P##__VA_ARGS__)
 #else
 # define ORDER_PP_8EVAL_SEQ(P,e,ts,G,...) (,P##e,ORDER_PP_DEF_FIRST P##ts,8EVAL_SEQ_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
 # define ORDER_PP_8EVAL_SEQ_B(P,v,s,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_SEQ_B,P##s(P##v),P##e,P##__VA_ARGS__)

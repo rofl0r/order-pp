@@ -127,6 +127,7 @@
 #define ORDER_PP_TUPLE_LAST_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9) P##_9
 #define ORDER_PP_TUPLE_LAST_11_OR_MORE() // This should never occure.
 
+#define ORDER_PP_TUPLE_FIRST(P,...) ORDER_PP_TUPLE_AT_0(,P##__VA_ARGS__,)
 #define ORDER_PP_TUPLE_REST(P,_0,...) P##__VA_ARGS__
 
 #define ORDER_PP_8TUPLE_DROP_100N(P,n,t,...) ORDER_PP_NAT_IS_ZERO P##n(,ORDER_PP_8EXIT_TUPLE P##t,(,ORDER_PP_NAT_PRED P##n,8TUPLE_DROP_100N,(,ORDER_PP_TUPLE_DROP_100 t##P),))
