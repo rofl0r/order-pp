@@ -21,9 +21,10 @@
 #define ORDER_PP_FY(f,y) ORDER_PP_##f y
 #define ORDER_PP_FZ(f,z) ORDER_PP_##f z
 #define ORDER_PP_OVERLOAD(f,n) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_##f##_,n)
-#define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
-#define ORDER_PP_REVERSE_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(r,l)
-#define ORDER_PP_PRIMITIVE_CAT(l,r) l##r
+#define ORDER_PP_CAT(...) ORDER_PP_PRIMITIVE_CAT(__VA_ARGS__)
+#define ORDER_PP_REVERSE_CAT(...) ORDER_PP_PRIMITIVE_REVERSE_CAT(__VA_ARGS__)
+#define ORDER_PP_PRIMITIVE_CAT(l,...) l##__VA_ARGS__
+#define ORDER_PP_PRIMITIVE_REVERSE_CAT(l,...) __VA_ARGS__##l
 #define ORDER_PP_BOTH(P,...) P##__VA_ARGS__##P
 #define ORDER_PP_LEFT(P,...) P##__VA_ARGS__
 #define ORDER_PP_RIGHT(P,...) __VA_ARGS__##P
