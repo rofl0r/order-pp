@@ -65,8 +65,8 @@ void array_##mnemo##_##in_a(const in_t* in,             \
  *
  * A binary array manipulation procedure takes two arrays as input,
  * applies a binary operator to the corresponding elements of the arrays
- * and then writes result to a third array. For example, the binary array
- * manipulation procedure 'array_add_ss_ss(...)'
+ * and then writes the result to a third array. For example, the binary
+ * array manipulation procedure 'array_add_ss_ss(...)'
  */
 
 #if 0
@@ -97,7 +97,7 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
                                        int n) {                         \
   if (n > 0) do {                                                       \
     *out++ = *lhs_in op *rhs_in;                                        \
-    /* Note short circuit logic operators. */                           \
+    /* Remember short circuit logic operators! */                       \
     ++lhs_in;                                                           \
     ++rhs_in;                                                           \
   } while (--n);                                                        \
@@ -151,10 +151,10 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
  * of metadata we need.
  *
  * First we'd like to encode the rules for integer promotion on an unary
- * operation. Rephrasing the C standard, if the rank of the operand type
- * is lower than the rank of int then the result of integer promotion is
- * int, otherwise the type of integer promotion is the type of the
- * operand. The 'type_of_promotion(T)' metafunction
+ * operation. Rephrasing the C standard, if the rank of the type of the
+ * operand is lower than the rank of int then the result of integer
+ * promotion is int, otherwise the type of integer promotion is the type
+ * of the operand. The 'type_of_promotion(T)' metafunction
  */
 
 #define ORDER_PP_DEF_type_of_promotion          \
@@ -361,7 +361,7 @@ ORDER_PP_CONST((( ~  , compl , 1, false, false, false ))        \
  * 'false'.
  *
  * The requirements for types are somewhat less demanding and we'll do
- * with 4-tuple of the form
+ * with a 4-tuple of the form
  *
  *   (name, abbreviation, is_floating, rank).
  *
@@ -485,11 +485,16 @@ ORDER_PP(seq_for_each_in_product
  *
  * The 'seq_filter(Pr,S)' function takes an unary predicate function and a
  * sequence and produces a new sequence which contains only the elements
- * of the given sequence that satisfy the given predicate.
+ * of the given sequence that satisfy the given predicate. Above, we've
+ * defined the predicate using an anonymous function. This is typical when
+ * using higher-order functions.
  *
  * The 'seq_for_each_in_product(Op,Ss)' function computes the cartesian
  * product of the sequence of sequences given as parameter and invokes the
- * given function with each element of the cartesian product.
+ * given function with each element of the cartesian product. Above, we
+ * use 'seq_for_each_in_product' to compute the cartesian product of
+ * operators that do not work on floating point types and the non-floating
+ * point types.
  *
  * If you looked carefully, you noticed that we passed 'gen_array_uop',
  * without any parameters, as the first parameter to
