@@ -6,11 +6,11 @@
 # define ORDER_PP_FN_CM(arity,K,...) 8DEF_FN,(,8CM,ORDER_PP_LIT_DEC(,arity),K,(,__VA_ARGS__,)),ORDER_PP_ARGS
 
 # define ORDER_PP_8CM(P,v,n,K,ps,...) (,ORDER_PP_FW(TYPE_CHECK,(,ORDER_PP_TUPLE_AT_0 ps##P,P##v,))ORDER_PP_LIT_IS_0(,P##n)(ORDER_PP_8CM_,LAST,MORE)(,P##v,P##n,P##K,P##ps),P##__VA_ARGS__)
-# define ORDER_PP_8CM_LAST(P,v,n,K,ps) P##v,P##K
+# define ORDER_PP_8CM_LAST(P,v,n,K,ps) ORDER_PP_TEST(,ORDER_PP_##K##_PRECONDITION(,P##v)(,,,,),ORDER_PP_RIGHT(,ORDER_PP_PRECONDITION_FAILURE,8EXIT_ERROR,P##K(P##v),),)P##v,P##K
 # define ORDER_PP_8CM_MORE(P,v,n,K,ps) (,8CM_L,ORDER_PP_LIT_DEC(,P##n),P##K,(,ORDER_PP_TUPLE_REST ps##P),(,P##v))
 
 # define ORDER_PP_8CM_L(P,v,n,K,ps,vs,...) (,ORDER_PP_FW(TYPE_CHECK,(,ORDER_PP_TUPLE_AT_0 ps##P,P##v,))ORDER_PP_LIT_IS_0(,P##n)(ORDER_PP_8CM_L_,LAST,MORE)(,P##v,P##n,P##K,P##ps,ORDER_PP_OPEN P##vs),P##__VA_ARGS__)
-# define ORDER_PP_8CM_L_LAST(P,v,n,K,ps,vs) P##v,P##K,P##vs
+# define ORDER_PP_8CM_L_LAST(P,v,n,K,ps,vs) ORDER_PP_TEST(,ORDER_PP_##K##_PRECONDITION(,P##v,vs)(,,,,),ORDER_PP_RIGHT(,ORDER_PP_PRECONDITION_FAILURE,8EXIT_ERROR,P##K(P##v,P##vs),),)P##v,P##K,P##vs
 # define ORDER_PP_8CM_L_MORE(P,v,n,K,ps,vs) (,8CM_L,ORDER_PP_LIT_DEC(,P##n),P##K,(,ORDER_PP_TUPLE_REST ps##P),(,P##v,P##vs))
 #else
 # define ORDER_PP_FN_CM(arity,K,...) 8DEF_FN,(ORDER_PP_FN_CM_##arity,K),ORDER_PP_ARGS
