@@ -27,6 +27,8 @@ fi
 
 function eval-in-cpp {
     cpp -P \
+        -std=c99 \
+        -pedantic \
         -I "../inc/" \
         -I "../../chaos-pp/" \
         -include "../inc/order/interpreter.h" \
