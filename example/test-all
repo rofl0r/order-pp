@@ -2,9 +2,7 @@
 
 # (C) Copyright Vesa Karvonen 2004.
 #
-#    Distributed under the Boost Software License, Version 1.0.
-
-TIMEFORMAT='Time: %R seconds'
+# Distributed under the Boost Software License, Version 1.0.
 
 for f in *.h *.hpp *.c *.cpp ; do
     if test -f "$f" ; then
