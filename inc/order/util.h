@@ -67,6 +67,9 @@
 #define ORDER_PP_UNLESS_8false(P,...) P##__VA_ARGS__
 #define ORDER_PP_UNLESS_8true(...)
 
+#define ORDER_PP_EAT_UNLESS_
+#define ORDER_PP_EAT_UNLESS_0(...)
+
 #define ORDER_PP_SELECT_4(P,c0,c1) ORDER_PP_CAT(P##c0(ORDER_PP_SELECT_4_,1,0),P##c1(,1,0))
 #define ORDER_PP_SELECT_4_11(P,tt,tf,ft,...) P##tt
 #define ORDER_PP_SELECT_4_10(P,tt,tf,ft,...) P##tf
