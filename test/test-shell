@@ -91,16 +91,15 @@ function run-tests {
                 echo "Term:     $term"
                 echo "Expected: $expected"
                 echo "Result:   $result"
-                read -e -n 1 -p "[(U)se result | (R)emove test | (S)kip all | Skip]? "
+                read -e -n 1 -p "[(U)se result | (R)emove test | (Q)uit to main menu | Skip]? "
                 case "$REPLY" in
                     ("u"|"U")
                         echo -n "Using result"
                         replace-test $i "$term" "$result" ;;
                     ("r"|"R")
                         echo -n "Removing test"
-                        remove-test $i
-                        i=$(($i-1)) ;;
-                    ("s"|"S")
+                        remove-test $i ;;
+                    ("q"|"Q")
                         echo "Skipping all"
                         i=$n ;;
                     (*)
