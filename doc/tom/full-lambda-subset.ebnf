@@ -1,0 +1,10 @@
+
+        <exp> ::= `8fn'({<sym>}+{,}, <exp>)                          ;; lambda abstraction
+               |  `8ap'({<exp>}+{,})                                 ;; application
+               |  `8ref'(<sym>)                                      ;; symbol reference
+               |  <var>                                              ;; variable reference
+
+        <sym> ::= [`0'-`9'][`0'-`9'`A'-`Z'`a'-`z'`_']*               ;; general symbol
+
+        <var> ::= `8'[`A'-`Z']                                       ;; variable symbol
+

@@ -1,0 +1,7 @@
+
+        <exp> ::= `8fn'(<var>, <exp>)       ;; lambda abstraction
+               |  `8ap'(<exp_f>, <exp_x>)   ;; application
+               |  <var>                     ;; variable reference
+
+        <var> ::= `8'[`A'-`Z']              ;; variable symbol
+
