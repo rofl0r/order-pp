@@ -5,6 +5,13 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
+// The nil value.
+//
+// A nil value is represented by a placemarker.
+//
+// For example,
+//
+//   8nil ==>
 #define ORDER_PP_DEF_8nil 8DEF_CONST,
 
 #define ORDER_PP_DEF_8is_nil ORDER_PP_FN_CM(1,8IS_NIL)
