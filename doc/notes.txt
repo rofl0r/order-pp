@@ -228,7 +228,7 @@ Functional primitives
 
    8apply(f, t) : (a+ -> b) -> Tuple(a+) -> b
 
-  -8bin_pr(bin, proj) : (a -> a -> b) -> (c -> a) -> (c -> c -> b)
+   8bin_pr(bin, proj) : (a -> a -> b) -> (c -> a) -> (c -> c -> b)
 
    8chain(f0, f1, ..., fN) : (Any -> Any)+ -> (Any -> Any)
 
@@ -359,7 +359,7 @@ Sequences
    8seq_exists(pr, s)                : (a -> Bool) -> Seq(a) -> Bool
    8seq_for_all(pr, s)               : (a -> Bool) -> Seq(a) -> Bool
 
-  -8seq_count(pr, s)                 : (a -> Bool) -> Seq(a) -> Num
+   8seq_count(pr, s)                 : (a -> Bool) -> Seq(a) -> Num
 
   -8seq_lin_search(pr, s)            : (a -> Bool) -> Seq(a) -> Tuple(Seq(a), Seq(a))
 
