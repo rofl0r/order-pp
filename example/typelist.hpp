@@ -8,7 +8,7 @@
 
 # include "order/interpreter.h"
 
-// ## Creating type lists
+// ## Creating Type Lists
 //
 // In the book \emph{Modern C++ Design} \cite{alexandrescu:2001},
 // Andrei Alexandrescu shows how lists of types can be manipulated
@@ -47,7 +47,7 @@ namespace typelist {
 // problems:
 // \begin{itemize}
 // \item Commas can cause a headache. For example,
-//       `TYPELIST_1(pair<int, float>)' doesn't work.
+//       `TYPELIST_1(std::pair<int, float>)' doesn't work.
 // \item The length of the list must be specified explicitly, which
 //       is quite tedious.
 // \item The complexity of the implementation is considerable.
@@ -61,7 +61,7 @@ namespace typelist {
 // example, let's pretend that we don't know about such
 // metafunctions.
 //
-// ### A more generic `TYPELIST'-macro
+// ### A More Robust `TYPELIST'-macro
 //
 // To eliminate the need to count the number of elements, we could
 // simply take advantage of variadic macros \cite{c:1999}. However,
@@ -69,7 +69,9 @@ namespace typelist {
 // commas, the elements need to be parenthesized. A natural approach
 // would be to specify the list of elements as a variadic sequence:
 //<
-//   TYPELIST( (int) (pair<int, float>) (float) )
+//   TYPELIST((int)
+//            (std::pair<int, float>)
+//            (float))
 //>
 // Each parenthesized element of a variadic sequence can contain an
 // arbitrary number of commas. We'll adopt this interface, because
@@ -88,6 +90,6 @@ ORDER_PP(8for_each_in_range                                     \
 //>
 // The above macro executes two Order-programs. The first program
 // outputs a sequence of open `cons'-calls. The second program
-// closes the calls by outputing a sequence of `>' symbols.
+// closes the calls by outputing a sequence of `>'-tokens.
 
 # endif

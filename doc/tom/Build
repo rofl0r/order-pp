@@ -64,6 +64,7 @@ mkdir -p "$tmpDir" && \
     cat "../../example/is_function.hpp" "../../example/is_function.cpp" | cpp-to-ltx > "$tmpDir/is-function.ltx"   && \
     cat "../../example/is_integral.hpp" "../../example/is_integral.cpp" | cpp-to-ltx > "$tmpDir/is-integral.ltx"   && \
     cat "../../example/streams.c"                                       | cpp-to-ltx > "$tmpDir/streams.ltx"       && \
+    cat "../../example/typelist.hpp" "../../example/typelist.cpp"       | cpp-to-ltx > "$tmpDir/typelist.ltx"      && \
     cd "$tmpDir" && \
     latex -interaction=batchmode "$doc.ltx" && \
     bibtex -terse "$doc" && \
