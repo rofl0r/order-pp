@@ -71,11 +71,11 @@ ORDER_PP_FN(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,          \
 
 ////////////////////////////////////////////////////////////////////
 
-#define ORDER_PP_DEF_8act(...)                  \
-ORDER_PP_CONST(ACT ORDER_PP_BLOCK(__VA_ARGS__))
+#define ORDER_PP_DEF_8act(x)                    \
+ORDER_PP_CONST(ACT ORDER_PP_BLOCK(x))
 
-#define ACT(...) TCA ORDER_PP_BLOCK(__VA_ARGS__)__VA_ARGS__
-#define TCA(...) ACT ORDER_PP_BLOCK(__VA_ARGS__)__VA_ARGS__
+#define ACT(x) TCA ORDER_PP_BLOCK(x)x
+#define TCA(x) ACT ORDER_PP_BLOCK(x)x
 
 ////////////////////////////////////////////////////////////////////
 

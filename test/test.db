@@ -7,6 +7,8 @@
 8and(8true,8act(!))#ACT (!)!!!!!!!!!!!!#<ws>
 8and(8true,8true,8true,8false,0)#8false#<ws>
 8ap(2nd(8act(!),1st(8id(8id),8act(%))),8act(?))#TCA (?)???????????????#<ws>
+8ap(8and_chain(8always,8equal(1)),1)#8true#<ws>
+8ap(8and_chain(8equal(1),8never),1)#8false#<ws>
 8ap(8ap(8ap(8ap(8fn(8A,8B,8A),8fn(8C,8D,8C),8fn(8E,8F,8E)),8ap(8fn(8G,8H,8G),8fn(8I,8J,8I),8fn(8K,8L,8K)),8ap(8fn(8M,8N,8M),8fn(8O,8P,8O),8fn(8Q,8R,8Q))),8act(!)),8act(%))#TCA (!)!!!!!!!!!!!!!!!!!#<ws>
 8ap(8ap(8ap(8fn(8X,8Y,8Z,8Z),8act(!)),8act(%)),8act(?))#ACT (?)????????????????#<ws>
 8ap(8ap(8ap(8identity)),8(0))#0#<ws>
@@ -26,6 +28,8 @@
 8ap(8fn(8X,8Y,8X),8act(!),8act(%))#ACT (!)!!!!!!!!!!!!!!!!#<ws>
 8ap(8fn(8X,8Y,8tuple(8X,8Y)),8act(!),8act(%))#(ACT (!)!!!!!!!!!!!!!!!!!!!!!!,TCA (%)%%%%%%%%%%%%%%%%%%%%%)#<ws>
 8ap(8identity,8act(!))#TCA (!)!!!!!!!!!!!!!#<ws>
+8ap(8or_chain(8never,8equal(2),8equal(3)),1)#8false#<ws>
+8ap(8or_chain(8never,8equal(2),8equal(3)),3)#8true#<ws>
 8ap(8remap(8inc,3,1),4,5,6)#6#<ws>
 8ap(8remap(8minus,20,19,18),1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)#1#<ws>
 8ap(8remap(8pair,2,1,0),4,5)#(5,4)#<ws>
