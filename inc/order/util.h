@@ -11,7 +11,7 @@
 
 #define ORDER_PP_ASSERT_SYNTAX(def_t_p) ORDER_PP_IS_TUPLE_SIZE_1(,def_t_p)(,8EXIT_SYNTAX_ERROR ORDER_PP_COMMA,)
 #define ORDER_PP_8EXIT_SYNTAX_ERROR(P,e,t,...) ,)(,1,ORDER_PP_SYNTAX_ERROR(!):P##t:(,P##e,P##t,P##__VA_ARGS__))
-#define ORDER_PP_SYNTAX_ERROR()
+#define ORDER_PP_SYNTAX_ERROR() ORDER_PP_SYNTAX_ERROR
 
 #define ORDER_PP_BLOCK
 #define ORDER_PP_NIL()
@@ -33,7 +33,7 @@
 #define ORDER_PP_REM(...) __VA_ARGS__
 #define ORDER_PP_SCAN(...) __VA_ARGS__
 
-#define ORDER_PP_CM_INVOKE(K,...) ORDER_PP_##K(,__VA_ARGS__
+#define ORDER_PP_INVOKE(K,...) ORDER_PP_##K(,__VA_ARGS__
 
 #define ORDER_PP_8AP(P,f,x,...) (,P##x,ORDER_PP_OPEN f##P,P##__VA_ARGS__)
 
