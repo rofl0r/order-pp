@@ -7,18 +7,21 @@
 TIMEFORMAT='Time: %R seconds'
 
 dbFile=test.db
+tmpFile=.test.tmp
 
-debugFlag=0
+debugFlag=1
+
+function check-and-add-preprocessor {
+    if $1 >& /dev/null ; then
+        availablePreprocessors="[$2] $availablePreprocessors"
+    fi
+}
 
 if ! test -f .preprocessor ; then
     availablePreprocessors=''
 
-    if cpp --help &> /dev/null ; then
-        availablePreprocessors="[cpp] $availablePreprocessors"
-    fi
-    if wave -v &> /dev/null ; then
-        availablePreprocessors="[wave] $availablePreprocessors"
-    fi
+    check-and-add-preprocessor "cpp --help" cpp
+    check-and-add-preprocessor "wave -v" wave
 
     read -e -p "Choose preprocessor: $availablePreprocessors? "
     if test "$(echo "$availablePreprocessors" | grep "\\[$REPLY\\]")" != "$availablePreprocessors" ; then
@@ -51,6 +54,7 @@ function eval-in-cpp {
 
 function eval-in-wave {
     wave --variadics \
+        $(if test $debugFlag = 1 ; then echo '--define ORDER_PP_DEBUG' ; fi) \
         --include "../inc/" \
         --include "../../chaos-pp/" \
         --forceinclude "order/interpreter.h" \
@@ -91,7 +95,7 @@ function get-test {
 }
 
 function add-test {
-    echo "$1#$2#<ws>" >> $dbFile
+    echo "$1#$2#$3" >> $dbFile
     clean-test-db
 }
 
@@ -101,78 +105,115 @@ function clean-test-db {
 }
 
 function remove-test {
-    lines=$(test-cnt)
-    before=$(head -n $1 $dbFile)
-    after=$(tail -n $(($lines-1-$1)) $dbFile)
+    local lines=$(test-cnt)
+    local before=$(head -n $1 $dbFile)
+    local after=$(tail -n $(($lines-1-$1)) $dbFile)
     echo -n > $dbFile
     if test "$before" != "" ; then echo "$before" >> $dbFile ; fi
     if test "$after" != "" ; then echo "$after" >> $dbFile ; fi
 }
 
 function replace-test {
-    lines=$(test-cnt)
-    before=$(head -n $1 $dbFile)
-    after=$(tail -n $(($lines-1-$1)) $dbFile)
+    local lines=$(test-cnt)
+    local before=$(head -n $1 $dbFile)
+    local after=$(tail -n $(($lines-1-$1)) $dbFile)
     echo -n > $dbFile
     if test "$before" != "" ; then echo "$before" >> $dbFile ; fi
-    add-test "$2" "$3"
+    add-test "$2" "$3" "$4"
     if test "$after" != "" ; then echo "$after" >> $dbFile ; fi
 }
 
-function preprocess-all-tests {
-    sed -e 's|#.*||g' \
-        -e 's|^|ORDER_PP(|g' \
-        -e 's|$|)|g' \
+function preprocess-positive-tests {
+    sed -e 's|^.*#.*#O.*$||g' \
+        -e 's|#.*||g' \
+        -e 's|^\(.\+\)$|ORDER_PP(\1)|g' \
         $dbFile | \
         spacify | \
         eval-in | \
         tail -n $(test-cnt)
 }
 
-function first-diff-line {
-    local tmpFile=$(tempfile)
-    echo "$1" > $tmpFile
-    echo "$2" | cmp $tmpFile | grep -o '[0-9]\+$'
-    rm $tmpFile
+function differing-lines {
+    echo "$1" | \
+        nl -s '#' -v 0 | \
+        grep -v -e "^\\($(echo -n "$2" | sed 's#\([^a-zA-Z0-9()?+|{, ]\)#\\\1#g' | nl -s '#' -v 0 | tr $'\n' '$' | sed 's#\$#\\\|#g')\\)\$" | \
+        sed -e 's|#.*||g' -e 's|[ \t]||g' | tr $'\n' ' '
 }
 
 function run-tests {
-    echo "Running $(test-cnt) tests..."
+    echo "Total of $(test-cnt) tests."
+    echo -n "Running positive tests... "
 
-    allResult=$(time preprocess-all-tests)
-    allTerm=$(sed -e 's|#.*||g' $dbFile)
-    allExpected=$(sed -e 's|^[^#]*#||g' -e 's|#.*$||g' $dbFile)
+    local allTerm=$(sed -e 's|#.*||g' $dbFile)
+    local allExpected=$(sed -e 's|^[^#]*#||g' -e 's|#.*$||g' $dbFile)
+    local allErrors=$(sed -e 's|.*#||g' $dbFile)
 
-    if test "$allResult" != "$allExpected" ; then
-        echo -n "Errors"
-        for ((i=$(($(first-diff-line "$allResult" "$allExpected") - 1)), n=$(test-cnt) ; i < n ; ++i )) ; do
-            result=$(get-line-from $i "$allResult")
-            term=$(get-line-from $i "$allTerm")
-            expected=$(get-line-from $i "$allExpected")
+    local posActual=$(time preprocess-positive-tests)
+    local posExpected=$(sed -e 's|^.*#.*#O.*$||g' -e 's|^[^#]*#||g' -e 's|#.*$||g' $dbFile)
 
-            if test "$expected" != "$result" ; then
-                echo
-                echo "Term:     $term"
-                echo "Expected: $expected"
-                echo "Result:   $result"
-                read -e -n 1 -p "[(U)se result | (R)emove test | (Q)uit to main menu | Skip]? "
-                case "$REPLY" in
-                    ("u"|"U")
-                    echo -n "Using result"
-                    replace-test $i "$term" "$result" ;;
-                    ("r"|"R")
-                    echo -n "Removing test"
-                    remove-test $i ;;
-                    ("q"|"Q")
-                    echo "Skipping all"
-                    i=$n ;;
-                    (*)
-                    echo "Skipping" ;;
-                esac
-            else
-                echo -n .
-            fi
-        done
+    for i in $(differing-lines "$posActual" "$posExpected") ; do
+        term=$(get-line-from $i "$allTerm")
+        local result=$(get-line-from $i "$posActual")
+        local expected=$(get-line-from $i "$posExpected")
+
+        echo "Term:     $term"
+        echo "Expected: $expected"
+        echo "Result:   $result"
+        read -e -n 1 -p "[(U)se result | (R)emove test | Skip]? "
+        case "$REPLY" in
+            ("u"|"U")
+            echo "Using result"
+            replace-test $i "$term" "$result" "" ;;
+            ("r"|"R")
+            echo "Removing test"
+            remove-test $i ;;
+            (*)
+            echo "Skipping" ;;
+        esac
+    done
+
+    echo "Running negative tests..."
+
+    local oldDebugFlag=$debugFlag
+    debugFlag=1
+
+    for i in $(differing-lines "$(sed -e 's|.*#.*#O.*|\$|g' -e 's|[^$]\+|#|g' $dbFile)" "$(sed -e 's|.\+|#|g' $dbFile)") ; do
+        term=$(get-line-from $i "$allTerm")
+        local expectedResult=$(get-line-from $i "$allExpected")
+        local expectedErrors=$(get-line-from $i "$allErrors")
+
+        do-eval
+
+        if test "$result#$errors" != "$expectedResult#$expectedErrors" ; then
+            echo "Term:            $term"
+            echo "Expected result: $expectedResult"
+            echo "Actual result:   $result"
+            echo "Expected error:  $expectedErrors"
+            echo "Actual error:    $errors"
+            read -e -n 1 -p "[(U)se result | (R)emove test | Skip]? "
+            case "$REPLY" in
+                ("u"|"U")
+                echo "Using result"
+                replace-test $i "$term" "$result" "$errors" ;;
+                ("r"|"R")
+                echo "Removing test"
+                remove-test $i ;;
+                (*)
+                echo "Skipping" ;;
+            esac
+        fi
+    done
+
+    debugFlag=$oldDebugFlag
+}
+
+function do-eval {
+    errors=""
+    result=$(echo "ORDER_PP($term)" | spacify | eval-in 2>"$tmpFile" | tail -n1)
+    resultChars=$(echo "$result" | wc -m | sed 's# ##g')
+    resultLines=$(echo "$result" | wc -l | sed 's# ##g')
+    if test -n "$(cat "$tmpFile")" ; then
+        errors=$(cat "$tmpFile" | grep -o 'ORDER_PP_[a-zA-Z0-9_]\+' | sort | uniq | tr $'\n' ' ' | sed 's# $##g')
     fi
 }
 
@@ -183,9 +224,15 @@ function interactive-eval {
     else
         echo "Term: $term"
     fi
-    result=$(time echo "ORDER_PP($term)" | spacify | eval-in | tail -n1)
-    resultChars=$(echo "$result" | wc -m | sed 's# ##g')
-    resultLines=$(echo "$result" | wc -l | sed 's# ##g')
+
+    time do-eval
+
+    if test -n "$errors" ; then
+        echo "Errors: $errors"
+        echo
+        cat "$tmpFile"
+        echo
+    fi
     if test $(($COLUMNS-9)) -lt $resultChars ; then
         echo "The output contains $resultChars characters on $resultLines lines!"
         read -e -n 1 -p "[(D)isplay | (L)ess | Skip]? "
@@ -210,7 +257,7 @@ function interactive-trace {
         echo "Term: $term"
     fi
 
-    steps=0
+    local steps=0
 
     result=$(echo "(,,ORDER_PP_DEF($(echo "$term" | spacify)),8EXIT,)" | eval-in)
     echo ": $result"
@@ -239,7 +286,7 @@ function interactive-add-test {
         ("n"|"N")
         echo "Not added.";;
         (*)
-        add-test "$term" "$result"
+        add-test "$term" "$result" "$errors"
         echo "Added." ;;
     esac
 }
@@ -252,7 +299,7 @@ else
     echo "Backed up database to: $dbFile.bak"
 fi
 
-IFS=''
+# IFS=''
 REPLY=''
 
 while true ; do
