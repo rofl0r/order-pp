@@ -69,7 +69,7 @@
 //
 // For example,
 //
-//   8nat_to_lit(8nat_inc(8lit_to_nat(8quote(56)))) ==> 57
+//   8nat_to_lit(8nat_inc(8lit_to_nat(56))) ==> 57
 #define ORDER_PP_DEF_8lit_to_nat ORDER_PP_FN_CM(1,8LIT_TO_NAT)
 #define ORDER_PP_8LIT_TO_NAT(P,x,...) (,ORDER_PP_LIT_TO_NAT_##x,P##__VA_ARGS__)
 
@@ -77,7 +77,7 @@
 
 #define ORDER_PP_LIT_EQUAL(P,l,r)     ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##l##_##r(,),8true,8false)
 #define ORDER_PP_LIT_LESS(P,l,r)      ORDER_PP_IF(ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_LESS_##l,)))
-#define ORDER_PP_LIT_MINUS(P,l,r)     ORDER_PP_IF(ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_LESS_##l,)))(,()P##l,ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_MINUS_##l,)))
+#define ORDER_PP_LIT_MINUS(P,l,r)     ORDER_PP_IF(ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_LESS_##l,)))(,()ORDER_PP_FX(TUPLE_AT_##l,(,ORDER_PP_LIT_MINUS_##r,)),ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_MINUS_##l,)))
 #define ORDER_PP_LIT_PLUS(P,l,r)      ORDER_PP_IF(ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_LESS_##l,)))(,ORDER_PP_FX(TUPLE_AT_##l,(,ORDER_PP_LIT_PLUS_##r,)),ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_PLUS_##l,)))
 #define ORDER_PP_LIT_QUOTIENT(P,l,r)  ORDER_PP_IF(ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_LESS_##l,)))(,0,ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_QUOTIENT_##l,)))
 #define ORDER_PP_LIT_REMAINDER(P,l,r) ORDER_PP_IF(ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_LESS_##l,)))(,P##l,ORDER_PP_FX(TUPLE_AT_##r,(,ORDER_PP_LIT_REMAINDER_##l,)))
