@@ -61,6 +61,8 @@
 // without a diagnostic from a reasonable preprocessor requires an
 // explicit `#undef'.
 //
+// ### The `BINARY' macro
+//
 // Having defined the token extraction macros, the task of
 // implementing the `BINARY' macro becomes rather trivial:
 
