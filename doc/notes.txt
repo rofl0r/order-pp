@@ -320,10 +320,12 @@ Sequences
    8seq_push_front(x, s)          : a -> Seq -> Seq
   -8seq_push_range(i, s, ss)      : Num -> Seq -> Seq -> Seq
 
-   8seq_split(i, s)               : Num -> Seq -> Tuple(Seq, Seq)
-  -8seq_join(ls, rs)              : Seq -> Seq -> Seq
+   8seq_split(i, s)               : Num -> Seq(a) -> Tuple(Seq(a), Seq(a))
+   8seq_join(ls, rs)              : Seq(a) -> Seq(a) -> Seq(a)
 
-  -8seq_zip(ls, rs)               : Seq -> Seq -> Seq
+  -8seq_zip(ls, rs)               : Seq(a) -> Seq(b) -> Seq(Tuple(a,b))
+
+  -8seq_iota(i0, i1)              : Num -> Num -> Seq(Num)
 
    8seq_to_tuple(s)               : Seq -> Tuple
 

@@ -4,9 +4,7 @@
 
 #define ORDER_PP_FN_CM(arity,K) 8DEF_FN_CM,arity,K,ORDER_PP_ARGS
 
-#define ORDER_PP_8DEF_FN_CM(P,e,np,K,na,...) ORDER_PP_8EVAL_AP_##na(,(,8CM_##np,P##K),P##e,P##__VA_ARGS__)
-
-#define ORDER_PP_8CM_1(P,A,K,...) (,P##A,P##K,P##__VA_ARGS__)
+#define ORDER_PP_8DEF_FN_CM(P,e,np,K,na,...) ORDER_PP_8EVAL_AP_##na(,(,ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_1_##np(,),,0)(,,8CM_##np,)P##K),P##e,P##__VA_ARGS__)
 
 #define ORDER_PP_8CM_2(P,A,K,...) (,(,8CM_2_1,P##A,P##K),P##__VA_ARGS__)
 #define ORDER_PP_8CM_2_1(P,B,A,K,...) (,P##A,P##K,P##B,P##__VA_ARGS__)
