@@ -19,10 +19,10 @@
 // or C++ tokens and would constitute program code. To avoid
 // motivating and defining an actual code generation problem, we
 // will show two ways to use Order to generate the complete lyrics
-// to the song \emph{99 Bottles of Beer on the Wall}. While the
-// actual logic required to generate the lyrics is quite trivial,
-// this example is sufficient to give an idea how Order can actually
-// be used.
+// to the song ``99 Bottles of Beer on the Wall''. While the actual
+// logic required to generate the lyrics is quite trivial, this
+// example is sufficient to give an idea how Order can actually be
+// used.
 //
 // Let's first consider the song, which can be thought of as a
 // countdown from 99 to 1. Each phrase, between 99 and 3, looks like
@@ -64,13 +64,18 @@
 // isn't subject to macro replacement. The use of pp-numbers is
 // admittedly an ugly detail, but it is absolutely necessary,
 // because otherwise an Order expression might get macro replaced by
-// a user or standard defined macro, like the macro `I' defined by
-// the C standard \cite{c:1999}\footnote{If you plan to go to a
-// JTC1/SC22/WG14 meeting, consider bringing your own food and
-// beverages.}, before the Order interpreter gets to analyze the
-// expression. Please note that unintended macro replacement isn't a
-// novel problem introduced by the Order interpreter. It is a well
-// known problem of the C preprocessor \cite{stroustrup:1994}.
+// a user or standard defined macro, like the \emph{abominable}
+// macro `I' incredibly defined by the C standard\footnote{There
+// aren't words strong enough that I could credibly use here to
+// describe what I think about the quality of certain parts of the C
+// standard \cite{c:1999}.}, before the Order interpreter gets to
+// analyze the expression. Please note that unintended macro
+// replacement isn't a novel problem introduced by the Order
+// interpreter. It is a well known problem of the C preprocessor
+// \cite{stroustrup:1994}. It should be noted that \emph{all} macros
+// defined by the implementation of the Order interpreter have the
+// prefix `ORDER_PP'. This makes it very unlikely that the Order
+// interpreter would cause unintended macro replacements.
 //
 // The second thing to notice in the above expression is the
 // conditional expression `8cond(...)'.\footnote{Borrowed from
@@ -84,21 +89,21 @@
 // to true. Then the rest of the expressions of the true clause are
 // evaluated.
 //
-// The `8quote' syntactic form is used to quote values that
-// must not be evaluated by the interpreter. All values manipulated
-// by the Order interpreter are sequences of preprocessing tokens.
-// A value manipulated by the Order interpreter must be eligible as
-// a single macro argument. We use the term \emph{pp-arg} to refer
-// to such preprocessing token sequences. A \emph{pp-arg} must not
-// contain, nor macro replace to a token sequence containing,
-// unparenthesized commas nor unbalanced parentheses.
+// The `8quote' syntactic form is used to quote values that must not
+// be evaluated by the interpreter. All values manipulated by the
+// Order interpreter are sequences of preprocessing tokens. A value
+// manipulated by the Order interpreter must be eligible as a single
+// macro argument. We use the term \emph{pp-arg} to refer to such
+// preprocessing token sequences. A \emph{pp-arg} must not contain,
+// nor macro replace to a token sequence containing, unparenthesized
+// commas nor unbalanced parentheses.
 //
-// The binary function `8separate', given two arguments,
-// evaluates to a new token sequence that consists of the tokens of
-// the two arguments separated by a space. The expression `8N' is a
-// variable reference. By default, variable identifiers in the Order
-// interpreter are limited to the tokens `8[A-Z]', meaning digit `8'
-// followed by a capital letter.\footnote{The interpreter can be
+// The binary function `8separate', given two arguments, evaluates
+// to a new token sequence that consists of the tokens of the two
+// arguments separated by a space. The expression `8N' is a variable
+// reference. By default, variable identifiers in the Order
+// interpreter are limited to the tokens `8[A-Z]', meaning the digit
+// `8' followed by a capital letter.\footnote{The interpreter can be
 // extended to be able to use additional variable symbols by
 // defining suitable macros.}
 //
@@ -125,14 +130,13 @@
                   (take one down, pass it around,) 8space
                   8ap(8B, 8dec(8N)) (of beer on the wall.))
 #endif//0
-// A `8print' expression is evaluated by implicitly outputing
-// the value of any unparenthesized Order expression and outputing
-// any parenthesized sequence of tokens verbatim. The `8ap'
-// syntactic form is the function application expression.
-// \emph{Top-level} functions, like the prelude function
-// `8greater', but also \emph{user-defined} top-level
-// functions, can be applied without using `8ap', but
-// `8ap' needs to be used otherwise. The `8space'
+// A `8print' expression is evaluated by implicitly outputing the
+// value of any unparenthesized Order expression and outputing any
+// parenthesized sequence of tokens verbatim. The `8ap' syntactic
+// form is the function application expression. \emph{Top-level}
+// functions, like the prelude function `8greater', but also
+// \emph{user-defined} top-level functions, can be applied without
+// using `8ap', but `8ap' needs to be used otherwise. The `8space'
 // syntactic form can only be used inside `8print' and causes a
 // space to be output.\footnote{In other words, the keyword `8space'
 // is part of the syntax of `8print' expressions.} Ordinarily, while
@@ -145,11 +149,10 @@
 // the syntactic forms `8lparen' and `8rparen' that output a left
 // and a right paren, respectively.
 //
-// To execute the above `8print' expression for all numbers
-// from 99 to 1 we can make it into a function and use the
-// \emph{higher-order} function `8for_each_in_range',
-// conveniently provided by the Order prelude, to make the function
-// applications:
+// To execute the above `8print' expression for all numbers from 99
+// to 1 we can wrap it in an anonymous function and use the
+// \emph{higher-order} function `8for_each_in_range', conveniently
+// provided by the Order prelude, to make the function applications:
 #if 0
       8for_each_in_range
       (8fn(8N,
@@ -159,15 +162,14 @@
        100, 1)
 #endif//0
 // You may wonder about the above upper bound of 100.
-// `8for_each_in_range' always considers the upper bound
-// open and the lower bound closed regardless of the direction,
-// ascending or descending, in which the range is specified. This
-// minimizes special cases.
+// `8for_each_in_range' always considers the upper bound open and
+// the lower bound closed regardless of the direction, ascending or
+// descending, in which the range is specified. This minimizes
+// special cases.
 //
-// To complete the program, we use a `8let' expression to bind
-// the auxiliary function to `8B', include the Order
-// interpreter header, and invoke the Order interpreter using the
-// `ORDER_PP' macro:
+// To complete the program, we use a `8let' expression to bind the
+// auxiliary function to `8B', include the Order interpreter header,
+// and invoke the Order interpreter using the `ORDER_PP' macro:
 //<
 #include "order/interpreter.h"
 
@@ -233,13 +235,13 @@ ORDER_PP_FN(8fn(8N,                                    \
 // definition. Order top-level definition macros use the prefix
 // `ORDER_PP_DEF_', which makes accidental macro replacement
 // unlikely and allows the Order interpreter to deconstruct
-// expressions using concatenation. The `ORDER_PP_FN' tagging
-// macro effectively tells the Order interpreter that
-// `8bottles' defines a function. Order also has other forms of
-// top-level definitions such as constant and macro definitions.
+// expressions using concatenation. The `ORDER_PP_FN' tagging macro
+// effectively tells the Order interpreter that `8bottles' defines a
+// function. Order also has other forms of top-level definitions
+// such as constant and macro definitions.
 //
-// To actually output an invocation of the `GEN_phrase' macro,
-// we use the `8emit' procedure:
+// To actually output an invocation of the `GEN_phrase' macro, we
+// use the `8emit' procedure:
 #if 0
               8emit(8quote(GEN_phrase),
                     8tuple(8bottles(8N),
