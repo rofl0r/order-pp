@@ -8,6 +8,8 @@ TIMEFORMAT='Time: %R seconds'
 
 dbFile=test.db
 
+debugFlag=0
+
 if test -f .preprocessor ; then
     preprocessor=$(cat .preprocessor)
 else
@@ -30,6 +32,7 @@ function eval-in-cpp {
     cpp -P \
         -std=c99 \
         -pedantic-errors \
+        $(if test $debugFlag = 1 ; then echo '-DORDER_PP_DEBUG' ; fi) \
         -I "../inc/" \
         -I "../../chaos-pp/" \
         -include "../inc/order/interpreter.h" \
@@ -38,10 +41,10 @@ function eval-in-cpp {
 
 function eval-in-wave {
     wave --variadics \
-         --include "../inc/" \
-         --include "../../chaos-pp/" \
-         --forceinclude "order/interpreter.h" \
-         --forceinclude "test-defs.h"
+        --include "../inc/" \
+        --include "../../chaos-pp/" \
+        --forceinclude "order/interpreter.h" \
+        --forceinclude "test-defs.h"
 }
 
 function eval-in {
@@ -111,9 +114,9 @@ function preprocess-all-tests {
         -e 's|^|ORDER_PP(|g' \
         -e 's|$|)|g' \
         $dbFile | \
-    spacify | \
-    eval-in | \
-    tail -n $(test-cnt)
+        spacify | \
+        eval-in | \
+        tail -n $(test-cnt)
 }
 
 function first-diff-line {
@@ -145,19 +148,19 @@ function run-tests {
                 read -e -n 1 -p "[(U)se result | (R)emove test | (Q)uit to main menu | Skip]? "
                 case "$REPLY" in
                     ("u"|"U")
-                        echo -n "Using result"
-                        replace-test $i "$term" "$result" ;;
+                    echo -n "Using result"
+                    replace-test $i "$term" "$result" ;;
                     ("r"|"R")
-                        echo -n "Removing test"
-                        remove-test $i ;;
+                    echo -n "Removing test"
+                    remove-test $i ;;
                     ("q"|"Q")
-                        echo "Skipping all"
-                        i=$n ;;
+                    echo "Skipping all"
+                    i=$n ;;
                     (*)
-                        echo "Skipping" ;;
+                    echo "Skipping" ;;
                 esac
             else
-            echo -n .
+                echo -n .
             fi
         done
     fi
@@ -178,11 +181,11 @@ function interactive-eval {
         read -e -n 1 -p "[(D)isplay | (L)ess | Skip]? "
         case "$REPLY" in
             ("d"|"D")
-                echo "Result: $result" ;;
+            echo "Result: $result" ;;
             ("l"|"L")
-                echo "Result: $result" | less ;;
+            echo "Result: $result" | less ;;
             (*)
-                echo "Skipping" ;;
+            echo "Skipping" ;;
         esac
     else
         echo "Result: $result"
@@ -224,10 +227,10 @@ function interactive-add-test {
     read -e -n 1 -p "Add [(N)o | Yes]? "
     case "$REPLY" in
         ("n"|"N")
-            echo "Not added.";;
+        echo "Not added.";;
         (*)
-            add-test "$term" "$result"
-            echo "Added." ;;
+        add-test "$term" "$result"
+        echo "Added." ;;
     esac
 }
 
@@ -246,22 +249,25 @@ while true ; do
         REPLY="$1"
         shift
     else
-        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (C)lean DB | (Q)uit | (D)ebug | Eval]? "
+        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (C)lean DB | (Q)uit | (D)ebug | (M)ode | Eval]? "
     fi
     case "$REPLY" in
         ("a"|"A")
-            interactive-add-test ;;
+        interactive-add-test ;;
         ("-t"|"t"|"T")
-            run-tests ;;
+        run-tests ;;
         ("s"|"S")
-            less $dbFile ;;
+        less $dbFile ;;
         ("c"|"C")
-            clean-test-db ;;
+        clean-test-db ;;
         ("-q"|"q"|"Q")
-            exit ;;
+        exit ;;
         ("d"|"D")
-            interactive-trace ;;
+        interactive-trace ;;
+        ("m"|"M")
+        debugFlag=$((1-debugFlag))
+        echo "Debug: $debugFlag" ;;
         (*)
-            interactive-eval ;;
+        interactive-eval ;;
     esac
 done
