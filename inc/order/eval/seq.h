@@ -6,7 +6,9 @@
 //    Distributed under the Boost Software License, Version 1.0.
 
 // `8seq(e0,e1,...,eN)' constructs a sequence of the elements `e0',
-// `e1', ..., `eN'.
+// `e1', ..., `eN'. At least one element must be specified. To
+// construct an empty, or nil sequence, you need to use the
+// constant `8seq_nil' or `8nil'.
 //
 // For example,
 //
