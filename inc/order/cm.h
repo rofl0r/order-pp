@@ -5,9 +5,25 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_CM(...) ORDER_PP_CM_B(ORDER_PP_CM_UP_0(__VA_ARGS__))
-#define ORDER_PP_CM_B(x) ORDER_PP_CM_ERROR(,x
-#define ORDER_PP_CM_ERROR(P,_,...) P##__VA_ARGS__
+#define ORDER_PP_CM_0(...) ORDER_PP_CM_B_0(ORDER_PP_CM_UP_0(__VA_ARGS__))
+#define ORDER_PP_CM_1(...) ORDER_PP_CM_B_1(ORDER_PP_CM_UP_0(__VA_ARGS__))
+#define ORDER_PP_CM_2(...) ORDER_PP_CM_B_2(ORDER_PP_CM_UP_0(__VA_ARGS__))
+#define ORDER_PP_CM_3(...) ORDER_PP_CM_B_3(ORDER_PP_CM_UP_0(__VA_ARGS__))
+
+#define ORDER_PP_CM_B_0(x) ORDER_PP_CM_ERROR_0(,x)
+#define ORDER_PP_CM_B_1(x) ORDER_PP_CM_ERROR_1(,x)
+#define ORDER_PP_CM_B_2(x) ORDER_PP_CM_ERROR_2(,x)
+#define ORDER_PP_CM_B_3(x) ORDER_PP_CM_ERROR_3(,x)
+
+#define ORDER_PP_CM_ERROR_0(P,_,...) ORDER_PP_CM_SCAN_0(P##__VA_ARGS__
+#define ORDER_PP_CM_ERROR_1(P,_,...) ORDER_PP_CM_SCAN_1(P##__VA_ARGS__
+#define ORDER_PP_CM_ERROR_2(P,_,...) ORDER_PP_CM_SCAN_2(P##__VA_ARGS__
+#define ORDER_PP_CM_ERROR_3(P,_,...) ORDER_PP_CM_SCAN_3(P##__VA_ARGS__
+
+#define ORDER_PP_CM_SCAN_0(...) __VA_ARGS__
+#define ORDER_PP_CM_SCAN_1(...) __VA_ARGS__
+#define ORDER_PP_CM_SCAN_2(...) __VA_ARGS__
+#define ORDER_PP_CM_SCAN_3(...) __VA_ARGS__
 
 #define ORDER_PP_CM_8STOP(P,x,...) ,x##P)
 
