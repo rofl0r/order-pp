@@ -36,7 +36,7 @@
 #define ORDER_PP_CM_8SEQ_PUSH_BACK(P,x,s,...) (,P##s(P##x),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_append ORDER_PP_OP_LEFT_CM(8SEQ_APPEND)
-#define ORDER_PP_CM_8SEQ_APPEND(P,r,l,...) (,ORDER_PP_SEQ_APPEND(,P##l,P##r),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_APPEND(P,r,l,...) (,ORDER_PP_OPEN(,l##P)P##r,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8vseq_to_seq ORDER_PP_FN_MACRO_P(1,ORDER_PP_SEQ_PARENTHESIZE)
 #define ORDER_PP_DEF_8seq_map_seq ORDER_PP_FN_MACRO_P(1,ORDER_PP_SEQ_PARENTHESIZE)
@@ -49,8 +49,11 @@
 #define ORDER_PP_DEF_8seq_first_n ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_FIRST_N)
 #include "chaos/preprocessor/seq/first_n.h"
 
-#define ORDER_PP_DEF_8seq_insert ORDER_PP_FN_MACRO(3,CHAOS_PP_SEQ_INSERT)
+#define ORDER_PP_DEF_8seq_push_at ORDER_PP_FN_MACRO(3,CHAOS_PP_SEQ_INSERT)
 #include "chaos/preprocessor/seq/insert.h"
+
+#define ORDER_PP_DEF_8seq_pop_at ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_REMOVE)
+#include "chaos/preprocessor/seq/remove.h"
 
 #define ORDER_PP_DEF_8seq_pop_back ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_POP_BACK)
 #include "chaos/preprocessor/seq/pop_back.h"
@@ -75,13 +78,17 @@
 
 // Higher-order functions
 
+#define ORDER_PP_DEF_8seq_build ORDER_PP_FN_CM(2,8SEQ_BUILD)
+#define ORDER_PP_CM_8SEQ_BUILD(P,f,xs,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,),ORDER_PP_SEQ_FIRST(,P##xs),8SEQ_BUILD_3,P##f,ORDER_PP_EAT xs##P),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_BUILD_3(P,y,f,xs,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,P##y),ORDER_PP_SEQ_FIRST(,P##xs),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_SECOND(,P##xs(P##y)),8SEQ_BUILD_3,P##f,ORDER_PP_EAT_2 xs##P(P##y)),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8seq_exists ORDER_PP_FN_CM(2,8SEQ_EXISTS)
 #define ORDER_PP_CM_8SEQ_EXISTS(P,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,8false),ORDER_PP_SEQ_FIRST(,P##s),ORDER_PP_OPEN f##P,8SEQ_EXISTS_4,P##f,ORDER_PP_SEQ_AT_1 P##s),P##__VA_ARGS__)
 #define ORDER_PP_CM_8SEQ_EXISTS_4(P,b,f,x,xs,...) (,ORDER_PP_IF_##b(,8true,P##x,ORDER_PP_OPEN f##P ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,),,8SEQ_EXISTS_4,P##f,ORDER_PP_SEQ_AT_0 P##xs)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_filter ORDER_PP_FN_CM(2,8REMAP_021,,8SEQ_FILTER_3)
 #define ORDER_PP_CM_8SEQ_FILTER_3(P,f,out,in,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##in)(,(,P##out),ORDER_PP_SEQ_FIRST(,P##in),ORDER_PP_OPEN f##P,8SEQ_FILTER_3_B,P##f,P##out,ORDER_PP_SEQ_AT_0 in##P),P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_FILTER_3_B(P,b,f,out,x,...) ORDER_PP_CM_INVOKE(8SEQ_FILTER_3,P##f,ORDER_PP_IF_##b(,P##out(P##x),P##out)),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_FILTER_3_B(P,b,f,out,x,...) ORDER_PP_CM_INVOKE(8SEQ_FILTER_3,P##f,ORDER_PP_OPEN(,out##P)ORDER_PP_IF_##b(,(P##x),)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_fold ORDER_PP_FN_CM(3,8REMAP_102,8SEQ_FOLD)
 #define ORDER_PP_CM_8SEQ_FOLD(P,x,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,P##x),P##x,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_FIRST(,P##s),8SEQ_FOLD,P##f,ORDER_PP_EAT s##P),P##__VA_ARGS__)
@@ -104,31 +111,27 @@
 #define ORDER_PP_CM_8SEQ_MAP_3(P,x,f,in,out,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##in)(,(,),ORDER_PP_SEQ_FIRST(,P##in),ORDER_PP_OPEN f##P,8SEQ_MAP_3,P##f,ORDER_PP_EAT in##P,)P##out(P##x),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_merge ORDER_PP_FN_CM(3,8SEQ_MERGE_4,)
-#define ORDER_PP_CM_8SEQ_MERGE_4(P,f,ls,rs,out,...) (,ORDER_PP_SELECT_4(ORDER_PP_IS_NOT_EDIBLE(,P##ls),ORDER_PP_IS_NOT_EDIBLE(,P##rs))(,(,P##out),(,ORDER_PP_SEQ_APPEND(,P##out,P##rs)),(,ORDER_PP_SEQ_APPEND(,P##out,P##ls)),ORDER_PP_SEQ_FIRST(,P##ls),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_FIRST(,P##rs),8SEQ_MERGE_4_B,P##f,ORDER_PP_SEQ_AT_0 ls##P,ORDER_PP_SEQ_AT_0 rs##P,P##out),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_MERGE_4(P,f,ls,rs,out,...) (,ORDER_PP_SELECT_4(ORDER_PP_IS_NOT_EDIBLE(,P##ls),ORDER_PP_IS_NOT_EDIBLE(,P##rs))(,(,P##out),(,ORDER_PP_OPEN(,out##P)P##rs),(,ORDER_PP_OPEN(,out##P)P##ls),ORDER_PP_SEQ_FIRST(,P##ls),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_FIRST(,P##rs),8SEQ_MERGE_4_B,P##f,ORDER_PP_SEQ_AT_0 ls##P,ORDER_PP_SEQ_AT_0 rs##P,P##out),P##__VA_ARGS__)
 #define ORDER_PP_CM_8SEQ_MERGE_4_B(P,c,f,l,ls,r,rs,out,...) ORDER_PP_CM_INVOKE(8SEQ_MERGE_4,P##f,ORDER_PP_UNLESS_##c(,(P##l))P##ls,ORDER_PP_WHEN_##c(,(P##r))P##rs,out##P(ORDER_PP_IF_##c(,P##l,P##r))),P##__VA_ARGS__)
+
+#define ORDER_PP_DEF_8seq_merge_sort ORDER_PP_FN_CM(2,8SEQ_MERGE_SORT)
+#define ORDER_PP_CM_8SEQ_MERGE_SORT(P,f,s,...) (,(,8WAIT_2,8REMAP_2013,(,P##f,,8SEQ_MERGE_4,)),8SEQ_BUILD,ORDER_PP_SEQ_PARENTHESIZE(,P##s),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_partition ORDER_PP_FN_CM(2,8SEQ_PARTITION_4,,,8TUPLE_2)
 #define ORDER_PP_CM_8SEQ_PARTITION_4(P,f,in,ot,of,K,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##in)(,(,P##ot,P##K,P##of),ORDER_PP_SEQ_FIRST(,P##in),ORDER_PP_OPEN f##P,8SEQ_PARTITION_4_B,P##f,ORDER_PP_SEQ_AT_0 in##P,P##ot,P##of,P##K),P##__VA_ARGS__)
 #define ORDER_PP_CM_8SEQ_PARTITION_4_B(P,b,f,x,in,ot,of,...) ORDER_PP_CM_INVOKE(8SEQ_PARTITION_4,P##f,P##in,ORDER_PP_IF_##b(,P##ot(P##x),P##ot),ORDER_PP_IF_NOT_##b(,P##of(P##x),P##of)),P##__VA_ARGS__)
+
+#define ORDER_PP_DEF_8seq_partition_sort ORDER_PP_FN_CM(2,8SEQ_PARTITION_SORT)
+#define ORDER_PP_CM_8SEQ_PARTITION_SORT(P,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,),ORDER_PP_SEQ_FIRST(,P##s),ORDER_PP_OPEN f##P,8SEQ_PARTITION_4,ORDER_PP_EAT s##P,,,8SEQ_PARTITION_SORT_B,ORDER_PP_SEQ_FIRST(,P##s),P##f),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_PARTITION_SORT_B(P,st,sf,m,f,...) (,P##f,8SEQ_PARTITION_SORT,P##st,8SEQ_PARTITION_SORT_C,P##sf,P##m,P##f,P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_PARTITION_SORT_C(P,st,sf,m,f,...) (,P##f,8SEQ_PARTITION_SORT,P##sf,8SEQ_PARTITION_SORT_D,P##m,P##st,P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_PARTITION_SORT_D(P,sl,m,sr,...) (,P##sl(P##m)P##sr,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_select ORDER_PP_FN_CM(3,8REMAP_120,8SEQ_SELECT)
 #define ORDER_PP_CM_8SEQ_SELECT(P,y,xs,f,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,P##y),P##y,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_FIRST(,P##xs),8SEQ_SELECT_B,P##y,ORDER_PP_SEQ_AT_0 xs##P,P##f),P##__VA_ARGS__)
 #define ORDER_PP_CM_8SEQ_SELECT_B(P,b,y,x,...) ORDER_PP_CM_INVOKE(8SEQ_SELECT,ORDER_PP_IF_##b(,P##x,P##y)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_sort ORDER_PP_FN_CM(2,8SEQ_MERGE_SORT)
-
-#define ORDER_PP_DEF_8seq_merge_sort ORDER_PP_FN_CM(2,8SEQ_MERGE_SORT)
-#define ORDER_PP_CM_8SEQ_MERGE_SORT(P,f,s,...) (,(,8WAIT_2,8REMAP_2013,(,P##f,,8SEQ_MERGE_4,)),8SEQ_BUILD,ORDER_PP_SEQ_PARENTHESIZE(,P##s),P##__VA_ARGS__)
-
-#define ORDER_PP_DEF_8seq_partition_sort ORDER_PP_FN_CM(2,8SEQ_PARTITION_SORT)
-#define ORDER_PP_CM_8SEQ_PARTITION_SORT(P,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,),ORDER_PP_SEQ_FIRST(,P##s),ORDER_PP_OPEN f##P,8SEQ_PARTITION_4,ORDER_PP_EAT s##P,,,8SEQ_PARTITION_SORT_B,ORDER_PP_SEQ_FIRST(,P##s),P##f),P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_PARTITION_SORT_B(P,sl,sr,m,f,...) (,P##f,8SEQ_PARTITION_SORT,P##sr,8SEQ_PARTITION_SORT_C,P##sl,P##m,P##f,P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_PARTITION_SORT_C(P,sr,sl,m,f,...) (,P##f,8SEQ_PARTITION_SORT,P##sl,8SEQ_PARTITION_SORT_D,P##m,P##sr,P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_PARTITION_SORT_D(P,sl,m,sr,...) (,P##sr(P##m)P##sl,P##__VA_ARGS__)
-
-#define ORDER_PP_DEF_8seq_build ORDER_PP_FN_CM(2,8SEQ_BUILD)
-#define ORDER_PP_CM_8SEQ_BUILD(P,f,xs,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,),ORDER_PP_SEQ_FIRST(,P##xs),8SEQ_BUILD_3,P##f,ORDER_PP_EAT xs##P),P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_BUILD_3(P,y,f,xs,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,P##y),ORDER_PP_SEQ_FIRST(,P##xs),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_SECOND(,P##xs(P##y)),8SEQ_BUILD_3,P##f,ORDER_PP_EAT_2 xs##P(P##y)),P##__VA_ARGS__)
 
 // Details
 
@@ -145,7 +148,5 @@
 #define ORDER_PP_SEQ_PARENTHESIZE_B0
 
 #define ORDER_PP_EAT_2(...) ORDER_PP_EAT
-
-#define ORDER_PP_SEQ_APPEND(P,l,r) ORDER_PP_OPEN(,l##P)ORDER_PP_OPEN(,r##P)
 
 #endif

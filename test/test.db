@@ -94,9 +94,6 @@
 8seq_for_each_in_product(8fn(8X,8Y,8Z,8emit(8tuple(8X,8Y,8Z))),8quote(((1)(2))((*))((A)(B)(C))))#(1,*,A)(1,*,B)(1,*,C)(2,*,A)(2,*,B)(2,*,C)
 8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote((a)(b)(c)))#(0,a)(1,b)(2,c)
 8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote())#
-8seq_insert(0,8quote((1)(2)(3)(4)),8quote(x))#(x) (1)(2)(3)(4)
-8seq_insert(2,8quote((1)(2)(3)(4)),8quote(x))#(1) (2)(x) (3)(4)
-8seq_insert(4,8quote((1)(2)(3)(4)),8quote(x))#(1) (2) (3) (4)(x)
 8seq_is_nil(8seq(1,2,3))#8false
 8seq_is_nil(8seq_nil)#8true
 8seq_isnt_nil(8nil)#8false
@@ -111,8 +108,15 @@
 8seq_partition(8less(5),8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#((9)(6),(3)(1)(4)(1)(5)(2)(5))
 8seq_partition_sort(8less,8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)
 8seq_partition_sort(8less,8quote())#
+8seq_pop_at(0,8quote((a)(b)(c)(d)))#(b)(c)(d)
+8seq_pop_at(0,8quote((b)))#
+8seq_pop_at(1,8quote((a)(b)(c)(d)))#(a) (c)(d)
+8seq_pop_at(3,8quote((a)(b)(c)(d)))#(a) (b) (c)
 8seq_pop_back(8quote((1)(2)(3)(b)))#(1) (2) (3)
 8seq_pop_back(8quote((1)))#
+8seq_push_at(0,8quote((1)(2)(3)(4)),8quote(x))#(x) (1)(2)(3)(4)
+8seq_push_at(2,8quote((1)(2)(3)(4)),8quote(x))#(1) (2)(x) (3)(4)
+8seq_push_at(4,8quote((1)(2)(3)(4)),8quote(x))#(1) (2) (3) (4)(x)
 8seq_push_back(1,8seq_push_back(2,8seq_push_back(3,8seq_nil)))#(3)(2)(1)
 8seq_push_back(45,8quote((a)(b)(c)))#(a)(b)(c)(45)
 8seq_push_back(5,8seq_nil)#(5)
