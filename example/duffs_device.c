@@ -26,11 +26,11 @@ do {                                                                    \
       case 0 : __VA_ARGS__;                                             \
         ORDER_PP(8for_each_in_range                                     \
                  (8fn(8I,                                               \
-                      8do(8emitq(case),                                 \
-                          8emit(8sub(unroll_cnt,8I)),                   \
-                          8emitq(: __VA_ARGS__;))),                     \
+                      8rout(8emitq(case),                               \
+                            8emit(8I),                                  \
+                            8emitq(: __VA_ARGS__;))),                   \
                   1,                                                    \
-                  unroll_cnt));                                         \
+                  unroll_cnt))                                          \
       } while (--ORDER_PP_FRESH_ID(running_cnt));                       \
     }                                                                   \
   }                                                                     \
