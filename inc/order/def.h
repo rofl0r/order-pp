@@ -10,6 +10,7 @@
 #include "order/def/fn.h"
 #include "order/def/fn_cm.h"
 #include "order/def/fn_macro.h"
+#include "order/def/macro.h"
 #include "order/def/op_cm.h"
 
 #endif
