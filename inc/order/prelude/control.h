@@ -8,18 +8,19 @@
 
 #define ORDER_PP_DEF_8eval ORDER_PP_FN_CM(2,8EVAL)
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8EVAL(P,t,e,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL(P,e,t,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #else
-#define ORDER_PP_8EVAL(P,t,e,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL(P,e,t,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #endif
 
 #define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
 #define ORDER_PP_8EXIT(P,x,...) ,(,1,x##P))
 
 #define ORDER_PP_DEF_8for_each ORDER_PP_FN_CM(4,8FOR_EACH)
-#define ORDER_PP_8FOR_EACH(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##__VA_ARGS__)
-#define ORDER_PP_8FOR_EACH_B(P,b,x,c,s,f,...) (,ORDER_PP_WHEN_##b(,x##P,ORDER_PP_OPEN f##P,8FOR_EACH_C,x##P,c##P,s##P,f##P),P##__VA_ARGS__)
-#define ORDER_PP_8FOR_EACH_C(P,_,x,c,s,...) (,P##x,ORDER_PP_OPEN s##P,8FOR_EACH,P##c,P##s,P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH(P,c,s,o,x,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##s,P##o,P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_B(P,b,x,c,s,o,...) (,ORDER_PP_WHEN_##b(,x##P,ORDER_PP_OPEN o##P,8FOR_EACH_C,x##P,c##P,s##P,o##P),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_C(P,_,x,c,s,...) (,P##x,ORDER_PP_OPEN s##P,8FOR_EACH_D,P##c,P##s,P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_D(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8for_each_in_range ORDER_PP_FN_CM(3,8FOR_EACH_IN_RANGE)
 #define ORDER_PP_8FOR_EACH_IN_RANGE(P,i0,i1,...) (,,ORDER_PP_FX(8FOR_EACH_IN_RANGE_B,(,ORDER_PP_NUM_BOP(,LESS,P##i0,P##i1)(ORDER_PP_8FOR_EACH_IN_RANGE_,INC,DEC)(,P##i0,P##i1))),P##__VA_ARGS__)
@@ -34,14 +35,16 @@
 #define ORDER_PP_DEF_8unless(cond,...) 8EVAL_IF,cond,8nil,8do(__VA_ARGS__),
 
 #define ORDER_PP_DEF_8until ORDER_PP_FN_CM(3,8UNTIL)
-#define ORDER_PP_8UNTIL(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8UNTIL_B,P##x,P##c,P##__VA_ARGS__)
-#define ORDER_PP_8UNTIL_B(P,b,x,c,s,...) (,P##x,ORDER_PP_UNLESS_##b(,ORDER_PP_OPEN s##P,8UNTIL,P##c,P##s,)P##__VA_ARGS__)
+#define ORDER_PP_8UNTIL(P,c,s,x,...) (,P##x,ORDER_PP_OPEN c##P,8UNTIL_B,P##x,P##c,P##s,P##__VA_ARGS__)
+#define ORDER_PP_8UNTIL_B(P,b,x,c,s,...) (,P##x,ORDER_PP_UNLESS_##b(,ORDER_PP_OPEN s##P,8UNTIL_C,P##c,P##s,)P##__VA_ARGS__)
+#define ORDER_PP_8UNTIL_C(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8UNTIL_B,P##x,P##c,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8when(cond,...) 8EVAL_IF,cond,8do(__VA_ARGS__),8nil,
 
 #define ORDER_PP_DEF_8while ORDER_PP_FN_CM(3,8WHILE)
-#define ORDER_PP_8WHILE(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##__VA_ARGS__)
-#define ORDER_PP_8WHILE_B(P,b,x,c,s,...) (,P##x,ORDER_PP_WHEN_##b(,ORDER_PP_OPEN s##P,8WHILE,P##c,P##s,)P##__VA_ARGS__)
+#define ORDER_PP_8WHILE(P,c,s,x,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##s,P##__VA_ARGS__)
+#define ORDER_PP_8WHILE_B(P,b,x,c,s,...) (,P##x,ORDER_PP_WHEN_##b(,ORDER_PP_OPEN s##P,8WHILE_C,P##c,P##s,)P##__VA_ARGS__)
+#define ORDER_PP_8WHILE_C(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##__VA_ARGS__)
 
 #ifdef ORDER_PP_DEBUG
 #define ORDER_PP_DEF_8with_assert(cond,body) 8EVAL_IF,cond,body,8exit(8(8Assert_Failed(8with_assert(cond,body)))),

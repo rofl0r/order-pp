@@ -16,37 +16,46 @@
 SYNTAX
 ======
 
-  <exp>
-   ::= 8fn(<sym>+, <exp>)
-     | 8ap(<exp>+)
-     | <var>
-     | 8ref(<sym>)
-     | 8if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>)
-     | 8and(<exp>+)
-     | 8or(<exp>+)
-     | 8do(<exp>+)
-     | 8let({<var>, <exp_{init}>}+, <exp_{body}>)
-     | 8match(<exp_{val}>, {<pat>, <exp>}+)
-     | 8try(<exp_{body}>, <var>, <exp_{handler}>)
-     | <fn>
-     | <fn>(<exp>+)
-     | <op>(<exp>+)
-     | <const>
+        <exp> ::= 8fn(<sym>+, <exp>)
+                | 8ap(<exp>+)
+                | <var>
+                | 8ref(<sym>)
+                | 8(<pp-arg>) | 8
+                | 8if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>)
+                | 8and(<exp>+)
+                | 8or(<exp>+)
+                | 8cat(<exp>+)
+                | 8seq(<exp>+)
+                | 8tuple(<exp>+)
+                | 8do(<exp>+)
+                | 8rout(<exp>+)
+                | 8let({<var>, <exp_{init}>}+, <exp_{in}>)
+                | 8print(<print-exp>+)
+                | 8match(<exp_{val}>, {<pat>, <exp>}+)
+                | 8try(<exp_{body}>, <var>, <exp_{handler}>)
+                | <fn>
+                | <fn>(<exp>+)
+                | <op>(<exp>+)
+                | <const>
 
-  <var>
-   ::= 8[A-Z]
+        <var> ::= 8[A-Z]
 
-  <sym>
-   ::= [0-9][a-zA-Z0-9_]*
+        <sym> ::= [0-9][a-zA-Z0-9_]*
 
-  <pat>
-   ::= 8tuple(<pat>+{,rest(<var|_>)}?)
-     | 8seq(<pat>+{,rest(<var|_>)}?)
-     | <ctor>
-     | <ctor>(<pat>+)
-     | 8nil
-     | <var>                         ;; Matches anything and bings <var>
-     | 8_                            ;;     -- || --     and binds nothing
+  <print-exp> ::= <exp>
+                | (<pp-tokens>)
+                | 8comma
+                | 8lparen
+                | 8rparen
+                | 8parens(<print-exp>+)
+
+        <pat> ::= 8tuple(<pat>+{,8rest(<sym>)}?)
+                | 8seq(<pat>+{,8rest(<sym>)}?)
+                | <ctor>
+                | <ctor>(<pat>+)
+                | 8nil
+                | <sym>        ;; Matches anything and bings <sym>
+                | 8_           ;;     -- || --     and binds nothing
 
 --------------------------------------------------------------------------
 
@@ -55,12 +64,12 @@ DEFINITIONS <#define ORDER_PP_DEF_>
 
 Order should support various kinds of definitions for ease-of-use.
 
-  <name> ORDER_PP_CONST(<pp-param>)
+  <name> ORDER_PP_CONST(<pp-arg>)
 
-Defines a named constant. The expression ''<name>'' then evaluates to
-''<pp-param>''. Constant definitions can also be function-like macros, but
-except for the highly useful ''quote(<pp-param>)'' there probably aren't
-many uses for such definitions.
+Defines a named constant. The expression ''<name>'' then evaluates
+to ''<pp-arg>''. Constant definitions can also be function-like
+macros, but except for the highly useful ''8(<pp-arg>)'' there
+probably aren't many uses for such definitions.
 
 It should also be possible to get the value of a constant so that it can
 be embedded into another constant. This is necessary to avoid having to
@@ -70,10 +79,11 @@ macro ''ORDER_PP_GET_CONST(<name>)'' should be defined.
   <name>(<pp-args>) ORDER_PP_MACRO(<exp>)
 
 Defines a "macro". The effect is that an expression of the form
-''<name>(<params>)'' is macro replaced to ''<exp>''. The interpreter then
-evaluates the ''<exp>''. Macros are efficient, because the macro
-replacement doesn't take an additional continuation machine step. Macros
-can not be partially applied and may cause surprises.
+''<name>(<params>)'' is macro replaced to ''<exp>''. The interpreter
+then evaluates the ''<exp>''. Macros are efficient, because the
+macro replacement doesn't take an additional continuation machine
+step. Macros can not be generally partially applied and may cause
+surprises.
 
   <name> ORDER_PP_FN(<exp_{fn}>)
   <name> ORDER_PP_FN_CM(<arity>, <instr>)
@@ -83,10 +93,10 @@ can not be partially applied and may cause surprises.
 Each of the above defines a function. Functions take their arguments
 one-by-one and have a fixed arity.
 
-  <name> ORDER_PP_OP(<assoc>,<pp-param_{unit}>,<exp_{fn}>)
-  <name> ORDER_PP_OP_CM(<assoc>,<pp-param_{unit}>,<instr>)
-  <name> ORDER_PP_OP_MACRO(<assoc>,<pp-param_{unit}>,<macro>)
-  <name> ORDER_PP_OP_NATIVE(<assoc>,<pp-param_{unit}>,<macro>)
+  <name> ORDER_PP_OP(<assoc>,<pp-arg_{unit}>,<exp_{fn}>)
+  <name> ORDER_PP_OP_CM(<assoc>,<pp-arg_{unit}>,<instr>)
+  <name> ORDER_PP_OP_MACRO(<assoc>,<pp-arg_{unit}>,<macro>)
+  <name> ORDER_PP_OP_NATIVE(<assoc>,<pp-arg_{unit}>,<macro>)
 
 Each of the above defines an operator. Operators take all of their
 arguments immediately and they can not be applied partially. The
@@ -107,10 +117,10 @@ DATA TYPES
 Aggregate Types
 ---------------
 
-Order should support at least tuples and sequences. Tuples are required
-for passing parameters to macros and are generally useful as input syntax.
-Sequences are more efficient than lists and are also syntactically
-simpler.
+Order should support at least tuples and sequences. Tuples are
+required for passing arguments to macros and are generally useful as
+input syntax. Sequences are more efficient than lists and are also
+syntactically simpler.
 
 Tuples should only require a small number of first-order functions.
 
@@ -131,33 +141,6 @@ queues. (For string processing, a trie might also be useful.)
 TBD!
 
 --------------------------------------------------------------------------
-
-BUILTINS
-========
-
-   8fn(s0, s1, ..., sN, b)
-   8ap(f, x1, ..., xN)
-   8ref(s)
-
-   8quote(x)
-   8(x)
-   8
-
-   8let(s, i, b)
-
-   8do(x0, x1, ..., xN)
-   8rout(x0, x1, ..., xN)
-
-   8if(b, c, a)
-   8and(x0, x1, ..., xN)
-   8or(x0, x1, ..., xN)
-
-   8cat(x0, x1, ..., xN)
-
-   8seq(x0, x1, ..., xN)
-   8tuple(x0, x1, ..., xN)
-
-   8print(syntax)
 
 STANDARD PRELUDE
 ================
@@ -207,18 +190,18 @@ Boolean
 Control
 -------
 
-   8call_cc(fn)  : ((Any -> Any) -> Any) -> Any
+   8call_cc(fn)  : ((a -> b) -> a) -> a
 
-   8eval(exp, env) : Exp -> Env -> Any
+   8eval(env, exp) : Env -> Exp -> a
 
-   8exit(x) : Any -> Any
+   8exit(x) : a -> b
 
-   8for_each(x, cn, st, op) : (Any -> Bool) -> (Any -> Any) -> (Any -> Nil) -> Any -> Nil
+   8for_each(cn, st, op, x) : (a -> Bool) -> (a -> a) -> (a -> b) -> a -> Nil
 
-   8for_each_in_range(i0, i1, op) : Num -> Num -> (Num -> Nil) -> Nil
+   8for_each_in_range(i0, i1, op) : Num -> Num -> (Num -> a) -> Nil
 
-   8while(x, cn, st) : Any -> (Any -> Bool) -> (Any -> Any) -> Any
-   8until(x, cn, st) : Any -> (Any -> Bool) -> (Any -> Any) -> Any
+   8while(cn, st, x) : (a -> Bool) -> (a -> a) -> a -> a
+   8until(cn, st, x) : (a -> Bool) -> (a -> a) -> a -> a
 
    8unless(<exp_{cond}>, <exp_{body}>+)
    8when(<exp_{cond}>, <exp_{body}>+)
@@ -230,69 +213,70 @@ Environments
 
    8env_nil                  : Env
 
-   8env_bind(e, s, x)        : Env -> Sym -> Any -> Env
-   8env_ref(e, s)            : Env -> Sym -> Any
+   8env_bind(s, e, x)        : Sym -> Env -> a -> Env
+   8env_ref(s, e)            : Sym -> Env -> a
 
    8env_to_seq_of_pairs(e)   : Env -> Seq
    8seq_of_pairs_to_env(s)   : Seq -> Env
 
-  -8env_has(e, s)            : Env -> Sym -> Bool
-  -8env_drop(e, s)           : Env -> Sym -> Env
+  -8env_has(s, e)            : Sym -> Env -> Bool
+  -8env_drop(s, e)           : Sym -> Env -> Env
   -8env_join(le, re)         : Env -> Env -> Env
 
 Functional primitives
 ---------------------
 
-   8apply(f, t) : (Any+ -> Any) -> Tuple -> Any
+   8apply(f, t) : (a+ -> b) -> Tuple(a+) -> b
+
+  -8bin_pr(bin, proj) : (a -> a -> b) -> (c -> a) -> (c -> c -> b)
 
    8chain(f0, f1, ..., fN) : (Any -> Any)+ -> (Any -> Any)
 
-   8compose(f, g) : (Any -> Any) -> (Any -> Any) -> (Any -> Any)
+   8compose(f, g) : (a -> b) -> (c -> a) -> (c -> b)
 
-   8identity(x) : Any -> Any
-
-   8ignore(x) : Any -> Nil
+   8identity(x) : a -> a
+   8ignore(x)   : a -> Nil
 
 Nil
 ---
 
    8nil : Nil
 
-   8is_nil(x) : Any -> Bool
+   8is_nil(x) : a -> Bool
 
 Output
 ------
 
-   8put(x) : Any -> Nil
+   8put(x) : a -> Nil
 
-   8emit(m, p) : Any -> Any -> Nil
+   8emit(m, p) : a -> a -> Nil
 
-   8emit_comma(x)  : Any -> Nil
-   8emit_lparen(x) : Any -> Nil
-   8emit_rparen(x) : Any -> Nil
+   8emit_comma(x)  : a -> Nil
+   8emit_lparen(x) : a -> Nil
+   8emit_rparen(x) : a -> Nil
 
-   8emit_params(i0, i1, p)          : Num -> Num -> Any -> Nil
-   8emit_trailing_params(i0, i1, p) : Num -> Num -> Any -> Nil
+   8emit_params(i0, i1, p)          : Num -> Num -> Catenable -> Nil
+   8emit_trailing_params(i0, i1, p) : Num -> Num -> Catenable -> Nil
 
 Preprocessing
 -------------
 
-   8expand(m, p)   : Any -> Any -> Any
+   8expand(m, p)   : a -> b -> c
 
-   8adjacent(l, r) : Any -> Any -> Any
-   8separate(l, r) : Any -> Any -> Any
+   8adjacent(l, r) : a -> b -> c
+   8separate(l, r) : a -> b -> c
 
-   8paste(l, r)    : Any -> Any -> Any
+   8paste(l, r)    : a -> b -> c
 
-   8stringize(x)   : Any -> Any
+   8stringize(x)   : a -> StringLiteral
 
 Symbols
 -------
 
-   8is_sym(x) : Any -> Bool
+   8is_sym(x) : a -> Bool
 
-   8same(x, y)     : Any -> Any -> Bool
-   8not_same(x, y) : Any -> Any -> Bool
+   8same(x, y)     : Sym -> Sym -> Bool
+   8not_same(x, y) : Sym -> Sym -> Bool
 
 Sequences
 ---------
@@ -312,8 +296,8 @@ Sequences
 
   First-order:
 
-   8seq_at(i, s)                  : Num -> Seq -> Any
-   8seq_set(i, s, x)              : Num -> Seq -> Any -> Seq
+   8seq_at(i, s)                  : Num -> Seq -> a
+   8seq_set(i, s, x)              : Num -> Seq -> a -> Seq
    8seq_range(i, n, s)            : Num -> Num -> Seq -> Seq
 
    8seq_first(s)                  : Seq -> Any
@@ -331,69 +315,69 @@ Sequences
    8seq_pop_front(s)              : Seq -> Seq
   -8seq_pop_range(i, n, s)        : Num -> Num -> Seq -> Seq
 
-   8seq_push_at(i, s, x)          : Num -> Seq -> Any -> Seq
-   8seq_push_back(x, s)           : Any -> Seq -> Seq
-   8seq_push_front(x, s)          : Any -> Seq -> Any -> Seq
+   8seq_push_at(i, s, x)          : Num -> Seq -> a -> Seq
+   8seq_push_back(x, s)           : a -> Seq -> Seq
+   8seq_push_front(x, s)          : a -> Seq -> Seq
   -8seq_push_range(i, s, ss)      : Num -> Seq -> Seq -> Seq
 
    8seq_split(i, s)               : Num -> Seq -> Tuple(Seq, Seq)
-   8seq_join(ls, rs)              : Seq -> Seq -> Seq
+  -8seq_join(ls, rs)              : Seq -> Seq -> Seq
+
+  -8seq_zip(ls, rs)               : Seq -> Seq -> Seq
 
    8seq_to_tuple(s)               : Seq -> Tuple
 
   Higher-order:
 
-   8seq_fold(fn, x, s)               : (Any -> Any -> Any) -> Any -> Seq -> Any
-   8seq_unfold(x, cn, st, fn)        : Any -> (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Seq
+   8seq_fold(fn, x, s)               : (a -> b -> a) -> a -> Seq(b) -> a
+   8seq_unfold(cn, st, fn, x)        : (a -> Bool) -> (a -> a) -> (a -> b) -> a -> Seq(b)
 
-   8seq_filter(pr, s)                : (Any -> Bool) -> Seq -> Seq
+   8seq_filter(pr, s)                : (a -> Bool) -> Seq(a) -> Seq(a)
 
-   8seq_for_each(op, s)              : (Any -> Nil) -> Seq -> Nil
-   8seq_for_each_in_product(op, ss)  : (Any+ -> Nil) -> Seq(Seq) -> Nil
-   8seq_for_each_with_idx(op, s)     : (Num -> Any -> Nil) -> Seq -> Nil
-  -8seq_for_each_perm(op, s)         : (Seq -> Nil) -> Seq -> Nil
+   8seq_for_each(op, s)              : (a -> b) -> Seq(a) -> Nil
+   8seq_for_each_in_product(op, ss)  : (Any+ -> b) -> Seq(Seq) -> Nil
+   8seq_for_each_with_idx(op, i0, s) : (Num -> a -> b) -> Num -> Seq(a) -> Nil
+  -8seq_for_each_perm(op, s)         : (Seq(a) -> b) -> Seq(a) -> Nil
 
-   8seq_map(fn, s)                   : (Any -> Any) -> Seq -> Seq
+   8seq_map(fn, s)                   : (a -> b) -> Seq(a) -> Seq(b)
 
-   8seq_merge(pr, los, ros)          : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
-   8seq_merge_sort(pr, s)            : (Any -> Any -> Bool) -> Seq -> Seq
+   8seq_merge(pr, los, ros)          : (a -> a -> Bool) -> Seq(a) -> Seq(a) -> Seq(a)
+   8seq_merge_sort(pr, s)            : (a -> a -> Bool) -> Seq(a) -> Seq(a)
 
-   8seq_partition(pr, s)             : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
-   8seq_partition_sort(pr, s)        : (Any -> Any -> Bool) -> Seq -> Seq
+   8seq_partition(pr, s)             : (a -> Bool) -> Seq(a) -> Tuple(Seq(a), Seq(a))
+   8seq_partition_sort(pr, s)        : (a -> a -> Bool) -> Seq(a) -> Seq(a)
 
-  -8seq_is_sorted(pr, s)             : (Any -> Any -> Bool) -> Seq -> Bool
-   8seq_sort(pr, s)                  : (Any -> Any -> Bool) -> Seq -> Seq
+  -8seq_is_sorted(pr, s)             : (a -> a -> Bool) -> Seq(a) -> Bool
+   8seq_sort(pr, s)                  : (a -> a -> Bool) -> Seq(a) -> Seq(a)
 
-  -8seq_unique(pr, os)               : (Any -> Any -> Bool) -> Seq -> Seq
+  -8seq_unique(pr, os)               : (a -> a -> Bool) -> Seq(a) -> Seq(a)
 
-   8seq_select(pr, x, s)             : (Any -> Any -> Bool) -> Any -> Seq -> Any
+   8seq_select(pr, x, s)             : (a -> a -> Bool) -> a -> Seq(a) -> a
 
-   8seq_exists(pr, s)                : (Any -> Bool) -> Seq -> Bool
-   8seq_for_all(pr, s)               : (Any -> Bool) -> Seq -> Bool
+   8seq_exists(pr, s)                : (a -> Bool) -> Seq(a) -> Bool
+   8seq_for_all(pr, s)               : (a -> Bool) -> Seq(a) -> Bool
 
-  -8seq_zip(ls, rs)                  : Seq -> Seq -> Seq
+  -8seq_count(pr, s)                 : (a -> Bool) -> Seq(a) -> Num
 
-  -8seq_count(pr, s)                 : (Any -> Bool) -> Seq -> Num
+  -8seq_lin_search(pr, s)            : (a -> Bool) -> Seq(a) -> Tuple(Seq(a), Seq(a))
 
-  -8seq_lin_search(pr, s)            : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
+  -8seq_diff(pr, los, ros)           : (a -> a -> Bool) -> Seq(a) -> Seq(a) -> Seq(a)
+  -8seq_insert(pr, x, os)            : (a -> a -> Bool) -> a -> Seq(a) -> Seq(a)
+  -8seq_inters(pr, los, ros)         : (a -> a -> Bool) -> Seq(a) -> Seq(a) -> Seq(a)
+  -8seq_symm_diff(pr, los, ros)      : (a -> a -> Bool) -> Seq(a) -> Seq(a) -> Seq(a)
+  -8seq_union(pr, los, ros)          : (a -> a -> Bool) -> Seq(a) -> Seq(a) -> Seq(a)
 
-  -8seq_diff(pr, los, ros)           : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
-  -8seq_insert(pr, x, os)            : (Any -> Any -> Bool) -> Any -> Seq -> Seq
-  -8seq_inters(pr, los, ros)         : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
-  -8seq_symm_diff(pr, los, ros)      : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
-  -8seq_union(pr, los, ros)          : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
-
-  -8seq_bin_search(pr, s)            : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
+  -8seq_bin_search(pr, s)            : (a -> Bool) -> Seq(a) -> Tuple(Seq(a), Seq(a))
 
 Tuples
 ------
 
-   8is_tuple(x)         : Any -> Bool
+   8is_tuple(x)         : a -> Bool
 
-   8pair(l, r)          : Any -> Any -> Tuple
+   8pair(l, r)          : a -> b -> Tuple(a, b)
 
-   8tuple_at(i, t)      : Num -> Tuple -> Any
-   8tuple_at_[0,9](t)   : Tuple -> Any
+   8tuple_at(i, t)      : Num -> Tuple -> a
+   8tuple_at_[0,9](t)   : Tuple -> a
 
    8tuple_rest(t)       : Tuple -> Tuple
    8tuple_rest_n(n, t)  : Num -> Tuple -> Tuple
@@ -401,7 +385,7 @@ Tuples
 
    8tuple_size(t)       : Tuple -> Num
 
-   8tuple_to_seq(t)     : Tuple -> Seq
+   8tuple_to_seq(t)     : Tuple(a+) -> Seq(a)
 
 --------------------------------------------------------------------------
 

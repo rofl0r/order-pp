@@ -38,7 +38,8 @@ ORDER_PP(8seq_for_each                                                  \
                                                    8to_lit(8I),         \
                                                    8(_TYPE_),           \
                                                    8C)                  \
-                                 (;)))))),                              \
+                                 (;))),                                 \
+                      0))),                                             \
           8(variants)))                                                 \
                                                                         \
 struct type_name {                                                      \
@@ -72,6 +73,7 @@ struct {                                                                \
   ORDER_PP(8seq_for_each_with_idx                                       \
            (8fn(8I, 8T,                                                 \
                 8print(8T 8cat(8(_), 8to_lit(8I)) (;))),                \
+            0,                                                          \
             8(field_types)))                                            \
 } variant_name;
 
@@ -130,6 +132,7 @@ case DATATYPE_TAG_##variant_name: {                                             
                             8F (=)                                              \
                             (ORDER_PP_FRESH_ID(value)->datum.variant_name.)     \
                             8cat(8(_),8I) (;)))),                               \
+            0,                                                                  \
             8(field_names)))                                                    \
   do { __VA_ARGS__ } while (0);                                                 \
   break;                                                                        \
