@@ -33,7 +33,7 @@ void array_neg_si(const signed int* in,
                   signed int* out,
                   int n) {
   if (n > 0) do {
-    *out++ = op *in++;
+    *out++ = - *in++;
   } while (--n);
 }
 #endif
@@ -176,9 +176,9 @@ ORDER_OP(fn(T,                                  \
  * integer.
  *
  * The rule for usual arithmetic conversion on a binary operation is that
- * the type of usual artithetic conversion is the type of the higher rank
- * type after integer promotion. The rule translates to the
- * type_of_conversion(L,R) metafunction below:
+ * the type of the result is the type of the higher ranking type after
+ * integer promotion. The rule translates to the type_of_conversion(L,R)
+ * metafunction below:
  */
 
 #define ORDER_DEF_type_of_conversion                    \
@@ -346,8 +346,8 @@ ORDER_OP(fn(O,T,                                                \
  * macro and then emits the expansion.
  *
  * We now generate code for all unary array procedures by invoking the
- * gen_array_uop(O,T) metafunction in two batches. First
- * for the non-floating point operators and non-floating point types.
+ * gen_array_uop(O,T) metafunction in two batches. First for the
+ * non-floating point operators and non-floating point types.
  */
 
 ORDER(seq_for_each_in_product
