@@ -38,19 +38,7 @@
 
 #define ORDER_PP_8STOP(P,x,...) ,x##P)
 
-#define ORDER_PP_8REMAP_10(P,_0,_1,K,...) ORDER_PP_##K(,_1##P,_0##P,P##__VA_ARGS__)
-
-#define ORDER_PP_8REMAP_021(P,_0,_1,_2,K,...) ORDER_PP_##K(,_0##P,_2##P,_1##P,P##__VA_ARGS__)
-#define ORDER_PP_8REMAP_102(P,_0,_1,_2,K,...) ORDER_PP_##K(,_1##P,_0##P,_2##P,P##__VA_ARGS__)
-#define ORDER_PP_8REMAP_120(P,_0,_1,_2,K,...) ORDER_PP_##K(,_1##P,_2##P,_0##P,P##__VA_ARGS__)
-#define ORDER_PP_8REMAP_201(P,_0,_1,_2,K,...) ORDER_PP_##K(,_2##P,_0##P,_1##P,P##__VA_ARGS__)
-#define ORDER_PP_8REMAP_210(P,_0,_1,_2,K,...) ORDER_PP_##K(,_2##P,_1##P,_0##P,P##__VA_ARGS__)
-
-#define ORDER_PP_8REMAP_2013(P,_0,_1,_2,_3,K,...) ORDER_PP_##K(,_2##P,_0##P,_1##P,_3##P,P##__VA_ARGS__)
-#define ORDER_PP_8REMAP_3012(P,_0,_1,_2,_3,K,...) ORDER_PP_##K(,_3##P,_0##P,_1##P,_2##P,P##__VA_ARGS__)
-
-#define ORDER_PP_8REMAP_01120(P,_0,_1,_2,K,...) ORDER_PP_##K(,_0##P,_1##P,_1##P,_2##P,_0##P,P##__VA_ARGS__)
-#define ORDER_PP_8REMAP_10021(P,_0,_1,_2,K,...) ORDER_PP_##K(,_1##P,_0##P,_0##P,_2##P,_1##P,P##__VA_ARGS__)
+#define ORDER_PP_8PAIR(P,l,r,...) (,(P##l,P##r),P##__VA_ARGS__)
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
 

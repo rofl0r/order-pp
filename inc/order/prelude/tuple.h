@@ -5,8 +5,8 @@
 #define ORDER_PP_DEF_8is_tuple ORDER_PP_FN_NATIVE(1,9IS_TUPLE)
 #define ORDER_PP_9IS_TUPLE(P,t) ORDER_PP_IS_EDIBLE(,P##t)(,8true,8false)
 
-#define ORDER_PP_DEF_8pair ORDER_PP_FN_CM(2,9PAIR)
-#define ORDER_PP_8PAIR(P,l,r,...) (,(P##l,P##r),P##__VA_ARGS__)
+#define ORDER_PP_DEF_8pair ORDER_PP_FN_NATIVE(2,9PAIR)
+#define ORDER_PP_9PAIR(P,l,r) (P##l,P##r)
 
 #define ORDER_PP_DEF_8tuple_at ORDER_PP_FN_NATIVE(2,9TUPLE_AT)
 #define ORDER_PP_9TUPLE_AT(P,i,t) ORDER_PP_TEST(ORDER_PP_TUPLE_AT_,ORDER_PP_IS_EDIBLE_TEST P##i,NAT,LIT)(,P##i,P##t)
