@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# (C) Copyright Vesa Karvonen 2004.
+#
+# Distributed under the Boost Software License, Version 1.0.
+
+function stats {
+    local code="$(cat $1)"
+
+    echo "\
+  Source files     : $(echo "$1" | wc -l)
+  Source lines     : $(cat $1 | wc -l)
+  Source bytes     : $(cat $1 | wc -c)
+  Comment lines    : $(echo "$code" | grep "^[ \t]*//" | wc -l)
+  Macros           : $(echo "$code" | grep "^#[ \t]*define" | wc -l)
+  Order DEF_8 defs : $(echo "$code" | grep "^#[ \t]*define[ \t]\\+ORDER_PP_DEF_8" | wc -l)
+  Order SYM   defs : $(echo "$code" | grep "^#[ \t]*define[ \t]\\+ORDER_PP_SYM_" | wc -l)
+  Order TOKEN defs : $(echo "$code" | grep "^#[ \t]*define[ \t]\\+ORDER_PP_TOKEN_" | wc -l)"
+}
+
+echo "\
+Order interpreter plus prelude statistics
+
+$(stats "$(find inc -name '*.h' -a -not -path '*/lib/*')")
+
+Order library statistics
+
+$(stats "$(find inc -name '*.h' -a -path '*/lib/*')")"
