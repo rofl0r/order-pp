@@ -24,7 +24,6 @@
 #define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
 #define ORDER_PP_REVERSE_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(r,l)
 #define ORDER_PP_PRIMITIVE_CAT(l,r) l##r
-#define ORDER_PP_PRIMITIVE_CAT_4(_0,_1,_2,_3) _0##_1##_2##_3
 #define ORDER_PP_BOTH(P,...) P##__VA_ARGS__##P
 #define ORDER_PP_LEFT(P,...) P##__VA_ARGS__
 #define ORDER_PP_RIGHT(P,...) __VA_ARGS__##P
