@@ -8,6 +8,28 @@
 doc=tom
 tmpDir=.tmp
 
+function ebnf-to-ltx {
+    sed -e                               's#{#\\{#g' \
+        -e                               's#}#\\}#g' \
+        -e     's#^[ \t]*\([0-9A-Za-z{},\\]\)#\&\&\1#g'  \
+        -e                             's#::=# \& \$::=\$ \&#g' \
+        -e                            's#^ *|# \&  \$|\$  \&#g' \
+        -e                        's#^[ \t]*$# \&         \&    \& \\emph{#g' \
+        -e                            's# ;; # \& \\emph{#g' \
+        -e                   's#-\([a-z]\+>\)#>-<\1#g' \
+        -e                               's#<#\$\\mathit{#g' \
+        -e                               's#>#}\$#g' \
+        -e                               's#+#\$^+\$#g' \
+        -e                               's#?#\$^?\$#g' \
+        -e                         's#\\{,\\}#\$^{\\{,\\}}\$#g' \
+        -e                               's#(#\\code{(}#g' \
+        -e                               's#)#\\code{)}#g' \
+        -e                              's#, #\\code{,} #g' \
+        -e "s#\([^\`]\)\`\\([^\`\{\}']\\+\\)'#\\1\\\\code{\\2}#g" \
+        -e             's#_\([0-9A-Za-z-]\+\)#_{\1}#g' \
+        -e                               's#$#}\\\\#g'
+}
+
 function cpp-to-ltx {
     sed -e 's:^// (C) Copyright Vesa Karvonen 2004.$::g' \
         -e 's:^// Distributed under the Boost Software License, Version 1.0.$::g' \
@@ -28,6 +50,7 @@ function cpp-to-ltx {
 
 mkdir -p "$tmpDir" && \
 cp *.ltx *.bib "$tmpDir/" && \
+for f in *.ebnf ; do cat "$f" | ebnf-to-ltx > "$tmpDir/$(echo "$f" | sed 's#\.ebnf$#\.ltx#g')" ; done && \
 cat "../../example/array_ops.c"                                     | cpp-to-ltx > "$tmpDir/array-ops.ltx"     && \
 cat "../../example/average.h" "../../example/average.c"             | cpp-to-ltx > "$tmpDir/average.ltx"       && \
 cat "../../example/binary.h" "../../example/binary.c"               | cpp-to-ltx > "$tmpDir/binary.ltx"        && \
