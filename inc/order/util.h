@@ -43,6 +43,9 @@
 #define ORDER_PP_REM(...) __VA_ARGS__
 #define ORDER_PP_SCAN(...) __VA_ARGS__
 
+#define ORDER_PP_SAFE_OPEN(...) ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,,ORDER_PP_SAFE_OPEN_B)(__VA_ARGS__)
+#define ORDER_PP_SAFE_OPEN_B(f,...) __VA_ARGS__
+
 #define ORDER_PP_INVOKE(K,...) ORDER_PP_##K(,__VA_ARGS__
 
 #define ORDER_PP_8AP(P,f,x,...) (,P##x,ORDER_PP_OPEN f##P,P##__VA_ARGS__)
