@@ -6,15 +6,20 @@
 #define ORDER_PP_8CALL_CC(P,f,...) (,(,8REPLACE_C,(,P##__VA_ARGS__)),ORDER_PP_OPEN f##P,P##__VA_ARGS__)
 #define ORDER_PP_8REPLACE_C(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P)
 
-#define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
-#define ORDER_PP_8EXIT(P,x,...) ,(,1,x##P))
-
 #define ORDER_PP_DEF_8eval ORDER_PP_FN_CM(2,8EVAL)
 #ifdef ORDER_PP_DEBUG
 #define ORDER_PP_8EVAL(P,t,e,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #else
 #define ORDER_PP_8EVAL(P,t,e,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #endif
+
+#define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
+#define ORDER_PP_8EXIT(P,x,...) ,(,1,x##P))
+
+#define ORDER_PP_DEF_8for_each ORDER_PP_FN_CM(4,8FOR_EACH)
+#define ORDER_PP_8FOR_EACH(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_B(P,b,x,c,s,f,...) (,ORDER_PP_WHEN_##b(,x##P,ORDER_PP_OPEN f##P,8FOR_EACH_C,x##P,c##P,s##P,f##P),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_C(P,_,x,c,s,...) (,P##x,ORDER_PP_OPEN s##P,8FOR_EACH,P##c,P##s,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8for_each_in_range ORDER_PP_FN_CM(3,8FOR_EACH_IN_RANGE)
 #define ORDER_PP_8FOR_EACH_IN_RANGE(P,i0,i1,...) (,,ORDER_PP_FX(8FOR_EACH_IN_RANGE_B,(,ORDER_PP_NUM_BOP(,LESS,P##i0,P##i1)(ORDER_PP_8FOR_EACH_IN_RANGE_,INC,DEC)(,P##i0,P##i1))),P##__VA_ARGS__)
@@ -25,11 +30,6 @@
 #define ORDER_PP_8FOR_EACH_IN_RANGE_LIT_8INC(P,_,i,n,f,...) (,ORDER_PP_LIT_IS_0(,P##n)(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_LIT_8INC,ORDER_PP_LIT_INC_##i,ORDER_PP_LIT_DEC_##n,P##f),P##__VA_ARGS__)
 #define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8DEC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8DEC,ORDER_PP_NAT_PRED i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
 #define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8INC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8INC,ORDER_PP_NAT_SUCC i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
-
-#define ORDER_PP_DEF_8for_each ORDER_PP_FN_CM(4,8FOR_EACH)
-#define ORDER_PP_8FOR_EACH(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##__VA_ARGS__)
-#define ORDER_PP_8FOR_EACH_B(P,b,x,c,s,f,...) (,ORDER_PP_WHEN_##b(,x##P,ORDER_PP_OPEN f##P,8FOR_EACH_C,x##P,c##P,s##P,f##P),P##__VA_ARGS__)
-#define ORDER_PP_8FOR_EACH_C(P,_,x,c,s,...) (,P##x,ORDER_PP_OPEN s##P,8FOR_EACH,P##c,P##s,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8unless(cond,...) 8EVAL_IF,cond,8nil,8do(__VA_ARGS__),
 
