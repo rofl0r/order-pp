@@ -151,6 +151,7 @@
 8seq_drop(8nat(0),8((1)(2)(3)(4)))#( 1 ) ( 2 ) ( 3 ) ( 4 )#
 8seq_drop(8nat(3),8((1)(2)(3)(4)))#( 4 )#
 8seq_drop(8nat(4),8((1)(2)(3)(4)))##
+8seq_exists(8is_0,8seq(2))#8false#
 8seq_exists(8same(8(8A)),8((8A)(8B)(8C)(8D)))#8true#
 8seq_exists(8same(8(8A)),8())#8false#
 8seq_exists(8same(8(8C)),8((8A)(8B)(8C)(8D)(8E)))#8true#
@@ -165,6 +166,7 @@
 8seq_for_all(8greater(5),8seq(1,2,6,4))#8false#
 8seq_for_all(8greater(5),8seq(5,2,3,4))#8false#
 8seq_for_all(8greater(5),8seq)#8true#
+8seq_for_all(8is_0,8seq(2))#8false#
 8seq_for_each(8emit(8(X)),8seq_filter(8chain(8not,8not),8((8true)(8false)(8true)(8false)(8true))))#X 8true X 8true X 8true#
 8seq_for_each(8fn(8_,8exit(8(!))),8seq)##
 8seq_for_each(8put,8seq(8(!),8(%),8(?),8(^)))#!%?^#
