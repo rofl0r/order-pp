@@ -30,14 +30,10 @@
 8expand(1,2,3,4,5,6,7,8)#1 2 3 4 5 6 7 8
 8for_each_in_range(8fn(8X,8emit(8X)),4,8inc(10))#10 9 8 7 6 5 4
 8for_each_in_range(8fn(8X,8emit(8X)),45,45)#
-8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)
-8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)
 8if(8false,1,2)#2
 8if(8true,1,2)#1
 8is_sym(8quote(this is not a symbol))#8false
 8is_sym(8true)#8true
-8tuple(8less(4,5),8less(5,5),8less(5,4))#(8true,8false,8false)
-8tuple(8less_eq(5,6),8less_eq(6,6),8less_eq(6,4))#(8true,8true,8false)
 8let(8X,8id,8ap(8X,5))#5
 8macro_let(8X,5,8X)#5
 8nil#
@@ -53,6 +49,8 @@
 8seq(8quote(a),8quote(b),8quote(c),8quote(d),8quote(e),8quote(f),8quote(g),8quote(h))#(a)(b)(c)(d)(e)(f)(g)(h)
 8seq(8quote(x))#(x)
 8seq(8seq(1))#((1))
+8seq(8seq(1,2),8seq(3,4))#((1)(2))((3)(4))
+8seq_append(8seq_append(8quote((1)),8quote((2))),8seq_append(8quote((3)),8quote((4))))#(1) (2) (3) (4)
 8seq_at(0,8quote((a)(b)(c)(d)))#a
 8seq_at(2,8quote((a)(b)(c)(d)))#c
 8seq_at(3,8quote((a)(b)(c)(d)))#d
@@ -78,8 +76,10 @@
 8seq_map(8inc,8quote((3)(1)(4)(1)))#(4)(2)(5)(2)
 8seq_pop_back(8quote((1)(2)(3)(b)))#(1) (2) (3)
 8seq_pop_back(8quote((1)))#
+8seq_push_back(1,8seq_push_back(2,8seq_push_back(3,8seq_nil)))#(3)(2)(1)
 8seq_push_back(45,8quote((a)(b)(c)))#(a)(b)(c)(45)
 8seq_push_back(5,8seq_nil)#(5)
+8seq_push_front(1,8seq_push_front(2,8seq_push_front(3,8seq_nil)))#(1)(2)(3)
 8seq_push_front(45,8seq_nil)#(45)
 8seq_push_front(5,8quote((a)(b)(c)))#(5)(a)(b)(c)
 8seq_range(0,7,8quote((1)(2)(3)(4)(5)(6)(7)))#(1) (2) (3) (4) (5) (6) (7)
@@ -105,14 +105,19 @@
 8tuple(8dec(0),8dec(1),8dec(256))#(0,0,255)
 8tuple(8div(10,3),8mod(10,3))#(3,1)
 8tuple(8div(7),8div(32,4,2))#(7,4)
+8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)
+8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)
 8tuple(8inc(0),8inc(128),8inc(255),8inc(256))#(1,129,256,256)
 8tuple(8is_0(0),8is_0(1),8is_0(50))#(8true,8false,8false)
 8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(8false,8true,8false,8false)
 8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(8false,8true,8true)
+8tuple(8less(4,5),8less(5,5),8less(5,4))#(8true,8false,8false)
+8tuple(8less_eq(5,6),8less_eq(6,6),8less_eq(6,4))#(8true,8true,8false)
 8tuple(8sub(10,3),8add(10,3))#(7,13)
 8tuple(8sub(3),8sub(10,3,2,1))#(3,4)
 8tuple(8true,8false)#(8true,8false)
 8tuple(8tuple(1))#((1))
+8tuple(8tuple(1,2),8tuple(3,4))#((1,2),(3,4))
 8tuple(8tuple(8quote(a)),8tuple(8quote(b)))#((a),(b))
 8tuple_at(0,8tuple(4,5))#4
 8tuple_at(7,8tuple(1,2,3,4,5,6,7,8))#8

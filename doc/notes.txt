@@ -165,13 +165,16 @@ First-order functions
 
    8exit(8X) : Any -> Any
 
+   8not(8X) : Bool -> Bool
+
    8inc(8N) : Num -> Num
    8dec(8N) : Num -> Num
 
-   8not(8X) : Bool -> Bool
-
    8is_0(8N)   : Num -> Bool
    8isnt_0(8N) : Num -> Bool
+
+   8mod(8LN,8RN) : Num -> Num -> Num
+   8div_mod(8LN,8RN) : Num -> Num -> Tuple(Num,Num)
 
    8equal(8LS,8RS)  : Sym -> Sym -> Bool
    8not_eq(8LS,8RS) : Sym -> Sym -> Bool

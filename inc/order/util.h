@@ -19,6 +19,7 @@
 #define ORDER_PP_CM_INVOKE(K,...) ORDER_PP_CM_##K(,__VA_ARGS__
 
 #define ORDER_PP_CM_8REMAP_01120(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_0,P##_1,P##_1,P##_2,P##_0,P##__VA_ARGS__)
+#define ORDER_PP_CM_8REMAP_021(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_0,P##_2,P##_1,P##__VA_ARGS__)
 #define ORDER_PP_CM_8REMAP_10(P,_0,_1,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##__VA_ARGS__)
 #define ORDER_PP_CM_8REMAP_10021(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##_0,P##_2,P##_1,P##__VA_ARGS__)
 #define ORDER_PP_CM_8REMAP_102(P,_0,_1,_2,K,...) ORDER_PP_CM_##K(,P##_1,P##_0,P##_2,P##__VA_ARGS__)
