@@ -11,6 +11,7 @@
 8ap(8ap(8ap(8fn(8X,8Y,8Z,8Z),8act(!)),8act(%)),8act(?))#ACT (?)??????????????????#<ws>
 8ap(8ap(8ap(8identity)),8(0))#0#<ws>
 8ap(8ap(8id),8act(!))#ACT (!)!!!!!!!!!!!!!!!!#<ws>
+8ap(8bin_pr(8less,8tuple_at_0),8tuple(1),8tuple(2))#8true#<ws>
 8ap(8chain(8to_lit,8dec,8seq_size,8seq_rest),8seq(1,2,3))#1#<ws>
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8H),8act(!),8act(%),8act(?),8act(^),8act(~),8act(*),8act(;),8act([))#TCA ([)[[[[[[[[[[[[[[[[[#<ws>
 8ap(8fn(8X,8X),8act(!))#ACT (!)!!!!!!!!!!!!!!!!!!#<ws>
