@@ -61,3 +61,7 @@ tuple(tuple(1))#((1))
 tuple(tuple(const(a)),tuple(const(b)))#((a),(b))
 tuple_at(tuple(1,2,3,4,5,6,7,8),7)#8
 tuple_at(tuple(4,5),0)#4
+unless(false,emit(3),emit(2),1)#1 2 3
+unless(true,emit(3),emit(2),1)#
+when(false,emit(5))#
+when(true,emit(1),emit(2),3)#3 2 1

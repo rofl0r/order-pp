@@ -7,6 +7,7 @@
  */
 
 #include "order/prelude/boolean.h"
+#include "order/prelude/control.h"
 #include "order/prelude/emit.h"
 #include "order/prelude/nil.h"
 #include "order/prelude/numeric.h"
