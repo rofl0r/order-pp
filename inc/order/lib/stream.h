@@ -21,9 +21,9 @@
 
 #define ORDER_PP_DEF_8seq_to_stream                                             \
 ORDER_PP_FN(8fn(8S,                                                             \
-                8stream_map(8seq_first,                                         \
+                8stream_map(8seq_head,                                          \
                             8stream_take_while(8seq_isnt_nil,                   \
-                                               8stream_iterate(8seq_rest,       \
+                                               8stream_iterate(8seq_tail,       \
                                                                8S)))))
 
 #define ORDER_PP_DEF_8stream_cons(f,r) ORDER_PP_MACRO(8pair(f,8delay(r)))

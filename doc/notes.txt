@@ -327,8 +327,8 @@ Sequences
                                                                                        8less_eq(i0, 8seq_size(s)),
                                                                                        8less_eq(i1, 8seq_size(s)))
 
-  -8seq_head(s)                   : Seq -> Any                             -where 8seq_isnt_nil(s)
-  -8seq_tail(s)                   : Seq -> Seq                             -where 8seq_isnt_nil(s)
+   8seq_head(s)                   : Seq -> Any                             -where 8seq_isnt_nil(s)
+   8seq_tail(s)                   : Seq -> Seq                             -where 8seq_isnt_nil(s)
 
   -8seq_last(s)                   : Seq -> Any                             -where 8seq_isnt_nil(s)
   -8seq_lead(s)                   : Seq -> Seq                             -where 8seq_isnt_nil(s)
