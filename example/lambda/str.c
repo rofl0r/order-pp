@@ -6,8 +6,10 @@
 #include "str.h"
 #include <assert.h>
 #include <ctype.h>
+#include <limits.h>
 #include <stdarg.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
 str_type str_intern(str_type str) {
@@ -116,4 +118,14 @@ _Bool str_match_prefix(str_type *pstr, str_type maybe_prefix) {
   } else {
     return 0;
   }
+}
+
+str_type uint_to_str(unsigned int n) {
+  const int result_size = (sizeof(n)*CHAR_BIT + 2)/3 + 1;
+  char* result = checked_malloc(result_size);
+  int required_size = snprintf(result, result_size, "%u", n);
+  // We do not expect errors, because the result buffer can hold the
+  // base 10 representation of any unsigned integer.
+  assert(0 <= required_size && required_size <= result_size);
+  return str_intern(result);
 }

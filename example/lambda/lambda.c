@@ -14,10 +14,12 @@
 // ## An evaluator for the lambda calculus
 //
 // We will now implement a simple interpreter for the lambda
-// calculus using the data type facility ("datatype.h") and the
-// backtracking recursive descent parser generator ("brd_parser.h").
+// calculus using the variant record generator ("datatype.h") and
+// the backtracking recursive descent parser generator
+// ("brd_parser.h"). We will discuss the generators here only
+// briefly. The reader should already be familiar with them.
 //
-// ### Representation of data
+// ### Representation of programs
 //
 // Let's start by defining the most important data types used in the
 // interpreter.
@@ -67,82 +69,14 @@ DATATYPE_define((prg_type,
 // set of variant records has a cyclic dependency relation, then
 // there is no choice, but to define them all at once.
 //
-// In general, the `DATATYPE_define' form takes a sequence of
+// In general, the `DATATYPE_define' macro takes a sequence of
 // variant record type definitions. Each type definition consists of
 // a pair of the type name and the sequence of constructors
 // definitions. Each constructor definitions is a pair consisting of
 // the constructor name and a sequence of field types. The
-// `DATATYPE_define' form then produces definitions of all the
+// `DATATYPE_define' macro then produces definitions of all the
 // variant record types along with constructor functions for all the
 // variant constructors.
-//
-// We will also be using environments to store the values of named
-// definitions. In our interpreter, the names will be identifiers
-// and the values will be expressions. A convenient, although not
-// very efficient, way to represent environments is to use
-// association lists. An association list is essentially a linked
-// list whose nodes contain a pair containing a key and a value. We
-// will represent environments using a variant record that mimics an
-// association list.
-
-DATATYPE_define((env_type,
-                 (Env_Bind,
-                  (id_type)(exp_type)(env_type))
-                 (Env_Nil,
-                  )))
-
-// Note that `Env_Nil' is a nullary constructor.
-//
-// While we are at it, why don't we define a function that finds and
-// returns the expression associated with an identifier from an
-// environment. The `env_get' function
-
-static exp_type env_get(env_type env, id_type var) {
-  DATATYPE_switch
-    (env, env_type,
-     (Env_Bind,(key)(value)(rest), {
-       return key == var
-         ? value
-         : env_get(rest, var); })
-     (Env_Nil,, {
-       ERROR_exit("Unbound variable '%s'.", var); }));
-}
-
-// uses the `DATATYPE_switch' form to deconstruct environments. The
-// `DATATYPE_switch' form takes three parameters. The first
-// parameter is the expresion whose value is to be deconstructed.
-// The second is the type of the value. The third parameter is a
-// sequence of cases. Each case, represented by a variadic tuple,
-// names a constructor and variables to be bound to the fields of
-// the constructor and ends with the code to be executed if the
-// constructor matches the value. Strictly speaking, it isn't
-// necessary to make the code into a block by surrouding it with
-// braces, but it can makes the code stand out making it easier to
-// read.
-//
-// The `DATATYPE_switch' form generates code that evaluates the
-// given expression and examines its value to decide which case to
-// execute, depending on the constructor. Then the variables
-// specified along with the constructor pattern are given the values
-// of the fields of the variant. The combination of case analysis
-// and the binding of variables to fields makes `DATATYPE_switch'
-// rather convenient to use compared to writing code with similar
-// semantics manually.
-//
-// On a `Env_Bind' variant, `env_get' tests whether the key stored
-// in the variant is the same as the identifier being looked up. If
-// that is the case, then the associated value is returned.
-// Otherwise the function calls itself recursively to process the
-// rest of the environment. We will be using recursion throughout
-// the interpreter. Recursion is a natural way to process inductive
-// variant records.
-//
-// The second variant of an environment is `Env_Nil', which
-// terminates the association list. If `env_get' reaches `Env_Nil',
-// it directly reports an error and terminates the program. In a
-// more serious language implementation, such a simple error
-// handling strategy would probably not be appropriate. We leave it
-// as an exercise to the reader to implement better error messages.
 //
 // ### Unparsing programs
 //
@@ -202,8 +136,34 @@ static str_type exp_unparse(exp_type exp) {
        return var; }));
 }
 
-// As could be expected, the `exp_unparse' function uses the
-// `DATATYPE_switch' form and recursion.
+// The most interesting thing in `exp_unparse' is the use of the
+// `DATATYPE_switch' macro. Everything else is quite obvious.
+//
+// The `DATATYPE_switch' macro takes three parameters. The first
+// parameter is the expression whose value is to be deconstructed.
+// The second is the type of the value. The third parameter is a
+// sequence of cases. Each case, represented by a variadic tuple,
+// names a constructor and variables to be bound to the fields of
+// the constructor and ends with the code to be executed if the
+// constructor matches the value. Strictly speaking, it isn't
+// necessary to make the code into a block by surrouding it with
+// braces, but it can makes the code stand out making it easier to
+// read.
+//
+// The `DATATYPE_switch' macro generates code that evaluates the
+// given expression and examines its value to decide which case to
+// execute, depending on the constructor. Then the variables
+// specified along with the constructor pattern are given the values
+// of the fields of the variant. The combination of case analysis
+// and the binding of variables to fields makes `DATATYPE_switch'
+// rather convenient to use compared to writing code with similar
+// semantics manually.
+//
+// You might also make a note of the use of recursion. Recursion is
+// a natural way to implement algorithms on variant records. While C
+// doesn't require a compiler to implement tail recursion
+// optimizations, a good compiler implements it anyway and the
+// performance cost of using recursion is not prohibitive.
 //
 // Then we'll define a simple function `def_unparse' to translate a
 // definition to a string containing the concrete syntax of a
@@ -238,22 +198,22 @@ static str_type prg_unparse(prg_type prg) {
 //
 // We will now turn to the evaluation of programs. The simple
 // evaluator we will implement here is based on beta reduction, that
-// is, substition of values for variables.
+// is, substitution of values for variables.
 //
 // We will start by defining the `exp_subst' function, which
-// substitutes a given expresion for the variable `id' in an
+// substitutes a given expression for a given variable in another
 // expression.
 
-static exp_type exp_subst(id_type id, exp_type in, exp_type with) {
+static exp_type exp_subst(exp_type with, id_type id, exp_type in) {
   DATATYPE_switch
     (in, exp_type,
      (Exp_Lambda,(var)(body), {
        return var == id
          ? in
-         : Exp_Lambda(var, exp_subst(id, body, with)); })
+         : Exp_Lambda(var, exp_subst(with, id, body)); })
      (Exp_Apply,(lhs)(rhs), {
-       return Exp_Apply(exp_subst(id, lhs, with),
-                        exp_subst(id, rhs, with)); })
+       return Exp_Apply(exp_subst(with, id, lhs),
+                        exp_subst(with, id, rhs)); })
      (Exp_Var,(var), {
        return var == id
           ? with
@@ -261,47 +221,103 @@ static exp_type exp_subst(id_type id, exp_type in, exp_type with) {
 }
 
 // Then we will define the function `exp_reduce', which reduces, or
-// evaluates, a given expression.
+// evaluates, a given expression. Our `exp_reduce' has the strict
+// semantics, meaning that arguments are evaluated before
+// substitution.
 
-static exp_type exp_reduce(exp_type exp, env_type env) {
+static exp_type exp_reduce(exp_type exp) {
   DATATYPE_switch
     (exp, exp_type,
      (Exp_Lambda,, {
        return exp; })
      (Exp_Apply,(lhs)(rhs), {
        DATATYPE_switch
-         (exp_reduce(lhs, env), exp_type,
+         (exp_reduce(lhs), exp_type,
           (Exp_Lambda,(var)(body), {
-            return exp_reduce(exp_subst(var,
-                                        body,
-                                        exp_reduce(rhs, env)),
-                              env); })
+            return exp_reduce(exp_subst(exp_reduce(rhs),
+                                        var,
+                                        body)); })
           (Exp_Apply,, {
             ERROR_exit("'%s' doesn't reduce to a Lambda.",
                        exp_unparse(lhs)); })
           (Exp_Var,, {
             ERROR_exit("'%s' doesn't reduce to a Lambda.",
                        exp_unparse(lhs)); })); })
-     (Exp_Var,(var), { 
-       return env_get(env, var); }));
+     (Exp_Var,(var), {
+       ERROR_exit("Unbound variable '%s'.", var); }));
 }
 
-static exp_type prg_eval(prg_type prg, env_type env) {
+// The astute reader familiar with lambda calculus and beta
+// reduction might now be thinking that we forgot alpha conversion,
+// that is, renaming of bound variables to avoid incorrect variable
+// capture. We could have handled alpha conversion in `exp_reduce',
+// like is often done in mathematical definitions of beta reduction,
+// but doing so would be inefficient, leading to repeated alpha
+// conversion of the same variables. Instead, we will perform full
+// alpha conversion just once.
+//
+// First we'll define the function `id_fresh' that generates a fresh
+// identifier. We make a point of making the form of the generated
+// identifier such that it doesn't correspond to the syntax of the
+// language.
+
+static id_type id_fresh(id_type base) {
+  static unsigned int counter = 0;
+
+  if (!++counter)
+    ERROR_exit("Counter overflow.");
+
+  return str_cat(base, "{", uint_to_str(counter), "}", str_end);
+}
+
+// Then we'll define the function `exp_fresh' which renames all
+// bound variables in an expression producing a new expression.
+
+static exp_type exp_fresh(exp_type exp) {
+  DATATYPE_switch
+    (exp, exp_type,
+     (Exp_Lambda,(var)(body), {
+       id_type new_var = id_fresh(var);
+       return Exp_Lambda(new_var,
+                         exp_fresh(exp_subst(Exp_Var(new_var), var, body))); })
+     (Exp_Apply,(lhs)(rhs), {
+       return Exp_Apply(exp_fresh(lhs), exp_fresh(rhs)); })
+     (Exp_Var,, {
+       return exp; }));
+}
+
+// There is one more thing left to do. Definitions are not a normal
+// part of the lambda calculus and aren't evaluated by our previous
+// functions. For the sake of simplicity and to demonstrate that
+// definitions aren't actually needed, we will simply convert a
+// program into an expression by turning definitions into an
+// expression that applies the body of a definition to a lambda
+// whose variable is the name of the definition and whose body is
+// the rest of the program.
+
+static exp_type prg_to_exp(prg_type prg) {
   DATATYPE_switch
     (prg, prg_type,
      (Prg_Def,(first)(rest), {
        DATATYPE_switch
          (first, def_type,
           (Def,(var)(body), {
-            return prg_eval(rest,
-                            Env_Bind(var,
-                                     exp_reduce(body, env),
-                                     env)); })); })
+            return Exp_Apply(Exp_Lambda(var, prg_to_exp(rest)),
+                             body); })); })
      (Prg_Exp,(last), {
-       return exp_reduce(last, env); }));
+       return last; }));
 }
 
+// We could now build programs by calling the variant constructors
+// by hand and then calling the evaluation functions. However, we
+// will not do it, because it is much more convenient to define a
+// parser and then use the much shorter concrete syntax.
+//
 // ### The parser
+//
+// We will use the simple backtracking recursive descent parser
+// generator ("brd_parser.h") to implement the parser, but first we
+// need a function for lexing an identifier token.
 
 static _Bool id_parse(str_type *pstr, id_type *id) {
   assert(pstr);
@@ -320,6 +336,10 @@ static _Bool id_parse(str_type *pstr, id_type *id) {
 
   return 1;
 }
+
+// With the `id_parse' and a couple of functions provided by the
+// `str'-module ("str.h" and "str.c"), namely `str_skip_spaces' and
+// `str_match_prefix', we are ready to define the parser.
 
 BRD_PARSER(static, prg_parse,
            str_skip_spaces, str_match_prefix,
@@ -340,6 +360,29 @@ BRD_PARSER(static, prg_parse,
             ((id,var), {
               *exp = Exp_Var(var); })))
 
+// The `BRD_PARSER' macro implements the simple parser generator.
+// The first two parameters of the macro specificy the linkage and
+// name of the main entry point to the generated parser. The next
+// two parameters specify what to do between tokens and how to match
+// punctuation tokens. The next parameter is a sequence of token
+// specification each being a triple of the name, type and lexing
+// function. The last parameter is a sequence of productions,
+// defining the grammar, with semantic actions.
+//
+// The `BRD_PARSER' macro then generates a simple backtracking
+// recursive descent parser according to the grammar that executes
+// the semantic actions while parsing. The semantics actions should
+// not have side effects, because, for simplicity, the generated
+// parser doesn't wait until it has a complete parse, but rather
+// calls the actions immediately upon recognizing a complete
+// production.
+//
+// The above parser doesn't recognize `def' as a keyword, but
+// instead allows an identifier named def. This could lead to
+// syntactic errors being reported too late. We leave it as an
+// exercise to treat `def' properly as a keyword that is not allowed
+// as an identifier.
+//
 // ### Putting it all together
 
 int main(int argc, char* argv[]) {
@@ -358,7 +401,7 @@ int main(int argc, char* argv[]) {
        "\n"
        "  lambda 'def true = \\t.\\e.t\n"
        "          def false = \\t.\\e.e\n"
-       "          ((true false) true)'\n" 
+       "          ((true false) true)'\n"
        "\n"
        "would print\n"
        "\n"
@@ -375,7 +418,7 @@ int main(int argc, char* argv[]) {
   if ('\0' != *str)
     ERROR_exit("Garbage '%s' following program.", str);
 
-  exp_type reduced_exp = prg_eval(prg, Env_Nil());
+  exp_type reduced_exp = exp_reduce(exp_fresh(prg_to_exp(prg)));
   printf("%s\n", exp_unparse(reduced_exp));
 
   return EXIT_SUCCESS;

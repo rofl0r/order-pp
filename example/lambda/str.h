@@ -49,4 +49,8 @@ extern void str_skip_spaces(str_type *pstr);
 // function.
 extern _Bool str_match_prefix(str_type *pstr, str_type maybe_prefix);
 
+// `uint_to_str(n)' converts the unsigned integer `n' to a string
+// containing a decimal representation of the unsigned integer.
+extern str_type uint_to_str(unsigned int n);
+
 #endif
