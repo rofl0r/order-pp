@@ -9,9 +9,11 @@
 #include "order/cm.h"
 #include "order/def/cm.h"
 #include "order/def/const.h"
+#include "order/def/numeric.h"
 #include "order/eval/ap.h"
 #include "order/eval/fn.h"
 #include "order/eval/ref.h"
+#include "order/eval/seq.h"
 #include "order/eval/tuple.h"
 #include "order/util.h"
 

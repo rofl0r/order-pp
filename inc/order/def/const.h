@@ -11,5 +11,3 @@
 #define ORDER_CM_8DEF_CONST(P,e,v,K,...) ORDER_CM_##K(,P##v,P##__VA_ARGS__)
 
 #endif
-
-
