@@ -1,5 +1,6 @@
 8(0)#0#<ws>
 8adjacent(8(!),8(!))#!!#<ws>
+8and(5)#5#<ws>
 8and(8false)#8false#<ws>
 8and(8true)#8true#<ws>
 8and(8true,8act(!))#ACT (!)!!!!!!!!!!!!!!#<ws>
@@ -52,6 +53,7 @@
 8not(8not(8true))#8true#<ws>
 8not_same(8(8X),8(8X))#8false#<ws>
 8not_same(8(8X),8(8Y))#8true#<ws>
+8or(3)#3#<ws>
 8or(8false)#8false#<ws>
 8or(8false,8(6))#6#<ws>
 8or(8false,8false,8false,8true,0)#8true#<ws>
