@@ -17,6 +17,6 @@
 #define ORDER_CM_8TUPLE_4(P,_0,_1,_2,_3,K,...) ORDER_CM_##K(,(P##_0,P##_1,P##_2,P##_3),P##__VA_ARGS__)
 #define ORDER_CM_8TUPLE_3(P,_0,_1,_2,K,...) ORDER_CM_##K(,(P##_0,P##_1,P##_2),P##__VA_ARGS__)
 #define ORDER_CM_8TUPLE_2(P,_0,_1,K,...) ORDER_CM_##K(,(P##_0,P##_1),P##__VA_ARGS__)
-#define ORDER_CM_8TUPLE_1(P,_0,K,...) ORDER_CM_##K(,(P##_0),P##__VA_ARGS__)
+#define ORDER_CM_8TUPLE_1(P,_0,...) (,(P##_0),P##__VA_ARGS__)
 
 #endif
