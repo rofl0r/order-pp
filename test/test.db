@@ -54,6 +54,7 @@
 8or(8false,8false,8false,8true,0)#8true#<ws>
 8or(8true)#8true#<ws>
 8quote(0)#0#<ws>
+8quote(ORDER_PP_NAT(1,2,3))#(3)(2)(01)#<ws>
 8rout(8emit(1),8emit(2,3),8emit(4),5)#5 4 2 3 1#<ws>
 8rout(8for_each_in_range(8fn(8I,8rout(8for_each_in_range(8fn(8J,8emit(8tuple(8I,8J))),0,3))),0,3))#(2,0)(2,1)(2,2)(1,0)(1,1)(1,2)(0,0)(0,1)(0,2)#<ws>
 8rout(8for_each_in_range(8fn(8X,8emit(8quote(GEN_dim_0),8tuple(8X))),1,3))#(0,2)(1,1)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)(1,2)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)(0,1)(1,1)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)(1,2)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)#<ws>
@@ -166,8 +167,10 @@
 8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(8false,8true,8true)#<ws>
 8tuple(8less(4,5),8less(5,5),8less(5,4))#(8true,8false,8false)#<ws>
 8tuple(8less_eq(5,6),8less_eq(6,6),8less_eq(6,4))#(8true,8true,8false)#<ws>
+8tuple(8pred(8nat(0)),8pred(8nat(1)),8pred(8nat(1,2,3)),8pred(8nat(1,0,0)))#((00),(00),(2)(2)(01),(9)(09))#<ws>
 8tuple(8sub(10,3),8add(10,3))#(7,13)#<ws>
 8tuple(8sub(3),8sub(10,3,2,1))#(3,4)#<ws>
+8tuple(8succ(8nat(0)),8succ(8nat(9,9)),8succ(8nat(1,9,9)))#((01),(0)(0)(01),(0)(0)(02))#<ws>
 8tuple(8true,8false)#(8true,8false)#<ws>
 8tuple(8tuple(1))#((1))#<ws>
 8tuple(8tuple(1,2),8tuple(3,4))#((1,2),(3,4))#<ws>
