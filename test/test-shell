@@ -249,7 +249,7 @@ while true ; do
         REPLY="$1"
         shift
     else
-        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (C)lean DB | (Q)uit | (D)ebug | (M)ode | Eval]? "
+        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (C)lean DB | (Q)uit | (D)ebug | (M)ode: $debugFlag | Eval]? "
     fi
     case "$REPLY" in
         ("a"|"A")
@@ -265,8 +265,7 @@ while true ; do
         ("d"|"D")
         interactive-trace ;;
         ("m"|"M")
-        debugFlag=$((1-debugFlag))
-        echo "Debug: $debugFlag" ;;
+        debugFlag=$((1-debugFlag)) ;;
         (*)
         interactive-eval ;;
     esac

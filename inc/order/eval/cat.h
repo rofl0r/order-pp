@@ -5,8 +5,8 @@
 #define ORDER_PP_DEF_8cat(...) 8EVAL_CAT,(,__VA_ARGS__,0cat),
 
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8EVAL_CAT(P,e,ts,G,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST P##ts())(,P##e,ORDER_PP_DEF_FIRST P##ts,8EVAL_CAT_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_CAT_B(P,v,r,e,t,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_CAT_B,r##v,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_CAT(P,e,ts,G,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST P##ts())ORDER_PP_DEF_FIRST P##ts,8EVAL_CAT_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_CAT_B(P,v,r,e,t,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,8EVAL_CAT_B,r##v,P##e,P##__VA_ARGS__)
 #else
 #define ORDER_PP_8EVAL_CAT(P,e,ts,G,...) (,P##e,ORDER_PP_DEF_FIRST P##ts,8EVAL_CAT_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_CAT_B(P,v,r,e,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_CAT_B,r##v,P##e,P##__VA_ARGS__)
