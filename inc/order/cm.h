@@ -85,7 +85,55 @@
 #define ORDER_PP_CM_D_39(x) ORDER_PP_CM_DN_39 x
 #define ORDER_PP_CM_U_39(x) ORDER_PP_CM_UP_40 x
 #define ORDER_PP_CM_D_40(x) ORDER_PP_CM_DN_40 x
-#define ORDER_PP_CM_U_40(x) ORDER_PP_CM_ERROR_OUT_OF_ITERATIONS x
+#define ORDER_PP_CM_U_40(x) ORDER_PP_CM_UP_41 x
+#define ORDER_PP_CM_D_41(x) ORDER_PP_CM_DN_41 x
+#define ORDER_PP_CM_U_41(x) ORDER_PP_CM_UP_42 x
+#define ORDER_PP_CM_D_42(x) ORDER_PP_CM_DN_42 x
+#define ORDER_PP_CM_U_42(x) ORDER_PP_CM_UP_43 x
+#define ORDER_PP_CM_D_43(x) ORDER_PP_CM_DN_43 x
+#define ORDER_PP_CM_U_43(x) ORDER_PP_CM_UP_44 x
+#define ORDER_PP_CM_D_44(x) ORDER_PP_CM_DN_44 x
+#define ORDER_PP_CM_U_44(x) ORDER_PP_CM_UP_45 x
+#define ORDER_PP_CM_D_45(x) ORDER_PP_CM_DN_45 x
+#define ORDER_PP_CM_U_45(x) ORDER_PP_CM_UP_46 x
+#define ORDER_PP_CM_D_46(x) ORDER_PP_CM_DN_46 x
+#define ORDER_PP_CM_U_46(x) ORDER_PP_CM_UP_47 x
+#define ORDER_PP_CM_D_47(x) ORDER_PP_CM_DN_47 x
+#define ORDER_PP_CM_U_47(x) ORDER_PP_CM_UP_48 x
+#define ORDER_PP_CM_D_48(x) ORDER_PP_CM_DN_48 x
+#define ORDER_PP_CM_U_48(x) ORDER_PP_CM_UP_49 x
+#define ORDER_PP_CM_D_49(x) ORDER_PP_CM_DN_49 x
+#define ORDER_PP_CM_U_49(x) ORDER_PP_CM_UP_50 x
+#define ORDER_PP_CM_D_50(x) ORDER_PP_CM_DN_50 x
+#define ORDER_PP_CM_U_50(x) ORDER_PP_CM_UP_51 x
+#define ORDER_PP_CM_D_51(x) ORDER_PP_CM_DN_51 x
+#define ORDER_PP_CM_U_51(x) ORDER_PP_CM_UP_52 x
+#define ORDER_PP_CM_D_52(x) ORDER_PP_CM_DN_52 x
+#define ORDER_PP_CM_U_52(x) ORDER_PP_CM_UP_53 x
+#define ORDER_PP_CM_D_53(x) ORDER_PP_CM_DN_53 x
+#define ORDER_PP_CM_U_53(x) ORDER_PP_CM_UP_54 x
+#define ORDER_PP_CM_D_54(x) ORDER_PP_CM_DN_54 x
+#define ORDER_PP_CM_U_54(x) ORDER_PP_CM_UP_55 x
+#define ORDER_PP_CM_D_55(x) ORDER_PP_CM_DN_55 x
+#define ORDER_PP_CM_U_55(x) ORDER_PP_CM_UP_56 x
+#define ORDER_PP_CM_D_56(x) ORDER_PP_CM_DN_56 x
+#define ORDER_PP_CM_U_56(x) ORDER_PP_CM_UP_57 x
+#define ORDER_PP_CM_D_57(x) ORDER_PP_CM_DN_57 x
+#define ORDER_PP_CM_U_57(x) ORDER_PP_CM_UP_58 x
+#define ORDER_PP_CM_D_58(x) ORDER_PP_CM_DN_58 x
+#define ORDER_PP_CM_U_58(x) ORDER_PP_CM_UP_59 x
+#define ORDER_PP_CM_D_59(x) ORDER_PP_CM_DN_59 x
+#define ORDER_PP_CM_U_59(x) ORDER_PP_CM_UP_60 x
+#define ORDER_PP_CM_D_60(x) ORDER_PP_CM_DN_60 x
+#define ORDER_PP_CM_U_60(x) ORDER_PP_CM_UP_61 x
+#define ORDER_PP_CM_D_61(x) ORDER_PP_CM_DN_61 x
+#define ORDER_PP_CM_U_61(x) ORDER_PP_CM_UP_62 x
+#define ORDER_PP_CM_D_62(x) ORDER_PP_CM_DN_62 x
+#define ORDER_PP_CM_U_62(x) ORDER_PP_CM_UP_63 x
+#define ORDER_PP_CM_D_63(x) ORDER_PP_CM_DN_63 x
+#define ORDER_PP_CM_U_63(x) ORDER_PP_CM_UP_64 x
+#define ORDER_PP_CM_D_64(x) ORDER_PP_CM_DN_64 x
+#define ORDER_PP_CM_U_64(x) ORDER_PP_CM_ERROR_OUT_OF_ITERATIONS x
 
 #define ORDER_PP_CM_ERROR_OUT_OF_ITERATIONS()
 
@@ -171,3 +219,51 @@
 #define ORDER_PP_CM_UP_39(P,x,f,...) ORDER_PP_CM_U_39(ORDER_PP_CM_D_39(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
 #define ORDER_PP_CM_DN_40(P,x,f,...) ORDER_PP_CM_D_39(ORDER_PP_CM_D_39(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
 #define ORDER_PP_CM_UP_40(P,x,f,...) ORDER_PP_CM_U_40(ORDER_PP_CM_D_40(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_41(P,x,f,...) ORDER_PP_CM_D_40(ORDER_PP_CM_D_40(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_41(P,x,f,...) ORDER_PP_CM_U_41(ORDER_PP_CM_D_41(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_42(P,x,f,...) ORDER_PP_CM_D_41(ORDER_PP_CM_D_41(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_42(P,x,f,...) ORDER_PP_CM_U_42(ORDER_PP_CM_D_42(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_43(P,x,f,...) ORDER_PP_CM_D_42(ORDER_PP_CM_D_42(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_43(P,x,f,...) ORDER_PP_CM_U_43(ORDER_PP_CM_D_43(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_44(P,x,f,...) ORDER_PP_CM_D_43(ORDER_PP_CM_D_43(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_44(P,x,f,...) ORDER_PP_CM_U_44(ORDER_PP_CM_D_44(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_45(P,x,f,...) ORDER_PP_CM_D_44(ORDER_PP_CM_D_44(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_45(P,x,f,...) ORDER_PP_CM_U_45(ORDER_PP_CM_D_45(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_46(P,x,f,...) ORDER_PP_CM_D_45(ORDER_PP_CM_D_45(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_46(P,x,f,...) ORDER_PP_CM_U_46(ORDER_PP_CM_D_46(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_47(P,x,f,...) ORDER_PP_CM_D_46(ORDER_PP_CM_D_46(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_47(P,x,f,...) ORDER_PP_CM_U_47(ORDER_PP_CM_D_47(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_48(P,x,f,...) ORDER_PP_CM_D_47(ORDER_PP_CM_D_47(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_48(P,x,f,...) ORDER_PP_CM_U_48(ORDER_PP_CM_D_48(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_49(P,x,f,...) ORDER_PP_CM_D_48(ORDER_PP_CM_D_48(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_49(P,x,f,...) ORDER_PP_CM_U_49(ORDER_PP_CM_D_49(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_50(P,x,f,...) ORDER_PP_CM_D_49(ORDER_PP_CM_D_49(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_50(P,x,f,...) ORDER_PP_CM_U_50(ORDER_PP_CM_D_50(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_51(P,x,f,...) ORDER_PP_CM_D_50(ORDER_PP_CM_D_50(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_51(P,x,f,...) ORDER_PP_CM_U_51(ORDER_PP_CM_D_51(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_52(P,x,f,...) ORDER_PP_CM_D_51(ORDER_PP_CM_D_51(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_52(P,x,f,...) ORDER_PP_CM_U_52(ORDER_PP_CM_D_52(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_53(P,x,f,...) ORDER_PP_CM_D_52(ORDER_PP_CM_D_52(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_53(P,x,f,...) ORDER_PP_CM_U_53(ORDER_PP_CM_D_53(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_54(P,x,f,...) ORDER_PP_CM_D_53(ORDER_PP_CM_D_53(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_54(P,x,f,...) ORDER_PP_CM_U_54(ORDER_PP_CM_D_54(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_55(P,x,f,...) ORDER_PP_CM_D_54(ORDER_PP_CM_D_54(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_55(P,x,f,...) ORDER_PP_CM_U_55(ORDER_PP_CM_D_55(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_56(P,x,f,...) ORDER_PP_CM_D_55(ORDER_PP_CM_D_55(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_56(P,x,f,...) ORDER_PP_CM_U_56(ORDER_PP_CM_D_56(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_57(P,x,f,...) ORDER_PP_CM_D_56(ORDER_PP_CM_D_56(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_57(P,x,f,...) ORDER_PP_CM_U_57(ORDER_PP_CM_D_57(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_58(P,x,f,...) ORDER_PP_CM_D_57(ORDER_PP_CM_D_57(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_58(P,x,f,...) ORDER_PP_CM_U_58(ORDER_PP_CM_D_58(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_59(P,x,f,...) ORDER_PP_CM_D_58(ORDER_PP_CM_D_58(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_59(P,x,f,...) ORDER_PP_CM_U_59(ORDER_PP_CM_D_59(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_60(P,x,f,...) ORDER_PP_CM_D_59(ORDER_PP_CM_D_59(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_60(P,x,f,...) ORDER_PP_CM_U_60(ORDER_PP_CM_D_60(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_61(P,x,f,...) ORDER_PP_CM_D_60(ORDER_PP_CM_D_60(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_61(P,x,f,...) ORDER_PP_CM_U_61(ORDER_PP_CM_D_61(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_62(P,x,f,...) ORDER_PP_CM_D_61(ORDER_PP_CM_D_61(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_62(P,x,f,...) ORDER_PP_CM_U_62(ORDER_PP_CM_D_62(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_63(P,x,f,...) ORDER_PP_CM_D_62(ORDER_PP_CM_D_62(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_63(P,x,f,...) ORDER_PP_CM_U_63(ORDER_PP_CM_D_63(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_DN_64(P,x,f,...) ORDER_PP_CM_D_63(ORDER_PP_CM_D_63(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
+#define ORDER_PP_CM_UP_64(P,x,f,...) ORDER_PP_CM_U_64(ORDER_PP_CM_D_64(ORDER_PP_##f(,x##P,P##__VA_ARGS__)))
