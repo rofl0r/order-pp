@@ -6,7 +6,7 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
-#define ORDER_PP_DEF_fn(...) 8EVAL_FN,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),(,__VA_ARGS__)
+#define ORDER_PP_DEF_8fn(...) 8EVAL_FN,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),(,__VA_ARGS__)
 
 #define ORDER_PP_CM_8EVAL_FN(P,e,n,ss,K,...) ORDER_PP_CM_INVOKE(K,(,8BIND_##n,P##e,ORDER_PP_OPEN ss##P)),P##__VA_ARGS__)
 

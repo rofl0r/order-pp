@@ -6,6 +6,6 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
-#define ORDER_PP_DEF_quote(x) 8DEF_CONST,x
+#define ORDER_PP_DEF_8quote(x) 8DEF_CONST,x
 
 #endif

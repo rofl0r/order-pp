@@ -32,36 +32,36 @@
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
 
-#define ORDER_PP_IF_true(P,c,...) P##c
-#define ORDER_PP_IF_false(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_8true(P,c,...) P##c
+#define ORDER_PP_IF_8false(P,c,...) P##__VA_ARGS__
 
-#define ORDER_PP_IF_NOT_true(P,c,...) P##__VA_ARGS__
-#define ORDER_PP_IF_NOT_false(P,c,...) P##c
+#define ORDER_PP_IF_NOT_8true(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_NOT_8false(P,c,...) P##c
 
-#define ORDER_PP_IF_OPEN_true(P,c,...) ORDER_PP_OPEN_COND c##P
-#define ORDER_PP_IF_OPEN_false(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_OPEN_8true(P,c,...) ORDER_PP_OPEN_COND c##P
+#define ORDER_PP_IF_OPEN_8false(P,c,...) P##__VA_ARGS__
 
-#define ORDER_PP_IF_NOT_OPEN_true(P,c,...) P##__VA_ARGS__
-#define ORDER_PP_IF_NOT_OPEN_false(P,c,...) ORDER_PP_OPEN_COND c##P
+#define ORDER_PP_IF_NOT_OPEN_8true(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_NOT_OPEN_8false(P,c,...) ORDER_PP_OPEN_COND c##P
 
-#define ORDER_PP_WHEN_true(P,...) P##__VA_ARGS__
-#define ORDER_PP_WHEN_false(...)
+#define ORDER_PP_WHEN_8true(P,...) P##__VA_ARGS__
+#define ORDER_PP_WHEN_8false(...)
 
-#define ORDER_PP_UNLESS_true(...)
-#define ORDER_PP_UNLESS_false(P,...) P##__VA_ARGS__
+#define ORDER_PP_UNLESS_8true(...)
+#define ORDER_PP_UNLESS_8false(P,...) P##__VA_ARGS__
 
-#define ORDER_PP_EQUAL(P,x,y) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##y(,),ORDER_PP_IF_OPEN_true,,ORDER_PP_IF_OPEN_false,)
-#define ORDER_PP_NOT_EQ(P,x,y) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##y(,),ORDER_PP_IF_OPEN_false,,ORDER_PP_IF_OPEN_true,)
+#define ORDER_PP_EQUAL(P,x,y) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##y(,),ORDER_PP_IF_OPEN_8true,,ORDER_PP_IF_OPEN_8false,)
+#define ORDER_PP_NOT_EQ(P,x,y) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##y(,),ORDER_PP_IF_OPEN_8false,,ORDER_PP_IF_OPEN_8true,)
 
-#define ORDER_PP_IS_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IS_EDIBLE_TEST x##P,ORDER_PP_IF_OPEN_true,,ORDER_PP_IF_OPEN_false,)
-#define ORDER_PP_IS_NOT_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IS_EDIBLE_TEST x##P,ORDER_PP_IF_OPEN_false,,ORDER_PP_IF_OPEN_true,)
+#define ORDER_PP_IS_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IS_EDIBLE_TEST x##P,ORDER_PP_IF_OPEN_8true,,ORDER_PP_IF_OPEN_8false,)
+#define ORDER_PP_IS_NOT_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IS_EDIBLE_TEST x##P,ORDER_PP_IF_OPEN_8false,,ORDER_PP_IF_OPEN_8true,)
 #define ORDER_PP_IS_EDIBLE_TEST(...) ,,
 
-#define ORDER_PP_IS_SYM(P,x) ORDER_PP_IS_EDIBLE(,P##x)(,(,ORDER_PP_IF_OPEN_false ORDER_EAT),ORDER_PP_IS_SYM_NOT_EDIBLE)(P##x)
-#define ORDER_PP_IS_SYM_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##x(,),ORDER_PP_IF_OPEN_true,,ORDER_PP_IF_OPEN_false,)
+#define ORDER_PP_IS_SYM(P,x) ORDER_PP_IS_EDIBLE(,P##x)(,(,ORDER_PP_IF_OPEN_8false ORDER_EAT),ORDER_PP_IS_SYM_NOT_EDIBLE)(P##x)
+#define ORDER_PP_IS_SYM_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_SYM_##x##_##x(,),ORDER_PP_IF_OPEN_8true,,ORDER_PP_IF_OPEN_8false,)
 
-#define ORDER_PP_IS_NIL(P,x) ORDER_PP_IS_EDIBLE(,P##x)(,(,ORDER_PP_IF_OPEN_false ORDER_PP_EAT),ORDER_PP_IS_NIL_NOT_EDIBLE)(P##x)
-#define ORDER_PP_IS_NIL_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_IS_NIL_##x,ORDER_PP_IF_OPEN_true,,ORDER_PP_IF_OPEN_false,)
+#define ORDER_PP_IS_NIL(P,x) ORDER_PP_IS_EDIBLE(,P##x)(,(,ORDER_PP_IF_OPEN_8false ORDER_PP_EAT),ORDER_PP_IS_NIL_NOT_EDIBLE)(P##x)
+#define ORDER_PP_IS_NIL_NOT_EDIBLE(x) ORDER_PP_TEST(ORDER_PP_IS_NIL_##x,ORDER_PP_IF_OPEN_8true,,ORDER_PP_IF_OPEN_8false,)
 #define ORDER_PP_IS_NIL_ ,,
 
 #define ORDER_PP_TEST(...) ORDER_PP_TEST_B(__VA_ARGS__)

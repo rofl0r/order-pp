@@ -15,14 +15,14 @@
  */
 
 #define GEN_is_function_tester(n)                                               \
-template<class R ORDER_PP(emit_trailing_params(quote(class A), n)) >            \
-yes_type is_function_tester(R (*)(ORDER_PP(emit_params(quote(class A), n))));
+template<class R ORDER_PP(8emit_trailing_params(8quote(class A), n)) >          \
+yes_type is_function_tester(R (*)(ORDER_PP(8emit_params(8quote(class A), n))));
 
-ORDER_PP(for_each_in_range(fn(I,
-                              emit(quote(GEN_is_function_tester),
-                                   tuple(I))),
-                           0,
-                           30))
+ORDER_PP(8for_each_in_range(8fn(8I,
+                                8emit(8quote(GEN_is_function_tester),
+                                      8tuple(8I))),
+                            0,
+                            30))
 
 #undef GEN_is_function_tester
 

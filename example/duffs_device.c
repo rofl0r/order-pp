@@ -15,26 +15,26 @@
  */
 
 /* Expands to a Duff's Device. */
-#define GEN_duffs_device(unrolling_factor, counter_t, n, exp)                   \
-do {                                                                            \
-  counter_t duffs_device_initial_cnt = (n);                                     \
-                                                                                \
-  if (duffs_device_initial_cnt > 0) {                                           \
-    counter_t duffs_device_running_cnt =                                        \
-      (duffs_device_initial_cnt + (unrolling_factor - 1)) / unrolling_factor;   \
-                                                                                \
-    switch (duffs_device_initial_cnt % unrolling_factor) {                      \
-      do {                                                                      \
-        ORDER_PP(do(for_each_in_range(fn(I,                                     \
-                                         emit(quote(GEN_duffs_device_case),     \
-                                              tuple(I,quote(exp)))),            \
-                                      1,                                        \
-                                      unrolling_factor),                        \
-                    emit(quote(GEN_duffs_device_case),                          \
-                         quote((0,exp)))));                                     \
-      } while (--duffs_device_running_cnt);                                     \
-    }                                                                           \
-  }                                                                             \
+#define GEN_duffs_device(unrolling_factor, counter_t, n, exp)                           \
+do {                                                                                    \
+  counter_t duffs_device_initial_cnt = (n);                                             \
+                                                                                        \
+  if (duffs_device_initial_cnt > 0) {                                                   \
+    counter_t duffs_device_running_cnt =                                                \
+      (duffs_device_initial_cnt + (unrolling_factor - 1)) / unrolling_factor;           \
+                                                                                        \
+    switch (duffs_device_initial_cnt % unrolling_factor) {                              \
+      do {                                                                              \
+        ORDER_PP(8do(8for_each_in_range(8fn(8I,                                         \
+                                            8emit(8quote(GEN_duffs_device_case),        \
+                                                  8tuple(8I,8quote(exp)))),             \
+                                        1,                                              \
+                                        unrolling_factor),                              \
+                     8emit(8quote(GEN_duffs_device_case),                               \
+                           8quote((0,exp)))));                                          \
+      } while (--duffs_device_running_cnt);                                             \
+    }                                                                                   \
+  }                                                                                     \
 } while (0)
 
 #define GEN_duffs_device_case(n,exp) case n : exp;

@@ -1,113 +1,117 @@
-and(false)#false
-and(true)#true
-and(true,5)#5
-and(true,true,true,false,0)#false
-ap(2nd(1,1st(id(id),2)),3)#3
-ap(ap(ap(ap(fn(A,B,A),fn(C,D,C),fn(E,F,E)),ap(fn(G,H,G),fn(I,J,I),fn(K,L,K)),ap(fn(M,N,M),fn(O,P,O),fn(Q,R,Q))),quote(i)),quote(j))#i
-ap(ap(ap(fn(X,Y,Z,Z),quote(x)),quote(y)),quote(z))#z
-ap(ap(id),5)#5
-ap(fn(A,B,C,D,E,F,G,H,H),quote(a),quote(b),quote(c),quote(d),quote(e),quote(f),quote(g),quote(h))#h
-ap(fn(X,X),quote(x))#x
-ap(fn(X,Y,X),quote(x),quote(y))#x
-ap(fn(X,Y,tuple(X,Y)),quote(a),quote(b))#(a,b)
-cat(1,2)#12
-cat(1,2,3,4,5,6,7,8)#12345678
-constant_embedding#This constant is in two parts!
-div_mod(10,3)#(3,1)
-do(7)#7
-do(do(1,2),do(3,4))#4
-do(emit(1),emit(2),emit(3))#3 2 1
-do(emit(1,2),emit(3,4))#3 4 1 2
-do(emit_cat(1,2),3)#3 12
-equal(1,1)#true
-equal(1,2)#false
-equal(1,tuple_at(0,tuple(1,2)))#true
-expand(1,2)#1 2
-expand(1,2,3,4,5,6,7,8)#1 2 3 4 5 6 7 8
-for_each_in_range(fn(X,emit(X)),4,inc(10))#10 9 8 7 6 5 4
-for_each_in_range(fn(X,emit(X)),45,45)#
-if(false,1,2)#2
-if(true,1,2)#1
-is_sym(quote(this is not a symbol))#false
-is_sym(true)#true
-let(X,id,ap(X,5))#5
-macro_let(X,5,X)#5
-nil#
-not(not(false))#false
-not(not(true))#true
-not_eq(1,2)#true
-not_eq(2,2)#false
-or(false)#false
-or(false,6)#6
-or(false,false,false,true,0)#true
-or(true)#true
-quote(0)#0
-seq(quote(a),quote(b),quote(c),quote(d),quote(e),quote(f),quote(g),quote(h))#(a)(b)(c)(d)(e)(f)(g)(h)
-seq(quote(x))#(x)
-seq(seq(1))#((1))
-seq_at(0,quote((a)(b)(c)(d)))#a
-seq_at(2,quote((a)(b)(c)(d)))#c
-seq_at(3,quote((a)(b)(c)(d)))#d
-seq_filter(is_sym,seq(1,quote(not symbol),true))#(1)(true)
-seq_first(quote((a)(b)(c)))#a
-seq_first(quote((a)))#a
-seq_first_n(0,quote((1)(2)(3)(4)))#
-seq_first_n(2,quote((1)(2)(3)(4)))#(1) (2)
-seq_first_n(4,quote((1)(2)(3)(4)))#(1) (2) (3) (4)
-seq_fold(add,3,quote((1)(4)(1)(5)))#14
-seq_fold(add,45,nil)#45
-seq_for_each(fn(X,emit(X)),seq(1,2,3,4))#4 3 2 1
-seq_for_each(fn(_,exit(0)),nil)#
-seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , quote( (( 1 )( 2 )) (( * )) (( A )( B )( C )) ) )#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
-seq_insert(0,quote((1)(2)(3)(4)),quote(x))#(x) (1)(2)(3)(4)
-seq_insert(2,quote((1)(2)(3)(4)),quote(x))#(1) (2)(x) (3)(4)
-seq_insert(4,quote((1)(2)(3)(4)),quote(x))#(1) (2) (3) (4)(x)
-seq_is_nil(seq(1,2,3))#false
-seq_is_nil(seq_nil)#true
-seq_isnt_nil(nil)#false
-seq_isnt_nil(seq(1,2,3))#true
-seq_map(dec,nil)#
-seq_map(inc,quote((3)(1)(4)(1)))#(4)(2)(5)(2)
-seq_pop_back(quote((1)(2)(3)(b)))#(1) (2) (3)
-seq_pop_back(quote((1)))#
-seq_push_back(45,quote((a)(b)(c)))#(a)(b)(c)(45)
-seq_push_back(5,seq_nil)#(5)
-seq_push_front(45,seq_nil)#(45)
-seq_push_front(5,quote((a)(b)(c)))#(5)(a)(b)(c)
-seq_range(0,7,quote((1)(2)(3)(4)(5)(6)(7)))#(1) (2) (3) (4) (5) (6) (7)
-seq_range(2,0,quote((1)(2)(3)(4)(5)(6)(7)))#
-seq_range(2,3,quote((1)(2)(3)(4)(5)(6)(7)))#(3) (4) (5)
-seq_rest(quote((a)(b)(c)))#(b)(c)
-seq_rest(quote((a)))#
-seq_rest_n(0,quote((1)(2)(3)(4)))#(1)(2)(3)(4)
-seq_rest_n(3,quote((1)(2)(3)(4)))#(4)
-seq_rest_n(4,quote((1)(2)(3)(4)))#
-seq_reverse(nil)#
-seq_reverse(quote((1)(2)(3)(a)))#(a) (3) (2) (1)
-seq_set(0,quote((1)(2)(3)),quote(.))#(.) (2)(3)
-seq_set(1,quote((1)(2)(3)),quote(.))#(1) (.) (3)
-seq_set(2,quote((1)(2)(3)),quote(.))#(1) (2) (.)
-seq_size(nil)#0
-seq_size(quote((1)(2)(3)(4)(5)))#5
-seq_to_tuple(quote((1)(2)(3)))#(1 , 2 , 3 )
-seq_to_tuple(seq_nil)#()
-stringize(quote(This is a string.))#"This is a string."
-tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
-tuple(dec(0),dec(1),dec(256))#(0,0,255)
-tuple(div(10,3),mod(10,3))#(3,1)
-tuple(inc(0),inc(128),inc(255),inc(256))#(1,129,256,256)
-tuple(is_0(0),is_0(1),is_0(50))#(true,false,false)
-tuple(is_nil(1),is_nil(nil),is_nil(tuple(1,2)),is_nil(seq(1,2)))#(false,true,false,false)
-tuple(is_not_0(0),is_not_0(1),is_not_0(50))#(false,true,true)
-tuple(sub(10,3),add(10,3))#(7,13)
-tuple(true,false)#(true,false)
-tuple(tuple(1))#((1))
-tuple(tuple(quote(a)),tuple(quote(b)))#((a),(b))
-tuple_at(0,tuple(4,5))#4
-tuple_at(7,tuple(1,2,3,4,5,6,7,8))#8
-tuple_size(quote((a,b,c,d)))#4
-tuple_size(tuple(nil))#1
-unless(false,emit(3),emit(2),1)#1 2 3
-unless(true,emit(3),emit(2),1)#
-when(false,emit(5))#
-when(true,emit(1),emit(2),3)#3 2 1
+8and(8false)#8false
+8and(8true)#8true
+8and(8true,5)#5
+8and(8true,8true,8true,8false,0)#8false
+8ap(2nd(1,1st(8id(8id),2)),3)#3
+8ap(8ap(8ap(8ap(8fn(8A,8B,8A),8fn(8C,8D,8C),8fn(8E,8F,8E)),8ap(8fn(8G,8H,8G),8fn(8I,8J,8I),8fn(8K,8L,8K)),8ap(8fn(8M,8N,8M),8fn(8O,8P,8O),8fn(8Q,8R,8Q))),8quote(i)),8quote(j))#i
+8ap(8ap(8ap(8fn(8X,8Y,8Z,8Z),8quote(x)),8quote(y)),8quote(z))#z
+8ap(8ap(8id),5)#5
+8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8H),8quote(a),8quote(b),8quote(c),8quote(d),8quote(e),8quote(f),8quote(g),8quote(h))#h
+8ap(8fn(8X,8X),8quote(x))#x
+8ap(8fn(8X,8Y,8X),8quote(x),8quote(y))#x
+8ap(8fn(8X,8Y,8tuple(8X,8Y)),8quote(a),8quote(b))#(a,b)
+8cat(1,2)#12
+8cat(1,2,3,4,5,6,7,8)#12345678
+8constant_embedding#This constant is in two parts!
+8div_mod(10,3)#(3,1)
+8do(7)#7
+8do(8do(1,2),8do(3,4))#4
+8do(8emit(1),8emit(2),8emit(3))#3 2 1
+8do(8emit(1,2),8emit(3,4))#3 4 1 2
+8do(8emit_cat(1,2),3)#3 12
+8equal(1,1)#8true
+8equal(1,2)#8false
+8equal(1,8tuple_at(0,8tuple(1,2)))#8true
+8expand(1,2)#1 2
+8expand(1,2,3,4,5,6,7,8)#1 2 3 4 5 6 7 8
+8for_each_in_range(8fn(8X,8emit(8X)),4,8inc(10))#10 9 8 7 6 5 4
+8for_each_in_range(8fn(8X,8emit(8X)),45,45)#
+8greater(6,3)#8true
+8greater_eq(5,5)#8true
+8if(8false,1,2)#2
+8if(8true,1,2)#1
+8is_sym(8quote(this is not a symbol))#8false
+8is_sym(8true)#8true
+8less(5,4)#8false
+8less_eq(6,6)#8true
+8let(8X,8id,8ap(8X,5))#5
+8macro_let(8X,5,8X)#5
+8nil#
+8not(8not(8false))#8false
+8not(8not(8true))#8true
+8not_eq(1,2)#8true
+8not_eq(2,2)#8false
+8or(8false)#8false
+8or(8false,6)#6
+8or(8false,8false,8false,8true,0)#8true
+8or(8true)#8true
+8quote(0)#0
+8seq(8quote(a),8quote(b),8quote(c),8quote(d),8quote(e),8quote(f),8quote(g),8quote(h))#(a)(b)(c)(d)(e)(f)(g)(h)
+8seq(8quote(x))#(x)
+8seq(8seq(1))#((1))
+8seq_at(0,8quote((a)(b)(c)(d)))#a
+8seq_at(2,8quote((a)(b)(c)(d)))#c
+8seq_at(3,8quote((a)(b)(c)(d)))#d
+8seq_filter(8is_sym,8seq(1,8quote(not symbol),8true))#(1)(8true)
+8seq_first(8quote((a)(b)(c)))#a
+8seq_first(8quote((a)))#a
+8seq_first_n(0,8quote((1)(2)(3)(4)))#
+8seq_first_n(2,8quote((1)(2)(3)(4)))#(1) (2)
+8seq_first_n(4,8quote((1)(2)(3)(4)))#(1) (2) (3) (4)
+8seq_fold(8add,3,8quote((1)(4)(1)(5)))#14
+8seq_fold(8add,45,8nil)#45
+8seq_for_each(8fn(8X,8emit(8X)),8seq(1,2,3,4))#4 3 2 1
+8seq_for_each(8fn(8_,8exit(0)),8nil)#
+8seq_for_each_in_product(8fn(8X,8Y,8Z,8emit(8tuple(8X,8Y,8Z))),8quote(((1)(2))((*))((A)(B)(C))))#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
+8seq_insert(0,8quote((1)(2)(3)(4)),8quote(x))#(x) (1)(2)(3)(4)
+8seq_insert(2,8quote((1)(2)(3)(4)),8quote(x))#(1) (2)(x) (3)(4)
+8seq_insert(4,8quote((1)(2)(3)(4)),8quote(x))#(1) (2) (3) (4)(x)
+8seq_is_nil(8seq(1,2,3))#8false
+8seq_is_nil(8seq_nil)#8true
+8seq_isnt_nil(8nil)#8false
+8seq_isnt_nil(8seq(1,2,3))#8true
+8seq_map(8dec,8nil)#
+8seq_map(8inc,8quote((3)(1)(4)(1)))#(4)(2)(5)(2)
+8seq_pop_back(8quote((1)(2)(3)(b)))#(1) (2) (3)
+8seq_pop_back(8quote((1)))#
+8seq_push_back(45,8quote((a)(b)(c)))#(a)(b)(c)(45)
+8seq_push_back(5,8seq_nil)#(5)
+8seq_push_front(45,8seq_nil)#(45)
+8seq_push_front(5,8quote((a)(b)(c)))#(5)(a)(b)(c)
+8seq_range(0,7,8quote((1)(2)(3)(4)(5)(6)(7)))#(1) (2) (3) (4) (5) (6) (7)
+8seq_range(2,0,8quote((1)(2)(3)(4)(5)(6)(7)))#
+8seq_range(2,3,8quote((1)(2)(3)(4)(5)(6)(7)))#(3) (4) (5)
+8seq_rest(8quote((a)(b)(c)))#(b)(c)
+8seq_rest(8quote((a)))#
+8seq_rest_n(0,8quote((1)(2)(3)(4)))#(1)(2)(3)(4)
+8seq_rest_n(3,8quote((1)(2)(3)(4)))#(4)
+8seq_rest_n(4,8quote((1)(2)(3)(4)))#
+8seq_reverse(8nil)#
+8seq_reverse(8quote((1)(2)(3)(a)))#(a) (3) (2) (1)
+8seq_set(0,8quote((1)(2)(3)),8quote(.))#(.) (2)(3)
+8seq_set(1,8quote((1)(2)(3)),8quote(.))#(1) (.) (3)
+8seq_set(2,8quote((1)(2)(3)),8quote(.))#(1) (2) (.)
+8seq_size(8nil)#0
+8seq_size(8quote((1)(2)(3)(4)(5)))#5
+8seq_to_tuple(8quote((1)(2)(3)))#(1 , 2 , 3 )
+8seq_to_tuple(8seq_nil)#()
+8stringize(8quote(This is a string.))#"This is a string."
+8tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
+8tuple(8dec(0),8dec(1),8dec(256))#(0,0,255)
+8tuple(8div(10,3),8mod(10,3))#(3,1)
+8tuple(8inc(0),8inc(128),8inc(255),8inc(256))#(1,129,256,256)
+8tuple(8is_0(0),8is_0(1),8is_0(50))#(8true,8false,8false)
+8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(8false,8true,8false,8false)
+8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(8false,8true,8true)
+8tuple(8sub(10,3),8add(10,3))#(7,13)
+8tuple(8true,8false)#(8true,8false)
+8tuple(8tuple(1))#((1))
+8tuple(8tuple(8quote(a)),8tuple(8quote(b)))#((a),(b))
+8tuple_at(0,8tuple(4,5))#4
+8tuple_at(7,8tuple(1,2,3,4,5,6,7,8))#8
+8tuple_size(8quote((a,b,c,d)))#4
+8tuple_size(8tuple(8nil))#1
+8unless(8false,8emit(3),8emit(2),1)#1 2 3
+8unless(8true,8emit(3),8emit(2),1)#
+8when(8false,8emit(5))#
+8when(8true,8emit(1),8emit(2),3)#3 2 1

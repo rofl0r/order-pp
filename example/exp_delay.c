@@ -16,14 +16,14 @@
  * release that memory until macro expansion is finished.
  */
 
-#define ORDER_PP_DEF_exp_delay                  \
-ORDER_PP_FN(fn(N,                               \
-               unless(is_0(N),                  \
-                      exp_delay(dec(N)),        \
-                      exp_delay(dec(N)))))
+#define ORDER_PP_DEF_8exp_delay                 \
+ORDER_PP_FN(8fn(8N,                             \
+                8unless(8is_0(8N),              \
+                        8exp_delay(8dec(8N)),   \
+                        8exp_delay(8dec(8N)))))
 
 #ifndef EXP_DELAY_MAX
 #define EXP_DELAY_MAX 10
 #endif
 
-ORDER_PP(exp_delay(EXP_DELAY_MAX))
+ORDER_PP(8exp_delay(EXP_DELAY_MAX))

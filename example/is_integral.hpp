@@ -54,17 +54,17 @@ template<> struct is_integral<cv type> {                \
  * really doesn't matter in this case, as each emit produces a complete
  * specialization, so they can be generated in any desired order.
  */
-ORDER_PP(seq_for_each_in_product
-         (fn(Q,T,
-             emit(quote(GEN_is_integral_specialization),
-                  tuple(Q,T))),
-          seq(quote(()(const)(volatile)(const volatile)),
-              seq_append(quote((char)(wchar_t)),
-                         let(S,quote((char)(short)(int)(long)),
-                             seq_append(S,
-                                        seq_map(fn(T,
-                                                   expand(quote(unsigned),T)),
-                                                S)))))))
+ORDER_PP(8seq_for_each_in_product
+         (8fn(8CV,8TY,
+              8emit(8quote(GEN_is_integral_specialization),
+                    8tuple(8CV,8TY))),
+          8seq(8quote(()(const)(volatile)(const volatile)),
+               8seq_append(8quote((char)(wchar_t)),
+                           8let(8TS,8quote((char)(short)(int)(long)),
+                                8seq_append(8TS,
+                                            8seq_map(8fn(8TY,
+                                                         8expand(8quote(unsigned),8TY)),
+                                                     8TS)))))))
 
 #undef GEN_is_integral_specialization
 
