@@ -101,18 +101,6 @@
 #define ORDER_PP_TEST(P,x,c,a) ORDER_PP_TEST_B(,x,P##c,,P##a,)
 #define ORDER_PP_TEST_B(P,_1,_2,_3,x,...) x##P
 
-#define ORDER_PP_IS_1_1(P,t,...) P##t
-#define ORDER_PP_IS_1_2(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_3(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_4(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_5(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_6(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_7(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_8(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_9(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_10(P,t,...) P##__VA_ARGS__
-#define ORDER_PP_IS_1_11_OR_MORE(P,t,...) P##__VA_ARGS__
-
 #define ORDER_PP_COMMA_1 ,1
 #define ORDER_PP_COMMA_2 ,2
 #define ORDER_PP_COMMA_3 ,3
