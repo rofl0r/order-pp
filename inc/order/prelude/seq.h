@@ -35,11 +35,23 @@
 #define ORDER_PP_DEF_8seq_push_back ORDER_PP_FN_CM(2,8SEQ_PUSH_BACK)
 #define ORDER_PP_CM_8SEQ_PUSH_BACK(P,x,s,...) (,P##s(P##x),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8seq_append ORDER_PP_OP_LEFT_CM(8SEQ_APPEND)
-#define ORDER_PP_CM_8SEQ_APPEND(P,r,l,...) (,ORDER_PP_OPEN(,l##P)P##r,P##__VA_ARGS__)
+#define ORDER_PP_DEF_8seq_append ORDER_PP_OP_LEFT_CM(8SEQ_APPEND_2)
+#define ORDER_PP_CM_8SEQ_APPEND_2(P,r,l,...) (,ORDER_PP_OPEN(,l##P)P##r,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8vseq_to_seq ORDER_PP_FN_MACRO_P(1,ORDER_PP_SEQ_PARENTHESIZE)
 #define ORDER_PP_DEF_8seq_map_seq ORDER_PP_FN_MACRO_P(1,ORDER_PP_SEQ_PARENTHESIZE)
+
+#define ORDER_PP_DEF_8seq_to_tuple ORDER_PP_FN_MACRO_P(1,ORDER_PP_SEQ_TO_TUPLE)
+#define ORDER_PP_SEQ_TO_TUPLE(P,s) ORDER_PP_SEQ_TO_TUPLE_B(ORDER_PP_SEQ_TO_TUPLE_D P##s)
+#define ORDER_PP_SEQ_TO_TUPLE_B(x) ORDER_PP_SEQ_TO_TUPLE_C(x)
+#define ORDER_PP_SEQ_TO_TUPLE_C(...) ORDER_PP_##__VA_ARGS__##0
+#define ORDER_PP_SEQ_TO_TUPLE_D(...) 8SEQ_TO_TUPLE_LPAREN(,__VA_ARGS__)ORDER_PP_SEQ_TO_TUPLE_E
+#define ORDER_PP_SEQ_TO_TUPLE_E(...) ,ORDER_PP_OPEN(,__VA_ARGS__)ORDER_PP_SEQ_TO_TUPLE_F
+#define ORDER_PP_SEQ_TO_TUPLE_F(...) ,ORDER_PP_OPEN(,__VA_ARGS__)ORDER_PP_SEQ_TO_TUPLE_E
+#define ORDER_PP_ORDER_PP_SEQ_TO_TUPLE_D0
+#define ORDER_PP_8SEQ_TO_TUPLE_LPAREN(P,...) (P##__VA_ARGS__
+#define ORDER_PP_SEQ_TO_TUPLE_D0
+#define ORDER_PP_SEQ_TO_TUPLE_E0 )
+#define ORDER_PP_SEQ_TO_TUPLE_F0 )
 
 // Chaos-bindings
 
@@ -72,9 +84,6 @@
 
 #define ORDER_PP_DEF_8seq_size ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_SIZE)
 #include "chaos/preprocessor/seq/size.h"
-
-#define ORDER_PP_DEF_8seq_to_tuple ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_TO_TUPLE)
-#include "chaos/preprocessor/seq/to_tuple.h"
 
 // Higher-order functions
 
