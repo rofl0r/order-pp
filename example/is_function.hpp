@@ -8,14 +8,14 @@
 
 # include "order/interpreter.h"
 
-// ## Is Function Testers
+// ## Is Function -Type Trait
 //
 // In this example we generate some repetitive code that could be
-// used to implement a particular C++ type traits template, namely a
+// used to implement a particular C++ type trait template, namely a
 // type trait by the name `is_function<T>', which tests whether a
 // given type is a function type. The reader might want to refer to
 // the documentation and source code of the `is_function<T>' type
-// trait of the Boost type traits library \cite{boost}.
+// trait of the Boost Type Traits library \cite{boost}.
 //
 // In order to portably distinguish function types from other types,
 // the implementation of the `is_function<T>' type trait could use
