@@ -20,6 +20,7 @@ do(emit(1),emit(2),emit(3))#3 2 1
 do(emit_paste(1,2),3)#3 12
 equal(1,1)#true
 equal(1,2)#false
+equal(1,tuple_at(tuple(1,2),0))#true
 if(false,1,2)#2
 if(true,1,2)#1
 is_sym(const(this is not a symbol))#false
