@@ -6,7 +6,7 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
-#define ORDER_PP_DEF_tuple_at ORDER_PP_OP_CM(2,8TUPLE_AT)
+#define ORDER_PP_DEF_tuple_at ORDER_PP_FN_CM(2,8TUPLE_AT)
 
 #define ORDER_PP_CM_8TUPLE_AT(P,t,n,...) (,ORDER_PP_EXPAND(ORDER_PP_TUPLE_AT_##n,(,ORDER_PP_OPEN_NP t##P,)),P##__VA_ARGS__)
 

@@ -6,10 +6,10 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
-#define ORDER_PP_DEF_is_0 ORDER_PP_OP_CM(1,8IS_0)
+#define ORDER_PP_DEF_is_0 ORDER_PP_FN_CM(1,8IS_0)
 #define ORDER_PP_CM_8IS_0(P,x,...) (,ORDER_PP_IS_0_##x(,(,true),false),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_is_not_0 ORDER_PP_OP_CM(1,8IS_NOT_0)
+#define ORDER_PP_DEF_is_not_0 ORDER_PP_FN_CM(1,8IS_NOT_0)
 #define ORDER_PP_CM_8IS_NOT_0(P,x,...) (,ORDER_PP_IS_NOT_0_##x(,(,true),false),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_greater(x,y) ORDER_PP_MACRO(is_not_0(sub(x,y)))
@@ -17,29 +17,29 @@
 #define ORDER_PP_DEF_less(x,y) ORDER_PP_MACRO(is_not_0(sub(y,x)))
 #define ORDER_PP_DEF_less_eq(x,y) ORDER_PP_MACRO(is_0(sub(x,y)))
 
-#define ORDER_PP_DEF_inc ORDER_PP_OP_CM(1,8INC)
+#define ORDER_PP_DEF_inc ORDER_PP_FN_CM(1,8INC)
 #define ORDER_PP_CM_8INC(P,x,...) (,ORDER_PP_INC_##x,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_dec ORDER_PP_OP_CM(1,8DEC)
+#define ORDER_PP_DEF_dec ORDER_PP_FN_CM(1,8DEC)
 #define ORDER_PP_CM_8DEC(P,x,...) (,ORDER_PP_DEC_##x,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_add ORDER_PP_OP_CM(2,8ADD)
+#define ORDER_PP_DEF_add ORDER_PP_FN_CM(2,8ADD)
 #define ORDER_PP_CM_8ADD(P,x,y,...) (,ORDER_PP_IS_0_##x(,(,P##y),ORDER_PP_DEC_##x,8ADD,ORDER_PP_INC_##y),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_sub ORDER_PP_OP_CM(2,8SUB)
+#define ORDER_PP_DEF_sub ORDER_PP_FN_CM(2,8SUB)
 #define ORDER_PP_CM_8SUB(P,x,y,...) (,ORDER_PP_IS_0_##y(,(,P##x),ORDER_PP_DEC_##x,8SUB,ORDER_PP_DEC_##y),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_mul ORDER_PP_OP_CM(2,8MUL)
+#define ORDER_PP_DEF_mul ORDER_PP_FN_CM(2,8MUL)
 #define ORDER_PP_CM_8MUL(P,...) ORDER_PP_CM_8MUL_3(,0,P##__VA_ARGS__)
 #define ORDER_PP_CM_8MUL_3(P,r,x,y,...) (,ORDER_PP_IS_0_##x(,(,P##r),P##y,8ADD,P##r,8MUL_3,ORDER_PP_DEC_##x,P##y),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_div ORDER_PP_OP_CM(2,8DIV)
+#define ORDER_PP_DEF_div ORDER_PP_FN_CM(2,8DIV)
 #define ORDER_PP_CM_8DIV(P,x,y,...) ORDER_PP_CM_8DIV_MOD_5(,P##x,P##y,P##y,0,P##x,8FST,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_mod ORDER_PP_OP_CM(2,8MOD)
+#define ORDER_PP_DEF_mod ORDER_PP_FN_CM(2,8MOD)
 #define ORDER_PP_CM_8MOD(P,x,y,...) ORDER_PP_CM_8DIV_MOD_5(,P##x,P##y,P##y,0,P##x,8RST,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_div_mod ORDER_PP_OP_CM(2,8DIV_MOD)
+#define ORDER_PP_DEF_div_mod ORDER_PP_FN_CM(2,8DIV_MOD)
 #define ORDER_PP_CM_8DIV_MOD(P,x,y,...) ORDER_PP_CM_8DIV_MOD_5(,P##x,P##y,P##y,0,P##x,P##__VA_ARGS__)
 #define ORDER_PP_CM_8DIV_MOD_5(P,x,y,c,d,m,...) (,ORDER_PP_EXPAND(ORDER_PP_IS_0_##x,(,(,ORDER_PP_IS_0_##c(,(,(ORDER_PP_INC_##d,0)),(P##d,P##m))),ORDER_PP_IS_0_##c(,(,P##x,8DIV_MOD_5,P##y,P##y,ORDER_PP_INC_##d,P##x),ORDER_PP_DEC_##x,8DIV_MOD_5,P##y,ORDER_PP_DEC_##c,P##d,P##m))),P##__VA_ARGS__)
 

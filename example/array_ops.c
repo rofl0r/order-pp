@@ -164,7 +164,7 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
  */
 
 #define ORDER_PP_DEF_type_of_promotion          \
-ORDER_PP_OP(fn(T,                               \
+ORDER_PP_FN(fn(T,                               \
                if(less(type_rank(T),            \
                        type_rank(type_int)),    \
                   type_int,                     \
@@ -182,7 +182,7 @@ ORDER_PP_OP(fn(T,                               \
  */
 
 #define ORDER_PP_DEF_type_of_conversion                 \
-ORDER_PP_OP(fn(L,R,                                     \
+ORDER_PP_FN(fn(L,R,                                     \
                type_of_promotion(if(less(type_rank(L),  \
                                          type_rank(R)), \
                                     R,                  \
@@ -200,7 +200,7 @@ ORDER_PP_OP(fn(L,R,                                     \
  */
 
 #define ORDER_PP_DEF_type_of_uop                \
-ORDER_PP_OP(fn(O,T,                             \
+ORDER_PP_FN(fn(O,T,                             \
                if(op_is_logical(O),             \
                   type_int,                     \
                   type_of_promotion(T))))
@@ -214,7 +214,7 @@ ORDER_PP_OP(fn(O,T,                             \
  */
 
 #define ORDER_PP_DEF_type_of_bop                        \
-ORDER_PP_OP(fn(O,L,R,                                   \
+ORDER_PP_FN(fn(O,L,R,                                   \
                if(op_is_logical(O),                     \
                   type_int,                             \
                   if(op_is_shift(O),                    \
@@ -258,26 +258,26 @@ ORDER_PP_OP(fn(O,L,R,                                   \
 
 #define ORDER_PP_DEF_applicative_ops                            \
 ORDER_PP_CONST((( ~  , compl , 1, false, false, false ))        \
-               (( -  , neg   , 1, true , false, false ))        \
-               (( !  , not   , 1, true , true , false ))        \
-               (( *  , mul   , 2, true , false, false ))        \
-               (( /  , div   , 2, true , false, false ))        \
-               (( +  , add   , 2, true , false, false ))        \
-               (( -  , sub   , 2, true , false, false ))        \
+               (( -  , neg   , 1,  true, false, false ))        \
+               (( !  , not   , 1,  true,  true, false ))        \
+               (( *  , mul   , 2,  true, false, false ))        \
+               (( /  , div   , 2,  true, false, false ))        \
+               (( +  , add   , 2,  true, false, false ))        \
+               (( -  , sub   , 2,  true, false, false ))        \
                (( %  , mod   , 2, false, false, false ))        \
-               (( << , shl   , 2, false, false, true  ))        \
-               (( >> , shr   , 2, false, false, true  ))        \
-               (( <  , lt    , 2, true , true , false ))        \
-               (( <= , lt_eq , 2, true , true , false ))        \
-               (( >  , gt    , 2, true , true , false ))        \
-               (( >= , gt_eq , 2, true , true , false ))        \
-               (( == , equal , 2, true , true , false ))        \
-               (( != , not_eq, 2, true , true , false ))        \
+               (( << , shl   , 2, false, false,  true ))        \
+               (( >> , shr   , 2, false, false,  true ))        \
+               (( <  , lt    , 2,  true,  true, false ))        \
+               (( <= , lt_eq , 2,  true,  true, false ))        \
+               (( >  , gt    , 2,  true,  true, false ))        \
+               (( >= , gt_eq , 2,  true,  true, false ))        \
+               (( == , equal , 2,  true,  true, false ))        \
+               (( != , not_eq, 2,  true,  true, false ))        \
                (( &  , bitand, 2, false, false, false ))        \
                (( |  , bitor , 2, false, false, false ))        \
                (( ^  , bitxor, 2, false, false, false ))        \
-               (( && , and   , 2, true , true , false ))        \
-               (( || , or    , 2, true , true , false )))
+               (( && , and   , 2,  true,  true, false ))        \
+               (( || , or    , 2,  true,  true, false )))
 
 /*
  * The requirements for types are somewhat less demanding and we'll do
@@ -332,14 +332,14 @@ ORDER_PP_CONST(((           char, ch, false, 1 ))       \
  * unary operator. The gen_array_uop(O,T) metafunction
  */
 
-#define ORDER_PP_DEF_gen_array_uop                                      \
-ORDER_PP_OP(fn(O,T,                                                     \
-               emit_expand(quote(GEN_array_uop),                        \
-                           tuple(op_mnemonic(O),                        \
-                                 op_symbol(O),                          \
-                                 type_abbrev(T),                        \
-                                 type_name(T),                          \
-                                 type_name(type_of_uop(O,T))))))
+#define ORDER_PP_DEF_gen_array_uop                              \
+ORDER_PP_FN(fn(O,T,                                             \
+               emit(quote(GEN_array_uop),                       \
+                    tuple(op_mnemonic(O),                       \
+                          op_symbol(O),                         \
+                          type_abbrev(T),                       \
+                          type_name(T),                         \
+                          type_name(type_of_uop(O,T))))))
 
 /*
  * computes the parameter tuple for the GEN_array_uop(...) code generation
@@ -358,7 +358,7 @@ ORDER_PP(seq_for_each_in_product
                          applicative_ops),
               seq_filter(fn(T,
                             not(type_is_floating(T))),
-                         builtin_types))));
+                         builtin_types))))
 
 /*
  * Then for the floating point operators and all types.
@@ -377,16 +377,16 @@ ORDER_PP(seq_for_each_in_product
  * metafunction gen_array_bop(O,L,R):
  */
 
-#define ORDER_PP_DEF_gen_array_bop                                      \
-ORDER_PP_OP(fn(O,L,R,                                                   \
-               emit_expand(quote(GEN_array_bop),                        \
-                           tuple(op_mnemonic(O),                        \
-                                 op_symbol(O),                          \
-                                 type_abbrev(L),                        \
-                                 type_name(L),                          \
-                                 type_abbrev(R),                        \
-                                 type_name(R),                          \
-                                 type_name(type_of_bop(O,L,R))))))
+#define ORDER_PP_DEF_gen_array_bop                              \
+ORDER_PP_FN(fn(O,L,R,                                           \
+               emit(quote(GEN_array_bop),                       \
+                    tuple(op_mnemonic(O),                       \
+                          op_symbol(O),                         \
+                          type_abbrev(L),                       \
+                          type_name(L),                         \
+                          type_abbrev(R),                       \
+                          type_name(R),                         \
+                          type_name(type_of_bop(O,L,R))))))
 
 /*
  * Then we'll generate code for all binary array procedures in two
@@ -419,7 +419,7 @@ ORDER_PP(seq_for_each_in_product
               builtin_types)))
 
 /*
- * That's it! Who needs templates anyway?
+ * That's it!
  */
 
 /*

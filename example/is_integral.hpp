@@ -31,8 +31,8 @@ template<class T> struct is_integral {
  * cv-qualifier and a type name. We will generate the cv-qualifier and
  * type name pairs using a simple Order program.
  */
-#define GEN_is_integral_specialization(qualifier,type)  \
-template<> struct is_integral<qualifier type> {         \
+#define GEN_is_integral_specialization(cv, type)        \
+template<> struct is_integral<cv type> {                \
   enum { value = true };                                \
 };
 
@@ -56,8 +56,8 @@ template<> struct is_integral<qualifier type> {         \
  */
 ORDER_PP(seq_for_each_in_product
          (fn(Q,T,
-             emit_expand(quote(GEN_is_integral_specialization),
-                         tuple(Q,T))),
+             emit(quote(GEN_is_integral_specialization),
+                  tuple(Q,T))),
           seq(quote(()(const)(volatile)(const volatile)),
               seq_append(quote((char)(wchar_t)),
                          let(S,quote((char)(short)(int)(long)),

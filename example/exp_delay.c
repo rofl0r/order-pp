@@ -17,7 +17,7 @@
  */
 
 #define ORDER_PP_DEF_exp_delay                  \
-ORDER_PP_OP(fn(N,                               \
+ORDER_PP_FN(fn(N,                               \
                unless(is_0(N),                  \
                       exp_delay(dec(N)),        \
                       exp_delay(dec(N)))))

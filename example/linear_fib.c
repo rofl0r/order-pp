@@ -25,13 +25,13 @@ int linear_fib(int n) {
 
 /* Then consider the following Order implementation of Fibonacci. */
 #define ORDER_PP_DEF_linear_fib_3                       \
-ORDER_PP_OP(fn(N,I,J,                                   \
+ORDER_PP_FN(fn(N,I,J,                                   \
                if(is_0(N),                              \
                   I,                                    \
                   linear_fib_3(dec(N),J,add(I,J)))))
 
 #define ORDER_PP_DEF_linear_fib                 \
-ORDER_PP_OP(fn(N,                               \
+ORDER_PP_FN(fn(N,                               \
                linear_fib_3(N,0,1)))
 
 int main() {
