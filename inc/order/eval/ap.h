@@ -2,18 +2,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-// Application.
-//
-// Syntax:
-//
-//   <exp> ::= 8ap(<exp_1>, ..., <exp_n>)
-//
-// Semantics:
-//
-//   [[8ap(<exp_1>, ..., <exp_n>)]] env = ([[<exp_1>]] env) ... ([[exp_n]] env)
-//
-// The value of the first expression is applied to the values of the rest
-// of the expressions.
 #define ORDER_PP_DEF_8ap(...) 8EVAL_AP,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),__VA_ARGS__,
 
 #define ORDER_PP_8EVAL_AP(P,e,n,ft,...) (,P##e,ORDER_PP_DEF_##ft,8EVAL_AP_##n,P##e,P##__VA_ARGS__)

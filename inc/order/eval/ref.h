@@ -28,20 +28,6 @@
 
 #define ORDER_PP_ERROR_UNBOUND_VARIABLE()
 
-/*
-(progn
-  (insert "\n\n")
-  (loop for i from ?A to ?Z do
-    (insert "#define ORDER_PP_DEF_8" i " 8EVAL_IREF,8" i ",\n"))
-  (insert "\n")
-  (loop for i from ?A to ?Z do
-    (insert "#define ORDER_PP_SYM_8" i "_8" i "(P,v) ,P##v,\n"))
-  (insert "\n")
-  (loop for i from ?A to ?Z do
-    (insert "#define ORDER_PP_REF_8" i "(P,s,v) ORDER_PP_SYM_8" i "_##s(,v##P)ORDER_PP_FER_8" i "\n")
-    (insert "#define ORDER_PP_FER_8" i "(P,s,v) ORDER_PP_SYM_8" i "_##s(,v##P)ORDER_PP_REF_8" i "\n")))
-*/
-
 #define ORDER_PP_DEF_8A 8EVAL_IREF,8A,
 #define ORDER_PP_DEF_8B 8EVAL_IREF,8B,
 #define ORDER_PP_DEF_8C 8EVAL_IREF,8C,

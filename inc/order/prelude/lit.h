@@ -60,13 +60,6 @@
 #define ORDER_PP_DEF_8lit_times ORDER_PP_FN_CM(2,8LIT_TIMES)
 #define ORDER_PP_8LIT_TIMES(P,l,r,...) (,ORDER_PP_LIT_ASSERT(ORDER_PP_LIT_TIMES(,P##l,P##r)),P##__VA_ARGS__)
 
-// `8lit_to_nat(l)' converts the signless decimal literal `l' in the
-// range $[0,100]$ to the internal natural number representation of
-// the interpreter.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_inc(8lit_to_nat(56))) ==> 57
 #define ORDER_PP_DEF_8lit_to_nat ORDER_PP_FN_CM(1,8LIT_TO_NAT)
 #define ORDER_PP_8LIT_TO_NAT(P,x,...) (,ORDER_PP_LIT_TO_NAT_##x,P##__VA_ARGS__)
 

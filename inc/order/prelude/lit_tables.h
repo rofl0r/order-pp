@@ -2,60 +2,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-/*
-(let ((n 100))
-   (defun natural (x)
-     (if (<  x 10)
-       (concat "(0" (number-to-string x) ")")
-       (concat "(" (number-to-string (% x 10)) ")" (natural (/ x 10)))))
-   (defun literal (x)
-     (cond
-       ((< x 0) (concat "()" (literal (- x))))
-       ((> x n) (natural x))
-       (t (number-to-string x))))
-   (insert "\n\n")
-   (loop for i from 0 to n do
-     (if (= i 8)
-       (insert "// See \"quote.h\"\n")
-       (insert "#define ORDER_PP_DEF_" (literal i) " 8DEF_CONST," (literal i) ",\n")))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_SYM_" (literal i) "_" (literal i) "(P,v) ,P##v,\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_LIT_TO_NAT_" (literal i) " " (natural i) "\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_LIT_INC_" (literal i) " " (literal (+ i 1)) "\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_LIT_DEC_" (literal i) " " (literal (- i 1)) "\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_LIT_MINUS_100_" (literal i) " " (literal (- 100 i)) "\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_LIT_TIMES_" (literal i) " ")
-     (loop for j from 2 to i do
-       (unless (= 2 j) (insert ","))
-       (insert (literal (* i j))))
-     (insert "\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_LIT_QUOTIENT_" (literal i) " ")
-     (loop for j from 2 to i do
-       (unless (= 2 j) (insert ","))
-       (insert (literal (/ i j))))
-     (insert "\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-     (insert "#define ORDER_PP_LIT_REMAINDER_" (literal i) " ")
-     (loop for j from 2 to i do
-       (unless (= 2 j) (insert ","))
-       (insert (literal (% i j))))
-     (insert "\n")))
-*/
-
 #define ORDER_PP_DEF_0 8DEF_CONST,0,
 #define ORDER_PP_DEF_1 8DEF_CONST,1,
 #define ORDER_PP_DEF_2 8DEF_CONST,2,

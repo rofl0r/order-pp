@@ -2,12 +2,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-// `8tuple(e0,e1,...,eN)' constructs a tuple of the elements `e0',
-// `e1', ..., `eN'. A tuple must always have at least one element.
-//
-// For example,
-//
-//   8tuple(8quote(1), 8quote(2), 8quote(3)) ==> (1,2,3)
 #define ORDER_PP_DEF_8tuple(...) 8EVAL_TUPLE,(,__VA_ARGS__,0tuple),
 
 #define ORDER_PP_8EVAL_TUPLE(P,e,ts,G,...) (,P##e,ORDER_PP_DEF_FIRST P##ts,8EVAL_TUPLE_B,,P##e,ORDER_PP_TUPLE_REST P##ts,P##__VA_ARGS__)

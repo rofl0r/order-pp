@@ -2,13 +2,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-// `8vseq_to_seq_of_tuples(vs)' converts the variadic or n-element
-// sequence `vs' to a sequence of tuples.
-//
-// For example,
-//
-//   8vseq_to_seq_of_tuples(8((1)(2,3)(4,5,6)))
-//    ==> ((1))((1,2))((4,5,6))
 #define ORDER_PP_DEF_8vseq_to_seq_of_tuples ORDER_PP_FN_CM(1,8VSEQ_TO_SEQ_OF_TUPLES)
 #define ORDER_PP_8VSEQ_TO_SEQ_OF_TUPLES(P,s,...) (,ORDER_PP_SEQ_TERMINATE(ORDER_PP_VSEQ_TO_SEQ_OF_TUPLES_A P##s),P##__VA_ARGS__)
 #define ORDER_PP_VSEQ_TO_SEQ_OF_TUPLES_A(...) ((__VA_ARGS__))ORDER_PP_VSEQ_TO_SEQ_OF_TUPLES_B

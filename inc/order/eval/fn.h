@@ -2,28 +2,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-// An anonymous function or lambda expression.
-//
-// Syntax:
-//
-//   <exp> ::= 8fn(<var_1>, ..., <var_n>, <exp_b>)
-//
-// Semantics:
-//
-//   [[8fn(<var_1>, ..., <var_n>, <exp_b>)]] env = fn p_1 ... p_n =>
-//                                                   [[exp_b]] (bind env
-//                                                                   [<var_1>, ..., <var_n>]
-//                                                                   [p_1, ..., p_n])
-//
-// A functional value is created. The syntactic form of functional values
-// is unspecified.
-//
-// For example,
-//
-//   8ap(8ap(8fn(8X,8Y,
-//               8add(8X,8Y)),
-//           5),
-//       4) ==> 9
 #define ORDER_PP_DEF_8fn(...) 8EVAL_FN,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),(,__VA_ARGS__),
 
 #define ORDER_PP_8EVAL_FN(P,e,n,ss,G,K,...) ORDER_PP_##K(,(,8BIND_##n,P##e,ORDER_PP_8EVAL_FN_OPEN ss##P),P##__VA_ARGS__)

@@ -2,46 +2,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-// Output expression.
-//
-// Syntax:
-//
-//   <exp> ::= 8print( <print-exp>+ )
-// 
-//   <print-exp> ::= <exp>
-//                 | ( <pp-tokens> )
-//                 | 8comma | 8lparen | 8rparen
-//                 | 8parens( <print-exp>+ )
-//
-// The `8print(<print-exp>+)' syntactic form is basically like a
-// block statement (e.g. `8do') without commas. However, the value
-// of any expression inside a `8print' block will be implicitly
-// output. Furthermore, any parenthesized sequence of tokens is
-// output verbatim.
-//
-// For example,
-// 
-//   8let(8EM, 8true,
-//        8print( (Hello, world) 8if(8EM,
-//                                   8quote(!),
-//                                   8quote(.)) ))
-//   ==> Hello, world!
-//
-// The syntactic forms `8comma', `8lparen', `8rparen' and `8parens'
-// may only appear inside a `8print' or a `8parens' block. `8comma'
-// outputs `,', `8lparen' outputs `(' and rparen' outputs `)'. For
-// example,
-//
-//   8print(8rparen 8comma 8lparen) ==> ),(
-//
-// Note that the `8comma' syntactic form, in particular, isn't
-// strictly required in order to output a comma.
-//
-// `8parens(...)' is equivalent to `8lparen ... 8rparen'.
-//
-// For example,
-//
-//   8print(8parens(8nat_to_lit(8linear_fib(10)))) ==> (55)
 #define ORDER_PP_DEF_8print(expr) 8EVAL_PRINT,expr,
 
 #define ORDER_PP_8EVAL_PRINT(P,e,expr,G,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,expr##P 0print,e##P,P##__VA_ARGS__)

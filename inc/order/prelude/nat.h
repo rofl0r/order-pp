@@ -2,21 +2,8 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-// `ORDER_PP_NAT(digit...)' converts the digits to the internal
-// natural number representation used by the interpreter.
-// `ORDER_PP_NAT' is designed to be used in constant definitions.
 #define ORDER_PP_NAT(...) ORDER_PP_PM((,0##__VA_ARGS__),8NAT)
 
-// `8nat(digit0, digit1, ..., digitN)' specifies a natural number
-// constant. Note that this is a syntactic form. The digits will not
-// be evaluated.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_inc(8nat(2,0,0,4))) ==> 2005
-//
-// Note also that the literals `0', `1', ..., `100' evaluate to the
-// corresponding natural number.
 #define ORDER_PP_DEF_8nat(...) 8DEF_CONST,ORDER_PP_PM((,0##__VA_ARGS__),8NAT),
 #define ORDER_PP_8NAT(P,t,...) ORDER_PP_OVERLOAD(8NAT,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE t##P)t##P
 #define ORDER_PP_8NAT_1(P,_0) ,)(P##_0)
@@ -31,23 +18,9 @@
 #define ORDER_PP_8NAT_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9) ,)(P##_9)(P##_8)(P##_7)(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
 #define ORDER_PP_8NAT_11_OR_MORE(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,...) (,(,P##__VA_ARGS__),8NAT,)(P##_9)(P##_8)(P##_7)(P##_6)(P##_5)(P##_4)(P##_3)(P##_2)(P##_1)(P##_0)
 
-// `8nat_add(n0, n1, ..., nN)' computes the sum of the natural
-// numbers `n0', `n1', ..., `nN'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_add(3)) ==> 3
-//   8nat_to_lit(8nat_add(3,1)) ==> 4
-//   8nat_to_lit(8nat_add(3,1,4)) ==> 8
 #define ORDER_PP_DEF_8nat_add ORDER_PP_OP_LEFT_CM(8NAT_ADD)
 #define ORDER_PP_8NAT_ADD(P,r,l,...) (,ORDER_PP_NAT_PLUS(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_dec(n)' computes the predecessor of the non-zero natural
-// number `n'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_dec(10)) ==> 9
 #define ORDER_PP_DEF_8nat_dec ORDER_PP_FN_CM(1,8NAT_DEC)
 #define ORDER_PP_8NAT_DEC(P,n,...) (,ORDER_PP_NAT_PRED n##P,P##__VA_ARGS__)
 #define ORDER_PP_NAT_PRED(d) ORDER_PP_NAT_PRED_##d
@@ -112,19 +85,9 @@
 #define ORDER_PP_NAT_PRED_B_08 (9)(07)
 #define ORDER_PP_NAT_PRED_B_09 (9)(08)
 
-// `8nat_div(n0, n1, ..., nN)' computes the quotient of `n0 / n1 /
-// ... / nN'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_div(8)) ==> 8
-//   8nat_to_lit(8nat_div(8,4)) ==> 2
-//   8nat_to_lit(8nat_div(8,4,2)) ==> 1
 #define ORDER_PP_DEF_8nat_div ORDER_PP_OP_LEFT_CM(8NAT_DIV)
 #define ORDER_PP_8NAT_DIV(P,r,l,...) (,ORDER_PP_NAT_QUOTIENT(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_equal(i,j)' tests whether the natural numbers `i' and `j'
-// are equal.
 #define ORDER_PP_DEF_8nat_equal ORDER_PP_FN_CM(2,8NAT_EQUAL)
 #define ORDER_PP_8NAT_EQUAL(P,l,r,...) (,ORDER_PP_NAT_EQUAL(,P##l,P##r)(,8true,8false),P##__VA_ARGS__)
 
@@ -180,21 +143,9 @@
 #define ORDER_PP_NAT_SUCC_B_08 (09)
 #define ORDER_PP_NAT_SUCC_B_09 (0)(01)
 
-// `8nat_is_0(n)' tests whether `n' is the natural number $0$.
-//
-// For example,
-//
-//   8nat_is_0(8nat(0)) ==> 8true
-//   8nat_is_0(8nat(1,5)) ==> 8false
 #define ORDER_PP_DEF_8nat_is_0 ORDER_PP_FN_CM(1,8NAT_IS_0)
 #define ORDER_PP_8NAT_IS_0(P,x,...) (,ORDER_PP_NAT_IS_ZERO x##P(,8true,8false),P##__VA_ARGS__)
 
-// `8nat_isnt_0(n)' tests whether `n' isn't the natural number $0$.
-//
-// For example,
-//
-//   8nat_isnt_0(8nat(0)) ==> 8false
-//   8nat_isnt_0(8nat(3,1)) ==> 8true
 #define ORDER_PP_DEF_8nat_isnt_0 ORDER_PP_FN_CM(1,8NAT_ISNT_0)
 #define ORDER_PP_8NAT_ISNT_0(P,x,...) (,ORDER_PP_NAT_IS_ZERO x##P(,8false,8true),P##__VA_ARGS__)
 
@@ -204,90 +155,33 @@
 #define ORDER_PP_DEF_8nat_less_eq ORDER_PP_FN_CM(2,8NAT_LESS_EQ)
 #define ORDER_PP_8NAT_LESS_EQ(P,l,r,...) (,ORDER_PP_NAT_LESS(,P##r,P##l)(,8false,8true),P##__VA_ARGS__)
 
-// `8nat_minus(nl,nr)' computes the difference of the natural
-// numbers `nl' and `nr'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_minus(7,2)) ==> 9
 #define ORDER_PP_DEF_8nat_minus ORDER_PP_FN_CM(2,8NAT_MINUS)
 #define ORDER_PP_8NAT_MINUS(P,l,r,...) (,ORDER_PP_NAT_MINUS(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_mul(n0, n1, ..., nN)' computes the product of the natural
-// numbers `n0', `n1', ..., `nN'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_mul(3,1,4)) ==> 12
 #define ORDER_PP_DEF_8nat_mul ORDER_PP_OP_LEFT_CM(8NAT_MUL)
 #define ORDER_PP_8NAT_MUL(P,r,l,...) (,ORDER_PP_NAT_TIMES(,P##l,P##r),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8nat_not_eq ORDER_PP_FN_CM(2,8NAT_NOT_EQ)
 #define ORDER_PP_8NAT_NOT_EQ(P,l,r,...) (,ORDER_PP_NAT_EQUAL(,P##l,P##r)(,8false,8true),P##__VA_ARGS__)
 
-// `8nat_plus(nl,nr)' computes the sum of the natural numbers `nl'
-// and `nr'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_plus(7,2)) ==> 9
 #define ORDER_PP_DEF_8nat_plus ORDER_PP_FN_CM(2,8NAT_PLUS)
 #define ORDER_PP_8NAT_PLUS(P,l,r,...) (,ORDER_PP_NAT_PLUS(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_quotient(nl,nr)' computes the quotient of dividing the
-// natural number `nl' by the natural number `nr'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_quotient(7,2)) ==> 3
 #define ORDER_PP_DEF_8nat_quotient ORDER_PP_FN_CM(2,8NAT_QUOTIENT)
 #define ORDER_PP_8NAT_QUOTIENT(P,l,r,...) (,ORDER_PP_NAT_DIV(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_remainder(nl,nr)' computes the remainder of dividing
-// the natural number `nl' by the natural number `nr'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_remainder(7,2)) ==> 1
 #define ORDER_PP_DEF_8nat_remainder ORDER_PP_FN_CM(2,8NAT_REMAINDER)
 #define ORDER_PP_8NAT_REMAINDER(P,l,r,...) (,ORDER_PP_NAT_REMAINDER(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_times(n0, n1, ..., nN)' computes the difference `n0 - n1 -
-// ... - nN'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_sub(8)) ==> 8
-//   8nat_to_lit(8nat_sub(8,4)) ==> 4
-//   8nat_to_lit(8nat_sub(8,4,2)) ==> 2
-//   8nat_to_lit(8nat_sub(8,4,2,1)) ==> 1
 #define ORDER_PP_DEF_8nat_sub ORDER_PP_OP_LEFT_CM(8NAT_SUB)
 #define ORDER_PP_8NAT_SUB(P,r,l,...) (,ORDER_PP_NAT_MINUS(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_times(nl,nr)' computes the product of the natural numbers
-// `nl' and `nr'.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_times(5,6)) ==> 30
 #define ORDER_PP_DEF_8nat_times ORDER_PP_FN_CM(2,8NAT_TIMES)
 #define ORDER_PP_8NAT_TIMES(P,l,r,...) (,ORDER_PP_NAT_MUL(,P##l,P##r),P##__VA_ARGS__)
 
-// `8nat_to_lit(n)' converts the natural number `n' to a signless
-// decimal literal.
-//
-// For example,
-//
-//   8nat_to_lit(8nat_dec(8nat(2,0,0,4))) ==> 2003
 #define ORDER_PP_DEF_8nat_to_lit ORDER_PP_FN_CM(1,8NAT_TO_LIT)
 #define ORDER_PP_8NAT_TO_LIT(P,n,...) (,ORDER_PP_NAT_TO_LIT(,P##n),P##__VA_ARGS__)
 
-// `8nat_to_seq_of_digits(n)' converts the natural number `n' to a
-// sequence of digits with the highest order digit first.
-//
-// For example,
-//
-//   8nat_to_seq_of_digits(8nat(2,0,0,4)) ==> (2)(0)(0)(4)
 #define ORDER_PP_DEF_8nat_to_seq_of_digits ORDER_PP_FN_CM(1,8NAT_TO_SEQ_OF_DIGITS)
 #define ORDER_PP_8NAT_TO_SEQ_OF_DIGITS(P,n,...) (,ORDER_PP_NAT_TO_SEQ_OF_DIGITS(,P##n),P##__VA_ARGS__)
 #define ORDER_PP_NAT_TO_SEQ_OF_DIGITS(P,n) ORDER_PP_SCAN(ORDER_PP_NAT_TO_SEQ_OF_DIGITS_A P##n ORDER_PP_NAT_CLOSE_A P##n)
@@ -295,12 +189,6 @@
 #define ORDER_PP_NAT_TO_SEQ_OF_DIGITS_B(d) ORDER_PP_NAT_TO_SEQ_OF_DIGITS_F ORDER_PP_BLOCK(ORDER_PP_NAT_DIGIT_##d,ORDER_PP_NAT_IS_SENTINEL_##d(,,ORDER_PP_NAT_TO_SEQ_OF_DIGITS_A)
 #define ORDER_PP_NAT_TO_SEQ_OF_DIGITS_F(r,l) l(r)
 
-// `8seq_of_digits_to_nat(s)' converts the sequence of digits `s' to
-// the internal natural number representation of the interpreter.
-//
-// For example,
-//
-//   8nat_to_lit(8seq_of_digits_to_nat(8quote((2)(0)(0)(4)))) ==> 2004
 #define ORDER_PP_DEF_8seq_of_digits_to_nat ORDER_PP_FN_CM(1,8SEQ_OF_DIGITS_TO_NAT)
 #define ORDER_PP_8SEQ_OF_DIGITS_TO_NAT(P,s,...) (,ORDER_PP_SEQ_OF_DIGITS_TO_NAT(,P##s),P##__VA_ARGS__)
 #define ORDER_PP_SEQ_OF_DIGITS_TO_NAT(P,s) ORDER_PP_FY(SEQ_REVERSE,(,ORDER_PP_SEQ_OF_DIGITS_TO_NAT_F P##s))

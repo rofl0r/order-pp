@@ -2,30 +2,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-/*
- (let ((n 100))
-   (defun variable (i &optional rest)
-      (let ((chars (if rest
-                       "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
-                       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")))
-        (if (and rest (= 0 i))
-            ""
-            (concat (char-to-string (elt chars (% i (length chars))))
-                    (variable (/ i (length chars)) t)))))
-   (insert "\n\n")
-   (loop for i from 0 to n do
-      (insert "#define ORDER_PP_TUPLE_AT_" (number-to-string i) "(_")
-      (loop for j from 0 to i do
-         (insert "," (variable j)))
-      (insert ",...) _##" (variable i) "\n"))
-   (insert "\n")
-   (loop for i from 0 to n do
-      (insert "#define ORDER_PP_TUPLE_REST_" (number-to-string i) "(_")
-      (loop for j from 0 to (- i 1) do
-         (insert "," (variable j)))
-      (insert ",...) _##__VA_ARGS__\n")))
-*/
-
 #define ORDER_PP_TUPLE_AT_0(_,A,...) _##A
 #define ORDER_PP_TUPLE_AT_1(_,A,B,...) _##B
 #define ORDER_PP_TUPLE_AT_2(_,A,B,C,...) _##C

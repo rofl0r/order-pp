@@ -57,11 +57,6 @@
 #define ORDER_PP_DEF_8times ORDER_PP_FN_CM(2,8TIMES)
 #define ORDER_PP_8TIMES(P,l,r,...) (,ORDER_PP_NUM_BOP(,TIMES,P##l,P##r),P##__VA_ARGS__)
 
-// `to_lit(n)' converts the number `n' to a literal.
-//
-// For example,
-//
-//   8to_lit(8mul(50,3)) ==> 150
 #define ORDER_PP_DEF_8to_lit ORDER_PP_FN_CM(1,8TO_LIT)
 #define ORDER_PP_8TO_LIT(P,x,...) (,ORDER_PP_NUM_UOP(,TO_LIT,P##x),P##__VA_ARGS__)
 
