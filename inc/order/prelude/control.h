@@ -16,6 +16,11 @@
 #define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
 #define ORDER_PP_8EXIT(P,x,...) ,x##P)
 
+// `8eval(exp, env)' evaluates the Order expression `exp' in the
+// environment `env'.
+#define ORDER_PP_DEF_8eval ORDER_PP_FN_CM(2,8EVAL)
+#define ORDER_PP_8EVAL(P,t,e,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+
 // `8for_each_in_range(i,n,op)' calls the unary procedure `op' for
 // each natural number in the range $[i,i+n[$ in ascending order.
 // The return value of `op' is always ignored and the return value
