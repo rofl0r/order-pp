@@ -246,9 +246,6 @@ Functional primitives
    8identity(x) : a -> a
    8ignore(x)   : a -> Nil
 
-   8always(x) : Any -> True
-   8never(x)  : Any -> False
-
 Nil
 ---
 
