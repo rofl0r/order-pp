@@ -27,8 +27,7 @@ ORDER_PP(8let((8S, 8dt_import_datatypes(8(datatypes))),                         
               8seq_for_each(8fn(8N,                                             \
                                 8print((typedef const struct)8N(*)8N(;))),      \
                             8seq_map(8dt_type_name, 8S)),                       \
-              8seq_for_each(8emit(8(DATATYPE_GEN_datatype)),                    \
-                            8S)))
+              8seq_emit(8(DATATYPE_GEN_datatype), 8S)))
 
 #define DATATYPE_GEN_datatype(type_name, variants)                      \
 ORDER_PP(8seq_for_each                                                  \
@@ -53,20 +52,20 @@ struct type_name {                                                      \
   } tag;                                                                \
                                                                         \
   union {                                                               \
-    ORDER_PP(8seq_for_each                                              \
-             (8emit(8(DATATYPE_GEN_variant_struct)),                    \
+    ORDER_PP(8seq_emit                                                  \
+             (8(DATATYPE_GEN_variant_struct),                           \
               8seq_filter(8chain(8seq_isnt_nil,                         \
                                  8dt_variant_field_types),              \
                           8(variants))))                                \
   } datum;                                                              \
 };                                                                      \
                                                                         \
-ORDER_PP(8seq_for_each                                                  \
-         (8apply(8fn(8C, 8F,                                            \
-                     8emit(8(DATATYPE_GEN_ctor),                        \
-                           8tuple(8(type_name),                         \
-                                  8C,                                   \
-                                  8seq_size(8F))))),                    \
+ORDER_PP(8seq_emit_map                                                  \
+         (8(DATATYPE_GEN_ctor),                                         \
+          8apply(8fn(8C, 8F,                                            \
+                     8tuple(8(type_name),                               \
+                            8C,                                         \
+                            8seq_size(8F)))),                           \
           8(variants)))
 
 #define DATATYPE_GEN_variant_struct(variant_name, field_types)          \
@@ -113,8 +112,8 @@ do {                                                    \
   const type_name ORDER_PP_FRESH_ID(value) = (expr);    \
                                                         \
   switch (ORDER_PP_FRESH_ID(value)->tag) {              \
-    ORDER_PP(8seq_for_each                              \
-             (8emit(8(DATATYPE_GEN_case)),              \
+    ORDER_PP(8seq_emit                                  \
+             (8(DATATYPE_GEN_case),                     \
               8dt_import_cases(8(cases))))              \
   default:                                              \
     ERROR_exit("Invalid tag %d resulting from '%s'.",   \

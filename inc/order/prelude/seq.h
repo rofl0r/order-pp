@@ -270,6 +270,14 @@ ORDER_PP_FN(8fn(8N, 8S,                                         \
 #define ORDER_PP_8SEQ_COUNT_F(P,n,f,...) (,(,ORDER_PP_OPEN f##P,8SEQ_COUNT_G,P##n),P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_COUNT_G(P,b,n,...) (,ORDER_PP_IF_##b(ORDER_PP_,NUM_INC,OPEN)(,P##n),P##__VA_ARGS__)
 
+#define ORDER_PP_DEF_8seq_emit                  \
+ORDER_PP_FN(8fn(8M,                             \
+                8seq_for_each(8emit(8M))))
+
+#define ORDER_PP_DEF_8seq_emit_map                      \
+ORDER_PP_FN(8fn(8M, 8F,                                 \
+                8seq_for_each(8chain(8emit(8M), 8F))))
+
 #define ORDER_PP_DEF_8seq_exists ORDER_PP_FN_CM(2,8SEQ_EXISTS,0IS_FN,0IS_SEQ)
 #define ORDER_PP_8SEQ_EXISTS(P,s,f,...) (,ORDER_PP_OVERLOAD(8SEQ_EXISTS,ORDER_PP_SEQ_SATURATED_SIZE(,2,P##s))(,P##f,P##s),P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_EXISTS_0(P,f,s) 8false
