@@ -21,3 +21,21 @@ extend the examples in various ways. While it is probably too much
 to ask the reader to complete all the exercises, all readers are
 strongly recommended to preprocess one or more examples to actually
 see what is ultimately being generated.
+
+## Rant of the day
+
+In case the reader is interested in preprocessing the examples, it
+is good to know that at the time of writing, the author is only
+aware of two preprocessors that are able to preprocess the examples
+correctly. The preprocessors are the GNU CPP and the Wave
+preprocessor library by Hartmut Kaiser. To the best of the knowledge
+of the author, the implementation of the Order interpreter strictly
+conforms to the [C99] standard. Unfortunately, despite the supposed
+simplicity of the C preprocessor, and the existence of a stable C
+standard first since 1989 and later since 1999, with a couple of
+exceptions, almost no preprocessor implementation conforms even to
+the 1989 standard. In the opinion of the author, 5 years, let alone
+15 years, should be considerably more than enough time to get the
+implementation of a simple language right. The author will not spend
+one minute of his time to write workarounds for broken
+preprocessors.
