@@ -64,13 +64,21 @@ seq_map(dec,nil)#
 seq_map(inc,quote((3)(1)(4)(1)))#(4)(2)(5)(2)
 seq_pop_back(quote((1)(2)(3)(b)))#(1) (2) (3)
 seq_pop_back(quote((1)))#
+seq_range(0,7,quote((1)(2)(3)(4)(5)(6)(7)))#(1) (2) (3) (4) (5) (6) (7)
+seq_range(2,0,quote((1)(2)(3)(4)(5)(6)(7)))#
+seq_range(2,3,quote((1)(2)(3)(4)(5)(6)(7)))#(3) (4) (5)
 seq_rest_n(0,quote((1)(2)(3)(4)))#(1)(2)(3)(4)
 seq_rest_n(3,quote((1)(2)(3)(4)))#(4)
 seq_rest_n(4,quote((1)(2)(3)(4)))#
 seq_reverse(nil)#
 seq_reverse(quote((1)(2)(3)(a)))#(a) (3) (2) (1)
+seq_set(0,quote((1)(2)(3)),quote(.))#(.) (2)(3)
+seq_set(1,quote((1)(2)(3)),quote(.))#(1) (.) (3)
+seq_set(2,quote((1)(2)(3)),quote(.))#(1) (2) (.)
 seq_size(nil)#0
 seq_size(quote((1)(2)(3)(4)(5)))#5
+seq_to_tuple(quote((1)(2)(3)))#(1 , 2 , 3 )
+seq_to_tuple(seq_nil)#()
 stringize(quote(This is a string.))#"This is a string."
 tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
 tuple(dec(0),dec(1),dec(256))#(0,0,255)
@@ -83,8 +91,8 @@ tuple(sub(10,3),add(10,3))#(7,13)
 tuple(true,false)#(true,false)
 tuple(tuple(1))#((1))
 tuple(tuple(quote(a)),tuple(quote(b)))#((a),(b))
-tuple_at(7,tuple(1,2,3,4,5,6,7,8))#8
 tuple_at(0,tuple(4,5))#4
+tuple_at(7,tuple(1,2,3,4,5,6,7,8))#8
 unless(false,emit(3),emit(2),1)#1 2 3
 unless(true,emit(3),emit(2),1)#
 when(false,emit(5))#

@@ -10,16 +10,22 @@
 #include "chaos/preprocessor/seq/first_n.h"
 #include "chaos/preprocessor/seq/insert.h"
 #include "chaos/preprocessor/seq/pop_back.h"
+#include "chaos/preprocessor/seq/range.h"
+#include "chaos/preprocessor/seq/replace.h"
 #include "chaos/preprocessor/seq/rest_n.h"
 #include "chaos/preprocessor/seq/reverse.h"
 #include "chaos/preprocessor/seq/size.h"
+#include "chaos/preprocessor/seq/to_tuple.h"
 
-#define ORDER_PP_DEF_seq_at ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_ELEM)
-#define ORDER_PP_DEF_seq_first_n ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_FIRST_N)
-#define ORDER_PP_DEF_seq_insert ORDER_PP_FN_MACRO(3,CHAOS_PP_SEQ_INSERT)
+#define ORDER_PP_DEF_seq_at       ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_ELEM)
+#define ORDER_PP_DEF_seq_first_n  ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_FIRST_N)
+#define ORDER_PP_DEF_seq_insert   ORDER_PP_FN_MACRO(3,CHAOS_PP_SEQ_INSERT)
 #define ORDER_PP_DEF_seq_pop_back ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_POP_BACK)
-#define ORDER_PP_DEF_seq_rest_n ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_REST_N)
-#define ORDER_PP_DEF_seq_reverse ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_REVERSE)
-#define ORDER_PP_DEF_seq_size ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_SIZE)
+#define ORDER_PP_DEF_seq_range    ORDER_PP_FN_MACRO(3,CHAOS_PP_SEQ_RANGE)
+#define ORDER_PP_DEF_seq_rest_n   ORDER_PP_FN_MACRO(2,CHAOS_PP_SEQ_REST_N)
+#define ORDER_PP_DEF_seq_reverse  ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_REVERSE)
+#define ORDER_PP_DEF_seq_set      ORDER_PP_FN_MACRO(3,CHAOS_PP_SEQ_REPLACE)
+#define ORDER_PP_DEF_seq_size     ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_SIZE)
+#define ORDER_PP_DEF_seq_to_tuple ORDER_PP_FN_MACRO(1,CHAOS_PP_SEQ_TO_TUPLE)
 
 #endif
