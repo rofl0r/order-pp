@@ -34,6 +34,10 @@ ORDER_PP_FN(8fn(8S,                                                             
 #define ORDER_PP_DEF_8stream_head ORDER_PP_FN_CM(1,8STREAM_HEAD,0IS_STREAM_CONS)
 #define ORDER_PP_8STREAM_HEAD(P,s,...) (,ORDER_PP_STREAM_HEAD s##P,P##__VA_ARGS__)
 
+#define ORDER_PP_DEF_8stream_interleave ORDER_PP_FN_CM(2,8STREAM_INTERLEAVE,0IS_STREAM,0IS_STREAM)
+#define ORDER_PP_8STREAM_INTERLEAVE(P,r,l,...) (,ORDER_PP_ISNT_EDIBLE(,P##l)(,P##r,(ORDER_PP_STREAM_TAKE l##P,8STREAM_EVAELRETNI,P##r)ORDER_PP_RPAREN),P##__VA_ARGS__)
+#define ORDER_PP_8STREAM_EVAELRETNI(P,l,r,...) (,ORDER_PP_ISNT_EDIBLE(,P##l)(,P##r,(ORDER_PP_STREAM_TAKE l##P,8STREAM_INTERLEAVE,P##r)ORDER_PP_RPAREN),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8stream_is_cons ORDER_PP_FN_CM(1,8STREAM_IS_CONS,0IS_STREAM)
 #define ORDER_PP_8STREAM_IS_CONS(P,s,...) (,ORDER_PP_TEST(,ORDER_PP_IS_EDIBLE_TEST P##s,8true,8false),P##__VA_ARGS__)
 
@@ -45,7 +49,6 @@ ORDER_PP_FN(8fn(8S,                                                             
 
 #define ORDER_PP_DEF_8stream_take ORDER_PP_FN_CM(2,8STREAM_TAKE,0IS_NUM,0IS_STREAM)
 #define ORDER_PP_8STREAM_TAKE(P,s,n,...) (,ORDER_PP_OR(or)(ORDER_PP_NUM_IS_0(,P##n))(not)(ORDER_PP_IS_EDIBLE(,P##s))()(,,(ORDER_PP_STREAM_TAKE s##P,8STREAM_TAKE,ORDER_PP_NUM_DEC(,P##n))ORDER_PP_RPAREN),P##__VA_ARGS__)
-#define ORDER_PP_STREAM_TAKE(h,t) h,(,ORDER_PP_OPEN t
 
 #define ORDER_PP_DEF_8stream_to_seq             \
 ORDER_PP_FN(8fn(8S,                             \
@@ -108,8 +111,8 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
                                                        8stream_tail(8R))))))
 
 #define ORDER_PP_DEF_8stream_take_while ORDER_PP_FN_CM(2,8STREAM_TAKE_WHILE,0IS_FN,0IS_STREAM)
-#define ORDER_PP_8STREAM_TAKE_WHILE(P,s,c,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN c##P,8STREAM_TAKE_WHILE_B,P##c,ORDER_PP_REM P##s),P##__VA_ARGS__)
-#define ORDER_PP_8STREAM_TAKE_WHILE_B(P,b,c,h,t,...) (,ORDER_PP_EAT_UNLESS_##b(P##h,(,ORDER_PP_OPEN t##P,8STREAM_TAKE_WHILE,P##c)),P##__VA_ARGS__)
+#define ORDER_PP_8STREAM_TAKE_WHILE(P,s,c,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN c##P,8STREAM_TAKE_WHILE_B,(ORDER_PP_STREAM_TAKE s##P,8STREAM_TAKE_WHILE,P##c)ORDER_PP_RPAREN),P##__VA_ARGS__)
+#define ORDER_PP_8STREAM_TAKE_WHILE_B(P,b,...) (,ORDER_PP_EAT_UNLESS_##b P##__VA_ARGS__)
 
 // Detail
 
@@ -118,5 +121,6 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
 
 #define ORDER_PP_STREAM_HEAD(h,t) h
 #define ORDER_PP_STREAM_TAIL(h,t) ORDER_PP_OPEN t
+#define ORDER_PP_STREAM_TAKE(h,t) h,(,ORDER_PP_OPEN t
 
 #endif
