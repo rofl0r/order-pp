@@ -275,7 +275,7 @@
 8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)#<ws>
 8tuple(8is_0(0),8is_0(1),8is_0(50))#(8true,8false,8false)#<ws>
 8tuple(8is_0(0),8is_0(1),8is_0(8nat(1,2,3)))#(8true,8false,8false)#<ws>
-8tuple(8is_lit(8true),8is_lit(1),8is_lit(8tuple(1)),8is_lit(8(1000)))#(8false,8true,8false,8false)#<ws>
+8tuple(8is_lit(8true),8is_lit(0),8is_lit(100),8is_lit(8tuple(1)),8is_lit(8(1000)))#(8false,8true,8true,8false,8false)#<ws>
 8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(8false,8true,8false,8false)#<ws>
 8tuple(8is_tuple(8nil),8is_tuple(5),8is_tuple(8(+)),8is_tuple(8((1,2))))#(8false,8false,8false,8true)#<ws>
 8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(8false,8true,8true)#<ws>
