@@ -4,6 +4,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_SYM_8AA(...) __VA_ARGS__
 #define ORDER_PP_SYM_8AB(...) __VA_ARGS__

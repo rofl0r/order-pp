@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #ifdef ORDER_PP_DEBUG
 # define ORDER_PP_FN_CM(arity,K,...) 8DEF_FN,(,8CM,ORDER_PP_LIT_DEC(,arity),K,(,__VA_ARGS__,)),ORDER_PP_ARGS

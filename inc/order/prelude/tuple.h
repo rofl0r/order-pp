@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8is_tuple ORDER_PP_FN_CM(1,8IS_TUPLE,0IS_ANY)
 #define ORDER_PP_8IS_TUPLE(P,t,...) (,ORDER_PP_IS_EDIBLE(,P##t)(,8true,8false),P##__VA_ARGS__)

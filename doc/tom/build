@@ -3,6 +3,7 @@
 # (C) Copyright Vesa Karvonen 2004.
 #
 # Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE.)
 
 doc=tom
 tmpDir=.tmp
@@ -10,6 +11,7 @@ tmpDir=.tmp
 function cpp-to-ltx {
     sed -e 's:^// (C) Copyright Vesa Karvonen 2004.$::g' \
         -e 's:^// Distributed under the Boost Software License, Version 1.0.$::g' \
+        -e 's:^// (See accompanying file LICENSE.)$::g' \
         -e 's:^#[ \t]\+.*::g' \
         -e 's:^#if 0$:\\begin{verbatim}:g' \
         -e 's:^#endif//0$:\\end{verbatim}:g' \

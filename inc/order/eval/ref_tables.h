@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8A 8EVAL_VREF,8A,
 #define ORDER_PP_DEF_8B 8EVAL_VREF,8B,

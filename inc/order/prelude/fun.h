@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8apply ORDER_PP_FN_NATIVE(2,9APPLY,0IS_FN,0IS_TUPLE)
 #define ORDER_PP_9APPLY(P,f,ps) ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_REM ps##P,)),ORDER_PP_OPEN f##P ORDER_PP_FX(IS_TUPLE_SIZE_1,(,ORDER_PP_REM ps##P))(,,,8APPLY_LOOP,(,ORDER_PP_FX(TUPLE_REST,(,ORDER_PP_REM ps##P)),))

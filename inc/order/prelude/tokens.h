@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8tokens_to_seq ORDER_PP_FN_CM(1,8TOKENS_TO_SEQ,0IS_ANY)
 #define ORDER_PP_8TOKENS_TO_SEQ(P,ts,...) (,ORDER_PP_FX(PSEQ_TO_SEQ,(,ORDER_PP_FX(PSEQ_REVERSE,(,ORDER_PP_PM(,ORDER_PP_IS_EDIBLE(,P##ts)(ORDER_PP_TOKENS_TO_SEQ_,EDIBLE,INEDIBLE)(,P##ts,ORDER_PP_TOKEN),ORDER_PP_TOKEN,))))),P##__VA_ARGS__)

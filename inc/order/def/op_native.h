@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #ifdef ORDER_PP_DEBUG
 # define ORDER_PP_OP_LEFT_NATIVE(m,p) 8DEF_OP_LN,m,p,ORDER_PP_OP_LN_PARAMS

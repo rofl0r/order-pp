@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8ap(...) 8EVAL_AP,ORDER_PP_DEF_8ap_ARGS(0##__VA_ARGS__,ORDER_PP_COMMA_5,ORDER_PP_COMMA_4,ORDER_PP_COMMA_3,ORDER_PP_COMMA_2,ORDER_PP_COMMA_1,ORDER_PP_COMMA_0,)(,__VA_ARGS__),
 #define ORDER_PP_DEF_8ap_ARGS(_,A,B,C,D,E,x,...) ORDER_PP_TUPLE_AT_1(ORDER_PP_DEF_8ap_ARGS_,x,N,)

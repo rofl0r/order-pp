@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #ifdef ORDER_PP_DEBUG
 # define ORDER_PP_DEF_8quote(...) ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,,8EXIT_SYNTAX_ERROR,8quote(__VA_ARGS__),)8DEF_CONST,__VA_ARGS__,

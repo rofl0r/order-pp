@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8letn(bs,...) 8EVAL_LETN,ORDER_PP_SEQ_AT_0 bs(,0letn),ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),
 

@@ -3,6 +3,7 @@
   (C) Copyright Vesa Karvonen 2004.
  
   Distributed under the Boost Software License, Version 1.0.
+  (See accompanying file LICENSE.)
 
 ==========================================================================
 
@@ -27,7 +28,6 @@ SYNTAX
                 | 8cond((<exp_{cond}>, <exp_{cons}>+)+ (8else, <exp_{alt}>+)?)
                 | 8and(<exp>+)
                 | 8or(<exp>+)
-                | 8cat(<exp>+)
                 | 8seq | 8seq(<exp>+)
                 | 8tuple(<exp>+)
                 | 8do(<exp>+)
@@ -161,19 +161,20 @@ Arithmetic
 
    8nat(d0, d1, ..., dN) : Nat
 
-   8dec(n)               : Num -> Num
+   8dec(n)               : Num -> Num          -where 8not_eq(0, n)
    8inc(n)               : Num -> Num
 
    8add(n0, n1, ..., nN) : Num+ -> Num
-   8div(n0, n1, ..., nN) : Num+ -> Num
+   8div(n0, n1, ..., nN) : Num+ -> Num         -where 8seq_for_all(8not_eq(0), 8seq(n1, ... nN))
    8mul(n0, n1, ..., nN) : Num+ -> Num
-   8sub(n0, n1, ..., nN) : Num+ -> Num
+   8sub(n0, n1, ..., nN) : Num+ -> Num         -where 8greater_eq(n0, 8add(n1, ..., nN))
 
-   8minus(ln, rn)        : Num -> Num -> Num
+   8minus(ln, rn)        : Num -> Num -> Num   -where 8greater_eq(ln, rn)
    8plus(ln, rn)         : Num -> Num -> Num
-   8quotient(ln, rn)     : Num -> Num -> Num
-   8remainder(ln, rn)    : Num -> Num -> Num
+   8quotient(ln, rn)     : Num -> Num -> Num   -where 8not_eq(0, rn)
+   8remainder(ln, rn)    : Num -> Num -> Num   -where 8not_eq(0, rn)
    8times(ln, rn)        : Num -> Num -> Num
+   8pow(b, e)            : Num -> Num -> Num
 
    8is_0(n)              : Num -> Bool
    8isnt_0(n)            : Num -> Bool
@@ -215,7 +216,10 @@ Control
    8unless(<exp_{cond}>, <exp_{body}>+)
    8when(<exp_{cond}>, <exp_{body}>+)
 
-   8with_assert(<exp_{cond}>, <exp_{body}>)
+Debugging
+---------
+
+   8with_assert(<exp_{cond}>, <exp_{body}>+)
 
 Environments
 ------------
@@ -254,33 +258,34 @@ Nil
 
    8nil : Nil
 
-   8is_nil(x) : a -> Bool
+   8is_nil(x)   : a -> Bool
+   8isnt_nil(x) : a -> Bool
 
 Output
 ------
 
-   8put(x) : a -> Nil
-
-   8emit(m, p) : a -> a -> Nil
+   8emit(m, p) : a -> b -> Nil
 
    8emit_comma(x)  : a -> Nil
    8emit_lparen(x) : a -> Nil
    8emit_rparen(x) : a -> Nil
+   8emit_space(x)  : a -> Nil
 
-   8emit_params(i0, i1, p)          : Num -> Num -> Catenable -> Nil
-   8emit_trailing_params(i0, i1, p) : Num -> Num -> Catenable -> Nil
+   8put(x) : a -> Nil
 
 Preprocessing
 -------------
 
-   8expand(m, p)   : a -> b -> c
+   8expand(t0, t1, ..., tN) : Any+ -> Any
+   8separate(l, r)          : a -> b -> c
 
-   8adjacent(l, r) : a -> b -> c
-   8separate(l, r) : a -> b -> c
+   8adjoin(t0, t1, ..., tN) : Any+ -> Any
+   8adjacent(l, r)          : a -> b -> c
 
-   8paste(l, r)    : a -> b -> c
+   8cat(t0, t1, ..., tN)    : Catenable+ -> Any
+   8paste(l, r)             : a -> b -> c        -where 8isnt_edible(r)
 
-   8stringize(x)   : a -> StringLiteral
+   8stringize(x)            : a -> StringLiteral
 
 Symbols
 -------
@@ -304,33 +309,38 @@ Sequences
 
   First-order:
 
-   8seq_at(i, s)                  : Num -> Seq -> a
-   8seq_set(i, s, x)              : Num -> Seq -> a -> Seq
-   8seq_range(i, n, s)            : Num -> Num -> Seq -> Seq
+   8seq_at(i, s)                  : Num -> Seq -> a                        -where 8less(i, 8seq_size(s))
+   8seq_set(i, s, x)              : Num -> Seq -> a -> Seq                 -where 8less(i, 8seq_size(s))
+  -8seq_range(i0, i1, s)          : Num -> Num -> Seq -> Seq               -where 8and(8less_eq(i0, i1),
+                                                                                       8less_eq(i0, 8seq_size(s)),
+                                                                                       8less_eq(i1, 8seq_size(s)))
 
-   8seq_first(s)                  : Seq -> Any
-   8seq_rest(s)                   : Seq -> Seq
+  -8seq_head(s)                   : Seq -> Any                             -where 8seq_isnt_nil(s)
+  -8seq_tail(s)                   : Seq -> Seq                             -where 8seq_isnt_nil(s)
 
-   8seq_last(s)                   : Seq -> Any
+  -8seq_last(s)                   : Seq -> Any                             -where 8seq_isnt_nil(s)
+  -8seq_lead(s)                   : Seq -> Seq                             -where 8seq_isnt_nil(s)
 
-   8seq_take(n, s)                : Num -> Seq -> Seq
-   8seq_drop(n, s)                : Num -> Seq -> Seq
+   8seq_take(n, s)                : Num -> Seq -> Seq                      -where 8less_eq(n, 8seq_size(s))
+   8seq_drop(n, s)                : Num -> Seq -> Seq                      -where 8less_eq(n, 8seq_size(s))
 
    8seq_size(s)                   : Seq -> Num
 
    8seq_reverse(s)                : Seq -> Seq
 
-   8seq_pop_at(i, s)              : Num -> Seq -> Seq
-   8seq_pop_back(s)               : Seq -> Seq
-   8seq_pop_front(s)              : Seq -> Seq
-   8seq_pop_range(i, n, s)        : Num -> Num -> Seq -> Seq
+   8seq_pop_at(i, s)              : Num -> Seq -> Seq                      -where 8less(i, 8seq_size(s))
+   8seq_pop_back(s)               : Seq -> Seq                             -where 8seq_isnt_nil(s)
+   8seq_pop_front(s)              : Seq -> Seq                             -where 8seq_isnt_nil(s)
+  -8seq_pop_range(i0, i1, s)      : Num -> Num -> Seq -> Seq               -where 8and(8less_eq(i0, i1),
+                                                                                       8less_eq(i0, 8seq_size(s)),
+                                                                                       8less_eq(i1, 8seq_size(s)))
 
-   8seq_push_at(i, s, x)          : Num -> Seq -> a -> Seq
+   8seq_push_at(i, s, x)          : Num -> Seq -> a -> Seq                 -where 8less_eq(i, 8seq_size(s))
    8seq_push_back(x, s)           : a -> Seq -> Seq
    8seq_push_front(x, s)          : a -> Seq -> Seq
-   8seq_push_range(i, s, ss)      : Num -> Seq -> Seq -> Seq
+   8seq_push_range(i, s, ss)      : Num -> Seq -> Seq -> Seq               -where 8less_eq(i, 8seq_size(s))
 
-   8seq_split(i, s)               : Num -> Seq(a) -> Tuple(Seq(a), Seq(a))
+   8seq_split(i, s)               : Num -> Seq(a) -> Tuple(Seq(a), Seq(a)) -where 8less_eq(i, 8seq_size(s))
    8seq_join(ls, rs)              : Seq(a) -> Seq(a) -> Seq(a)
 
    8seq_iota(i0, i1)              : Num -> Num -> Seq(Num)
@@ -397,15 +407,15 @@ Tuples
 
    8is_tuple(x)         : a -> Bool
 
-   8tuple_at(i, t)      : Num -> Tuple -> a
-   8tuple_at_[0,9](t)   : Tuple -> a
+   8tuple_at(i, t)      : Num -> Tuple -> a        -where 8less(i, 8tuple_size(t))
+   8tuple_at_[0,9](t)   : Tuple -> a               -where 8less(i, 8tuple_size(t))
 
-   8tuple_drop(n, t)    : Num -> Tuple -> Tuple
-   8tuple_drop_[1-9](t) : Tuple -> Tuple
+   8tuple_drop(n, t)    : Num -> Tuple -> Tuple    -where 8less(n, 8tuple_size(t))
+   8tuple_drop_[1-9](t) : Tuple -> Tuple           -where 8less(n, 8tuple_size(t))
 
    8tuple_size(t)       : Tuple -> Num
 
-  -8tuple_take(n, t)    : Num -> Tuple -> Tuple
-  -8tuple_take_[1-9](t) : Tuple -> Tuple
+  -8tuple_take(n, t)    : Num -> Tuple -> Tuple    -where 8less_eq(n, 8tuple_size(t))
+  -8tuple_take_[1-9](t) : Tuple -> Tuple           -where 8less_eq(n, 8tuple_size(t))
 
    8tuple_to_seq(t)     : Tuple(a+) -> Seq(a)

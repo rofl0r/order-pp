@@ -107,6 +107,7 @@
 8or(8false,8(6))#6#
 8or(8false,8false,8false,8true,0)#8true#
 8or(8true)#8true#
+8paste(1,8tuple(1))#ORDER_PP_PRECONDITION_FAILURE:9PASTE(1,(1)):(,(,1,(1)),8EXIT,,)#ORDER_PP_PRECONDITION_FAILURE
 8plus(1,8true)#ORDER_PP_TYPE_ERROR:0IS_NUM(8true):(,(,0)(ORDER_PP_8NATIVE_L_,LAST,MORE)(,0,9PLUS,(,0IS_NUM,),(,1,8true)),8EXIT,,)#ORDER_PP_TYPE_ERROR
 8print((!)8space 8lparen 8space 8rparen)#! ( )#
 8print((This is implicitly quoted.))#This is implicitly quoted.#
@@ -336,6 +337,9 @@
 8tuple_at(8nat(0),8tuple(0,1,2,3,4,5))#0#
 8tuple_at(8nat(3),8tuple(0,1,2,3,4,5))#3#
 8tuple_at(8nat(5),8tuple(0,1,2,3,4,5))#5#
+8tuple_at_1(8tuple(2))#ORDER_PP_PRECONDITION_FAILURE:8TUPLE_AT_1((2)):(,(2),8TUPLE_AT_1,8EXIT,,)#ORDER_PP_PRECONDITION_FAILURE
+8tuple_at_2(8((a,b)))#ORDER_PP_PRECONDITION_FAILURE:8TUPLE_AT_2(( a , b )):(,( a , b ),8TUPLE_AT_2,8EXIT,,)#ORDER_PP_PRECONDITION_FAILURE
+8tuple_at_2(8((a,b,c)))#c#
 8tuple_drop(0,8tuple(8(!),8(%),8(?),8(^),8(*),8(;)))#(!,%,?,^,*,;)#
 8tuple_drop(3,8tuple(8(!),8(%),8(?),8(^),8(*),8(;)))#(^,*,;)#
 8tuple_drop(8nat(0),8tuple(1,2,3,4,5))#(1,2,3,4,5)#

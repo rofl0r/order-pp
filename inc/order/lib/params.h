@@ -4,6 +4,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8emit_params ORDER_PP_FN_CM(3,8EMIT_PARAMS,0IS_NUM,0IS_NUM,0IS_ANY)
 #define ORDER_PP_8EMIT_PARAMS(P,p,i1,i0,...) (,,P##__VA_ARGS__)ORDER_PP_NUM_EQUAL(,P##i0,P##i1)(,,(,2,ORDER_PP_ENUM_PARAMS,(,P##i0,P##i1,P##p)))

@@ -4,6 +4,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 # include "order/interpreter.h"
 
@@ -81,6 +82,8 @@ namespace detail {
 // following program that generates the `is_function_tester'
 // templates.
 //<
+#include "order/lib/params.h" // 8emit_params & 8emit_trailing_params
+
 namespace detail {
   ORDER_PP
   (8for_each_in_range
@@ -102,7 +105,7 @@ namespace detail {
 // number of parameters determined by the number passed by
 // `8for_each_in_range'.
 //
-// The `8print' block used in the above code makes it fairly
+// The `8print' expression used in the above code makes it fairly
 // convenient to generate arbitrary output, even unbalanced
 // parentheses. `8print' basically outputs any sequence of tokens
 // inside parentheses verbatim and implicitly outputs the value of
@@ -110,10 +113,10 @@ namespace detail {
 // can be used inside `8print', outputs a parenthesized sequence of
 // tokens.
 //
-// `8emit_params' and `8emit_trailing_params' are some of the most
-// specific procedures provided by the Order prelude to support
-// typical code generation tasks. Both of them output an indexed and
-// comma separated sequence of tokens. The only difference is that
+// `8emit_params' and `8emit_trailing_params' are procedures
+// provided by the Order library to support typical code generation
+// tasks. Both of them output an indexed and comma separated
+// sequence of tokens. The only difference is that
 // `8emit_trailing_params' outputs a comma preceding the first
 // generated token.
 //

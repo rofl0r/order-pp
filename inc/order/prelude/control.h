@@ -1,6 +1,7 @@
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE.)
 
 #define ORDER_PP_DEF_8call_cc ORDER_PP_FN_CM(1,8CALL_CC,0IS_FN)
 #define ORDER_PP_8CALL_CC(P,f,...) (,(,8REPLACE_C,(,P##__VA_ARGS__)),ORDER_PP_OPEN f##P,P##__VA_ARGS__)
