@@ -83,27 +83,32 @@ str_type str_cat(str_type str0, ...) {
   return str_intern(result);
 }
 
-ptrdiff_t str_num_prefix_spaces(str_type str) {
-  assert(str);
+void str_skip_spaces(str_type *pstr) {
+  assert(pstr);
+  assert(*pstr);
 
-  str_type start = str;
+  str_type str = *pstr;
   while (isspace(*str))
     ++str;
-  return str - start;
+  *pstr = str;
 }
 
-ptrdiff_t str_is_non_empty_prefix(str_type maybe_prefix, str_type str) {
+_Bool str_match_prefix(str_type *pstr, str_type maybe_prefix) {
+  assert(pstr);
+  assert(*pstr);
   assert(maybe_prefix);
-  assert(str);
 
-  str_type start = maybe_prefix;
+  str_type str = *pstr;
 
   while ('\0' != *maybe_prefix && *maybe_prefix == *str) {
     ++maybe_prefix;
     ++str;
   }
 
-  return '\0' == *maybe_prefix
-    ? maybe_prefix - start
-    : 0;
+  if ('\0' == *maybe_prefix) {
+    *pstr = str;
+    return 1;
+  } else {
+    return 0;
+  }
 }

@@ -69,10 +69,10 @@ ctor_name(ORDER_PP(8for_each_in_range                           \
                               8tuple(8quote(ctor_name), 8I))),  \
                     0,                                          \
                     field_cnt))) {                              \
-  struct type_name* result =                                    \
+  struct type_name* ORDER_PP_FRESH_ID(result) =                 \
     checked_malloc(sizeof(struct type_name));                   \
                                                                 \
-  result->tag = DATATYPE_TAG_##ctor_name;                       \
+  ORDER_PP_FRESH_ID(result)->tag = DATATYPE_TAG_##ctor_name;    \
                                                                 \
   ORDER_PP(8for_each_in_range                                   \
            (8fn(8I,                                             \
@@ -81,7 +81,7 @@ ctor_name(ORDER_PP(8for_each_in_range                           \
             0,                                                  \
             field_cnt))                                         \
                                                                 \
-  return result;                                                \
+  return ORDER_PP_FRESH_ID(result);                             \
 }
 
 #define DATATYPE_GEN_ctor_arg(ctor_name, field_idx)             \
@@ -89,8 +89,8 @@ ORDER_PP(8when(8isnt_0(field_idx),                              \
                8emit_comma))                                    \
      DATATYPE_FIELD_##field_idx##_TYPE_##ctor_name _##field_idx
 
-#define DATATYPE_GEN_ctor_assign(ctor_name, field_idx)  \
-result->datum.ctor_name._##field_idx = _##field_idx;
+#define DATATYPE_GEN_ctor_assign(ctor_name, field_idx)                  \
+ORDER_PP_FRESH_ID(result)->datum.ctor_name._##field_idx = _##field_idx;
 
 #define DATATYPE_switch(expr, type_name, cases)         \
 do {                                                    \

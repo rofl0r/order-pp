@@ -34,16 +34,16 @@ extern str_type str_substr(str_type first, str_type beyond);
 // parameter.
 extern str_type str_cat(str_type s0, ...);
 
-// `str_num_prefix_spaces(str)' returns the number of spaces at the start
-// of the string `str'.
-extern ptrdiff_t str_num_prefix_spaces(str_type str);
+// `str_skip_spaces(pstr)' advanced the string `*pstr' past the whitespace
+// characters at the beginning of the string.
+extern void str_skip_spaces(str_type *pstr);
 
-// `str_is_non_empty_prefix(maybe_prefix, str)' tests whether the string
-// `maybe_prefix' is a non empty prefix of the string `str'. If the string
-// `maybe_prefix' is a prefix of the string `str', then the return value
-// is the length of the string `maybe_prefix'. Otherwise the return value
-// will be `0'. Note that if the length of `maybe_prefix' is `0', then the
-// return value will always be `0'.
-extern ptrdiff_t str_is_non_empty_prefix(str_type maybe_prefix, str_type str);
+// `str_match_prefix(pstr, maybe_prefix)' tests whether the string
+// `maybe_prefix' is a non empty prefix of the string `*pstr'. If the
+// string `maybe_prefix' is a prefix of the string `*pstr' then the return
+// value will be non-zero and the `*pstr' string will be advanced by the
+// length of the `maybe_prefix' string. Otherwise the return value will be
+// `0' and `*pstr' will not be modified.
+extern _Bool str_match_prefix(str_type *pstr, str_type maybe_prefix);
 
 #endif

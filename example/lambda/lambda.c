@@ -21,33 +21,33 @@ DATATYPE_define(exp_type,
                 ((Exp_Ref,
                   (sym_type))))
 
-static sym_type sym_parse(str_type *str_ptr) {
-  assert(str_ptr);
+static _Bool sym_parse(str_type *pstr, sym_type *sym) {
+  assert(pstr);
+  assert(*pstr);
 
-  str_type start = *str_ptr;
-  str_type beyond = *str_ptr;
+  str_type str = *pstr;
 
-  if (!isalpha(*beyond) && '_' != *beyond)
+  if (!isalpha(*str) && '_' != *str)
     return 0;
 
-  while (isalnum(*beyond) || '_' == *beyond)
-    ++beyond;
+  while (isalnum(*str) || '_' == *str)
+    ++str;
 
-  *str_ptr = beyond;
-  return str_substr(start, beyond);
+  *sym = str_substr(*pstr, str);
+  *pstr = str;
+
+  return 1;
 }
 
-static exp_type exp_parse(str_type str) {
-  LL1_PARSER(str, str_num_prefix_spaces, str_is_non_empty_prefix,
-             ((sym, sym_type, sym_parse)),
-             (exp, exp_type,
-              (("\\") ((sym, var)) (".") ((exp, body)),
-               ({ return Exp_Lambda(var, body); }))
-              (("(") ((exp, lhs)) ((exp, rhs)) (")"),
-               ({ return Exp_Apply(lhs, rhs); }))
-              (((sym, var)),
-               ({ return Exp_Ref(var); }))));
-}
+LL1_PARSER(static, exp_parse, str_skip_spaces, str_match_prefix,
+           ((sym, sym_type, sym_parse)),
+           ((exp, exp_type,
+             ((("\\") ((sym, var)) (".") ((exp, body)),
+               ({ *exp = Exp_Lambda(var, body); })))
+             ((("(") ((exp, lhs)) ((exp, rhs)) (")"),
+               ({ *exp = Exp_Apply(lhs, rhs); })))
+             ((((sym, var)),
+               ({ *exp = Exp_Ref(var); }))))))
 
 static str_type exp_unparse(exp_type exp) {
   DATATYPE_switch
@@ -116,9 +116,10 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
   }
 
-  //exp_type exp = exp_parse(argv[1]);
-  exp_type exp = Exp_Apply(Exp_Lambda("y",Exp_Ref("y")),
-                           Exp_Lambda("x",Exp_Ref("x")));
+  str_type str = argv[1];
+  exp_type exp = 0;
+  if (!exp_parse(&str, &exp))
+    error("Couldn't parse '%s'\n", str);
   printf("exp = %s\n", exp_unparse(exp));
 
   exp_type reduced_exp = exp_reduce(exp);
