@@ -1,15 +1,9 @@
+#ifndef ORDER_INC_ORDER_LIB_EXT_SYM_H_VAJK20040620
+#define ORDER_INC_ORDER_LIB_EXT_SYM_H_VAJK20040620
+
 // (C) Copyright Vesa Karvonen 2004.
 //
 //    Distributed under the Boost Software License, Version 1.0.
-
-/*
-(let ((gen (function (lambda (i)
-                       (insert "#define ORDER_PP_SYM_8" i "_8" i "(P,v) ,P##v,\n")))))
-  (insert "\n\n")
-  (loop for i from ?A to ?Z do
-    (loop for j from ?A to ?Z do (funcall gen (string i j)))
-    (loop for j from  0 to  9 do (funcall gen (concat (char-to-string i) (number-to-string j))))))
-*/
 
 #define ORDER_PP_SYM_8AA_8AA(P,v) ,P##v,
 #define ORDER_PP_SYM_8AB_8AB(P,v) ,P##v,
@@ -947,3 +941,5 @@
 #define ORDER_PP_SYM_8Z7_8Z7(P,v) ,P##v,
 #define ORDER_PP_SYM_8Z8_8Z8(P,v) ,P##v,
 #define ORDER_PP_SYM_8Z9_8Z9(P,v) ,P##v,
+
+#endif

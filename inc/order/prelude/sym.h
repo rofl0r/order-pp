@@ -10,5 +10,3 @@
 
 #define ORDER_PP_DEF_8not_same ORDER_PP_FN_CM(2,8NOT_SAME)
 #define ORDER_PP_8NOT_SAME(P,x,y,...) (,ORDER_PP_TEST(,ORDER_PP_SYM_##x##_##y(,),8false,8true),P##__VA_ARGS__)
-
-#include "order/prelude/sym_tables.h"

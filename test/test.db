@@ -64,9 +64,8 @@
 8rout(8put(8act(!)),8emit(8act(%),8act(?)),8put(8act(^)),8act(*))#TCA (*)***************ACT (^)^^^^^^^^^^TCA (%)%%%%%%%%%%%%% TCA (?)???????????ACT (!)!!!!!!!!!!#<ws>
 8rout(8rout(8act(!),8act(%)))#TCA (%)%%%%%%%%%%%%%%%%%%%#<ws>
 8rout(8rout(8emit(8act(!),8act(%))))#TCA (!)!!!!!!!!!!!!!!!!!!! TCA (%)%%%%%%%%%%%%%%%%%#<ws>
-8same(8(8X1),8(8X1))#8true#<ws>
-8same(8(8X1),8(8X2))#8false#<ws>
-8same(8(8X1),8tuple_at(0,8tuple(8(8X1),8(8X2))))#8true#<ws>
+8same(8(8X),8(8X))#8true#<ws>
+8same(8(8X),8(8Y))#8false#<ws>
 8seq(8act(!))#(TCA (!)!!!!!!!!!!!!!!!!!)#<ws>
 8seq(8act(!),8act(%),8act(?),8act(^),8act(*),8act([),8act(]),8act(;))#(TCA (!)!!!!!!!!!!!!!!!!!!!!!!!)(ACT (%)%%%%%%%%%%%%%%%%%%%%%%)(TCA (?)?????????????????????)(ACT (^)^^^^^^^^^^^^^^^^^^^^)(TCA (*)*******************)(ACT ([)[[[[[[[[[[[[[[[[[[)(TCA (])]]]]]]]]]]]]]]]]])(ACT (;);;;;;;;;;;;;;;;;)#<ws>
 8seq(8seq(8act(!)))#((ACT (!)!!!!!!!!!!!!!!!!!!))#<ws>
@@ -76,11 +75,11 @@
 8seq_at(0,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (!)!!!!!!!!!!!!!!!!!!!!!!!#<ws>
 8seq_at(2,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (?)???????????????????????#<ws>
 8seq_at(3,8((ACT(!))(ACT(%))(ACT(?))(ACT(^))))#TCA (^)^^^^^^^^^^^^^^^^^^^^^^^#<ws>
-8seq_exists(8same(8(8X5)),8((8X1)(8X2)(8X3)(8X4)(8X5)))#8true#<ws>
-8seq_exists(8same(8(8X5)),8((8X1)(8X2)(8X3)(8X4)))#8false#<ws>
-8seq_exists(8same(8(8X5)),8((8X1)(8X5)(8X3)(8X4)(8X6)))#8true#<ws>
-8seq_exists(8same(8(8X5)),8((8X5)(8X4)(8X3)(8X2)))#8true#<ws>
-8seq_exists(8same(8(8X5)),8())#8false#<ws>
+8seq_exists(8same(8(8E)),8((8A)(8B)(8C)(8D)(8E)))#8true#<ws>
+8seq_exists(8same(8(8E)),8((8A)(8B)(8C)(8D)))#8false#<ws>
+8seq_exists(8same(8(8C)),8((8A)(8B)(8C)(8D)(8E)))#8true#<ws>
+8seq_exists(8same(8(8A)),8((8A)(8B)(8C)(8D)))#8true#<ws>
+8seq_exists(8same(8(8A)),8())#8false#<ws>
 8seq_filter(8is_sym,8seq(1,8(not symbol),8true))#(1)(8true)#<ws>
 8seq_first(8((ACT(;))(ACT([))(ACT(]))))#ACT (;);;;;;;;;;;;;;;;;;;;;;;#<ws>
 8seq_first(8((ACT(;))))#ACT (;);;;;;;;;;;;;;;;;;;;;;;#<ws>
