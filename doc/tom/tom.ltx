@@ -310,21 +310,20 @@ The Order interpreter, which is fully \cite{c:1999} conforming, has
 been developed with the \cite{gcc} CPP version 3.x and contains no
 workarounds for broken preprocessors. The Order interpreter
 \emph{requires variadics and placemarkers} as defined in
-\cite{c:1999}. The Wave preprocessor \cite{kaiser:2002} is also
-known to be able to preprocess Order. A standards conforming
-C preprocessor and a fast computer with plenty of memory is
-recommended for experimenting with the interpreter. Be aware that
-despite the simplicity of the C preprocessor and the existence
-of stable standard for years and years, many preprocessors are
-broken beyond repair, either strictly not conforming to the standard
-or employing macro replacement algorithms that seem to take at least
-exponential time. At the time of writing, even GNU CPP, a rather
-highly standards conforming\footnote{But \emph{not} 100\%
-conforming, at the time of writing, due to eager elimination of
-whitespace separations.} and relatively efficient preprocessor,
-doesn't free memory during macro replacement, which makes the
-evaluation of non-trivial C preprocessor metaprograms extremely
-inefficient.
+\cite{c:1999}. The Wave preprocessor \cite{wave} is also known to be
+able to preprocess Order. A standards conforming C preprocessor and
+a fast computer with plenty of memory is recommended for
+experimenting with the interpreter. Be aware that despite the
+simplicity of the C preprocessor and the existence of stable
+standard for years and years, many preprocessors are broken beyond
+repair, either strictly not conforming to the standard or employing
+macro replacement algorithms that seem to take at least exponential
+time. At the time of writing, even GNU CPP, a rather highly
+standards conforming\footnote{But \emph{not} 100\% conforming, at
+the time of writing, due to eager elimination of whitespace
+separations.} and relatively efficient preprocessor, doesn't free
+memory during macro replacement, which makes the evaluation of
+non-trivial C preprocessor metaprograms extremely inefficient.
 
 \section{The Interactive Test Shell} %******************************
 

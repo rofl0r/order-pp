@@ -15,6 +15,7 @@ while test "$REPLY" != 'q' ; do
         echo
         ./Build
         prompt='[ (R)ebuild | (Q)uit ]: '
+        REPLY=''
     fi
     read -t 2 -n 1 -p "$prompt"
     prompt=''
