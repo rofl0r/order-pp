@@ -2,8 +2,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_CM(...) ORDER_PP_CM_B(ORDER_PP_CM_UP_0(__VA_ARGS__))
-#define ORDER_PP_CM_B(x) ORDER_PP_EAT(x
+#define ORDER_PP_CM(...) ORDER_PP_SCAN(ORDER_PP_EAT ORDER_PP_LPAREN ORDER_PP_CM_UP_0(__VA_ARGS__))
 
 #define ORDER_PP_CM_D_0(x) ORDER_PP_CM_DN_0 x
 #define ORDER_PP_CM_U_0(x) ORDER_PP_CM_UP_1 x
