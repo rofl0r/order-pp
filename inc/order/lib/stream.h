@@ -80,11 +80,8 @@ ORDER_PP_FN(8fn(8F,8R,8S,                                       \
 #define ORDER_PP_8STREAM_ITERATE(P,x,f,...) (,(P##x,(,8STREAM_ITERATE_B,P##f,P##x)),P##__VA_ARGS__)
 #define ORDER_PP_8STREAM_ITERATE_B(P,_,f,x,...) (,P##x,ORDER_PP_OPEN f##P,8STREAM_ITERATE,P##f,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8stream_map                                                \
-ORDER_PP_FN(8fn(8F,8S,                                                          \
-                8unless(8stream_is_nil(8S),                                     \
-                        8stream_cons(8ap(8F,8stream_head(8S)),                  \
-                                     8stream_map(8F,8stream_tail(8S))))))
+#define ORDER_PP_DEF_8stream_map ORDER_PP_FN_CM(2,8STREAM_MAP,0IS_FN,0IS_STREAM)
+#define ORDER_PP_8STREAM_MAP(P,s,f,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN f##P,8RIAP,(,ORDER_PP_STREAM_TAIL s##P,8STREAM_MAP,P##f)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8stream_merge                                              \
 ORDER_PP_FN(8fn(8F,8L,8R,                                                       \

@@ -9,6 +9,9 @@
 #define ORDER_PP_DEF_8pair ORDER_PP_FN_CM(2,8PAIR,0IS_ANY,0IS_ANY)
 #define ORDER_PP_8PAIR(P,r,l,...) (,(P##l,P##r),P##__VA_ARGS__)
 
+#define ORDER_PP_DEF_8riap ORDER_PP_FN_CM(2,8RIAP,0IS_ANY,0IS_ANY)
+#define ORDER_PP_8RIAP(P,l,r,...) (,(P##l,P##r),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8tuple_at ORDER_PP_FN_NATIVE(2,9TUPLE_AT,0IS_NUM,0IS_TUPLE)
 #define ORDER_PP_9TUPLE_AT(P,i,t) ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_TUPLE_DROP(,P##i)(,P##i,P##t),))
 
