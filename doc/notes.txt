@@ -17,33 +17,33 @@ SYNTAX
 ======
 
   <exp>
-   ::= fn(<var>+, <exp>)
-     | ap(<exp>+)
+   ::= 8fn(<var>+, <exp>)
+     | 8ap(<exp>+)
      | <var>
-     | if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>)
-     | and(<exp>+)
-     | or(<exp>+)
-     | do(<exp>+)
-     | let({<var>, <exp_{init}>}+, <exp_{body}>)
-     | for(<var>, <exp_{init}>, <exp_{cond}>, <exp_{step}>, <exp>+)
-     | match(<exp_{val}>, {<pat>, <exp>}+)
-     | try(<exp_{body}>, <var>, <exp_{handler}>)
+     | 8if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>)
+     | 8and(<exp>+)
+     | 8or(<exp>+)
+     | 8do(<exp>+)
+     | 8let({<var>, <exp_{init}>}+, <exp_{body}>)
+     | 8for(<var>, <exp_{init}>, <exp_{cond}>, <exp_{step}>, <exp>+)
+     | 8match(<exp_{val}>, {<pat>, <exp>}+)
+     | 8try(<exp_{body}>, <var>, <exp_{handler}>)
      | <fn>
      | <fn>(<exp>+)
      | <op>(<exp>+)
      | <const>
 
   <var>
-   ::= [A-Z][a-z0-9]?
+   ::= 8[A-Z][a-z0-9]?
 
   <pat>
-   ::= Tuple(<pat>+{,rest(<var|_>)}?)
-     | Seq(<pat>+{,rest(<var|_>)}?)
+   ::= 8tuple(<pat>+{,rest(<var|_>)}?)
+     | 8seq(<pat>+{,rest(<var|_>)}?)
      | <ctor>
      | <ctor>(<pat>+)
-     | Nil
+     | 8nil
      | <var>                         ;; Matches anything and bings <var>
-     | _                             ;;     -- || --     and binds nothing
+     | 8_                            ;;     -- || --     and binds nothing
 
 --------------------------------------------------------------------------
 
@@ -101,8 +101,8 @@ The unit element is unused when associativity is ''left'' or ''right''.
 DATA TYPES
 ==========
 
-Basic containers
-----------------
+Aggregate Types
+---------------
 
 Order should support at least tuples and sequences. Tuples are required
 for passing parameters to macros and are generally useful as input syntax.
@@ -136,147 +136,147 @@ STANDARD PRELUDE
 Constants
 ---------
 
-  {0,...,256} : Num
+   {0,...,256} : Num
 
-  true  : Bool
-  false : Bool
+   8true  : Bool
+   8false : Bool
 
-  nil : Nil
+   8nil : Nil
 
 Operators
 ---------
 
-  chain(F1,...,Fn) : Fn+ -> Fn
+   8chain(8F1,...,8FN) : Fn+ -> Fn
 
-  add(N1,...,Nn) : Num+ -> Num
-  sub(N1,...,Nn) : Num+ -> Num
-  mul(N1,...,Nn) : Num+ -> Num
-  div(N1,...,Nn) : Num+ -> Num
+   8add(8N1,...,8NN) : Num+ -> Num
+   8sub(8N1,...,8NN) : Num+ -> Num
+   8mul(8N1,...,8NN) : Num+ -> Num
+   8div(8N1,...,8NN) : Num+ -> Num
 
-  expand(X1,...,Xn) : Any+ -> Any
-  cat(X1,...,Xn)    : Any+ -> Any
-  stringize(X)      : Any -> Any
+   8expand(8X1,...,8XN) : Any+ -> Any
+   8cat(8X1,...,8XN)    : Any+ -> Any
+   8stringize(8X)       : Any -> Any
 
-  emit_expand(X1,...,Xn) : Any+ -> Nil
-  emit_cat(X1,...,Xn)    : Any+ -> Nil
+   8emit(8X1,...,8XN)     : Any+ -> Nil
+   8emit_cat(8X1,...,8XN) : Any+ -> Nil
 
 First-order functions
 ---------------------
 
-  throw(X) : Any -> Any
+  -8throw(8X) : Any -> Any
 
-  exit(X) : Any -> Any
+   8exit(8X) : Any -> Any
 
-  inc(N) : Num -> Num
-  dec(N) : Num -> Num
+   8inc(8N) : Num -> Num
+   8dec(8N) : Num -> Num
 
-  not(X) : Bool -> Bool
+   8not(8X) : Bool -> Bool
 
-  is_0(N)   : Num -> Bool
-  isnt_0(N) : Num -> Bool
+   8is_0(8N)   : Num -> Bool
+   8isnt_0(8N) : Num -> Bool
 
-  equal(S0,S1)  : Sym -> Sym -> Bool
-  not_eq(S0,S1) : Sym -> Sym -> Bool
+   8equal(8LS,8RS)  : Sym -> Sym -> Bool
+   8not_eq(8LS,8RS) : Sym -> Sym -> Bool
 
-  less(Ln,Rn)       : Num -> Num -> Bool
-  less_eq(Ln,Rn)    : Num -> Num -> Bool
-  greater(Ln,Rn)    : Num -> Num -> Bool
-  greater_eq(Ln,Rn) : Num -> Num -> Bool
+   8less(8LN,8RN)       : Num -> Num -> Bool
+   8less_eq(8LN,8RN)    : Num -> Num -> Bool
+   8greater(8LN,8RN)    : Num -> Num -> Bool
+   8greater_eq(8LN,8RN) : Num -> Num -> Bool
 
 Environments
 ------------
 
-  env_nil            : Env
-  env_has(En,Sy)     : Env -> Sym -> Bool
-  env_ref(En,Sy)     : Env -> Sym -> Any
-  env_bind(En,Sy,Va) : Env -> Sym -> Any -> Env
-  env_drop(En,Sy)    : Env -> Sym -> Env
-  env_append(Ep,Es)  : Env -> Env -> Env
+  -8env_nil               : Env
+  -8env_has(8EN,8SY)      : Env -> Sym -> Bool
+  -8env_ref(8EN,8SY)      : Env -> Sym -> Any
+  -8env_bind(8EN,8SY,8VA) : Env -> Sym -> Any -> Env
+  -8env_drop(8EN,8SN)     : Env -> Sym -> Env
+  -8env_append(8Ep,8ES)   : Env -> Env -> Env
 
 Reflection
 ----------
 
-  call_cc(Fn) : (Fn -> Any) -> Any
-  call_ce(Fn) : (Env -> Any) -> Any
-  eval(Ex,En) : Exp -> Env -> Any
+  -8call_cc(8FN)  : (Fn -> Any) -> Any
+  -8call_ce(8FN)  : (Env -> Any) -> Any
+  -8eval(8EX,8EN) : Exp -> Env -> Any
 
 Higher-order functions
 ----------------------
 
-  for_each(Cn,St,Op,X) : (Any -> Bool) -> (Any -> Any) -> (Any -> Nil) -> Any -> Nil
+  -8for_each(8CN,8ST,8OP,8X) : (Any -> Bool) -> (Any -> Any) -> (Any -> Nil) -> Any -> Nil
 
-  for_each_in_range(Op,Fr,To) : (Num -> Nil) -> Num -> Num -> Nil
+   8for_each_in_range(8OP,8FR,8TO) : (Num -> Nil) -> Num -> Num -> Nil
 
 Type predicates
 ---------------
 
-  is_edible(X) : Any -> Bool
-  is_sym(X)    : Any -> Bool
-  is_tuple(X)  : Any -> Bool
-  is_nil(X)    : Any -> Bool
+  -8is_edible(8X) : Any -> Bool
+   8is_sym(8X)    : Any -> Bool
+   8is_tuple(8X)  : Any -> Bool
+   8is_nil(8X)    : Any -> Bool
 
 Macros / Syntax extensions
 --------------------------
 
-  when(<exp_{cond}>, <exp_{body}>+)
-  unless(<exp_{cond}>, <exp_{body}>+)
+   8when(<exp_{cond}>, <exp_{body}>+)
+   8unless(<exp_{cond}>, <exp_{body}>+)
 
-  with_assertion(<exp_{cond}>, <exp_{exit-value}>, <exp_{body}>)
+   8with_assert(<exp_{cond}>, <exp_{body}>)
 
 Tuples
 ------
 
-  tuple(X0,...,Xn) : Any+ -> Tuple
-  tuple_at(I,T)    : Num -> Tuple -> Any
-  tuple_size(T)    : Tuple -> Num
-  tuple_to_seq(T)  : Tuple -> Seq
+   8tuple(8X0,...,8XN) : Any+ -> Tuple
+   8tuple_at(8I,8T)    : Num -> Tuple -> Any
+   8tuple_size(8T)     : Tuple -> Num
+  -8tuple_to_seq(8T)   : Tuple -> Seq
 
 Sequences
 ---------
 
   First-order:
 
-    seq(X0,...,Xn)             : Any+ -> Seq
-    seq_append(Ls,Rs)          : Seq -> Seq -> Seq
-    seq_at(I,S)                : Num -> Seq -> Any
-    seq_first(S)               : Seq -> Any
-    seq_first_n(N,S)           : Num -> Seq -> Seq
-    seq_insert(I,S,X)          : Num -> Seq -> Any -> Seq
-    seq_insert_range(I,S,Ss)   : Num -> Seq -> Seq -> Seq
-    seq_pop_back(S)            : Seq -> Seq
-    seq_pop_front(S)           : Seq -> Seq
-    seq_push_back(X,S)         : Any -> Seq -> Seq
-    seq_push_front(X,S)        : Any -> Seq -> Any -> Seq
-    seq_remove(I,S)            : Num -> Seq -> Seq
-    seq_remove_range(I0,I1,S)  : Num -> Num -> Seq -> Seq
-    seq_rest(S)                : Seq -> Seq
-    seq_rest_n(N,S)            : Num -> Seq -> Seq
-    seq_reverse(S)             : Seq -> Seq
-    seq_set(I,S,X)             : Num -> Seq -> Any -> Seq
-    seq_size(S)                : Seq -> Num
-    seq_split(I,S)             : Num -> Seq -> Tuple(Seq, Seq)
-    seq_range(I,N,S)           : Num -> Num -> Seq -> Seq
-    seq_to_tuple(S)            : Seq -> Tuple
+   8seq(8X0,...,8XN)            : Any+ -> Seq
+  -8seq_append(8S0,...,8SN)     : Seq -> Seq -> Seq
+   8seq_at(8I,8S)               : Num -> Seq -> Any
+   8seq_first(8S)               : Seq -> Any
+   8seq_first_n(8N,8S)          : Num -> Seq -> Seq
+   8seq_insert(8I,8S,8X)        : Num -> Seq -> Any -> Seq
+  -8seq_insert_range(8I,8S,8SS) : Num -> Seq -> Seq -> Seq
+   8seq_pop_back(8S)            : Seq -> Seq
+   8seq_pop_front(8S)           : Seq -> Seq
+   8seq_push_back(8X,8S)        : Any -> Seq -> Seq
+   8seq_push_front(8X,8S)       : Any -> Seq -> Any -> Seq
+  -8seq_remove(8I,8S)           : Num -> Seq -> Seq
+  -8seq_remove_range(8I,8N,8S)  : Num -> Num -> Seq -> Seq
+   8seq_rest(8S)                : Seq -> Seq
+   8seq_rest_n(8N,8S)           : Num -> Seq -> Seq
+   8seq_reverse(8S)             : Seq -> Seq
+   8seq_set(8I,8S,8X)           : Num -> Seq -> Any -> Seq
+   8seq_size(8S)                : Seq -> Num
+  -8seq_split(8I,8S)            : Num -> Seq -> Tuple(Seq, Seq)
+   8seq_range(8I,8N,8S)         : Num -> Num -> Seq -> Seq
+   8seq_to_tuple(8S)            : Seq -> Tuple
 
   Higher-order:
 
-    seq_exists(Pr,S)                      : (Any -> Bool) -> Seq -> Bool
-    seq_filter(Pr,S)                      : (Any -> Bool) -> Seq -> Seq
-    seq_fold(Fn,X,S)                      : (Any -> Any -> Any) -> Any -> Seq -> Any
-    seq_for_all(Pr,S)                     : (Any -> Bool) -> Seq -> Bool
-    seq_for_each(Op,S)                    : (Any -> Nil) -> Seq -> Nil
-    seq_for_each_in_product(Op,Ss)        : (Any+ -> Nil) -> Seq(Seq) -> Nil
-    seq_for_each_with_idx(Op,S)           : (Num -> Any -> Nil) -> Seq -> Nil
-    seq_map(Fn,S)                         : (Any -> Any) -> Seq -> Seq
-    seq_merge(Pr,Sl,Sr)                   : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
-    seq_parallel_fold(Fn,S,Ss)            : (Any+ -> Any) -> Seq -> Seq(Seq) -> Any
-    seq_parallel_for_each(Op,Ss)          : (Any+ -> Nil) -> Seq(Seq) -> Nil
-    seq_parallel_for_each_with_idx(Op,Ss) : (Num -> Any+ -> Nil) -> Seq(Seq) -> Nil
-    seq_parallel_map(Fn,Ss)               : (Any+ -> Any) -> Seq(Seq) -> Seq
-    seq_partition(Pr,S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
-    seq_select(Pr,X,S)                    : (Any -> Any -> Bool) -> Any -> Seq -> Any
-    seq_sort(Pr,S)                        : (Any -> Any -> Bool) -> Seq -> Seq
-    seq_unfold(Cn,St,Fn,X)                : (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Any -> Seq
+  -8seq_exists(8PR,8S)                      : (Any -> Bool) -> Seq -> Bool
+   8seq_filter(8PR,8S)                      : (Any -> Bool) -> Seq -> Seq
+   8seq_fold(8FN,8X,8S)                     : (Any -> Any -> Any) -> Any -> Seq -> Any
+  -8seq_for_all(8PR,8S)                     : (Any -> Bool) -> Seq -> Bool
+   8seq_for_each(8OP,8S)                    : (Any -> Nil) -> Seq -> Nil
+   8seq_for_each_in_product(8OP,8SS)        : (Any+ -> Nil) -> Seq(Seq) -> Nil
+  -8seq_for_each_with_idx(8OP,8S)           : (Num -> Any -> Nil) -> Seq -> Nil
+   8seq_map(8FN,8S)                         : (Any -> Any) -> Seq -> Seq
+  -8seq_merge(8PR,8LS,8RS)                  : (Any -> Any -> Bool) -> Seq -> Seq -> Seq
+  -8seq_parallel_fold(8FN,8S,8SS)           : (Any+ -> Any) -> Seq -> Seq(Seq) -> Any
+  -8seq_parallel_for_each(8OP,8SS)          : (Any+ -> Nil) -> Seq(Seq) -> Nil
+  -8seq_parallel_for_each_with_idx(8OP,8SS) : (Num -> Any+ -> Nil) -> Seq(Seq) -> Nil
+  -8seq_parallel_map(8FN,8SS)               : (Any+ -> Any) -> Seq(Seq) -> Seq
+  -8seq_partition(8PR,8S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
+  -8seq_select(8PR,8X,8S)                   : (Any -> Any -> Bool) -> Any -> Seq -> Any
+  -8seq_sort(8PR,8S)                        : (Any -> Any -> Bool) -> Seq -> Seq
+  -8seq_unfold(8CN,8ST,8FN,8X)              : (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Any -> Seq
 
 --------------------------------------------------------------------------
 
