@@ -22,6 +22,8 @@ if(true,1,2)#1
 let(X,id,ap(X,5))#5
 macro_let(X,5,X)#5
 nil#
+not(not(false))#false
+not(not(true))#true
 or(false)#false
 or(false,6)#6
 or(false,false,false,true,0)#true

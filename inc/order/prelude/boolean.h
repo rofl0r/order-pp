@@ -12,4 +12,9 @@
 #define ORDER_DEF_false 8DEF_CONST,false
 #define ORDER_SYM_false_false(P,v) ,P##v,
 
+#define ORDER_DEF_not ORDER_CTOR(1,8NOT)
+#define ORDER_CM_8NOT(P,b,...) (,ORDER_CM_8NOT_##b,P##__VA_ARGS__)
+#define ORDER_CM_8NOT_true false
+#define ORDER_CM_8NOT_false true
+
 #endif
