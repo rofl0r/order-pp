@@ -48,8 +48,7 @@
 
 #define ORDER_PP_0IS_ANY(P,x) ORDER_PP_IF_8true
 
-// TBD: 0IS_FN
-#define ORDER_PP_0IS_FN(P,x) ORDER_PP_IF_8true
+#define ORDER_PP_0IS_FN(P,x) ORDER_PP_AND(and)(ORDER_PP_IS_EDIBLE(,P##x))(not)(ORDER_PP_FX(IS_TUPLE_SIZE_1,(,ORDER_PP_REM P##x)))(and)(ORDER_PP_FX(IS_NIL,(,ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_REM P##x,)))))()
 
 #define ORDER_PP_IF(c) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_IF_,c)
 #define ORDER_PP_IF_(P,c,...) P##c
@@ -85,11 +84,25 @@
 #define ORDER_PP_SELECT_4_01(P,tt,tf,ft,...) P##ft
 #define ORDER_PP_SELECT_4_00(P,tt,tf,ft,...) P##__VA_ARGS__
 
-#define ORDER_PP_OR(P,c) P##c(ORDER_PP_,EAT_TRUE,OR_B)
-#define ORDER_PP_OR_B(P,c) P##c
+#define ORDER_PP_AND(t) ORDER_PP_AND_##t
+#define ORDER_PP_AND_(P,t,...) P##t
+#define ORDER_PP_AND_and(c) c(ORDER_PP_,AND,FALSE)
+#define ORDER_PP_AND_not(c) c(ORDER_PP_,FALSE,AND)
 
-#define ORDER_PP_NOR(P,c) P##c(ORDER_PP_,EAT_FALSE,NOR_B)
-#define ORDER_PP_NOR_B(P,c) ORDER_PP_CAT(ORDER_PP_IF_,P##c(,0,))
+#define ORDER_PP_FALSE(t) ORDER_PP_FALSE_##t
+#define ORDER_PP_FALSE_(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_FALSE_and(c) ORDER_PP_FALSE
+#define ORDER_PP_FALSE_not(c) ORDER_PP_FALSE
+
+#define ORDER_PP_OR(t) ORDER_PP_OR_##t
+#define ORDER_PP_OR_(P,t,...) P##__VA_ARGS__
+#define ORDER_PP_OR_or(c) c(ORDER_PP_,TRUE,OR)
+#define ORDER_PP_OR_not(c) c(ORDER_PP_,OR,TRUE)
+
+#define ORDER_PP_TRUE(t) ORDER_PP_TRUE_##t
+#define ORDER_PP_TRUE_(P,t,...) P##t
+#define ORDER_PP_TRUE_not(c) ORDER_PP_TRUE
+#define ORDER_PP_TRUE_or(c) ORDER_PP_TRUE
 
 #define ORDER_PP_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x(ORDER_PP_SYM_##y)(,,),0,)
 #define ORDER_PP_NOT_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x(ORDER_PP_SYM_##y)(,,),,0)

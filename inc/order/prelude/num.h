@@ -74,7 +74,7 @@ ORDER_PP_FN(8fn(8B, 8E,                                         \
 
 // Detail
 
-#define ORDER_PP_0IS_NUM(P,x) ORDER_PP_OR(,ORDER_PP_0IS_LIT(,P##x))(,ORDER_PP_0IS_NAT(,P##x))
+#define ORDER_PP_0IS_NUM(P,x) ORDER_PP_OR(or)(ORDER_PP_0IS_LIT(,P##x))(or)(ORDER_PP_0IS_NAT(,P##x))()
 
 #define ORDER_PP_NUM_EQUAL(P,l,r)     ORDER_PP_NUM_BOP(,P##l,P##r)(,EQUAL,P##l,P##r)
 #define ORDER_PP_NUM_LESS(P,l,r)      ORDER_PP_NUM_BOP(,P##l,P##r)(,LESS,P##l,P##r)
