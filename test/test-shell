@@ -196,7 +196,7 @@ while true ; do
     case "$REPLY" in
         ("a"|"A")
             interactive-add-test ;;
-        ("t"|"T")
+        ("-t"|"t"|"T")
             run-tests ;;
         ("s"|"S")
             less $dbFile ;;
