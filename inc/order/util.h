@@ -16,12 +16,12 @@
 #define ORDER_PP_8EXIT_SYNTAX_ERROR(P,e,t,...) )(,1,ORDER_PP_SYNTAX_ERROR(!):P##t:(,P##e,P##t,P##__VA_ARGS__))
 #define ORDER_PP_SYNTAX_ERROR() ORDER_PP_SYNTAX_ERROR
 
-#define ORDER_PP_TYPE_CHECK(P,p,v,e) ORDER_PP_##p(,P##v)(,P##e,ORDER_PP_TYPE_ERROR,8EXIT_ERROR,P##p(P##v),)
+#define ORDER_PP_TYPE_CHECK(P,p,v,e) ORDER_PP_##p(,P##v)(,P##e,P##p(P##v),8EXIT_ERROR,ORDER_PP_TYPE_ERROR,)
 #define ORDER_PP_TYPE_ERROR() ORDER_PP_TYPE_ERROR
 
 #define ORDER_PP_PRECONDITION_FAILURE() ORDER_PP_PRECONDITION_FAILURE
 
-#define ORDER_PP_8EXIT_ERROR(P,err,msg,...) )(,1,P##err(!):P##msg:(,P##__VA_ARGS__))
+#define ORDER_PP_8EXIT_ERROR(P,msg,err,...) )(,1,P##err(!):P##msg:(,P##__VA_ARGS__))
 
 #define ORDER_PP_BLOCK
 #define ORDER_PP_NIL()

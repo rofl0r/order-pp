@@ -65,6 +65,7 @@
 8emit(8(REC_FAILURE),8(()))#ORDER_PP_EVAL_OUT_OF_INTERPRETERS_ERROR(8emit(8(REC_FAILURE_63),8(())))#ORDER_PP_EVAL_OUT_OF_INTERPRETERS_ERROR
 8emit_params(1,11,8(class B))#class B1,class B2,class B3,class B4,class B5,class B6,class B7,class B8,class B9,class B10#
 8emit_trailing_params(12,2,8(class A))#,class A11,class A10,class A9,class A8,class A7,class A6,class A5,class A4,class A3,class A2#
+8exit_error(8(ORDER_PP_ERROR_EXIT_TEST),8(A message!))#ORDER_PP_ERROR_EXIT_TEST:A message!:(,8EXIT,,)#ORDER_PP_ERROR_EXIT_TEST
 8expand(8(!),8(%))#! %#
 8flip(8pair,6,9)#(9,6)#
 8fn_test(8fn_test(8fn_test),8nil)##

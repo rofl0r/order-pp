@@ -7,8 +7,8 @@
 # define ORDER_PP_DEF_8with_assert(cond,...)                            \
 ORDER_PP_MACRO(8if(cond,                                                \
                    8do(__VA_ARGS__),                                    \
-                   8exit_error(8(8with_assert(cond,__VA_ARGS__)),       \
-                               8(ORDER_PP_ASSERTION_FAILURE))))
+                   8exit_error(8(ORDER_PP_ASSERTION_FAILURE),           \
+                               8(8with_assert(cond,__VA_ARGS__)))))
 #else
 # define ORDER_PP_DEF_8with_assert(cond,...) ORDER_PP_MACRO(8do(__VA_ARGS__))
 #endif

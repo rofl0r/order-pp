@@ -204,6 +204,7 @@ Control
    8eval(env, exp) : Env -> Exp -> a
 
    8exit(x) : a -> b
+   8exit_error(err, msg) : NullaryMacro -> a -> b
 
    8force(p) : Promise(a) -> a
 
