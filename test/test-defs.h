@@ -55,7 +55,7 @@ ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
                                      8J,                \
                                      8plus(8I, 8J)))))
 
-#define ORDER_PP_DEF_8bottles                                                                   \
+#define ORDER_PP_DEF_8print_bottles                                                             \
 ORDER_PP_MACRO(8let((8B, 8fn(8N,                                                                \
                              8cond((8greater(8N, 1),                                            \
                                     8separate(8N, 8(bottles)))                                  \
@@ -69,5 +69,27 @@ ORDER_PP_MACRO(8let((8B, 8fn(8N,                                                
                                 8ap(8B, 8N) (of beer, take one down, pass it around,) 8space    \
                                 8ap(8B, 8dec(8N)) (of beer on the wall.))),                     \
                      100, 1)))
+
+#define GEN_phrase(N, N_minus_1)                \
+  N of beer on the wall,                        \
+  N of beer, take one down, pass it around,     \
+  N_minus_1 of beer on the wall.
+
+#define ORDER_PP_DEF_8bottles                           \
+ORDER_PP_FN(8fn(8N,                                     \
+                8cond((8greater(8N, 1),                 \
+                       8separate(8N, 8(bottles)))       \
+                      (8equal(8N, 1),                   \
+                       8separate(8N, 8(bottle)))        \
+                      (8else,                           \
+                       8(no more bottles)))))
+
+#define ORDER_PP_DEF_8emit_bottles                              \
+ORDER_PP_MACRO(8for_each_in_range                               \
+               (8compose(8emit(8(GEN_phrase)),                  \
+                         8fn(8N,                                \
+                             8tuple(8bottles(8N),               \
+                                    8bottles(8dec(8N))))),      \
+                100, 1))
 
 #endif
