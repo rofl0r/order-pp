@@ -24,13 +24,12 @@ do {                                                                    \
     switch (ORDER_PP_FRESH_ID(initial_cnt) % unroll_cnt) {              \
       do {                                                              \
       case 0 : __VA_ARGS__;                                             \
-        ORDER_PP(8rout(8for_each_in_range                               \
-                       (1,                                              \
-                        8dec(unroll_cnt),                               \
-                        8fn(8I,                                         \
-                            8rout(8print((case)                         \
-                                         8to_lit(8I)                    \
-                                         (: __VA_ARGS__;)))))))         \
+        ORDER_PP(8for_each_in_range(unroll_cnt,                         \
+                                    1,                                  \
+                                    8fn(8I,                             \
+                                        8print((case)                   \
+                                               8to_lit(8I)              \
+                                               (: __VA_ARGS__;)))))     \
       } while (--ORDER_PP_FRESH_ID(running_cnt));                       \
     }                                                                   \
   }                                                                     \

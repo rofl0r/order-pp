@@ -9,14 +9,14 @@
 #define ACT(...) TCA ORDER_PP_BLOCK(__VA_ARGS__)__VA_ARGS__
 #define TCA(...) ACT ORDER_PP_BLOCK(__VA_ARGS__)__VA_ARGS__
 
-#define GEN_dim_0(x) (ACT(!),x)ORDER_PP(8for_each_in_range(1,2,8fn(8X,8emit(8quote(GEN_dim_1),8tuple(8to_lit(8X))))))
-#define GEN_dim_1(x) (ACT(%),x)ORDER_PP(8for_each_in_range(1,2,8fn(8X,8emit(8quote(GEN_dim_2),8tuple(8to_lit(8X))))))
-#define GEN_dim_2(x) (ACT(?),x)ORDER_PP(8for_each_in_range(1,2,8fn(8X,8emit(8quote(GEN_dim_3),8tuple(8to_lit(8X))))))
+#define GEN_dim_0(x) (ACT(!),x)ORDER_PP(8for_each_in_range(1,3,8fn(8X,8emit(8quote(GEN_dim_1),8tuple(8to_lit(8X))))))
+#define GEN_dim_1(x) (ACT(%),x)ORDER_PP(8for_each_in_range(1,3,8fn(8X,8emit(8quote(GEN_dim_2),8tuple(8to_lit(8X))))))
+#define GEN_dim_2(x) (ACT(?),x)ORDER_PP(8for_each_in_range(1,3,8fn(8X,8emit(8quote(GEN_dim_3),8tuple(8to_lit(8X))))))
 #define GEN_dim_3(x) (ACT(*),x)
 
-#define GEN_dimr_0(x) (ACT(!),x)ORDER_PP(8rout(8for_each_in_range(1,2,8fn(8X,8emit(8quote(GEN_dimr_1),8tuple(8to_lit(8X)))))))
-#define GEN_dimr_1(x) (ACT(%),x)ORDER_PP(8rout(8for_each_in_range(1,2,8fn(8X,8emit(8quote(GEN_dimr_2),8tuple(8to_lit(8X)))))))
-#define GEN_dimr_2(x) (ACT(?),x)ORDER_PP(8rout(8for_each_in_range(1,2,8fn(8X,8emit(8quote(GEN_dimr_3),8tuple(8to_lit(8X)))))))
+#define GEN_dimr_0(x) (ACT(!),x)ORDER_PP(8rout(8for_each_in_range(1,3,8fn(8X,8emit(8quote(GEN_dimr_1),8tuple(8to_lit(8X)))))))
+#define GEN_dimr_1(x) (ACT(%),x)ORDER_PP(8rout(8for_each_in_range(1,3,8fn(8X,8emit(8quote(GEN_dimr_2),8tuple(8to_lit(8X)))))))
+#define GEN_dimr_2(x) (ACT(?),x)ORDER_PP(8rout(8for_each_in_range(1,3,8fn(8X,8emit(8quote(GEN_dimr_3),8tuple(8to_lit(8X)))))))
 #define GEN_dimr_3(x) (ACT(*),x)
 
 #define ORDER_PP_DEF_8id ORDER_PP_FN(8fn(8X,8X))

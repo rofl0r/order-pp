@@ -21,18 +21,31 @@
 #define ORDER_PP_DEF_8eval ORDER_PP_FN_CM(2,8EVAL)
 #define ORDER_PP_8EVAL(P,t,e,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 
-// `8for_each_in_range(i,n,op)' calls the unary procedure `op' for
-// each natural number in the range $[i,i+n[$ in ascending order.
+// If `i0 < i1' then `8for_each_in_range(i0, i1, op)' calls the
+// unary procedure `op' for each number in the range $[i0,i1[$ in
+// ascending order and returns nil.
+//
+// If `i1 < i0' then `8for_each_in_range(i0, i1, op)' calls the
+// unary procedure `op' for each number in the range $[i1,i0[$ in
+// descending order and returns nil.
+//
+// If `i0 = i1', then `8for_each_in_range(i0, i1, op)' returns nil
+// without calling `op'.
+//
 // The return value of `op' is always ignored and the return value
-// of `8for_each_in_range' is always nil. If `n' is $0$, then
-// `8for_each_in_range' returns without calling `op'.
+// of `8for_each_in_range' is always nil.
 //
 // For example,
 //
-//   8for_each_in_range(5, 3, 8chain(8put, 8to_lit)) ==> 5 6 7
+//   8for_each_in_range(3, 6, 8chain(8put, 8to_lit)) ==> 3 4 5
+//   8for_each_in_range(6, 3, 8chain(8put, 8to_lit)) ==> 5 4 3
 #define ORDER_PP_DEF_8for_each_in_range ORDER_PP_FN_CM(3,8FOR_EACH_IN_RANGE)
-#define ORDER_PP_8FOR_EACH_IN_RANGE(P,i,n,f,...) (,,8FOR_EACH_IN_RANGE_4,ORDER_PP_NUM_UOP(,TO_NAT,P##i),ORDER_PP_NUM_UOP(,TO_NAT,P##n),P##f,P##__VA_ARGS__)
-#define ORDER_PP_8FOR_EACH_IN_RANGE_4(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_4,ORDER_PP_NAT_SUCC i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_IN_RANGE(P,i0,i1,...) (,,ORDER_PP_FX(FOR_EACH_IN_RANGE_B,ORDER_PP_NUM_BOP(,LESS,P##i0,P##i1)(,(,8INC,P##i0,ORDER_PP_NUM_BOP(,MINUS,P##i1,P##i0)),(,8DEC,ORDER_PP_NUM_UOP(,DEC,P##i0),ORDER_PP_NUM_BOP(,MINUS,P##i0,P##i1)))),P##__VA_ARGS__)
+#define ORDER_PP_FOR_EACH_IN_RANGE_B(P,dir,i,n) ORDER_PP_SELECT_4(ORDER_PP_IS_EDIBLE(,P##i),ORDER_PP_IS_EDIBLE(,P##n))(,ORDER_PP_OPEN(,8FOR_EACH_IN_RANGE_NAT_##dir,P##i,P##n),ORDER_PP_OPEN(,8FOR_EACH_IN_RANGE_NAT_##dir,P##i,ORDER_PP_LIT_TO_NAT(,P##n)),ORDER_PP_OPEN(,8FOR_EACH_IN_RANGE_NAT_##dir,ORDER_PP_LIT_TO_NAT(,P##i),P##n),8FOR_EACH_IN_RANGE_LIT_##dir,P##i,P##n)
+#define ORDER_PP_8FOR_EACH_IN_RANGE_LIT_8INC(P,_,i,n,f,...) (,ORDER_PP_LIT_IS_0(,P##n)(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_LIT_8INC,ORDER_PP_LIT_INC_##i,ORDER_PP_LIT_DEC_##n,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8INC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8INC,ORDER_PP_NAT_SUCC i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_IN_RANGE_LIT_8DEC(P,_,i,n,f,...) (,ORDER_PP_LIT_IS_0(,P##n)(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_LIT_8DEC,ORDER_PP_LIT_DEC(,P##i),ORDER_PP_LIT_DEC_##n,P##f),P##__VA_ARGS__)
+#define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8DEC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8DEC,ORDER_PP_NAT_PRED i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8for_each ORDER_PP_FN_CM(4,8FOR_EACH)
 #define ORDER_PP_8FOR_EACH(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##__VA_ARGS__)
