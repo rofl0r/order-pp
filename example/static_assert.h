@@ -7,6 +7,6 @@
 // (See accompanying file LICENSE.)
 
 #define STATIC_ASSERT(...)\
-typedef int ORDER_PP_FRESH_ID(static_assert)[(__VA_ARGS__) ? 1 : -1];
+typedef int ORDER_PP_FRESH_ID(static_assert)[(__VA_ARGS__) ? 1 : -1]
 
 # endif
