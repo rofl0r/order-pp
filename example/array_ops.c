@@ -414,7 +414,7 @@ ORDER_PP_FN(8fn(8OP,8TY,                                                \
 // The side-effecting `8emit' operator is different from the functions we
 // have used so far. It is used to produce output as a side-effect. The
 // `8emit' operator essentially places all of the given parameters,
-// separated only by whitespace, to the left of what has been emitted so
+// separated only by whitespace, to the end of what has been emitted so
 // far. For example,
 //
 //   8emit(1,2)
@@ -436,20 +436,25 @@ ORDER_PP_FN(8fn(8OP,8TY,                                                \
 // `8gen_array_uop(8OP,8TY)' metafunction in two batches. First for the
 // non-floating point operators and non-floating point types.
 
-ORDER_PP(8seq_for_each_in_product
-         (8gen_array_uop,
-          8seq(8seq_filter(8fn(8OP,
-                               8and(8equal(1,8op_arity(8OP)),
-                                    8not(8op_does_floating(8OP)))),
-                           8applicative_ops),
-               8seq_filter(8fn(8TY,
-                               8not(8type_is_floating(8TY))),
-                           8builtin_types))))
+ORDER_PP(8rout(8seq_for_each_in_product
+               (8gen_array_uop,
+                8seq(8seq_filter(8fn(8OP,
+                                     8and(8equal(1,8op_arity(8OP)),
+                                          8not(8op_does_floating(8OP)))),
+                                 8applicative_ops),
+                     8seq_filter(8fn(8TY,
+                                     8not(8type_is_floating(8TY))),
+                                 8builtin_types)))))
 
 // The Order interpreter is invoked using the `ORDER_PP' macro. It takes
-// as an argument an Order expression and evaluates it. The above
-// expression uses the higher-order sequence manipulation functions
-// `8seq_for_each_in_product(8OP,8Ss)' and `8seq_filter(Pr,S)'.
+// as an argument an Order expression and evaluates it.
+//
+// Previously we said that the `8emit' operator places the output to the
+// end of previous output. For certain technical reasons, which we will
+// not discuss in this example, it is actually significantly faster to
+// output in reverse. The `8rout' special form toggles the order of the
+// output in its scope. For a program that produces lots of output, use of
+// `8rout' is an important optimization.
 //
 // The `8seq_filter(Pr,S)' function takes an unary predicate function and
 // a sequence and produces a new sequence which contains only the elements
@@ -472,13 +477,13 @@ ORDER_PP(8seq_for_each_in_product
 // Let's move on and generate code for the floating point operators and
 // all types.
 
-ORDER_PP(8seq_for_each_in_product
-         (8gen_array_uop,
-          8seq(8seq_filter(8fn(8OP,
-                               8and(8equal(1,8op_arity(8OP)),
-                                    8op_does_floating(8OP))),
-                           8applicative_ops),
-               8builtin_types)))
+ORDER_PP(8rout(8seq_for_each_in_product
+               (8gen_array_uop,
+                8seq(8seq_filter(8fn(8OP,
+                                     8and(8equal(1,8op_arity(8OP)),
+                                          8op_does_floating(8OP))),
+                                 8applicative_ops),
+                     8builtin_types))))
 
 // We'll then handle binary operations similarly. First we define the
 // metafunction `8gen_array_bop(O,L,R)':
@@ -497,28 +502,28 @@ ORDER_PP_FN(8fn(8OP,8TL,8TR,                                            \
 // Then we'll generate code for all binary array procedures in two
 // batches. First the non-floating point operators:
 
-ORDER_PP(8seq_for_each_in_product
-         (8gen_array_bop,
-          8let(8TS,8seq_filter(8fn(8TY,
-                                   8not(8type_is_floating(8TY))),
-                               8builtin_types),
-               8seq(8seq_filter(8fn(8OP,
-                                    8and(8equal(2,8op_arity(8OP)),
-                                         8not(8op_does_floating(8OP)))),
-                                8applicative_ops),
-                    8TS,
-                    8TS))))
+ORDER_PP(8rout(8seq_for_each_in_product
+               (8gen_array_bop,
+                8let(8TS,8seq_filter(8fn(8TY,
+                                         8not(8type_is_floating(8TY))),
+                                     8builtin_types),
+                     8seq(8seq_filter(8fn(8OP,
+                                          8and(8equal(2,8op_arity(8OP)),
+                                               8not(8op_does_floating(8OP)))),
+                                      8applicative_ops),
+                          8TS,
+                          8TS)))))
 
 // Then the floating point operators:
 
-ORDER_PP(8seq_for_each_in_product
-         (8gen_array_bop,
-          8seq(8seq_filter(8fn(8OP,
-                               8and(8equal(2,8op_arity(8OP)),
-                                    8op_does_floating(8OP))),
-                           8applicative_ops),
-               8builtin_types,
-               8builtin_types)))
+ORDER_PP(8rout(8seq_for_each_in_product
+               (8gen_array_bop,
+                8seq(8seq_filter(8fn(8OP,
+                                     8and(8equal(2,8op_arity(8OP)),
+                                          8op_does_floating(8OP))),
+                                 8applicative_ops),
+                     8builtin_types,
+                     8builtin_types))))
 
 // That's it!
 //
