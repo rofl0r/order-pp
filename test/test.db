@@ -109,6 +109,8 @@
 8seq_merge(8less,8quote((4)(5)(6)),8quote((1)(2)(3)))#(1)(2)(3)(4)(5)(6)
 8seq_merge(8less,8seq_nil,8seq_nil)#
 8seq_partition(8less(5),8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#((9)(6),(3)(1)(4)(1)(5)(2)(5))
+8seq_partition_sort(8less,8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)
+8seq_partition_sort(8less,8quote())#
 8seq_pop_back(8quote((1)(2)(3)(b)))#(1) (2) (3)
 8seq_pop_back(8quote((1)))#
 8seq_push_back(1,8seq_push_back(2,8seq_push_back(3,8seq_nil)))#(3)(2)(1)
