@@ -4,13 +4,22 @@
 #
 #    Distributed under the Boost Software License, Version 1.0.
 
+if cpp -I ../../inc/ \
+       -I ../../../chaos-pp/ \
+       checked_malloc.c &> /dev/null ; then
+    gc_option='-lgc'
+else
+    echo "Warning: Not using GC."
+    gc_option='-DCHECKED_MALLOC_NO_GC=1'
+fi
+
 gcc -std=c99 \
     -Wall -Werror \
     -pedantic-errors \
     -Os \
     -I ../../inc/ \
     -I ../../../chaos-pp/ \
-    -lgc \
+    $gc_option \
     -o lambda \
     *.c && \
 strip lambda
