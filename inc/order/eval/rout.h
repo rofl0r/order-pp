@@ -24,7 +24,7 @@
 // is the number of individual emits. When output is reversed, the
 // extra work can be avoided.
 #define ORDER_PP_DEF_8rout(...) 8EVAL_ROUT,(__VA_ARGS__),
-#define ORDER_PP_8EVAL_ROUT(P,e,p,G,...) (,P##e,ORDER_PP_DEF_8do P##p,8EVAL_ROUT_B,P##__VA_ARGS__)(,1T,)
-#define ORDER_PP_8EVAL_ROUT_B(P,x,...) (,P##x,P##__VA_ARGS__)(,1T,)
+#define ORDER_PP_8EVAL_ROUT(P,e,p,G,...) (,P##e,ORDER_PP_DEF_8do P##p,8EVAL_ROUT_B,P##__VA_ARGS__)(9,)
+#define ORDER_PP_8EVAL_ROUT_B(P,x,...) (,P##x,P##__VA_ARGS__)(9,)
 
 #endif
