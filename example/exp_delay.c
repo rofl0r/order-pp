@@ -54,7 +54,7 @@ ORDER_PP(8exp_delay(EXP_DELAY_N))
 // `exp_delay(n)' in $O(n)$ space. Unfortunately, many preprocessors
 // actually seem to allocate lots of memory (easily gigabytes of
 // memory) during macro expansion and also seem not to release that
-// memory until macro expansion (replacement of a top--level macro
+// memory until macro expansion (replacement of a top-level macro
 // invocation) is finished.\footnote{Could this have something to do
 // with the lack of garbage collection in C and C++?} On most
 // preprocessors, this simple program quickly runs out of memory.

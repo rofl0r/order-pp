@@ -48,7 +48,7 @@ namespace detail {
 #endif//0
 // It is then possible to distinguish between function types and
 // other types taking advantage of overload resolution and the
-// compile--time `sizeof' operator.
+// compile-time `sizeof' operator.
 //
 // One function template is required for each number of parameters
 // and, as can easily be seen, in order to support $n$ parameters,
@@ -94,7 +94,7 @@ namespace detail {
     8inc(IS_FUNCTION_MAX_ARGS)))
 }
 //>
-// The above program uses the higher--order function
+// The above program uses the higher-order function
 // `8for_each_in_range' to invoke an anonymous function, defined by
 // the `8fn(...)' expression, for each number in the range
 // `[0,IS_FUNCTION_MAX_ARGS]'. On each invocation, the anonymous
@@ -106,7 +106,7 @@ namespace detail {
 // convenient to generate arbitrary output, even unbalanced
 // parentheses. `8print' basically outputs any sequence of tokens
 // inside parentheses verbatim and implicitly outputs the value of
-// any non--parenthesized Order expression. The `8parens' form, that
+// any non-parenthesized Order expression. The `8parens' form, that
 // can be used inside `8print', outputs a parenthesized sequence of
 // tokens.
 //

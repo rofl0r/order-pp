@@ -20,7 +20,7 @@ STATIC_ASSERT(is_function<int(int)>::value);
 STATIC_ASSERT(is_function<int()>::value);
 //>
 // `STATIC_ASSERT' is just a simple utility macro for writing static
-// (compile--time) assertions.
+// (compile-time) assertions.
 //
 // \begin{exercise}
 // Rewrite this example using a ad hoc code generation macro and

@@ -25,14 +25,14 @@
 //
 // ### Token Extraction Macros
 //
-// The C preprocessor doesn't have a built--in mechanism for
+// The C preprocessor doesn't have a built-in mechanism for
 // deconstructing arbitrary sequences of tokens. Fortunately, it is
-// possible to deconstruct a sequence of identifiers and pp--numbers
+// possible to deconstruct a sequence of identifiers and pp-numbers
 // by defining one macro for each distinct token and then using
 // concatenation to invoke the macros. We refer to macros defined
 // for the purpose of deconstructing token sequences as token
 // extraction macros. Order supports the deconstruction of token
-// sequences through object--like token extraction macros of the
+// sequences through object-like token extraction macros of the
 // form
 //<
 //   #define <prefix>_<token> (<value>)<more>
@@ -51,7 +51,7 @@
 #define BINARY_TOKEN_1 (1)
 //>
 // As a safety measure, it also makes sense to explicitly define the
-// prefix as a self--evaluating macro:
+// prefix as a self-evaluating macro:
 //<
 #define BINARY_TOKEN BINARY_TOKEN
 //>
@@ -94,13 +94,13 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // a sequence of parenthesized elements. For example, the token
 // sequence `1' `0' `1' corresponds to the sequence `(1)(0)(1)'.
 //
-// The higher--order function `8seq_fold' folds a sequence to a
+// The higher-order function `8seq_fold' folds a sequence to a
 // value with a given binary function. In this case, the function is
 // defined using a lambda expression `8fn(...)'. The function
 // multiplies the folded value, bound to the variable `8R', by
 // `2' and adds the next value from the sequence, bound to the
 // variable `8X', to the result. The Order prelude provides a
-// comprehensive set of both first--order and higher--order
+// comprehensive set of both first-order and higher-order
 // functions for manipulating sequences.
 //
 // The arithmetic operators `8mul' and `8add' accept both
@@ -116,7 +116,7 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // ### Grouping Digits
 //
 // The previously defined macro only supports digits in groups of
-// one. To specify a 32--bit constant, one needs to write at least
+// one. To specify a 32-bit constant, one needs to write at least
 // 63 characters consisting of 32 digits and 31 spaces plus the
 // macro invocation. It would be nice to have a shorter syntax.
 // Also, in many cases, a range of bits forms a logical unit and it
@@ -135,7 +135,7 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // binary constants.
 //
 // To support such grouping, we need to provide further token
-// extraction macros. Recalling general form of token extraction
+// extraction macros. Recalling the general form of token extraction
 // macros
 //<
 //   #define <prefix>_<token> (<value>)<more>

@@ -16,8 +16,8 @@
 //
 // The goal is to build a macro for computing the average of a
 // number of elements. The macro should expand to an expression that
-// has the number of elements computed before run--time, but the
-// values of the elements may not be known until run--time. For
+// has the number of elements computed before run-time, but the
+// values of the elements may not be known until run-time. For
 // example,
 //<
 //   GEN_average(x, y, z)
@@ -65,7 +65,7 @@
 //
 // The first, and more complicated, program generates the sum
 // expression. It first converts the argument tuple to a sequence
-// using `8tuple_to_seq'. The higher--order procedure
+// using `8tuple_to_seq'. The higher-order procedure
 // `8seq_for_each_with_delimiter' has been designed for outputing
 // sequences of tokens with a delimiter. It is given two unary
 // procedures. The first procedure is for outputing the elements and

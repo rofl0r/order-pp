@@ -5,7 +5,7 @@
 # include <stdio.h>
 # include "order/interpreter.h"
 
-// ## Preprocessing--time Fibonacci
+// ## Preprocessing-time Fibonacci
 //
 // This simple example shows how you can implement algorithms in the
 // Order language using recursion.

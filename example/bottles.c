@@ -59,16 +59,17 @@
 // is a prefix of \emph{all} Order expressions and its purpose is to
 // prevent \emph{unintended macro replacement} of Order expressions.
 // A token that starts with a digit, like `8cond', is called a
-// \emph{pp--number} and because it isn't an \emph{identifier} it
+// \emph{pp-number} and because it isn't an \emph{identifier} it
 // isn't subject to macro replacement. The use of pp-numbers is
-// admittedly an ugly but absolutely necessary detail because
+// admittedly an ugly, but absolutely necessary, detail, because
 // otherwise an Order expression might get macro replaced by a user
 // or standard defined macro, like the macro `I' defined by the
-// \cite{c:1999} standard, before the Order interpreter gets to
-// analyze the expression. Please note that unintended macro
-// replacement isn't a novel problem introduced by the Order
-// interpreter. It is a well known problem of the C preprocessor
-// \cite{stroustrup:1994}.
+// \cite{c:1999} standard\footnote{If you plan to go to a
+// JTC1/SC22/WG14 meeting, consider bringing your own food and
+// beverages.}, before the Order interpreter gets to analyze the
+// expression. Please note that unintended macro replacement isn't a
+// novel problem introduced by the Order interpreter. It is a well
+// known problem of the C preprocessor \cite{stroustrup:1994}.
 //
 // The second thing to notice in the above expression is the
 // conditional expression `8cond(...)'.\footnote{Borrowed from
@@ -86,8 +87,8 @@
 // must not be evaluated by the interpreter. All values manipulated
 // by the Order interpreter are sequences of preprocessing tokens.
 // A value manipulated by the Order interpreter must be eligible as
-// a single macro argument. We use the term \emph{pp--arg} to refer
-// to such preprocessing token sequences. A \emph{pp--arg} must not
+// a single macro argument. We use the term \emph{pp-arg} to refer
+// to such preprocessing token sequences. A \emph{pp-arg} must not
 // contain, nor macro replace to a token sequence containing,
 // unparenthesized commas nor unbalanced parentheses.
 //
@@ -110,7 +111,7 @@
                       8quote(no more bottles))))
 #endif//0
 // The `8fn(...)' syntactic form defines an anonymous
-// first--class function. The above function binds the variable
+// first-class function. The above function binds the variable
 // `8N', which is referred to in the conditional expression.
 //
 // Given the number of bottles bound to the variable `8N' and
@@ -127,24 +128,25 @@
 // the value of any unparenthesized Order expression and outputing
 // any parenthesized sequence of tokens verbatim. The `8ap'
 // syntactic form is the function application expression.
-// \emph{Top--level} functions, like the \emph{prelude} function
-// `8greater', but also \emph{user--defined} top--level
+// \emph{Top-level} functions, like the prelude function
+// `8greater', but also \emph{user-defined} top-level
 // functions, can be applied without using `8ap', but
 // `8ap' needs to be used otherwise. The `8space'
 // syntactic form can only be used inside `8print' and causes a
-// space to be output. Ordinarily, while generating program code,
-// \emph{whitespace separations} in the output are insignificant,
-// and it doesn't matter that heading and trailing whitespace is
-// implicitly removed from the output, but in this case we'd like to
-// have a space after each comma. The `8print' form can
-// actually be used to output arbitrary sequences of preprocessing
-// tokens, including unbalanced parentheses using the syntactic
-// forms `8lparen' and `8rparen' that output a left and a
-// right paren, respectively.
+// space to be output.\footnote{In other words, the keyword `8space'
+// is part of the syntax of `8print' expressions.} Ordinarily, while
+// generating program code, \emph{whitespace separations} in the
+// output are insignificant, and it doesn't matter that heading and
+// trailing whitespace is implicitly removed from the output, but in
+// this case we'd like to have a space after each comma. The
+// `8print' form can actually be used to output arbitrary sequences
+// of preprocessing tokens, including unbalanced parentheses using
+// the syntactic forms `8lparen' and `8rparen' that output a left
+// and a right paren, respectively.
 //
 // To execute the above `8print' expression for all numbers
 // from 99 to 1 we can make it into a function and use the
-// \emph{higher--order} function `8for_each_in_range',
+// \emph{higher-order} function `8for_each_in_range',
 // conveniently provided by the Order prelude, to make the function
 // applications:
 #if 0
@@ -157,7 +159,7 @@
 #endif//0
 // You may wonder about the above upper bound of 100.
 // `8for_each_in_range' always considers the upper bound
-// open and the lower bound closed regardless of the order,
+// open and the lower bound closed regardless of the direction,
 // ascending or descending, in which the range is specified. This
 // minimizes special cases.
 //
@@ -184,7 +186,6 @@ ORDER_PP
                   8ap(8B, 8dec(8N)) (of beer on the wall.))),
        100, 1)))
 //>
-//
 // The above program, when preprocessed, generates some 2773 tokens
 // on one line containing the desired lyrics. As you can see, we
 // didn't need to define any macros to generate the desired output.
@@ -193,7 +194,7 @@ ORDER_PP
 // preprocessing tokens without requiring the definition of
 // additional macros. In practice, however, it usually makes sense
 // to use additional macros in the form of \emph{ad hoc code
-// generation macros} and Order \emph{top--level definitions} to
+// generation macros} and Order \emph{top-level definitions} to
 // both simplify and optimize a generator. Let's see how to do it.
 //
 // First we'll write an ad hoc macro for generating one phrase of
@@ -204,19 +205,19 @@ ORDER_PP
   N_bottles of beer, take one down, pass it around, \
   N_minus_1_bottles of beer on the wall.
 //>
-// The above function--like macro, named `GEN_phrase', takes
+// The above function-like macro, named `GEN_phrase', takes
 // two arguments, `N_bottles' and `N_minus_1_bottles', and
 // expands to a single phrase of the song. The idea is to use the
 // above macro to generate all the phrases of the song by outputing
 // a sequence of 99 macro invocations. In general, a viable design
 // heuristic is to completely parameterize any ad hoc code
 // generation macro and then use the Order interpreter to implement
-// any non--trivial logic to compute the parameters. This minimizes
-// the need to implement complex logic using only the low--level
+// any non-trivial logic to compute the parameters. This minimizes
+// the need to implement complex logic using only the low-level
 // macro mechanism.
 //
 // To compute the arguments to the `GEN_phrase' macro, we give
-// a top--level definition, named `8bottles', for the
+// a top-level definition, named `8bottles', for the
 // previously used auxiliary function for referring to the number of
 // bottles:
 //<
@@ -229,31 +230,29 @@ ORDER_PP_FN(8fn(8N,                                    \
                       (8else,                          \
                        8quote(no more bottles)))))
 //>
-// The above object--like macro definition is an Order top--level
-// definition. Order top--level definition macros use the prefix
+// The above object-like macro definition is an Order top-level
+// definition. Order top-level definition macros use the prefix
 // `ORDER_PP_DEF_', which makes accidental macro replacement
 // unlikely and allows the Order interpreter to deconstruct
 // expressions using concatenation. The `ORDER_PP_FN' tagging
 // macro effectively tells the Order interpreter that
 // `8bottles' defines a function. Order also has other forms of
-// top--level definitions such as constant and macro definitions.
+// top-level definitions such as constant and macro definitions.
 //
 // To actually output an invocation of the `GEN_phrase' macro,
 // we use the `8emit' procedure:
-
 #if 0
               8emit(8quote(GEN_phrase),
                     8tuple(8bottles(8N),
                            8bottles(8dec(8N))))
 #endif//0
-
 // Given two arguments, the `8emit' procedure outputs both of
 // the arguments separated by a space. Above, `8emit' is used
-// to output the identifier of a function--like macro and a
+// to output the identifier of a function-like macro and a
 // tuple\footnote{In Order, a tuple is a parenthesized and comma
 // separated list of elements.} that matches the formal parameters
-// of the function--like macro `GEN_phrase'. As one could
-// expect, it will eventually result in expanding the function--like
+// of the function-like macro `GEN_phrase'. As one could
+// expect, it will eventually result in expanding the function-like
 // macro generating one phrase of the song.
 //
 // The complete program now looks like this:
@@ -290,5 +289,5 @@ ORDER_PP(8for_each_in_range
 //
 // All that is left to do is to preprocess this example, direct the
 // output to the printer, get 99 bottles of beer and a few friends
-// to sing the song\ldots On second thought, you could also just
+// to sing the song\ldots{} On second thought, you could also just
 // continue reading.

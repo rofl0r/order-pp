@@ -18,7 +18,7 @@ template<class T> struct is_integral
 { enum { value = false }; };
 //>
 // We also need to define specializations of the above template for
-// each integral type and cv--qualifier pair.
+// each integral type and cv-qualifier pair.
 //<
 ORDER_PP(8seq_for_each_in_product
          (8fn(8C, 8V, 8T,

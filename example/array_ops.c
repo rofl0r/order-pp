@@ -8,7 +8,7 @@
 //
 // This example shows how metadata can be used for directing code
 // generation. We use metadata to direct the generation of
-// procedures for 1--dimensional array manipulation in C.
+// procedures for 1-dimensional array manipulation in C.
 //
 // ### Introduction
 //
@@ -161,11 +161,11 @@ ORDER_PP_FN(8fn(8T,                                     \
 //
 // Let's examine the `8type_of_promotion(t)' function definition.
 // The first thing you should notice is that we essentially defined
-// an object--like macro of the form
+// an object-like macro of the form
 //<
 //   #define ORDER_PP_DEF_8<name> ORDER_PP_FN(<fn-exp>)
 //>
-// The above is the general form of top--level Order function
+// The above is the general form of top-level Order function
 // definitions. We will not discuss the implementation details of
 // the Order interpreter in this example, but a short explanation
 // might be in order. The prefix `ORDER_PP_DEF_' is used for all
@@ -204,11 +204,11 @@ ORDER_PP_FN(8fn(8T,                                     \
 // which means the digit `8' followed by an uppercase letter. Other
 // tokens can also be used given appropriate macro definitions.
 //
-// A conditional if--expression in Order has the form:
+// A conditional if-expression in Order has the form:
 //<
 //   8if(<exp-bool>, <exp-cons>, <exp-alt>)
 //>
-// If--expressions in Order behave just like in other strict
+// If-expressions in Order behave just like in other strict
 // programming languages. The boolean subexpression, `<exp-bool>',
 // is evaluated first and if it evaluates to `8true', then the
 // consequent, `<exp-cons>', is evaluated. Otherwise the boolean
@@ -224,7 +224,7 @@ ORDER_PP_FN(8fn(8T,                                     \
 // As you have figured out by now, the syntax and semantics of the
 // Order language are very much like the syntax and semantics of any
 // ordinary programming language. The main technical difference to
-// an ordinary language is that top--level Order definitions are
+// an ordinary language is that top-level Order definitions are
 // embedded in C preprocessor macro definitions of a particular
 // form.
 //
@@ -286,7 +286,7 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
 // parameters of the code generation macros `GEN_array_uop' and
 // `GEN_array_bop' that we need certain metadata on types and
 // operators. Considering the requirements, we will represent an
-// operator by a 6--tuple of the form
+// operator by a 6-tuple of the form
 //<
 //   (symbol, mnemonic, arity, does_floats, is_logical, is_shift)
 //>
@@ -309,10 +309,10 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
 // macro definitions are essentially simple rewrite rules like
 // ordinary C preprocessor macros. Macro definitions are evaluated
 // as if the tokens inside `ORDER_PP_MACRO(...)' immediately
-// appeared in place of the macro identifier---there is no function
+// appeared in place of the macro identifier--there is no function
 // call overhead. However, macros are otherwise more limited than
 // functions. In particular, parameterized Order macros, implemented
-// using function--like macros, can not be partially applied, which
+// using function-like macros, can not be partially applied, which
 // should be intuitive, because the interpreter really doesn't see
 // them at all.
 //
@@ -357,7 +357,7 @@ ORDER_PP_CONST(((~,  _compl,  1, 8false, 8false, 8false))       \
 //>
 // So, the `8applicative_ops' constant is just an aggregate,
 // represented by a sequence, of 21 elements, each of which is a
-// 6--tuple representing an operator.
+// 6-tuple representing an operator.
 //
 // You should also note that boolean values are simply denoted by
 // `8true' and `8false'. The interpreter also supports arithmetic
@@ -365,7 +365,7 @@ ORDER_PP_CONST(((~,  _compl,  1, 8false, 8false, 8false))       \
 // the arities using decimal literals.
 //
 // The requirements for types are somewhat less demanding and we'll
-// do with a 4--tuple of the form
+// do with a 4-tuple of the form
 //<
 //   (name, abbreviation, is_float, rank)
 //>
@@ -435,7 +435,7 @@ ORDER_PP_FN(8fn(8O, 8T,                                         \
 // convenient shorthand for `8quote', which is a special form that
 // allows you to define constants inline. The parameter to `8quote',
 // or the shorthand `8', can be any sequence of tokens that is
-// allowed as an actual macro parameter like in ordinary top--level
+// allowed as an actual macro parameter like in ordinary top-level
 // constant definitions. `8quote' then simply evaluates to the
 // argument. You might wonder why we need to use quotation here. The
 // reason is simple. There is no Order definition for
@@ -447,9 +447,9 @@ ORDER_PP_FN(8fn(8O, 8T,                                         \
 // going to refer to it many times, it is more convenient to just
 // use quotation.
 //
-// The side--effecting `8emit' procedure is different from the
+// The side-effecting `8emit' procedure is different from the
 // functions we have used so far. It is used to produce output as a
-// non--mutating side--effect. The `8emit' procedure essentially
+// non-mutating side-effect. The `8emit' procedure essentially
 // places both of the given arguments, separated by whitespace, to
 // the end of what has been emitted so far. For example,
 //<
@@ -471,7 +471,7 @@ ORDER_PP_FN(8fn(8O, 8T,                                         \
 //
 // We now generate code for all unary array procedures by invoking
 // the `8gen_array_uop(o,t)' metafunction in two batches. First for
-// the non--floating point operators and non--floating point types.
+// the non-floating point operators and non-floating point types.
 //<
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_uop,
@@ -489,7 +489,7 @@ ORDER_PP(8seq_for_each_in_product
 // sequence and produces a new sequence which contains only the
 // elements that satisfy the predicate. Above, we've defined the
 // predicate for filtering the `8applicative_ops' sequence using an
-// anonymous function. This is typical when using higher--order
+// anonymous function. This is typical when using higher-order
 // functions. New functions can also be formed through other means,
 // which often yields shorter and more efficient programs. The
 // predicate for filtering the `8builtin_types' sequence is
@@ -502,7 +502,7 @@ ORDER_PP(8seq_for_each_in_product
 // element of the cartesian product. Above, we use
 // `8seq_for_each_in_product' to compute the cartesian product
 // of operators that do not work on floating point types and the
-// non--floating point types.
+// non-floating point types.
 //
 // Let's move on and generate code for the floating point operators
 // and all types.
@@ -530,7 +530,7 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                                     \
                              8type_name(8type_of_bop(8O, 8L, 8R))))))
 //>
 // Then we'll generate code for all binary array procedures in two
-// batches. First the non--floating point operators:
+// batches. First the non-floating point operators:
 //<
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
@@ -567,7 +567,7 @@ ORDER_PP(8seq_for_each_in_product
 // \begin{exercise}
 // Commutative operators, like `+' and `|', produce the same result
 // regardless of the order of the two arguments while the result of
-// non--commutative operators, like `/' and `<<', depends on the
+// non-commutative operators, like `/' and `<<', depends on the
 // order of arguments. The generator we built in this example
 // generates code for all ordered pairs of types. This means that we
 // generate nearly twice as many procedures as needed for
