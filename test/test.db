@@ -30,8 +30,10 @@
 8do(8emit(8act(!),8act(%)),8emit(8act(?),8act(^)))#TCA (!)!!!!!!!!!!!!!!!!!!! TCA (%)%%%%%%%%%%%%%%%%%ACT (?)???????????????????? ACT (^)^^^^^^^^^^^^^^^^^^#<ws>
 8do(8eval(8env_bind(8(8X),8env_nil,5),8(8put(8X))),3)#5 3#<ws>
 8do(8print((!)),8print((%)),8quote(?))#!%?#<ws>
+8do(8put(8(ORDER_PP_ID)),8put(8(())),8put(8((8seq_for_each(8put,8seq_iota(2,5))))))#2 3 4#<ws>
 8do(8put(8act(!)),8put(8act(%)),8exit(8act(?)),8put(8act(*)),8put(8act(;)))#TCA (!)!!!!!!!!!!!!!!!!!TCA (%)%%%%%%%%%%%%%%%%%TCA (?)?????????????????#<ws>
 8do(8put(8act(!)),8put(8act(%)),8put(8act(?)))#TCA (!)!!!!!!!!!!!!!!!!!TCA (%)%%%%%%%%%%%%%%%%%TCA (?)?????????????????#<ws>
+8emit(8(ORDER_PP_ID),8(()(8seq_for_each(8put,8seq_iota(2,5)))))#2 3 4#<ws>
 8emit_params(1,11,8(class B))#class B1,class B2,class B3,class B4,class B5,class B6,class B7,class B8,class B9,class B10#<ws>
 8emit_trailing_params(12,2,8(class A))#,class A11,class A10,class A9,class A8,class A7,class A6,class A5,class A4,class A3,class A2#<ws>
 8expand(8act(!),8act(%))#TCA (!)!!!!!!!!!!!!!!!!! TCA (%)%%%%%%%%%%%%%%%#<ws>
@@ -49,6 +51,7 @@
 8if(8false,8act(!),8act(%))#ACT (%)%%%%%%%%%%%%%%#<ws>
 8if(8true,8act(!),8act(%))#ACT (!)!!!!!!!!!!!!!!#<ws>
 8ignore(8stringize(7))##<ws>
+8inc(8call_cc(8fn(8K,8add(1,2,8ap(8K,4)))))#5#<ws>
 8is_sym(8(this is not a symbol))#8false#<ws>
 8is_sym(8true)#8true#<ws>
 8let(8X,8id,8ap(8X,8act(!)))#ACT (!)!!!!!!!!!!!!!!!!#<ws>

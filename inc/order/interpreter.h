@@ -13,6 +13,7 @@
 #include "order/util.h"
 
 #define ORDER_PP ORDER_PP_IS_ACTIVE(0)(ORDER_PP_,FIND,EVAL)(0)
+#define ORDER_PP_ID() ORDER_PP
 
 #define ORDER_PP_FIND(_) ORDER_PP_FX(EVAL,(ORDER_PP_FIND_GT_0()))
 #define ORDER_PP_EVAL(i) ORDER_PP_EVAL_##i
