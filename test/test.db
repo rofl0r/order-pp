@@ -105,6 +105,8 @@ tuple(tuple(1))#((1))
 tuple(tuple(quote(a)),tuple(quote(b)))#((a),(b))
 tuple_at(0,tuple(4,5))#4
 tuple_at(7,tuple(1,2,3,4,5,6,7,8))#8
+tuple_size(quote((a,b,c,d)))#4
+tuple_size(tuple(nil))#1
 unless(false,emit(3),emit(2),1)#1 2 3
 unless(true,emit(3),emit(2),1)#
 when(false,emit(5))#
