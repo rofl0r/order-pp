@@ -20,25 +20,31 @@
 // the implementation of the `is_function<T>' type trait could use
 // a couple of auxiliary types
 //<
-struct yes_type { int type[2]; };
-typedef int no_type;
+namespace detail {
+  struct yes_type { int type[2]; };
+  typedef int no_type;
+}
 //>
 // an ellipsis function
 //<
-no_type is_function_tester(...);
+namespace detail {
+  no_type is_function_tester(...);
+}
 //>
 // and function templates of the form
 #if 0
-   template<class R>
-   yes_type is_function_tester(R (*)());
+   namespace detail {
+     template<class R>
+     yes_type is_function_tester(R (*)());
 
-   template<class R, class A0>
-   yes_type is_function_tester(R (*)(A0));
+     template<class R, class A0>
+     yes_type is_function_tester(R (*)(A0));
 
-   template<class R, class A0, class A1>
-   yes_type is_function_tester(R (*)(A0,A1));
+     template<class R, class A0, class A1>
+     yes_type is_function_tester(R (*)(A0,A1));
 
-   // ...
+     // ...
+   }
 #endif//0
 // It is then possible to distinguish between function types and
 // other types taking advantage of overload resolution and the
@@ -75,16 +81,18 @@ no_type is_function_tester(...);
 // following program that generates the `is_function_tester'
 // templates.
 //<
-ORDER_PP
-(8for_each_in_range
- (8fn(8N,
-      8print((template
-              <class R) 8emit_trailing_params(0, 8N, 8(class A)) (>)
-             (yes_type is_function_tester)
-             8parens((R(*)) 8parens(8emit_params(0, 8N, 8(A))))
-             (;))),
-  0,
-  8inc(IS_FUNCTION_MAX_ARGS)))
+namespace detail {
+  ORDER_PP
+  (8for_each_in_range
+   (8fn(8N,
+        8print((template
+                <class R) 8emit_trailing_params(0, 8N, 8(class A)) (>)
+               (yes_type is_function_tester)
+               8parens((R(*)) 8parens(8emit_params(0, 8N, 8(A))))
+               (;))),
+    0,
+    8inc(IS_FUNCTION_MAX_ARGS)))
+}
 //>
 // The above program uses the higher--order function
 // `8for_each_in_range' to invoke an anonymous function, defined by
@@ -116,5 +124,17 @@ ORDER_PP
 // macros. However, it usually makes sense to use ad hoc code
 // generation macros, as well as Order definition macros, because
 // they can both simplify and speed up the generator program.
+//
+// We can then implement the actual type trait:
+//<
+template<class T>
+struct is_function {
+private:
+  static T* t;
+public:
+  enum { value = (sizeof(detail::is_function_tester(t)) ==
+                  sizeof(detail::yes_type)) };
+};
+//>
 
 # endif
