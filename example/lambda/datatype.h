@@ -104,9 +104,9 @@ variant_name(ORDER_PP(8for_each_in_range                                        
   return ORDER_PP_FRESH_ID(result);                                             \
 }
 
-#define ORDER_PP_DEF_8dt_import_cases ORDER_PP_FN       \
-(8fn(8S,                                                \
-     8vseq_to_seq_of_tuples(8S)))
+#define ORDER_PP_DEF_8dt_import_cases           \
+ORDER_PP_FN(8fn(8S,                             \
+                8vseq_to_seq_of_tuples(8S)))
 
 #define DATATYPE_switch(expr, type_name, cases)         \
 do {                                                    \
