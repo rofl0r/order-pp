@@ -51,7 +51,7 @@
                8cond((8greater(8N, 1),
                       8separate(8N, 8quote(bottles)))
                      (8equal(8N, 1),
-                      8separate(8N, 8quote(bottle)))
+                      8quote(1 bottle))
                      (8else,
                       8quote(no more bottles)))
 #endif//0
@@ -175,7 +175,7 @@ ORDER_PP
                8cond((8greater(8N, 1),
                       8separate(8N, 8quote(bottles)))
                      (8equal(8N, 1),
-                      8separate(8N, 8quote(bottle)))
+                      8quote(1 bottle))
                      (8else,
                       8quote(no more bottles))))),
       8for_each_in_range
@@ -226,7 +226,7 @@ ORDER_PP_FN(8fn(8N,                                    \
                 8cond((8greater(8N, 1),                \
                        8separate(8N, 8quote(bottles))) \
                       (8equal(8N, 1),                  \
-                       8separate(8N, 8quote(bottle)))  \
+                       8quote(1 bottle))               \
                       (8else,                          \
                        8quote(no more bottles)))))
 //>
@@ -269,7 +269,7 @@ ORDER_PP_FN(8fn(8N,                                    \
                 8cond((8greater(8N, 1),                \
                        8separate(8N, 8quote(bottles))) \
                       (8equal(8N, 1),                  \
-                       8separate(8N, 8quote(bottle)))  \
+                       8quote(1 bottle))               \
                       (8else,                          \
                        8quote(no more bottles)))))
 
