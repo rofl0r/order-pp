@@ -51,23 +51,35 @@
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
 
-#define ORDER_PP_IF_8true(P,c,...) P##c
+#define ORDER_PP_IF_(P,c,...) P##c
+#define ORDER_PP_IF_0(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_1(P,c,...) P##c
 #define ORDER_PP_IF_8false(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_8true(P,c,...) P##c
 
-#define ORDER_PP_IF_NOT_8true(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_NOT_(P,c,...) P##__VA_ARGS__
+#define ORDER_PP_IF_NOT_0(P,c,...) P##c
+#define ORDER_PP_IF_NOT_1(P,c,...) P##__VA_ARGS__
 #define ORDER_PP_IF_NOT_8false(P,c,...) P##c
+#define ORDER_PP_IF_NOT_8true(P,c,...) P##__VA_ARGS__
 
-#define ORDER_PP_WHEN_8true(P,...) P##__VA_ARGS__
+#define ORDER_PP_WHEN_(P,...) P##__VA_ARGS__
+#define ORDER_PP_WHEN_0(...)
+#define ORDER_PP_WHEN_1(P,...) P##__VA_ARGS__
 #define ORDER_PP_WHEN_8false(...)
+#define ORDER_PP_WHEN_8true(P,...) P##__VA_ARGS__
 
-#define ORDER_PP_UNLESS_8true(...)
+#define ORDER_PP_UNLESS_(...)
+#define ORDER_PP_UNLESS_0(P,...) P##__VA_ARGS__
+#define ORDER_PP_UNLESS_1(...)
 #define ORDER_PP_UNLESS_8false(P,...) P##__VA_ARGS__
+#define ORDER_PP_UNLESS_8true(...)
 
-#define ORDER_PP_SELECT_4(c0,c1) ORDER_PP_CAT(c0(ORDER_PP_SELECT_4_,8true,8false),c1(,8true,8false))
-#define ORDER_PP_SELECT_4_8true8true(P,tt,tf,ft,...) P##tt
-#define ORDER_PP_SELECT_4_8true8false(P,tt,tf,ft,...) P##tf
-#define ORDER_PP_SELECT_4_8false8true(P,tt,tf,ft,...) P##ft
-#define ORDER_PP_SELECT_4_8false8false(P,tt,tf,ft,...) P##__VA_ARGS__
+#define ORDER_PP_SELECT_4(c0,c1) ORDER_PP_CAT(c0(ORDER_PP_SELECT_4_,1,0),c1(,1,0))
+#define ORDER_PP_SELECT_4_11(P,tt,tf,ft,...) P##tt
+#define ORDER_PP_SELECT_4_10(P,tt,tf,ft,...) P##tf
+#define ORDER_PP_SELECT_4_01(P,tt,tf,ft,...) P##ft
+#define ORDER_PP_SELECT_4_00(P,tt,tf,ft,...) P##__VA_ARGS__
 
 #define ORDER_PP_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),8true,8false)
 #define ORDER_PP_NOT_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),8false,8true)
