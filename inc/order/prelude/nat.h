@@ -5,7 +5,7 @@
 // `ORDER_PP_NAT(digit...)' converts the digits to the internal
 // natural number representation used by the interpreter.
 // `ORDER_PP_NAT' is designed to be used in constant definitions.
-#define ORDER_PP_NAT(...) ORDER_PP_PM(,(,0##__VA_ARGS__),8NAT,)
+#define ORDER_PP_NAT(...) ORDER_PP_PM((,0##__VA_ARGS__),8NAT)
 
 // `8nat(digit0, digit1, ..., digitN)' specifies a natural number
 // constant. Note that this is a syntactic form. The digits will not
@@ -17,7 +17,7 @@
 //
 // Note also that the literals `0', `1', ..., `100' evaluate to the
 // corresponding natural number.
-#define ORDER_PP_DEF_8nat(...) 8DEF_CONST,ORDER_PP_PM(,(,0##__VA_ARGS__),8NAT,),
+#define ORDER_PP_DEF_8nat(...) 8DEF_CONST,ORDER_PP_PM((,0##__VA_ARGS__),8NAT),
 #define ORDER_PP_8NAT(P,t,...) ORDER_PP_OVERLOAD(8NAT,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE t##P)t##P
 #define ORDER_PP_8NAT_1(P,_0) ,)(P##_0)
 #define ORDER_PP_8NAT_2(P,_0,_1) ,)(P##_1)(P##_0)
