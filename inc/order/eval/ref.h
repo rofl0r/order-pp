@@ -9,8 +9,8 @@
 #define ORDER_PP_ENV_BIND__(...)
 #define ORDER_PP_ENV_REF(P,_,x,...) P##x
 
-#define ORDER_CM_8EVAL_REF_(x) (,ORDER_PP_ENV_REF(,x)
-#define ORDER_CM_8EVAL_REF(P,e,s,K,...) ORDER_CM_##K ORDER_CM_8EVAL_REF_(ORDER_PP_ENV_REF_##s P##e),P##__VA_ARGS__)
+#define ORDER_CM_8EVAL_REF_(K,x,...) ORDER_CM_##K(,x
+#define ORDER_CM_8EVAL_REF(P,e,s,K,...) ORDER_CM_8EVAL_REF_(P##K,ORDER_PP_EXPAND(ORDER_PP_ENV_REF,(,ORDER_PP_ENV_REF_##s P##e))),P##__VA_ARGS__)
 
 /*
 (loop for i from ?A to ?Z do
