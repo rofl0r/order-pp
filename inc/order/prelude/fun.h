@@ -20,3 +20,9 @@
 
 #define ORDER_PP_DEF_8ignore ORDER_PP_FN_CM(1,8IGNORE)
 #define ORDER_PP_8IGNORE(P,_,...) (,,P##__VA_ARGS__)
+
+#define ORDER_PP_DEF_8always ORDER_PP_FN_CM(1,8ALWAYS)
+#define ORDER_PP_8ALWAYS(P,_,...) (,8true,P##__VA_ARGS__)
+
+#define ORDER_PP_DEF_8never ORDER_PP_FN_CM(1,8NEVER)
+#define ORDER_PP_8NEVER(P,_,...) (,8false,P##__VA_ARGS__)

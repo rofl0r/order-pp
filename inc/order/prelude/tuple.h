@@ -76,16 +76,16 @@
 #define ORDER_PP_TUPLE_SIZE_10(...) 10
 #define ORDER_PP_TUPLE_SIZE_11_OR_MORE(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,...) ORDER_PP_PM(,(,P##__VA_ARGS__),8TUPLE_SIZE_2,(01),)
 #define ORDER_PP_8TUPLE_SIZE_2(P,t,n,...) ORDER_PP_OVERLOAD(8TUPLE_SIZE_2,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE P##t)(,P##t,P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_1(P,t,n) ,(1)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_2(P,t,n) ,(2)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_3(P,t,n) ,(3)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_4(P,t,n) ,(4)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_5(P,t,n) ,(5)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_6(P,t,n) ,(6)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_7(P,t,n) ,(7)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_8(P,t,n) ,(8)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_9(P,t,n) ,(9)P##n)
-#define ORDER_PP_8TUPLE_SIZE_2_10(P,t,n) ,(0)ORDER_PP_NAT_SUCC P##n)
+#define ORDER_PP_8TUPLE_SIZE_2_1(P,t,n) )(1)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_2(P,t,n) )(2)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_3(P,t,n) )(3)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_4(P,t,n) )(4)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_5(P,t,n) )(5)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_6(P,t,n) )(6)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_7(P,t,n) )(7)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_8(P,t,n) )(8)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_9(P,t,n) )(9)P##n
+#define ORDER_PP_8TUPLE_SIZE_2_10(P,t,n) )(0)ORDER_PP_NAT_SUCC P##n
 #define ORDER_PP_8TUPLE_SIZE_2_11_OR_MORE(P,t,n) (,(,ORDER_PP_TUPLE_REST_10 P##t),8TUPLE_SIZE_2,ORDER_PP_NAT_SUCC P##n,)
 
 #define ORDER_PP_DEF_8tuple_to_seq ORDER_PP_FN_CM(1,8TUPLE_TO_SEQ)
@@ -102,8 +102,8 @@
 #define ORDER_PP_TUPLE_TO_SEQ_8(P,_0,_1,_2,_3,_4,_5,_6,_7) (P##_0)(P##_1)(P##_2)(P##_3)(P##_4)(P##_5)(P##_6)(P##_7)
 #define ORDER_PP_TUPLE_TO_SEQ_9(P,_0,_1,_2,_3,_4,_5,_6,_7,_8) (P##_0)(P##_1)(P##_2)(P##_3)(P##_4)(P##_5)(P##_6)(P##_7)(P##_8)
 #define ORDER_PP_TUPLE_TO_SEQ_10(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9) (P##_0)(P##_1)(P##_2)(P##_3)(P##_4)(P##_5)(P##_6)(P##_7)(P##_8)(P##_9)
-#define ORDER_PP_TUPLE_TO_SEQ_11_OR_MORE(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,...) (P##_0)(P##_1)(P##_2)(P##_3)(P##_4)(P##_5)(P##_6)(P##_7)(P##_8)(P##_9),8TUPLE_TO_SEQ_2,(,P##__VA_ARGS__)
-#define ORDER_PP_8TUPLE_TO_SEQ_2(P,s,t,...) (,ORDER_PP_LEFT(,s##P)ORDER_PP_OVERLOAD(TUPLE_TO_SEQ,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE P##t)P##t,P##__VA_ARGS__)
+#define ORDER_PP_TUPLE_TO_SEQ_11_OR_MORE(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,...) (P##_0)(P##_1)(P##_2)(P##_3)(P##_4)(P##_5)(P##_6)(P##_7)(P##_8)(P##_9)ORDER_PP_NIL,8TUPLE_TO_SEQ_2,(,P##__VA_ARGS__)
+#define ORDER_PP_8TUPLE_TO_SEQ_2(P,s,t,...) (,s##P()ORDER_PP_OVERLOAD(TUPLE_TO_SEQ,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE P##t)P##t,P##__VA_ARGS__)
 
 // Details
 
@@ -133,6 +133,6 @@
 #define ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE(P,...) ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE_B(P##__VA_ARGS__,ORDER_PP_COMMA_10,ORDER_PP_COMMA_9,ORDER_PP_COMMA_8,ORDER_PP_COMMA_7,ORDER_PP_COMMA_6,ORDER_PP_COMMA_5,ORDER_PP_COMMA_4,ORDER_PP_COMMA_3,ORDER_PP_COMMA_2,ORDER_PP_COMMA_1,)
 #define ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE_B(_,A,B,C,D,E,F,G,H,I,x,...) ORDER_PP_TUPLE_AT_1(,x,11_OR_MORE,)
 
-#define ORDER_PP_8EXIT_TUPLE(P,...) ,P##__VA_ARGS__)
+#define ORDER_PP_8EXIT_TUPLE(P,...) )P##__VA_ARGS__
 
 #include "order/prelude/tuple_tables.h"

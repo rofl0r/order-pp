@@ -14,7 +14,10 @@
 #endif
 
 #define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
-#define ORDER_PP_8EXIT(P,x,...) ,(,1,x##P))
+#define ORDER_PP_8EXIT(P,x,...) )(,1,x##P)
+
+#define ORDER_PP_DEF_8force ORDER_PP_FN_CM(1,8FORCE)
+#define ORDER_PP_8FORCE(P,c,...) (,ORDER_PP_OPEN c##P,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8for_each ORDER_PP_FN_CM(4,8FOR_EACH)
 #define ORDER_PP_8FOR_EACH(P,x,o,s,c,...) (,P##x,ORDER_PP_OPEN c##P,8FOR_EACH_B,P##x,P##c,P##s,P##o,P##__VA_ARGS__)
