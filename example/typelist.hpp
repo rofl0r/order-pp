@@ -55,10 +55,10 @@ namespace typelist {
 //       characters of code need to be written.
 // \end{itemize}
 // The biggest problem is that there is little need to use macros
-// for creating type lists. A ``variadic'' metafunction can be
-// defined that creates a list of types without having to manually
-// type a heavily nested `cons'-expression. But for the sake of this
-// example, let's pretend that we don't know about such
+// for creating type lists. A ``variadic'' template metafunction can
+// be defined that creates a list of types without having to
+// manually type a heavily nested `cons'-expression. But for the
+// sake of this example, let's pretend that we don't know about such
 // metafunctions.
 //
 // ### A More Robust `TYPELIST'-macro
