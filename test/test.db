@@ -122,6 +122,10 @@
 8seq_set(2,8quote((1)(2)(3)),8quote(.))#(1) (2) (.)
 8seq_size(8nil)#0
 8seq_size(8quote((1)(2)(3)(4)(5)))#5
+8seq_sort(8greater,8quote((1)(2)(3)(4)(5)(6)(7)))#(7)(6)(5)(4) (3)(2) (1)
+8seq_sort(8greater,8quote((1)))#(1)
+8seq_sort(8less,8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#(1)(1)(2)(3)(4)(5)(5)(6) (9)
+8seq_sort(8less,8quote())#
 8seq_to_tuple(8quote((1)(2)(3)))#(1 , 2 , 3 )
 8seq_to_tuple(8seq_nil)#()
 8stringize(8quote(This is a string.))#"This is a string."

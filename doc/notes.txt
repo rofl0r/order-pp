@@ -278,7 +278,7 @@ Sequences
   -8seq_parallel_map(8FN,8SS)               : (Any+ -> Any) -> Seq(Seq) -> Seq
    8seq_partition(8PR,8S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
    8seq_select(8PR,8X,8S)                   : (Any -> Any -> Bool) -> Any -> Seq -> Any
-  -8seq_sort(8PR,8S)                        : (Any -> Any -> Bool) -> Seq -> Seq
+   8seq_sort(8PR,8S)                        : (Any -> Any -> Bool) -> Seq -> Seq
   -8seq_unfold(8CN,8ST,8FN,8X)              : (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Any -> Seq
 
 --------------------------------------------------------------------------
