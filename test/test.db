@@ -120,6 +120,7 @@
 8print(8parens(8parens(8and(8true,8true))))#((8true))#
 8print(8rparen 8comma 8lparen)#),(#
 8print(8rparen 8parens((.) 8(1)) 8comma 8parens(8(1) (.)) 8lparen)#)(. 1),(1 .)(#
+8riap(1,2)#(2,1)#
 8same(8(8X),8(8X))#8true#
 8same(8(8X),8(8Y))#8false#
 8separate(8(!),8(!))#! !#
