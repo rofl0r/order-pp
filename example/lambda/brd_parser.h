@@ -100,7 +100,7 @@ do {                                                                    \
                                                                         \
   ORDER_PP(8seq_for_each                                                \
            (8fn(8M,                                                     \
-                8if(8equal(2,8tuple_size(8M)),                          \
+                8if(8same(2,8tuple_size(8M)),                           \
                     8emit(8quote(BRD_PARSER_GEN_try_sym),               \
                           8M),                                          \
                     8emit(8quote(BRD_PARSER_GEN_try_match),             \

@@ -28,9 +28,6 @@
 8emit_params(10,8quote(class B))# class B0 , class B1 , class B2 , class B3 , class B4 , class B5 , class B6 , class B7 , class B8 , class B9#<ws>
 8emit_trailing_params(10,8quote(class A))#, class A0 , class A1 , class A2 , class A3 , class A4 , class A5 , class A6 , class A7 , class A8 , class A9#<ws>
 8emitq(This is implicitly quoted.)#This is implicitly quoted.#<ws>
-8equal(1,1)#8true#<ws>
-8equal(1,2)#8false#<ws>
-8equal(1,8tuple_at(0,8tuple(1,2)))#8true#<ws>
 8expand(1,2)#1 2#<ws>
 8expand(1,2,3,4,5,6,7,8)#1 2 3 4 5 6 7 8#<ws>
 8for_each_in_range(8fn(8X,8emit(8X)),4,8inc(10))#4 5 6 7 8 9 10#<ws>
@@ -47,8 +44,8 @@
 8nil##<ws>
 8not(8not(8false))#8false#<ws>
 8not(8not(8true))#8true#<ws>
-8not_eq(1,2)#8true#<ws>
-8not_eq(2,2)#8false#<ws>
+8not_same(1,2)#8true#<ws>
+8not_same(2,2)#8false#<ws>
 8or(8false)#8false#<ws>
 8or(8false,6)#6#<ws>
 8or(8false,8false,8false,8true,0)#8true#<ws>
@@ -61,6 +58,9 @@
 8rout(8for_each_in_range(8fn(8X,8emit(8quote(GEN_dimr_0),8tuple(8X))),1,3))#(0,2)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(0,1)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)#<ws>
 8rout(8rout(1,2))#2#<ws>
 8rout(8rout(8emit(1,2)))#1 2#<ws>
+8same(1,1)#8true#<ws>
+8same(1,2)#8false#<ws>
+8same(1,8tuple_at(0,8tuple(1,2)))#8true#<ws>
 8seq(8quote(a),8quote(b),8quote(c),8quote(d),8quote(e),8quote(f),8quote(g),8quote(h))#(a)(b)(c)(d)(e)(f)(g)(h)#<ws>
 8seq(8quote(x))#(x)#<ws>
 8seq(8seq(1))#((1))#<ws>
@@ -71,11 +71,11 @@
 8seq_at(2,8quote((a)(b)(c)(d)))#c#<ws>
 8seq_at(3,8quote((a)(b)(c)(d)))#d#<ws>
 8seq_build(8seq_merge(8less),8seq_map_seq(8quote((0)(2)(6)(2)(0)(6)(2)(1)(7)(8))))#(0)(0)(1)(2)(2)(2)(6)(6)(7)(8)#<ws>
-8seq_exists(8equal(5),8quote((1)(2)(3)(4)(5)))#8true#<ws>
-8seq_exists(8equal(5),8quote((1)(2)(3)(4)))#8false#<ws>
-8seq_exists(8equal(5),8quote((1)(5)(3)(4)(6)))#8true#<ws>
-8seq_exists(8equal(5),8quote((5)(4)(3)(2)))#8true#<ws>
-8seq_exists(8equal(5),8quote())#8false#<ws>
+8seq_exists(8same(5),8quote((1)(2)(3)(4)(5)))#8true#<ws>
+8seq_exists(8same(5),8quote((1)(2)(3)(4)))#8false#<ws>
+8seq_exists(8same(5),8quote((1)(5)(3)(4)(6)))#8true#<ws>
+8seq_exists(8same(5),8quote((5)(4)(3)(2)))#8true#<ws>
+8seq_exists(8same(5),8quote())#8false#<ws>
 8seq_filter(8is_sym,8seq(1,8quote(not symbol),8true))#(1)(8true)#<ws>
 8seq_first(8quote((a)(b)(c)))#a#<ws>
 8seq_first(8quote((a)))#a#<ws>

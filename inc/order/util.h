@@ -67,8 +67,8 @@
 #define ORDER_PP_SELECT_4_8false8true(P,tt,tf,ft,...) P##ft
 #define ORDER_PP_SELECT_4_8false8false(P,tt,tf,ft,...) P##__VA_ARGS__
 
-#define ORDER_PP_EQUAL(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),8true,8false)
-#define ORDER_PP_NOT_EQ(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),8false,8true)
+#define ORDER_PP_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),8true,8false)
+#define ORDER_PP_NOT_SAME(P,x,y) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_##x##_##y(,),8false,8true)
 
 #define ORDER_PP_IS_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_IS_EDIBLE_TEST x##P,8true,8false)
 #define ORDER_PP_IS_NOT_EDIBLE(P,x) ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_IS_EDIBLE_TEST x##P,8false,8true)

@@ -440,7 +440,7 @@ ORDER_PP_FN(8fn(8OP,8TY,                                                \
 ORDER_PP(8rout(8seq_for_each_in_product
                (8gen_array_uop,
                 8seq(8seq_filter(8fn(8OP,
-                                     8and(8equal(1,8op_arity(8OP)),
+                                     8and(8same(1,8op_arity(8OP)),
                                           8not(8op_does_floating(8OP)))),
                                  8applicative_ops),
                      8seq_filter(8fn(8TY,
@@ -481,7 +481,7 @@ ORDER_PP(8rout(8seq_for_each_in_product
 ORDER_PP(8rout(8seq_for_each_in_product
                (8gen_array_uop,
                 8seq(8seq_filter(8fn(8OP,
-                                     8and(8equal(1,8op_arity(8OP)),
+                                     8and(8same(1,8op_arity(8OP)),
                                           8op_does_floating(8OP))),
                                  8applicative_ops),
                      8builtin_types))))
@@ -509,7 +509,7 @@ ORDER_PP(8rout(8seq_for_each_in_product
                                          8not(8type_is_floating(8TY))),
                                      8builtin_types),
                      8seq(8seq_filter(8fn(8OP,
-                                          8and(8equal(2,8op_arity(8OP)),
+                                          8and(8same(2,8op_arity(8OP)),
                                                8not(8op_does_floating(8OP)))),
                                       8applicative_ops),
                           8TS,
@@ -520,7 +520,7 @@ ORDER_PP(8rout(8seq_for_each_in_product
 ORDER_PP(8rout(8seq_for_each_in_product
                (8gen_array_bop,
                 8seq(8seq_filter(8fn(8OP,
-                                     8and(8equal(2,8op_arity(8OP)),
+                                     8and(8same(2,8op_arity(8OP)),
                                           8op_does_floating(8OP))),
                                  8applicative_ops),
                      8builtin_types,
