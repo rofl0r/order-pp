@@ -66,7 +66,7 @@ ORDER_PP_FN(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,          \
 
 ////////////////////////////////////////////////////////////////////
 
-#define ORDER_PP_DEF_8diverge ORDER_PP_FN_CM(1,8DIVERGE)
+#define ORDER_PP_DEF_8diverge ORDER_PP_FN_CM(1,8DIVERGE,0IS_ANY)
 #define ORDER_PP_8DIVERGE(...) (,,8DIVERGE,)
 
 ////////////////////////////////////////////////////////////////////

@@ -27,20 +27,20 @@ ORDER_PP_FN(8fn(8S,                             \
 
 #define ORDER_PP_DEF_8stream_cons(f,r) ORDER_PP_MACRO(8pair(f,8delay(r)))
 
-#define ORDER_PP_DEF_8stream_drop ORDER_PP_FN_CM(2,8STREAM_DROP)
+#define ORDER_PP_DEF_8stream_drop ORDER_PP_FN_CM(2,8STREAM_DROP,0IS_NUM,0IS_STREAM)
 #define ORDER_PP_8STREAM_DROP(P,s,n,...) (,ORDER_PP_OR(,ORDER_PP_NUM_IS_0(,P##n),ORDER_PP_ISNT_EDIBLE(,P##s))(,P##s,,ORDER_PP_STREAM_TAIL P##s,8STREAM_DROP,ORDER_PP_NUM_DEC(,P##n)),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8stream_head ORDER_PP_FN_CM(1,8STREAM_HEAD)
+#define ORDER_PP_DEF_8stream_head ORDER_PP_FN_CM(1,8STREAM_HEAD,0IS_STREAM_CONS)
 #define ORDER_PP_8STREAM_HEAD(P,s,...) (,ORDER_PP_STREAM_HEAD s##P,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8stream_is_cons ORDER_PP_MACRO(8seq_isnt_nil)
 
 #define ORDER_PP_DEF_8stream_is_nil ORDER_PP_MACRO(8seq_is_nil)
 
-#define ORDER_PP_DEF_8stream_tail ORDER_PP_FN_CM(1,8STREAM_TAIL)
+#define ORDER_PP_DEF_8stream_tail ORDER_PP_FN_CM(1,8STREAM_TAIL,0IS_STREAM_CONS)
 #define ORDER_PP_8STREAM_TAIL(P,s,...) (,,ORDER_PP_STREAM_TAIL s##P,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8stream_take ORDER_PP_FN_CM(2,8STREAM_TAKE)
+#define ORDER_PP_DEF_8stream_take ORDER_PP_FN_CM(2,8STREAM_TAKE,0IS_STREAM)
 #define ORDER_PP_8STREAM_TAKE(P,s,n,...) (,ORDER_PP_OR(ORDER_PP_,NUM_IS_0(,P##n),ISNT_EDIBLE(,P##s))(,,(ORDER_PP_STREAM_TAKE s##P,8STREAM_TAKE,ORDER_PP_NUM_DEC(,P##n))ORDER_PP_RPAREN),P##__VA_ARGS__)
 #define ORDER_PP_STREAM_TAKE(h,t) h,(,ORDER_PP_OPEN t
 
@@ -53,7 +53,7 @@ ORDER_PP_FN(8fn(8S,                             \
 
 // Higher-order
 
-#define ORDER_PP_DEF_8stream_filter ORDER_PP_FN_CM(2,8STREAM_FILTER)
+#define ORDER_PP_DEF_8stream_filter ORDER_PP_FN_CM(2,8STREAM_FILTER,0IS_FN,0IS_STREAM)
 #define ORDER_PP_8STREAM_FILTER(P,s,f,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN f##P,8STREAM_FILTER_B,P##s,P##f),P##__VA_ARGS__)
 #define ORDER_PP_8STREAM_FILTER_B(P,b,s,f,...) (,ORDER_PP_IF_##b(,(ORDER_PP_STREAM_HEAD s##P,(,ORDER_PP_STREAM_TAIL s##P,8STREAM_FILTER,P##f)),,ORDER_PP_STREAM_TAIL s##P,8STREAM_FILTER,P##f),P##__VA_ARGS__)
 
@@ -66,10 +66,10 @@ ORDER_PP_FN(8fn(8F,8R,8S,                                       \
                                  8ap(8F,8R,8stream_head(8S)),   \
                                  8stream_tail(8S)))))
 
-#define ORDER_PP_DEF_8stream_for_each ORDER_PP_FN_CM(2,8STREAM_FOR_EACH)
+#define ORDER_PP_DEF_8stream_for_each ORDER_PP_FN_CM(2,8STREAM_FOR_EACH,0IS_FN,0IS_STREAM)
 #define ORDER_PP_8STREAM_FOR_EACH(P,s,f,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN f##P,ORDER_PP_STREAM_TAIL s##P,8STREAM_FOR_EACH,P##f),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8stream_iterate ORDER_PP_FN_CM(2,8STREAM_ITERATE)
+#define ORDER_PP_DEF_8stream_iterate ORDER_PP_FN_CM(2,8STREAM_ITERATE,0IS_FN,0IS_ANY)
 #define ORDER_PP_8STREAM_ITERATE(P,x,f,...) (,(P##x,(,8STREAM_ITERATE_B,P##f,P##x)),P##__VA_ARGS__)
 #define ORDER_PP_8STREAM_ITERATE_B(P,_,f,x,...) (,P##x,ORDER_PP_OPEN f##P,8STREAM_ITERATE,P##f,P##__VA_ARGS__)
 

@@ -2,7 +2,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_OP_LEFT_NATIVE(m) 8DEF_OP_LN,m,ORDER_PP_OP_LN_PARAMS
+#define ORDER_PP_OP_LEFT_NATIVE(m,t) 8DEF_OP_LN,m,ORDER_PP_OP_LN_PARAMS
 #define ORDER_PP_OP_LN_PARAMS(...) (,__VA_ARGS__,0op_ln),
 
 #ifdef ORDER_PP_DEBUG
