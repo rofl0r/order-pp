@@ -78,6 +78,11 @@ ORDER_PP_FN(8fn(8F,8S,                                                  \
                         8ap(8F,8stream_first(8S)),                      \
                         8stream_for_each(8F,8stream_rest(8S)))))
 
+#define ORDER_PP_DEF_8stream_iterate                            \
+ORDER_PP_FN(8fn(8F,8X,                                          \
+                8stream_cons(8X,                                \
+                             8stream_iterate(8F,8ap(8F,8X)))))
+
 #define ORDER_PP_DEF_8stream_map                                                \
 ORDER_PP_FN(8fn(8F,8S,                                                          \
                 8unless(8stream_is_nil(8S),                                     \
@@ -102,6 +107,17 @@ ORDER_PP_FN(8fn(8C,8S,8F,8X,                                                    
                 8when(8ap(8C,8X),                                               \
                       8stream_cons(8ap(8F,8X),                                  \
                                    8stream_unfold(8C,8S,8F,8ap(8S,8X))))))
+
+#define ORDER_PP_DEF_8stream_zip_with                                           \
+ORDER_PP_FN(8fn(8F,8L,8R,                                                       \
+                8unless(8or(8stream_is_nil(8L),                                 \
+                            8stream_is_nil(8R)),                                \
+                        8stream_cons(8ap(8F,                                    \
+                                         8stream_first(8L),                     \
+                                         8stream_first(8R)),                    \
+                                     8stream_zip_with(8F,                       \
+                                                      8stream_rest(8L),         \
+                                                      8stream_rest(8R))))))
 
 // Detail
 
