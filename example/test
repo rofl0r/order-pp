@@ -47,14 +47,16 @@ if ! preprocess "$f" > "$(preprocessed-file "$f")" ; then
     exit 1
 fi
 
-if grep '^[ \t]*[^#]' "$(preprocessed-file "$f")" > /dev/null ; then
+if grep '\{' "$(preprocessed-file "$f")" > /dev/null && \
+    grep '\}' "$(preprocessed-file "$f")" > /dev/null && \
+    grep '\;' "$(preprocessed-file "$f")" > /dev/null ; then
     echo " Compiling..."
     if ! compile "$(preprocessed-file "$f")" ; then
         echo "Error compiling '$f'."
         exit 1
     fi
 else
-    echo " Empty output. Skipping compilation."
+    echo " Output doesn't look like code. Skipping compilation."
 fi
 
 numPrefixLines=$(grep -n -e 'order/interpreter.h' "$(preprocessed-file "$f")" | tail -n1 | grep -o '^[0-9]\+')
