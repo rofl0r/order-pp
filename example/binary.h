@@ -73,8 +73,8 @@ ORDER_PP(8to_lit(8seq_fold                                      \
                  (8fn(8R, 8X,                                   \
                       8add(8mul(8R, 2), 8X)),                   \
                   0,                                            \
-                  8tokens_to_seq_with(8quote(tokens),           \
-                                      8quote(BINARY_TOKEN)))))
+                  8tokens_to_seq_with(8quote(BINARY_TOKEN),     \
+                                      8quote(tokens)))))
 //>
 // The above macro invokes the Order interpreter through the
 // `ORDER_PP' macro to evaluate a simple Order program. Let's
@@ -87,8 +87,8 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // when a program contains many quoted constants.
 //
 // To deconstruct a token sequence, the Order prelude provides the
-// function `8tokens_to_seq_with(tokens, prefix)'. Given a
-// token sequence and the prefix of a set of tokenizing macros, the
+// function `8tokens_to_seq_with(prefix, tokens)'. Given the prefix
+// of a set of tokenizing macros and a token sequence, the
 // `8tokens_to_seq_with' function returns a sequence of the
 // extracted tokens. Sequence is the name of the primary aggregate
 // data type supported by Order. The representation of a sequence is

@@ -307,8 +307,8 @@
 8tokens_to_seq(8((1)))#((1))#
 8tokens_to_seq(8())##
 8tokens_to_seq(8(1 2 (a)(b) 3 4))#(1)(2)((a))((b))(3)(4)#
-8tokens_to_seq_with(8(),8(TOKEN))##
-8tokens_to_seq_with(8(x y (d) x),8(TOKEN))#(x)(y)((d))(x)#
+8tokens_to_seq_with(8(TOKEN),8())##
+8tokens_to_seq_with(8(TOKEN),8(x y (d) x))#(x)(y)((d))(x)#
 8tuple(8(!),8(%),8(?),8(^),8(*),8(;),8([),8(]))#(!,%,?,^,*,;,[,])#
 8tuple(8adjoin(8(;)),8adjoin(8(;),8(;),8(;)))#(;,;;;)#
 8tuple(8always(1),8always(8false),8ap(8always,8nil))#(8true,8true,8true)#
