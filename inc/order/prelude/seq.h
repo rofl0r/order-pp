@@ -261,8 +261,8 @@
 #define ORDER_PP_8SEQ_PARTITION_SORT_D(P,sl,m,sr,...) (,P##sl(P##m)P##sr,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_select ORDER_PP_FN_CM(3,8SEQ_SELECT)
-#define ORDER_PP_8SEQ_SELECT(P,f,x,s,...) ORDER_PP_8SEQ_SELECT_L(,,,P##x,P##s,P##f,P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_SELECT_L(P,b,y,x,xs,f,...) (,ORDER_PP_IF_##b(,P##x,P##y),ORDER_PP_SEQ_IS_NIL(,P##xs)(,,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##xs),8SEQ_SELECT_L,ORDER_PP_IF_##b(,P##x,P##y),ORDER_PP_SEQ_AT_0 xs##P,P##f,)P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_SELECT(P,f,x0,s,...) (,,8SEQ_SELECT_O,,P##x0,P##f,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_OPEN_A P##s),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_SELECT_O(P,c,x0,x1,f,b,x2,...) (,ORDER_PP_IF_##c(,P##x1,P##x0),ORDER_PP_WHEN_##b(,ORDER_PP_OPEN f##P,8AP,P##x2,8SEQ_SELECT_O,ORDER_PP_IF_##c(,P##x1,P##x0),P##x2,P##f,)P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_sort ORDER_PP_FN_CM(2,8SEQ_MERGE_SORT)
 
