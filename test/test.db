@@ -277,6 +277,8 @@
 8tokens_to_seq(8((1)))#((1))#<ws>
 8tokens_to_seq(8())##<ws>
 8tokens_to_seq(8(1 2 (a)(b) 3 4))#(1)(2)((a))((b))(3)(4)#<ws>
+8tokens_to_seq_with(8(),8(TOKEN))##<ws>
+8tokens_to_seq_with(8(x y (d) x),8(TOKEN))#(x)(y)((d))(x)#<ws>
 8tuple(8act(!),8act(%),8act(?),8act(^),8act(*),8act(;),8act([),8act(]))#(TCA (!)!!!!!!!!!!!!!!!!!!!!!!!,ACT (%)%%%%%%%%%%%%%%%%%%%%%%,TCA (?)?????????????????????,ACT (^)^^^^^^^^^^^^^^^^^^^^,TCA (*)*******************,ACT (;);;;;;;;;;;;;;;;;;;,TCA ([)[[[[[[[[[[[[[[[[[,ACT (])]]]]]]]]]]]]]]]])#<ws>
 8tuple(8always(1),8always(8false),8ap(8always,8nil))#(8true,8true,8true)#<ws>
 8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)#<ws>
