@@ -65,12 +65,13 @@ yes_type is_function_tester(R (*)(A0,A1));
 // templates.
 
 ORDER_PP(8for_each_in_range
-         (0, 8inc(IS_FUNCTION_MAX_ARGS),
-          8fn(8N,
+         (8fn(8N,
               8print((template<class R) 8emit_trailing_params(0, 8N, 8(class A)) (>)
                      (yes_type is_function_tester)
                      8parens((R(*)) 8parens(8emit_params(0, 8N, 8(A))))
-                     (;)))))
+                     (;))),
+          0,
+          8inc(IS_FUNCTION_MAX_ARGS)))
 
 // The above program uses the higher-order function
 // `8for_each_in_range' to invoke an anonymous function, defined by

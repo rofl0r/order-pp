@@ -99,11 +99,12 @@ do {                                                    \
       do {                                              \
       case 0 : __VA_ARGS__                              \
         ORDER_PP(8for_each_in_range                     \
-                 (8(unroll_cnt), 1,                     \
-                  8fn(8I,                               \
+                 (8fn(8I,                               \
                       8print((case)                     \
                              8to_lit(8I)                \
-                             (: __VA_ARGS__)))))        \
+                             (: __VA_ARGS__))),         \
+                  8(unroll_cnt),                        \
+                  1))                                   \
       } while (--ORDER_PP_FRESH_ID(running_cnt));       \
     }                                                   \
   }                                                     \

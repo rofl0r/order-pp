@@ -80,25 +80,25 @@ struct {                                                                \
 #define DATATYPE_GEN_ctor(type_name, variant_name, field_cnt)                   \
 inline type_name                                                                \
 variant_name(ORDER_PP(8for_each_in_range                                        \
-                      (0, 8(field_cnt),                                         \
-                       8fn(8I,                                                  \
+                      (8fn(8I,                                                  \
                            8print(8unless(8is_0(8I),                            \
                                           8emit_comma(8nil))                    \
                                   8cat(8(DATATYPE_FIELD_),                      \
                                        8to_lit(8I),                             \
                                        8(_TYPE_##variant_name))                 \
-                                  8cat(8(_), 8to_lit(8I))))))) {                \
+                                  8cat(8(_), 8to_lit(8I)))),                    \
+                       0, 8(field_cnt)))) {                                     \
   struct type_name* ORDER_PP_FRESH_ID(result) =                                 \
     checked_malloc(sizeof(struct type_name));                                   \
                                                                                 \
   ORDER_PP_FRESH_ID(result)->tag = DATATYPE_TAG_##variant_name;                 \
                                                                                 \
   ORDER_PP(8for_each_in_range                                                   \
-           (0, 8(field_cnt),                                                    \
-            8fn(8I,                                                             \
+           (8fn(8I,                                                             \
                 8let(8F, 8cat(8(_),8to_lit(8I)),                                \
                      8print((ORDER_PP_FRESH_ID(result)->datum.variant_name.)    \
-                            8F (=) 8F (;))))))                                  \
+                            8F (=) 8F (;)))),                                   \
+            0, 8(field_cnt)))                                                   \
                                                                                 \
   return ORDER_PP_FRESH_ID(result);                                             \
 }

@@ -198,7 +198,7 @@ Control
 
    8for_each(cn, st, op, x) : (a -> Bool) -> (a -> a) -> (a -> b) -> a -> Nil
 
-   8for_each_in_range(i0, i1, op) : Num -> Num -> (Num -> a) -> Nil
+   8for_each_in_range(op, i0, i1) : (Num -> a) -> Num -> Num -> Nil
 
    8while(cn, st, x) : (a -> Bool) -> (a -> a) -> a -> a
    8until(cn, st, x) : (a -> Bool) -> (a -> a) -> a -> a
