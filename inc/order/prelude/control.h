@@ -8,7 +8,7 @@
 
 #define ORDER_PP_DEF_8eval ORDER_PP_FN_CM(2,8EVAL)
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8EVAL(P,e,t,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL(P,e,t,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #else
 #define ORDER_PP_8EVAL(P,e,t,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
 #endif
