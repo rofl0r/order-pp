@@ -7,17 +7,22 @@
 #include <assert.h>
 #include <ctype.h>
 #include <stdarg.h>
+#include <stddef.h>
 #include <string.h>
-
-static struct str_entry {
-  struct str_entry* next;
-  str_type datum;
-} *entries = 0;
 
 str_type str_intern(str_type str) {
   assert(str);
 
-  struct str_entry* entry = entries;
+  // We use a simple linked list to store the interned strings. This isn't
+  // meant to be an industry strength implementation!
+  typedef struct str_entry {
+    struct str_entry* next;
+    str_type datum;
+  } *str_entry;
+
+  static str_entry entries = 0;
+
+  str_entry entry = entries;
   while (entry && strcmp(entry->datum, str))
     entry = entry->next;
 
