@@ -55,8 +55,8 @@
 #define ORDER_PP_DEF_8times ORDER_PP_FN_NATIVE(2,9TIMES)
 #define ORDER_PP_9TIMES(P,l,r) ORDER_PP_NUM_BOP(,TIMES,P##l,P##r)
 
-#define ORDER_PP_DEF_8to_lit ORDER_PP_FN_NATIVE(1,9TO_LIT)
-#define ORDER_PP_9TO_LIT(P,x) ORDER_PP_NUM_UOP(,TO_LIT,P##x)
+#define ORDER_PP_DEF_8to_lit ORDER_PP_FN_CM(1,8TO_LIT)
+#define ORDER_PP_8TO_LIT(P,x,...) (,ORDER_PP_NUM_UOP(,TO_LIT,P##x),P##__VA_ARGS__)
 
 // Detail
 
