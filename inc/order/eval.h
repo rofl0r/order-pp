@@ -5,6 +5,7 @@
 #include "order/eval/and.h"
 #include "order/eval/ap.h"
 #include "order/eval/cat.h"
+#include "order/eval/cond.h"
 #include "order/eval/do.h"
 #include "order/eval/fn.h"
 #include "order/eval/if.h"
