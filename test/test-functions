@@ -6,8 +6,6 @@
 
 TIMEFORMAT='Time: %R seconds'
 
-debugSwitch=OFF
-
 if test -f .preprocessor ; then
     preprocessor=$(cat .preprocessor)
 else
@@ -29,7 +27,6 @@ fi
 
 function eval-in-cpp {
     cpp -P \
-        -DORDER_CM_TRACE_$debugSwitch \
         -I "../inc/" \
         -include "../inc/order/interpreter.h" \
         -include "test-defs.h"

@@ -112,7 +112,7 @@ function interactive-eval {
     else
         echo "Term: $term"
     fi
-    result=$(time eval-term "$term" | sed -e 's#\\(,#\n(,#g')
+    result=$(time eval-term "$term")
     resultChars=$(echo "$result" | wc -m | sed 's# ##g')
     resultLines=$(echo "$result" | wc -l | sed 's# ##g')
     if test $(($COLUMNS-9)) -lt $resultChars ; then
@@ -130,6 +130,32 @@ function interactive-eval {
         echo "Result: $result"
     fi
 }
+
+function interactive-trace {
+    echo "Term: $term"
+
+    steps=0
+
+    result=$(echo "(,,ORDER_DEF_$term,8STOP,)" | eval-in)
+    echo ": $result"
+
+    while read -e -n 1 -p "[(#$steps) | Enter to step]? " ; do
+        if test "$REPLY" != "" ; then
+            break
+        fi
+
+        steps=$(($steps+1))
+
+        result=$(echo "ORDER_CM_DN_0 $result" | eval-in)
+        echo ": $result"
+
+        if echo "$result" | grep -q '^,' ; then
+            echo "[ Program stopped! ]"
+            break
+        fi
+    done
+}
+
 
 function interactive-add-test {
     interactive-eval
@@ -160,25 +186,19 @@ while true ; do
         REPLY="$1"
         shift
     else
-        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (Q)uit | (D)ebug trace toggle | Eval]? "
+        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (Q)uit | (D)ebug | Eval]? "
     fi
     case "$REPLY" in
         ("a"|"A")
             interactive-add-test ;;
         ("t"|"T")
-            debugSwitch=OFF
             run-tests ;;
         ("s"|"S")
             less $dbFile ;;
         ("-q"|"q"|"Q")
             exit ;;
         ("d"|"D")
-            if test "$debugSwitch" = ON ; then
-                debugSwitch=OFF
-            else
-                debugSwitch=ON
-            fi
-            echo "Debug trace $debugSwitch." ;;
+            interactive-trace ;;
         (*)
             interactive-eval ;;
     esac
