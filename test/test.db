@@ -44,13 +44,13 @@ seq(quote(a),quote(b),quote(c),quote(d),quote(e),quote(f),quote(g),quote(h))#(a)
 seq(quote(x))#(x)
 seq(seq(1))#((1))
 seq_filter(is_sym,seq(1,quote(not symbol),true))#(1)(true)
-seq_fold_left(add,3,quote((1)(4)(1)(5)))#14
-seq_fold_left(add,45,nil)#45
+seq_fold(add,3,quote((1)(4)(1)(5)))#14
+seq_fold(add,45,nil)#45
 seq_for_each(fn(X,emit(X)),seq(1,2,3,4))#4 3 2 1
 seq_for_each(fn(_,exit(0)),nil)#
 seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , quote( (( 1 )( 2 )) (( * )) (( A )( B )( C )) ) )#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
-seq_transform(dec,nil)#
-seq_transform(inc,quote((3)(1)(4)(1)))#(4)(2)(5)(2)
+seq_map(dec,nil)#
+seq_map(inc,quote((3)(1)(4)(1)))#(4)(2)(5)(2)
 stringize(quote(This is a string.))#"This is a string."
 tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
 tuple(dec(0),dec(1),dec(256))#(0,0,255)
