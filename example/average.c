@@ -68,7 +68,7 @@
 // is applied to each element of the sequence. The second procedure
 // is applied to the result, or return value, of the first procedure
 // for all elements except the last. In this case, the delimiter is
-// `+', which is given to the binary procedure `8emit', which yeilds
+// `+', which is given to the binary procedure `8emit', which yields
 // an unary procedure. Order, like many other purely functional
 // programming languages, supports partial application of functions.
 // The second argument to `8emit' comes from `8put', which always

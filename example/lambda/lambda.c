@@ -397,7 +397,7 @@ BRD_PARSER(static, prg_parse,
 //
 // We now have all the ingredients to write a function that
 // evaluates a given program. The below `eval' function takes a
-// string, parses the string to yeild a program, and then executes
+// string, parses the string to yield a program, and then executes
 // the program using the functions we defined in previous sections.
 
 static str_type eval(str_type code) {
