@@ -7,8 +7,8 @@
 // (See accompanying file LICENSE.)
 
 // NOTE: This is the "odd" stream data structure. Without
-// memoization, "even" streams would be significantly less
-// efficient.
+// memoization, which is impossible, "even" streams are
+// significantly less efficient.
 
 // Constants
 
@@ -19,12 +19,12 @@
 
 // First-order
 
-#define ORDER_PP_DEF_8seq_to_stream             \
-ORDER_PP_FN(8fn(8S,                             \
-                8stream_unfold(8seq_isnt_nil,   \
-                               8seq_rest,       \
-                               8seq_first,      \
-                               8S)))
+#define ORDER_PP_DEF_8seq_to_stream                                             \
+ORDER_PP_FN(8fn(8S,                                                             \
+                8stream_map(8seq_first,                                         \
+                            8stream_take_while(8seq_isnt_nil,                   \
+                                               8stream_iterate(8seq_rest,       \
+                                                               8S)))))
 
 #define ORDER_PP_DEF_8stream_cons(f,r) ORDER_PP_MACRO(8pair(f,8delay(r)))
 
@@ -56,10 +56,14 @@ ORDER_PP_FN(8fn(8S,                             \
 
 // Higher-order
 
+#define ORDER_PP_DEF_8stream_drop_while         \
+ORDER_PP_FN(8fn(8C,                             \
+                8while(8chain(8C,8stream_head), \
+                       8stream_tail)))
+
 #define ORDER_PP_DEF_8stream_filter ORDER_PP_FN_CM(2,8STREAM_FILTER,0IS_FN,0IS_STREAM)
 #define ORDER_PP_8STREAM_FILTER(P,s,f,...) (,ORDER_PP_ISNT_EDIBLE(,P##s)(,,ORDER_PP_STREAM_HEAD s##P,ORDER_PP_OPEN f##P,8STREAM_FILTER_B,P##s,P##f),P##__VA_ARGS__)
 #define ORDER_PP_8STREAM_FILTER_B(P,b,s,f,...) (,ORDER_PP_IF_##b(,(ORDER_PP_STREAM_HEAD s##P,(,ORDER_PP_STREAM_TAIL s##P,8STREAM_FILTER,P##f)),,ORDER_PP_STREAM_TAIL s##P,8STREAM_FILTER,P##f),P##__VA_ARGS__)
-
 
 #define ORDER_PP_DEF_8stream_fold                               \
 ORDER_PP_FN(8fn(8F,8R,8S,                                       \
@@ -106,11 +110,12 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
                                                        8stream_tail(8L),        \
                                                        8stream_tail(8R))))))
 
-#define ORDER_PP_DEF_8stream_unfold                                             \
-ORDER_PP_FN(8fn(8C,8S,8F,8X,                                                    \
-                8when(8ap(8C,8X),                                               \
-                      8stream_cons(8ap(8F,8X),                                  \
-                                   8stream_unfold(8C,8S,8F,8ap(8S,8X))))))
+#define ORDER_PP_DEF_8stream_take_while                                         \
+ORDER_PP_FN(8fn(8C,8S,                                                          \
+                8when(8and(8stream_is_cons(8S),                                 \
+                           8ap(8C,8stream_head(8S))),                           \
+                      8stream_cons(8stream_head(8S),                            \
+                                   8stream_take_while(8C,8stream_tail(8S))))))
 
 // Detail
 

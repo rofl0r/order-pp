@@ -241,14 +241,14 @@ function interactive-eval {
     fi
     if test $(($COLUMNS-9)) -lt $resultChars ; then
         echo "The output contains $resultChars characters on $resultLines lines!"
-        read -e -n 1 -p "[(D)isplay | (S)kip | Less]? "
+        read -e -n 1 -p "[(S)kip | (L)ess | Display]? "
         case "$REPLY" in
-            ("d"|"D")
-            echo "Result: $result" ;;
+            ("l"|"L")
+            echo "Result: $result" | less ;;
             ("s"|"S")
             echo "Skipping" ;;
             (*)
-            echo "Result: $result" | less ;;
+            echo "Result: $result" ;;
         esac
     else
         echo "Result: $result"

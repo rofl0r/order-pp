@@ -276,6 +276,7 @@
 8seq_to_tuple(8seq)##
 8seq_unfold(8isnt_0,8dec,8to_lit,0)##
 8seq_unfold(8isnt_0,8dec,8to_lit,10)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#
+8stream_for_each(8chain(8put,8to_lit),8stream_take_while(8greater(5),8stream_drop_while(8greater(2),8stream_of_naturals)))#2 3 4#
 8stream_for_each(8compose(8put,8to_lit),8stream_take(3,8stream_filter(8fn(8X,8is_0(8remainder(8X,2))),8stream_of_naturals)))#0 2 4#
 8stream_head(8stream_cons(1,8stream_nil))#1#
 8stream_head(8stream_tail(8stream_cons(1,8stream_cons(2,8stream_nil))))#2#
@@ -283,7 +284,7 @@
 8stream_to_seq(8seq_to_stream(8seq_iota(1,5)))#(1)(2)(3)(4)#
 8stream_to_seq(8stream_take(3,8stream_pair_with(8times,8stream_iterate(8inc,0),8stream_iterate(8inc,2))))#(0)(3)(8)#
 8stream_to_seq(8stream_take(5,8stream_map(8to_lit,8stream_of_naturals)))#(0)(1)(2)(3)(4)#
-8stream_to_seq(8stream_unfold(8greater(5),8inc,8identity,1))#(1)(2)(3)(4)#
+8stream_to_seq(8stream_take_while(8greater(5),8stream_iterate(8inc,1)))#(1)(2)(3)(4)#
 8stringize(8(This is a string.))#"This is a string."#
 8to_lit(8(ORDER_PP_NAT(1,2,3)))#123#
 8to_lit(8add(4,5,8mul(1,2,3)))#15#

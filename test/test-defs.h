@@ -52,7 +52,23 @@ ORDER_PP_MACRO(8stream_cons                             \
                (2,                                      \
                 8sieve(8stream_iterate(8plus(2),3))))
 
+#define ORDER_PP_DEF_8stream_of_fibs                    \
+ORDER_PP_MACRO(8stream_map                              \
+               (8tuple_at_0,                            \
+                8stream_iterate                         \
+                (8apply(8fn(8I,8J,                      \
+                            8tuple(8J,                  \
+                                   8add(8I,8J)))),      \
+                 8((0,1)))))
+
 ////////////////////////////////////////////////////////////////////
+
+#define ORDER_PP_DEF_8seq_iota_0_to_50                          \
+ORDER_PP_CONST((0)(1)(2)(3)(4)(5)(6)(7)(8)(9)                   \
+               (10)(11)(12)(13)(14)(15)(16)(17)(18)(19)         \
+               (20)(21)(22)(23)(24)(25)(26)(27)(28)(29)         \
+               (30)(31)(32)(33)(34)(35)(36)(37)(38)(39)         \
+               (40)(41)(42)(43)(44)(45)(46)(47)(48)(49))
 
 #define ORDER_PP_DEF_8seq_iota_0_to_100                         \
 ORDER_PP_CONST((0)(1)(2)(3)(4)(5)(6)(7)(8)(9)                   \
