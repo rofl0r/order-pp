@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# (C) Copyright Vesa Karvonen 2004.
+#
+# Distributed under the Boost Software License, Version 1.0.
+
+doc=tom
+tmpDir=.tmp
+
+function cpp-to-ltx {
+    sed -e 's:^// (C) Copyright Vesa Karvonen 2004.$::g' \
+        -e 's:^// Distributed under the Boost Software License, Version 1.0.$::g' \
+        -e 's:#if 0:\\begin{verbatim}:g' \
+        -e 's:#endif//0:\\end{verbatim}:g' \
+        -e 's:::g' \
+        -e 's#\\code#\\url#g' \
+        -e 's#^// ##g' \
+        -e 's#^//$##g' \
+        $1 > $2
+}
+
+mkdir -p "$tmpDir" && \
+cp *.ltx *.bib "$tmpDir/" && \
+cpp-to-ltx "../../example/bottles.c" "$tmpDir/bottles.ltx" && \
+cd "$tmpDir" && \
+latex -interaction=batchmode "$doc.ltx" && \
+bibtex -terse "$doc" && \
+latex -interaction=batchmode "$doc.ltx" && \
+latex -interaction=batchmode "$doc.ltx" && \
+dvips -q -o "../$doc.ps" "$doc.dvi"
