@@ -5,7 +5,7 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_FRESH_ID(name) ORDER_PP_EXPAND(ORDER_PP_FRESH_ID_B,(__LINE__,name))
+#define ORDER_PP_FRESH_ID(name) ORDER_PP_FX(FRESH_ID_B,(__LINE__,name))
 #define ORDER_PP_FRESH_ID_B(line,name) ORDER_PP_ID_##line##_##name
 
 #define ORDER_PP_DEF(t) ORDER_PP_DEF_##t
@@ -22,6 +22,7 @@
 #define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
 #define ORDER_PP_REVERSE_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(r,l)
 #define ORDER_PP_PRIMITIVE_CAT(l,r) l##r
+#define ORDER_PP_PRIMITIVE_CAT_4(_0,_1,_2,_3) _0##_1##_2##_3
 #define ORDER_PP_BOTH(P,...) P##__VA_ARGS__##P
 #define ORDER_PP_LEFT(P,...) P##__VA_ARGS__
 #define ORDER_PP_RIGHT(P,...) __VA_ARGS__##P

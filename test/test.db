@@ -165,8 +165,14 @@
 8seq_unfold(10,8nat_isnt_0,8nat_dec,8nat_to_lit)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#<ws>
 8stringize(8(This is a string.))#"This is a string."#<ws>
 8tuple(8act(!),8act(%),8act(?),8act(^),8act(*),8act(;),8act([),8act(]))#(TCA (!)!!!!!!!!!!!!!!!!!!!!!!!!!,ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%,TCA (?)???????????????????????,ACT (^)^^^^^^^^^^^^^^^^^^^^^^,TCA (*)*********************,ACT (;);;;;;;;;;;;;;;;;;;;;,TCA ([)[[[[[[[[[[[[[[[[[[[,ACT (])]]]]]]]]]]]]]]]]]])#<ws>
+8tuple(8is_lit(8true),8is_lit(1),8is_lit(8(1)),8is_lit(8(1000)))#(8false,8false,8true,8false)#<ws>
 8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(8false,8true,8false,8false)#<ws>
 8tuple(8is_tuple(8nil),8is_tuple(5),8is_tuple(8(+)),8is_tuple(8((1,2))))#(8false,8true,8false,8true)#<ws>
+8tuple(8lit_greater(8(1),8(2)),8lit_greater(8(2),8(2)),8lit_greater(8(2),8(1)))#(8false,8false,8true)#<ws>
+8tuple(8lit_greater_eq(8(1),8(2)),8lit_greater_eq(8(2),8(2)),8lit_greater_eq(8(2),8(1)))#(8false,8true,8true)#<ws>
+8tuple(8lit_is_0(8(0)),8lit_is_0(8(1)),8lit_isnt_0(8(0)),8lit_isnt_0(8(1)))#(8true,8false,8false,8true)#<ws>
+8tuple(8lit_less(8(1),8(2)),8lit_less(8(2),8(2)),8lit_less(8(2),8(1)))#(8true,8false,8false)#<ws>
+8tuple(8lit_less_eq(8(1),8(2)),8lit_less_eq(8(2),8(2)),8lit_less_eq(8(2),8(1)))#(8true,8true,8false)#<ws>
 8tuple(8nat_greater(2,5),8nat_greater(4,4),8nat_greater(6,3))#(8false,8false,8true)#<ws>
 8tuple(8nat_greater_eq(3,4),8nat_greater_eq(5,5),8nat_greater_eq(4,2))#(8false,8true,8true)#<ws>
 8tuple(8nat_is_0(0),8nat_is_0(1),8nat_is_0(50))#(8true,8false,8false)#<ws>
