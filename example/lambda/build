@@ -4,4 +4,13 @@
 #
 #    Distributed under the Boost Software License, Version 1.0.
 
-gcc -std=c99 -Wall -pedantic -I ../../inc/ -I ../../../chaos-pp/ -o lambda *.c
+gcc -std=c99 \
+    -Wall -Werror \
+    -pedantic-errors \
+    -Os \
+    -I ../../inc/ \
+    -I ../../../chaos-pp/ \
+    -lgc \
+    -o lambda \
+    *.c && \
+strip lambda
