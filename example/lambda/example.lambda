@@ -1,0 +1,28 @@
+def id = \x.x
+def true = \t.\f.t
+def false = \t.\f.f
+def test = \l.\m.\n.((l m) n)
+def and = \b.\c.((b c) false)
+def or = \b.\c.((b true) c)
+def not = \b.((b false) true)
+def pair = \f.\s.\b.((b f) s)
+def fst = \p.(p true)
+def snd = \p.(p false)
+def c0 = \s.\z.z
+def c1 = \s.\z.(s z)
+def c2 = \s.\z.(s (s z))
+def c3 = \s.\z.(s (s (s z)))
+def c4 = \s.\z.(s (s (s (s z))))
+def c5 = \s.\z.(s (s (s (s (s z)))))
+def succ = \n.\s.\z.(s ((n s) z))
+def plus = \m.\n.\s.\z.((m s) ((n s) z))
+def times = \m.\n.((m (plus n)) c0)
+def power = \m.\n.(m n)
+def is_zero = \m.((m \x.false) true)
+def zz = ((pair c0) c0)
+def ss = \p.((pair (snd p)) ((plus c1) (snd p)))
+def pred = \m.(fst ((m ss) zz))
+def minus = \m.\n.((n pred) m)
+def equal = \m.\n.((and (is_zero ((m pred) n))) (is_zero ((n pred) m)))
+
+((equal ((minus ((times c4) c4)) ((power c2) c4))) c0)
