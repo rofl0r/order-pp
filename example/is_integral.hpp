@@ -32,6 +32,4 @@ ORDER_PP(8seq_for_each_in_product
                                    8expand(8(unsigned),8TY)),
                                8TS)))))))
 
-#undef GEN_is_integral_specialization
-
 #endif
