@@ -466,7 +466,7 @@ ORDER_PP(8seq_for_each_in_product
                                8and(8equal(1, 8op_arity(8O)),
                                     8not(8op_does_floats(8O)))),
                            8applicative_ops),
-               8seq_filter(8chain(8not, 8type_is_float),
+               8seq_filter(8compose(8not, 8type_is_float),
                            8builtin_types))))
 
 // The Order interpreter is invoked using the `ORDER_PP' macro. It
@@ -480,9 +480,8 @@ ORDER_PP(8seq_for_each_in_product
 // functions. New functions can also be formed through other means,
 // which often yeilds slightly shorter and slightly more efficient
 // programs. The predicate for filtering the `8builtin_types'
-// sequence is implemented above by chaining, or composing, together
-// the unary `8not' function with the unary `8type_is_float'
-// accessor.
+// sequence is implemented above by composing together the unary
+// `8not' function with the unary `8type_is_float' accessor.
 //
 // The `8seq_for_each_in_product(op, ss)' function computes the
 // cartesian product of the given sequence of sequences and invokes
@@ -526,7 +525,7 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                                             \
 
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
-          8let(8S, 8seq_filter(8chain(8not, 8type_is_float),
+          8let(8S, 8seq_filter(8compose(8not, 8type_is_float),
                                8builtin_types),
                8seq(8seq_filter(8fn(8O,
                                     8and(8equal(2, 8op_arity(8O)),
