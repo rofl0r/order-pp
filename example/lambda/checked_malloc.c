@@ -13,8 +13,10 @@
 
 void* checked_malloc(ptrdiff_t size) {
   static _Bool inited = 0;
-  if (!inited)
+  if (!inited) {
+    inited = 1;
     GC_INIT();
+  }
 
   if (size < 0)
     ERROR_exit("Negative size of %td bytes specified to checked_malloc.", size);
