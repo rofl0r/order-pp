@@ -62,10 +62,9 @@ struct type_name {                                                      \
                                                                         \
 ORDER_PP(8seq_emit_map                                                  \
          (8(DATATYPE_GEN_ctor),                                         \
-          8apply(8fn(8C, 8F,                                            \
-                     8tuple(8(type_name),                               \
-                            8C,                                         \
-                            8seq_size(8F)))),                           \
+          8step(8tuple(8delay(8(type_name)),                            \
+                       8tuple_at_0,                                     \
+                       8chain(8seq_size, 8tuple_at_1))),                \
           8(variants)))
 
 #define DATATYPE_GEN_variant_struct(variant_name, field_types)          \
