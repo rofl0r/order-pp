@@ -4,7 +4,7 @@
 
 #include "order/interpreter.h"
 
-// ## PROCEDURES FOR ARRAY MANIPULATION
+// ## Procedures for array manipulation
 //
 // This example shows how metadata can be used for directing code
 // generation. We use metadata to direct the generation of
