@@ -10,7 +10,7 @@ for f in *.h *.hpp *.c *.cpp ; do
     if test -f "$f" ; then
         echo "Testing '$f'..."
 
-        time cpp -std=c99 -pedantic -I ../inc/ -I ../../chaos-pp/ "$f" > ".tmp"
+        time cpp -I ../inc/ -I ../../chaos-pp/ "$f" > ".tmp"
 
         numPrefixLines=$(grep -n -e 'order/interpreter.h' ".tmp" | tail -n1 | grep -o '^[0-9]\+')
         numLines=$(cat ".tmp" | wc -l)

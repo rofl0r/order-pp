@@ -5,6 +5,16 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
+#ifndef CHAOS_PP_VARIADICS
+#define CHAOS_PP_VARIADICS 1
+#endif
+
+#if 1 != CHAOS_PP_VARIADICS
+#error Order requires variadics.
+#endif
+
+#define ORDER_PP_VERIFY_VARIADICS(...)
+
 #include "order/cm.h"
 #include "order/def.h"
 #include "order/eval.h"
