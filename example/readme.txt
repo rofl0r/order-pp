@@ -1,9 +1,8 @@
 (C) Copyright Vesa Karvonen 2004.
- 
+
 Distributed under the Boost Software License, Version 1.0.
 
-Order programming examples
-==========================
+# Order programming examples
 
 An attempt has been made to make each example mostly self-contained
 at the cost of repeating some explanations. A reader having a good

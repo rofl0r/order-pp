@@ -7,7 +7,7 @@
 // ## Exponential delay
 //
 // This example is a simple Order function, named `exp_delay(n)',
-// whose time complexity of is $\Omega(2^n)$. After expending an
+// whose time complexity is $\Omega(2^n)$. After expending an
 // exponential amount of time, `exp_delay(n)' simply evaluates to
 // nothing. `exp_delay' might become handy when recompiles are too
 // fast to take a coffee break...{This example is rather theoretical
