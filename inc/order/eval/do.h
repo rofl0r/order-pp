@@ -2,35 +2,12 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_DEF_8do(...) 8EVAL_DO,ORDER_PP_NUM_ARGS_8(__VA_ARGS__,8,7,6,5,4,3,2,1,0,),__VA_ARGS__,
+#define ORDER_PP_DEF_8do(...) 8EVAL_DO,(,__VA_ARGS__),
 
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8EVAL_DO(P,e,n,t,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_##n,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO(P,e,ts,G,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST ts##P())(,P##e,ORDER_PP_DEF_FIRST ts##P,ORDER_PP_IS_TUPLE_SIZE_1 ts##P(,,8EVAL_DO_LOOP,P##e,(,ORDER_PP_TUPLE_REST ts##P),)P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_LOOP(P,_,e,ts,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST ts##P())(,P##e,ORDER_PP_DEF_FIRST ts##P,ORDER_PP_IS_TUPLE_SIZE_1 ts##P(,,8EVAL_DO_LOOP,P##e,(,ORDER_PP_TUPLE_REST ts##P),)P##__VA_ARGS__)
 #else
-#define ORDER_PP_8EVAL_DO(P,e,n,t,...) (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_##n,P##e,P##__VA_ARGS__)
-#endif
-
-#define ORDER_PP_8EVAL_DO_0(P,v,e,G,...)   (,P##v,P##__VA_ARGS__)
-#ifdef ORDER_PP_DEBUG
-#define ORDER_PP_8EVAL_DO_1(P,_,e,t,G,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_2(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_1,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_3(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_2,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_4(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_3,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_5(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_4,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_6(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_5,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_7(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_6,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_8(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_7,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_9(P,_,e,t,...)   ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_8,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_10(P,_,e,t,...)  ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())(,P##e,ORDER_PP_DEF_##t,8EVAL_DO_9,P##e,P##__VA_ARGS__)
-#else
-#define ORDER_PP_8EVAL_DO_1(P,_,e,t,G,...) (,P##e,ORDER_PP_DEF_##t,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_2(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_1,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_3(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_2,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_4(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_3,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_5(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_4,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_6(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_5,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_7(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_6,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_8(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_7,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_9(P,_,e,t,...)   (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_8,P##e,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_DO_10(P,_,e,t,...)  (,P##e,ORDER_PP_DEF_##t,8EVAL_DO_9,P##e,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO(P,e,ts,G,...) (,P##e,ORDER_PP_DEF_FIRST ts##P,ORDER_PP_IS_TUPLE_SIZE_1 ts##P(,,8EVAL_DO_LOOP,P##e,(,ORDER_PP_TUPLE_REST ts##P),)P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_DO_LOOP(P,_,e,ts,...) (,P##e,ORDER_PP_DEF_FIRST ts##P,ORDER_PP_IS_TUPLE_SIZE_1 ts##P(,,8EVAL_DO_LOOP,P##e,(,ORDER_PP_TUPLE_REST ts##P),)P##__VA_ARGS__)
 #endif
