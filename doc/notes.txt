@@ -263,10 +263,10 @@ Sequences
 
   Higher-order:
 
-  -8seq_exists(8PR,8S)                      : (Any -> Bool) -> Seq -> Bool
+   8seq_exists(8PR,8S)                      : (Any -> Bool) -> Seq -> Bool
    8seq_filter(8PR,8S)                      : (Any -> Bool) -> Seq -> Seq
    8seq_fold(8FN,8X,8S)                     : (Any -> Any -> Any) -> Any -> Seq -> Any
-  -8seq_for_all(8PR,8S)                     : (Any -> Bool) -> Seq -> Bool
+   8seq_for_all(8PR,8S)                     : (Any -> Bool) -> Seq -> Bool
    8seq_for_each(8OP,8S)                    : (Any -> Nil) -> Seq -> Nil
    8seq_for_each_in_product(8OP,8SS)        : (Any+ -> Nil) -> Seq(Seq) -> Nil
    8seq_for_each_with_idx(8OP,8S)           : (Num -> Any -> Nil) -> Seq -> Nil
@@ -276,7 +276,7 @@ Sequences
   -8seq_parallel_for_each(8OP,8SS)          : (Any+ -> Nil) -> Seq(Seq) -> Nil
   -8seq_parallel_for_each_with_idx(8OP,8SS) : (Num -> Any+ -> Nil) -> Seq(Seq) -> Nil
   -8seq_parallel_map(8FN,8SS)               : (Any+ -> Any) -> Seq(Seq) -> Seq
-  -8seq_partition(8PR,8S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
+   8seq_partition(8PR,8S)                   : (Any -> Bool) -> Seq -> Tuple(Seq, Seq)
   -8seq_select(8PR,8X,8S)                   : (Any -> Any -> Bool) -> Any -> Seq -> Any
   -8seq_sort(8PR,8S)                        : (Any -> Any -> Bool) -> Seq -> Seq
   -8seq_unfold(8CN,8ST,8FN,8X)              : (Any -> Bool) -> (Any -> Any) -> (Any -> Any) -> Any -> Seq

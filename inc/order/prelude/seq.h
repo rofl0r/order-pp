@@ -72,12 +72,20 @@
 
 // Higher-order functions
 
+#define ORDER_PP_DEF_8seq_exists ORDER_PP_FN_CM(2,8SEQ_EXISTS)
+#define ORDER_PP_CM_8SEQ_EXISTS(P,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,8false),ORDER_PP_SEQ_FIRST(,P##s),ORDER_PP_OPEN f##P,8SEQ_EXISTS_4,P##f,ORDER_PP_SEQ_AT_1 P##s),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_EXISTS_4(P,b,f,x,xs,...) (,ORDER_PP_IF_##b(,8true,P##x,ORDER_PP_OPEN f##P ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,),,8SEQ_EXISTS_4,P##f,ORDER_PP_SEQ_AT_0 P##xs)),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8seq_filter ORDER_PP_FN_CM(2,8REMAP_021,,8SEQ_FILTER_3)
 #define ORDER_PP_CM_8SEQ_FILTER_3(P,f,out,in,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##in)(,(,P##out),ORDER_PP_SEQ_FIRST(,P##in),ORDER_PP_OPEN f##P,8SEQ_FILTER_3_B,P##f,P##out,ORDER_PP_SEQ_AT_0 in##P),P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_FILTER_3_B(P,b,f,out,x,...) (,P##f,8SEQ_FILTER_3,ORDER_PP_IF_##b(,P##out(P##x),P##out),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_FILTER_3_B(P,b,f,out,x,...) ORDER_PP_CM_INVOKE(8SEQ_FILTER_3,P##f,ORDER_PP_IF_##b(,P##out(P##x),P##out)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_fold ORDER_PP_FN_CM(3,8REMAP_102,8SEQ_FOLD)
 #define ORDER_PP_CM_8SEQ_FOLD(P,x,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,P##x),P##x,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_FIRST(,P##s),8SEQ_FOLD,P##f,ORDER_PP_EAT s##P),P##__VA_ARGS__)
+
+#define ORDER_PP_DEF_8seq_for_all ORDER_PP_FN_CM(2,8SEQ_FOR_ALL)
+#define ORDER_PP_CM_8SEQ_FOR_ALL(P,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,8true),ORDER_PP_SEQ_FIRST(,P##s),ORDER_PP_OPEN f##P,8SEQ_FOR_ALL_4,P##f,ORDER_PP_SEQ_AT_1 P##s),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_FOR_ALL_4(P,b,f,x,xs,...) (,ORDER_PP_IF_NOT_##b(,8false,P##x,ORDER_PP_OPEN f##P ORDER_PP_IS_NOT_EDIBLE(,P##xs)(,(,),,8SEQ_FOR_ALL_4,P##f,ORDER_PP_SEQ_AT_0 P##xs)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_for_each ORDER_PP_FN_CM(2,8REMAP_201,,8SEQ_FOR_EACH_3)
 #define ORDER_PP_CM_8SEQ_FOR_EACH_3(P,_,f,s,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##s)(,(,),ORDER_PP_SEQ_FIRST(,P##s),ORDER_PP_OPEN f##P,8SEQ_FOR_EACH_3,P##f,ORDER_PP_EAT s##P),P##__VA_ARGS__)
@@ -98,12 +106,13 @@
 
 #define ORDER_PP_DEF_8seq_partition ORDER_PP_FN_CM(2,8SEQ_PARTITION_4,,)
 #define ORDER_PP_CM_8SEQ_PARTITION_4(P,f,in,ot,of,...) (,ORDER_PP_IS_NOT_EDIBLE(,P##in)(,(,(P##ot,P##of)),ORDER_PP_SEQ_FIRST(,P##in),ORDER_PP_OPEN f##P,8SEQ_PARTITION_4_B,P##f,ORDER_PP_SEQ_AT_0 in##P,P##ot,P##of),P##__VA_ARGS__)
-#define ORDER_PP_CM_8SEQ_PARTITION_4_B(P,b,f,x,in,ot,of,...) (,P##f,8SEQ_PARTITION_4,P##in,P##ot ORDER_PP_WHEN_##b(,(P##x)),P##of ORDER_PP_UNLESS_##b(,(P##x)),P##__VA_ARGS__)
+#define ORDER_PP_CM_8SEQ_PARTITION_4_B(P,b,f,x,in,ot,of,...) ORDER_PP_CM_INVOKE(8SEQ_PARTITION_4,P##f,P##in,P##ot ORDER_PP_WHEN_##b(,(P##x)),P##of ORDER_PP_UNLESS_##b(,(P##x))),P##__VA_ARGS__)
 
 // Details
 
 #define ORDER_PP_SEQ_FIRST(P,s) ORDER_PP_EXPAND(ORDER_PP_SEQ_FIRST_B,(,ORDER_PP_SEQ_AT_0 P##s))
 #define ORDER_PP_SEQ_FIRST_B(P,_0,...) P##_0
 #define ORDER_PP_SEQ_AT_0(x) x,
+#define ORDER_PP_SEQ_AT_1(x) ORDER_PP_SEQ_AT_0
 
 #endif

@@ -55,6 +55,11 @@
 8seq_at(0,8quote((a)(b)(c)(d)))#a
 8seq_at(2,8quote((a)(b)(c)(d)))#c
 8seq_at(3,8quote((a)(b)(c)(d)))#d
+8seq_exists(8equal(5),8quote((1)(2)(3)(4)(5)))#8true
+8seq_exists(8equal(5),8quote((1)(2)(3)(4)))#8false
+8seq_exists(8equal(5),8quote((1)(5)(3)(4)(6)))#8true
+8seq_exists(8equal(5),8quote((5)(4)(3)(2)))#8true
+8seq_exists(8equal(5),8quote())#8false
 8seq_filter(8is_sym,8seq(1,8quote(not symbol),8true))#(1)(8true)
 8seq_first(8quote((a)(b)(c)))#a
 8seq_first(8quote((a)))#a
@@ -63,6 +68,12 @@
 8seq_first_n(4,8quote((1)(2)(3)(4)))#(1) (2) (3) (4)
 8seq_fold(8fn(8X,8Y,8add(8X,8Y)),3,8quote((1)(4)(1)(5)))#14
 8seq_fold(8fn(8X,8Y,8add(8X,8Y)),45,8nil)#45
+8seq_for_all(8greater(5),8quote((1)(2)(3)(4)))#8true
+8seq_for_all(8greater(5),8quote((1)(2)(3)(6)))#8false
+8seq_for_all(8greater(5),8quote((1)(2)(6)(4)))#8false
+8seq_for_all(8greater(5),8quote((1)(6)(3)(4)))#8false
+8seq_for_all(8greater(5),8quote((5)(2)(3)(4)))#8false
+8seq_for_all(8greater(5),8quote())#8true
 8seq_for_each(8fn(8X,8emit(8X)),8seq(1,2,3,4))#4 3 2 1
 8seq_for_each(8fn(8_,8exit(0)),8nil)#
 8seq_for_each_in_product(8fn(8X,8Y,8Z,8emit(8tuple(8X,8Y,8Z))),8quote(((1)(2))((*))((A)(B)(C))))#(2,*,C)(2,*,B)(2,*,A)(1,*,C)(1,*,B)(1,*,A)
