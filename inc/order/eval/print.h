@@ -32,3 +32,6 @@
 
 #define ORDER_PP_DEF_8rparen 8EVAL_RPAREN,
 #define ORDER_PP_8EVAL_RPAREN(P,e,G,put,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)(,5,)
+
+#define ORDER_PP_DEF_8space 8EVAL_SPACE,
+#define ORDER_PP_8EVAL_SPACE(P,e,G,put,expr,...) ORDER_PP_IS_EDIBLE(,P##expr)(ORDER_PP_8EVAL_PRINT_,QUOTE,EVAL)(,P##expr,P##__VA_ARGS__)(,2,,)
