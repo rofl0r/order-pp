@@ -17,6 +17,7 @@
 8ap(8chain(8emit_rparen,8emit_rparen,8emit_rparen),1)#)1))#<ws>
 8ap(8chain(8to_lit,8dec,8seq_size,8seq_rest),8seq(1,2,3))#1#<ws>
 8ap(8compose(8emit(1),8emit(2)),3)#2 3 1#<ws>
+8ap(8compose(8force,8force),8delay(8delay(8add(1,2))))#3#<ws>
 8ap(8compose(8put,8put),1)#1#<ws>
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8H),8act(!),8act(%),8act(?),8act(^),8act(~),8act(*),8act(;),8act([))#ACT ([)[[[[[[[[[[[[[[[[[[#<ws>
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z,8seq(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z)),1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26)#(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)(15)(16)(17)(18)(19)(20)(21)(22)(23)(24)(25)(26)#<ws>
@@ -241,9 +242,9 @@
 8seq_to_tuple(8seq)##<ws>
 8seq_unfold(8isnt_0,8dec,8to_lit,0)##<ws>
 8seq_unfold(8isnt_0,8dec,8to_lit,10)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#<ws>
-8stream_first(8stream_cons(1,8stream_nil))#1#<ws>
-8stream_first(8stream_rest(8stream_cons(1,8stream_cons(2,8stream_nil))))#2#<ws>
 8stream_for_each(8compose(8put,8to_lit),8stream_take(3,8stream_filter(8fn(8X,8is_0(8remainder(8X,2))),8stream_of_naturals)))#0 2 4#<ws>
+8stream_head(8stream_cons(1,8stream_nil))#1#<ws>
+8stream_head(8stream_tail(8stream_cons(1,8stream_cons(2,8stream_nil))))#2#<ws>
 8stream_nil##<ws>
 8stream_to_seq(8seq_to_stream(8seq_iota(1,5)))#(1)(2)(3)(4)#<ws>
 8stream_to_seq(8stream_take(3,8stream_zip_with(8times,8stream_iterate(8inc,0),8stream_iterate(8inc,2))))#(0)(3)(8)#<ws>
@@ -264,8 +265,8 @@
 8to_lit(8seq_select(8less,5,8seq(10)))#10#<ws>
 8to_lit(8seq_size(8seq(1,2,3,4,5)))#5#<ws>
 8to_lit(8seq_size(8seq))#0#<ws>
-8to_lit(8stream_first(8stream_drop(5,8stream_of_naturals)))#5#<ws>
 8to_lit(8stream_fold(8plus,4,8stream_take(4,8stream_of_naturals)))#10#<ws>
+8to_lit(8stream_head(8stream_drop(5,8stream_of_naturals)))#5#<ws>
 8to_lit(8tuple_size(8tuple(0,1,2,3)))#4#<ws>
 8to_lit(8tuple_size(8tuple(8nil)))#1#<ws>
 8tokens_to_seq(1)#(1)#<ws>
