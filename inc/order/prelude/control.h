@@ -40,7 +40,7 @@
 #define ORDER_PP_8WHILE_B(P,b,x,c,s,...) (,P##x,ORDER_PP_WHEN_##b(,ORDER_PP_OPEN s##P,8WHILE,P##c,P##s,)P##__VA_ARGS__)
 
 #ifndef ORDER_PP_NDEBUG
-#define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(8if(cond,body,8exit(8quote(8Assert_Failed(8with_assert(cond,body))))))
+#define ORDER_PP_DEF_8with_assert(cond,body) 8EVAL_IF,cond,body,8exit(8(8Assert_Failed(8with_assert(cond,body)))),
 #else
 #define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(body)
 #endif
