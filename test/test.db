@@ -11,6 +11,7 @@ ap(fn(X,X),const(x))#x
 ap(fn(X,Y,X),const(x),const(y))#x
 ap(fn(X,Y,tuple(X,Y)),const(a),const(b))#(a,b)
 cat(1,2)#12
+cat(1,2,3,4,5,6,7,8)#12345678
 const(0)#0
 constant_embedding#This constant is in two parts!
 div_mod(10,3)#(3,1)
@@ -18,12 +19,13 @@ do(7)#7
 do(ap(emit_expand,2,3),ap(emit,1),0)#0 1 2 3
 do(do(1,2),do(3,4))#4
 do(emit(1),emit(2),emit(3))#3 2 1
+do(emit_cat(1,2),3)#3 12
 do(emit_expand(1,2),emit_expand(3,4))#3 4 1 2
-do(emit_paste(1,2),3)#3 12
 equal(1,1)#true
 equal(1,2)#false
 equal(1,tuple_at(tuple(1,2),0))#true
 expand(1,2)#1 2
+expand(1,2,3,4,5,6,7,8)#1 2 3 4 5 6 7 8
 if(false,1,2)#2
 if(true,1,2)#1
 is_sym(const(this is not a symbol))#false
