@@ -1,3 +1,6 @@
+#ifndef ORDER_EXAMPLE_AVERAGE_H_VAJK20040620
+#define ORDER_EXAMPLE_AVERAGE_H_VAJK20040620
+
 // (C) Copyright Vesa Karvonen 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
@@ -94,3 +97,5 @@
 //    not have an arbitrary limit on the number of arguments and the
 //    number of elements is actually computed in macro expansion
 //    time.
+
+#endif
