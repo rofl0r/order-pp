@@ -59,7 +59,9 @@
 8for_each_in_range(8put,5,2)#4 3 2#<ws>
 8for_each_in_range(8put,8nat(4,5,6),8nat(4,5,6))##<ws>
 8identity(8act(!))#TCA (!)!!!!!!!!!!!!!#<ws>
+8if(8false,1,8put(2),8put(3),4)#2 3 4#<ws>
 8if(8false,8act(!),8act(%))#ACT (%)%%%%%%%%%%%%#<ws>
+8if(8true,1,8put(2),8put(3),4)#1#<ws>
 8if(8true,8act(!),8act(%))#ACT (!)!!!!!!!!!!!!#<ws>
 8ignore(8stringize(7))##<ws>
 8inc(8call_cc(8fn(8K,8add(1,2,8ap(8K,4)))))#5#<ws>

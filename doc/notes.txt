@@ -22,7 +22,7 @@ SYNTAX
                 | 8ref(<sym>)
                 | 8remap(<exp_{fn}>, <lit_{n}>{, <lit_{i}>+}?)
                 | 8quote(<pp-arg>) | 8(<pp-arg>) | 8
-                | 8if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>)
+                | 8if(<exp_{cond}>, <exp_{cons}>, <exp_{alt}>+)
                 | 8cond((<exp_{cond}>, <exp_{cons}>+)+ (8else, <exp_{alt}>+)?)
                 | 8and(<exp>+)
                 | 8or(<exp>+)
