@@ -15,4 +15,10 @@
 #define ORDER_PP_DEF_constant_contents ORDER_PP_CONST(is in two parts)
 #define ORDER_PP_DEF_constant_embedding ORDER_PP_CONST(This constant ORDER_PP_GET_CONST(constant_contents)!)
 
+#define ORDER_PP_DEF_exp_delay                  \
+ORDER_PP_OP(fn(N,                               \
+               unless(is_0(N),                  \
+                      exp_delay(dec(N)),        \
+                      exp_delay(dec(N)))))
+
 #endif
