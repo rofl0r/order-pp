@@ -212,9 +212,9 @@
 #define ORDER_PP_8SEQ_EXISTS_4(P,b,f,x,xs,...) (,ORDER_PP_SELECT_4(ORDER_PP_,IF_##b,SEQ_IS_NIL(,P##xs))(,8true,8true,ORDER_PP_LEFT(,P##x,ORDER_PP_OPEN f##P),P##x,ORDER_PP_OPEN f##P,8SEQ_EXISTS_4,P##f,ORDER_PP_SEQ_AT_0 P##xs),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_filter ORDER_PP_FN_CM(2,8SEQ_FILTER)
-#define ORDER_PP_8SEQ_FILTER(P,f,s,...) ORDER_PP_8SEQ_FILTER_3(,P##f,,P##s,P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_FILTER_3(P,f,out,in,...) (,ORDER_PP_SEQ_IS_NIL(,P##in)(,P##out,ORDER_PP_SEQ_AT(,0,P##in),ORDER_PP_OPEN f##P,8SEQ_FILTER_B,P##f,P##out,ORDER_PP_SEQ_AT_0 in##P),P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_FILTER_B(P,b,f,out,x,...) ORDER_PP_CM_INVOKE(8SEQ_FILTER_3,P##f,ORDER_PP_LEFT(,out##P)ORDER_PP_WHEN_##b(,(P##x))),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_FILTER(P,f,s,...) (,P##f,8SEQ_FILTER_O,,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_OPEN_A P##s),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_FILTER_O(P,f,out,b,x,...) (,ORDER_PP_WHEN_##b(,P##x,ORDER_PP_OPEN f##P,8SEQ_FILTER_B,P##f,P##x,)P##out,P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_FILTER_B(P,b,f,x,out,...) ORDER_PP_8SEQ_FILTER_O(,P##f,ORDER_PP_LEFT(,out##P)ORDER_PP_WHEN_##b(,(P##x)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_fold ORDER_PP_FN_CM(3,8SEQ_FOLD)
 #define ORDER_PP_8SEQ_FOLD(P,f,x,s,...) ORDER_PP_8SEQ_FOLD_3(,P##x,P##f,P##s,P##__VA_ARGS__)
