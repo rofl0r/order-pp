@@ -8,7 +8,7 @@
 
 # define ORDER_PP_8DEF_OP_LN(P,e,m,p,ts,G,...) (,P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_FIRST ts##P())ORDER_PP_DEF_FIRST ts##P,8DEF_OP_LN_B,e##P,m##P,p##P,ORDER_PP_TUPLE_REST ts##P,P##__VA_ARGS__)
 # define ORDER_PP_8DEF_OP_LN_B(P,v,e,m,p,t,...) (,ORDER_PP_TYPE_CHECK(,P##p,P##v,)P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t)ORDER_PP_DEF_##t,8DEF_OP_LN_C,e##P,P##m,P##p,P##v,P##__VA_ARGS__)
-# define ORDER_PP_8DEF_OP_LN_C(P,vr,e,m,p,vl,t,...) (,ORDER_PP_TYPE_CHECK(,P##p,P##vr,)P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t)ORDER_PP_DEF_##t,8DEF_OP_LN_C,e##P,P##m,P##p,ORDER_PP_##p(,P##vr)(,ORDER_PP_##m,)(,P##vl,P##vr),P##__VA_ARGS__)
+# define ORDER_PP_8DEF_OP_LN_C(P,vr,e,m,p,vl,t,...) (,ORDER_PP_TYPE_CHECK(,P##p,P##vr,)P##e,ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##t())ORDER_PP_DEF_##t,8DEF_OP_LN_C,e##P,P##m,P##p,ORDER_PP_##p(,P##vr)(,ORDER_PP_##m,)(,P##vl,P##vr),P##__VA_ARGS__)
 
 # define ORDER_PP_DEF_0op_ln 0OP_LN,
 # define ORDER_PP_0OP_LN(P,e1,G,def_op_ln_c,e2,m,p,v,K,...) ORDER_PP_##K(,P##v,P##__VA_ARGS__)

@@ -4,7 +4,6 @@
 
 #include "order/eval/and.h"
 #include "order/eval/ap.h"
-#include "order/eval/cat.h"
 #include "order/eval/cond.h"
 #include "order/eval/delay.h"
 #include "order/eval/do.h"
