@@ -305,3 +305,4 @@
 8when(8true,8put(8act(!)),8put(8act(%)),8act(?))#ACT (!)!!!!!!!!!!!!!!ACT (%)%%%%%%%%%%%%%%TCA (?)???????????????#<ws>
 8while(8greater(8),8plus(2),0)#8#<ws>
 8with_assert(8and(8true,8false),8add(5,6))#11#<ws>
+8with_assert(8or(8false,8true),8put(1),8put(2),3)#1 2 3#<ws>

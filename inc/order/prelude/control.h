@@ -47,7 +47,7 @@
 #define ORDER_PP_8WHILE_C(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##__VA_ARGS__)
 
 #ifdef ORDER_PP_DEBUG
-#define ORDER_PP_DEF_8with_assert(cond,body) 8EVAL_IF,cond,body,8exit(8(8Assert_Failed(8with_assert(cond,body)))),
+#define ORDER_PP_DEF_8with_assert(cond,...) 8EVAL_IF,cond,ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),8exit(8(8Assert_Failed(8with_assert(cond,__VA_ARGS__)))),
 #else
-#define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(body)
+#define ORDER_PP_DEF_8with_assert(cond,...) ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(ORDER_PP_DEF,,_8do)(__VA_ARGS__)
 #endif
