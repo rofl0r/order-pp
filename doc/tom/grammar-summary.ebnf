@@ -3,37 +3,39 @@
                |  <def-fn>({<exp>}+{,})                              ;; function application
                |  <def-op>({<exp>}+{,})                              ;; operator application
                |  <var>                                              ;; variable reference
-               |  `8'                                                ;; constant `8'
-               |  `8'(<pp-arg>)                                      ;; quote abbreviation
+               |  `8'                                                ;; symbol `8'
+               |  `8'(<pp-arg>)                                      ;; quotation abbrev.
                |  `8and'({<exp>}+{,})                                ;; logical AND
                |  `8ap'({<exp>}+{,})                                 ;; application
-               |  `8cond'({<cond-clause>}+)                          ;; gen. conditional
-               |  `8delay'(<exp>)                                    ;; closure
+               |  `8cond'({<cond-cl>}*)                              ;; full conditional
+               |  `8delay'(<exp>)                                    ;; lazy evaluation
                |  `8do'({<exp>}+{,})                                 ;; sequencing
                |  `8fn'({<sym>}+{,}, <exp>)                          ;; lambda abstraction
                |  `8if'(<exp_cond>, <exp_cons>, {<exp_alt>}+{,})     ;; conditional
-               |  `8let'({(<sym>, <exp_init>)}+, {<exp_body>}+{,})   ;; binding
-               |  `8letn'({(<sym>, <exp_init>)}+, {<exp_body>}+{,})  ;; nested binding
+               |  `8let'({<binding>}*, {<exp_body>}+{,})             ;; parallel binding
+               |  `8lets'({<binding>}*, {<exp_body>}+{,})            ;; serial binding
                |  `8or'({<exp>}+{,})                                 ;; logical OR
-               |  `8print'({<print-exp>}+)                           ;; output expression
+               |  `8print'({<put-exp>}*)                             ;; output expression
                |  `8quote'(<pp-arg>)                                 ;; quotation
                |  `8ref'(<sym>)                                      ;; symbol reference
                |  `8remap'(<exp_fn>, <lit_n>{, {<lit_i>}+{,}}?)      ;; reparameterization
-               |  `8seq'                                             ;; nil constructor
+               |  `8seq'                                             ;; nil sequence
                |  `8seq'({<exp>}+{,})                                ;; sequence constructor
                |  `8tuple'({<exp>}+{,})                              ;; tuple constructor
 
-<cond-clause> ::= (<exp_cond>, {<exp_cons>}+{,})                     ;; conditionally taken
+    <cond-cl> ::= (<exp_cond>, {<exp_cons>}+{,})                     ;; conditionally taken
                |  (`8else', {<exp_cons>}+{,})                        ;; always taken
 
-  <print-exp> ::= (<pp-args>)                                        ;; output verbatim
-               |  <exp>                                              ;; output value
-               |  `8comma'                                           ;; output comma
-               |  `8lparen'                                          ;; output left-paren
-               |  `8parens'({<print-exp>}+)                          ;; output parenthesized
-               |  `8rparen'                                          ;; output right-paren
-               |  `8space'                                           ;; output space
+    <binding> ::= (<sym>, <exp_init>)                                ;; binding
 
-        <sym> ::= [`0'-`9'][`0'-`9'`A'-`Z'`a'-`z'`_']*               ;; general symbol
+    <put-exp> ::= (<pp-args>)                                        ;; put verbatim
+               |  <exp>                                              ;; put value
+               |  `8comma'                                           ;; put comma
+               |  `8lparen'                                          ;; put left-paren
+               |  `8parens'({<put-exp>}*)                            ;; put parenthesized
+               |  `8rparen'                                          ;; put right-paren
+               |  `8space'                                           ;; put space
+
+        <sym> ::= [`0'-`9'][`0'-`9'`A'-`Z'`a'-`z'`_']*               ;; symbol
 
         <var> ::= `8'[`A'-`Z']                                       ;; variable symbol
