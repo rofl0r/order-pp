@@ -7,3 +7,10 @@
 int main() {
   return 0;
 }
+
+// ### Exercises
+//
+// 1. Rewrite this example using a ad hoc code generation macro and
+//    `8emit', like in the `array_ops.c' example, instead of
+//    `8print'. Do you prefer one style over the other? Which one is
+//    faster?

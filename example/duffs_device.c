@@ -8,12 +8,11 @@
 
 // ## Duff's device
 //
-// This example, inspired by an original macro by Joerg Walter, uses
-// the Order interpreter to implement a macro for generating Duff's
-// device. A Duff's device, named after Tom Duff, who discovered it,
-// is an idiom for expressing loop unrolling in C using a switch
-// case. For example, consider the following simple array copying
-// loop:
+// In this example we will use the Order interpreter to implement a
+// macro for generating Duff's device. A Duff's device, named after
+// Tom Duff, who discovered it, is an idiom for expressing loop
+// unrolling in C using a switch-case. For example, consider the
+// following simple array copying loop:
 
 #if 0
 void copy(int* to, const int* from, int n)
@@ -157,6 +156,11 @@ int main(void) {
 
 // How about compiling and running this example to see if our Duff's
 // device generation macro works as expected?
+//
+// ### Acknowledgements
+//
+// This example was inspired by an original macro written by Joerg
+// Walter for generating Duff's Device.
 //
 // ### Exercises
 //

@@ -56,3 +56,19 @@ int main(void) {
 
   return 0;
 }
+
+// ### Acknowledgements
+//
+// This example was inspired by an example written by Paul
+// Mensonides for the Chaos preprocessor library.
+//
+// ### Exercises
+//
+// 1. Why limit to binary literals? Implement an Order function
+//    `8tokens_to_num(digits, base)' that converts a token string of
+//    digits in base `{1, ..., 36}' to a number. Use the tokens
+//    `[0-9A-Z]' as digits. Change the `BINARY' macro to use the
+//    `8tokens_to_num' function. (Hint: Use token extraction macros
+//    to convert the characters directly to the corresponding
+//    decimal values (e.g. extracting an `A' should produce `10' and
+//    `B' should produce `11').)

@@ -116,12 +116,5 @@ ORDER_PP(8for_each_in_range
 // macros. However, it usually makes sense to use ad hoc code
 // generation macros, as well as Order definition macros, because
 // they can both simplify and speed up the generator program.
-//
-// ### Exercises
-//
-// 1. Rewrite this example using a ad hoc code generation macro and
-//    `8emit', like in the `array_ops.c' example, instead of
-//    `8print'. Do you prefer one style over the other? Which one is
-//    faster?
 
 #endif

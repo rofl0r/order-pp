@@ -188,16 +188,5 @@ ORDER_PP(8to_lit(8seq_fold                                      \
 // author, support for longer groups of bits wouldn't significantly
 // improve the usability of the `BINARY' macro, so we will not do
 // so.
-//
-// ### Exercises
-//
-// 1. Why limit to binary literals? Implement an Order function
-//    `8tokens_to_num(digits, base)' that converts a token string of
-//    digits in base `{1, ..., 36}' to a number. Use the tokens
-//    `[0-9A-Z]' as digits. Change the `BINARY' macro to use the
-//    `8tokens_to_num' function. (Hint: Use token extraction macros
-//    to convert the characters directly to the corresponding
-//    decimal values (e.g. extracting an `A' should produce `10' and
-//    `B' should produce `11').)
 
 #endif
