@@ -4,6 +4,7 @@
  */
 
 #include "order/interpreter.h"
+#include "order/eval/ref_ext.h"
 
 /*
  * PROCEDURES FOR ARRAY MANIPULATION
@@ -154,20 +155,20 @@ void array_##mnemo##_##lhs_a##_##rhs_a(const lhs_t* lhs_in,             \
  * operation. Rephrasing the C standard, if the rank of the type of the
  * operand is lower than the rank of int then the result of integer
  * promotion is int, otherwise the type of integer promotion is the type
- * of the operand. The 'type_of_promotion(T)' metafunction
+ * of the operand. The 'type_of_promotion(Ty)' metafunction
  */
 
 #define ORDER_PP_DEF_type_of_promotion          \
-ORDER_PP_FN(fn(T,                               \
-               if(less(type_rank(T),            \
+ORDER_PP_FN(fn(Ty,                              \
+               if(less(type_rank(Ty),           \
                        type_rank(type_int)),    \
                   type_int,                     \
-                  T)))
+                  Ty)))
 
 /*
  * encodes the rule precisely.
  *
- * Let's examine the 'type_of_promotion(T)' function definition. The first
+ * Let's examine the 'type_of_promotion(Ty)' function definition. The first
  * thing you should notice is that we essentially defined an object-like
  * macro of the form
  */
@@ -195,10 +196,11 @@ ORDER_PP_FN(fn(T,                               \
  * the body of the function, must follow the arguments.
  *
  * By default, only the tokens '[A-Z]', or an uppercase letter, may be
- * used as variable symbols. By including an extension header, the set of
- * supported variable symbols can be extended to '[A-Z][a-z0-9]?', which
- * means an uppercase letter followed by a lowercase letter or a digit.
- * Other tokens can also be used given appropriate macro definitions.
+ * used as variable symbols. By including "order/eval/ext_ref.h", the set
+ * of supported variable symbols can be extended to '[A-Z][a-z0-9]?',
+ * which means an uppercase letter followed by a lowercase letter or a
+ * digit. Other tokens can also be used given appropriate macro
+ * definitions.
  *
  * A conditional if-expression in Order has the form:
  *
@@ -209,7 +211,7 @@ ORDER_PP_FN(fn(T,                               \
  * evaluates to true, then <cons-exp> is evaluated, otherwise <alt-exp> is
  * evaluated.
  *
- * The body of the 'type_of_promotion(T)' function also contains calls to
+ * The body of the 'type_of_promotion(Ty)' function also contains calls to
  * other functions. The binary function 'less' compares numbers. The unary
  * function 'type_rank', which we just invented, is supposed to return the
  * rank of the specified type as an integer.
@@ -222,16 +224,16 @@ ORDER_PP_FN(fn(T,                               \
  * We'll now continue encoding the typing rules of C. The rule for usual
  * arithmetic conversion on a binary operation is that the type of the
  * result is the type of the higher ranking type after integer promotion.
- * The rule translates to the 'type_of_conversion(L,R)' metafunction
+ * The rule translates to the 'type_of_conversion(Tl,Tr)' metafunction
  * below:
  */
 
-#define ORDER_PP_DEF_type_of_conversion                 \
-ORDER_PP_FN(fn(L,R,                                     \
-               type_of_promotion(if(less(type_rank(L),  \
-                                         type_rank(R)), \
-                                    R,                  \
-                                    L))))
+#define ORDER_PP_DEF_type_of_conversion                         \
+ORDER_PP_FN(fn(Tl,Tr,                                           \
+               type_of_promotion(if(less(type_rank(Tl),         \
+                                         type_rank(Tr)),        \
+                                    Tr,                         \
+                                    Tl))))
 
 /*
  * Integer promotion and usual arithmetic conversion rules ignore the
@@ -241,14 +243,14 @@ ORDER_PP_FN(fn(L,R,                                     \
  * In C [C89], logical operators produce integer results. The type of an
  * unary operation is thus integer if the operator is logical. Otherwise
  * the type of an unary operation follows the promotion rules. The
- * 'type_of_uop(O,T)' metafunction captures this special case:
+ * 'type_of_uop(Op,Ty)' metafunction captures this special case:
  */
 
 #define ORDER_PP_DEF_type_of_uop                \
-ORDER_PP_FN(fn(O,T,                             \
-               if(op_is_logical(O),             \
+ORDER_PP_FN(fn(Op,Ty,                           \
+               if(op_is_logical(Op),            \
                   type_int,                     \
-                  type_of_promotion(T))))
+                  type_of_promotion(Ty))))
 
 /*
  * Like unary logical operators, binary logical operators produce integer
@@ -259,12 +261,12 @@ ORDER_PP_FN(fn(O,T,                             \
  */
 
 #define ORDER_PP_DEF_type_of_bop                        \
-ORDER_PP_FN(fn(O,L,R,                                   \
-               if(op_is_logical(O),                     \
+ORDER_PP_FN(fn(Op,Tl,Tr,                                \
+               if(op_is_logical(Op),                    \
                   type_int,                             \
-                  if(op_is_shift(O),                    \
-                     type_of_promotion(L),              \
-                     type_of_conversion(L,R)))))
+                  if(op_is_shift(Op),                   \
+                     type_of_promotion(Tl),             \
+                     type_of_conversion(Tl,Tr)))))
 
 /*
  * Given an operator and the types of the operands, we can now compute the
@@ -416,13 +418,13 @@ ORDER_PP_CONST(((           char, ch, false, 1 ))       \
  */
 
 #define ORDER_PP_DEF_gen_array_uop                              \
-ORDER_PP_FN(fn(O,T,                                             \
+ORDER_PP_FN(fn(Op,Ty,                                           \
                emit(quote(GEN_array_uop),                       \
-                    tuple(op_mnemonic(O),                       \
-                          op_symbol(O),                         \
-                          type_abbrev(T),                       \
-                          type_name(T),                         \
-                          type_name(type_of_uop(O,T))))))
+                    tuple(op_mnemonic(Op),                      \
+                          op_symbol(Op),                        \
+                          type_abbrev(Ty),                      \
+                          type_name(Ty),                        \
+                          type_name(type_of_uop(Op,Ty))))))
 
 /*
  * computes the parameter tuple for the 'GEN_array_uop(...)' code
@@ -469,12 +471,12 @@ ORDER_PP_FN(fn(O,T,                                             \
 
 ORDER_PP(seq_for_each_in_product
          (gen_array_uop,
-          seq(seq_filter(fn(O,
-                            and(equal(1,op_arity(O)),
-                                not(op_does_floating(O)))),
+          seq(seq_filter(fn(Op,
+                            and(equal(1,op_arity(Op)),
+                                not(op_does_floating(Op)))),
                          applicative_ops),
-              seq_filter(fn(T,
-                            not(type_is_floating(T))),
+              seq_filter(fn(Ty,
+                            not(type_is_floating(Ty))),
                          builtin_types))))
 
 /*
@@ -507,9 +509,9 @@ ORDER_PP(seq_for_each_in_product
 
 ORDER_PP(seq_for_each_in_product
          (gen_array_uop,
-          seq(seq_filter(fn(O,
-                            and(equal(1,op_arity(O)),
-                                op_does_floating(O))),
+          seq(seq_filter(fn(Op,
+                            and(equal(1,op_arity(Op)),
+                                op_does_floating(Op))),
                          applicative_ops),
               builtin_types)))
 
@@ -519,15 +521,15 @@ ORDER_PP(seq_for_each_in_product
  */
 
 #define ORDER_PP_DEF_gen_array_bop                              \
-ORDER_PP_FN(fn(O,L,R,                                           \
+ORDER_PP_FN(fn(Op,Tl,Tr,                                        \
                emit(quote(GEN_array_bop),                       \
-                    tuple(op_mnemonic(O),                       \
-                          op_symbol(O),                         \
-                          type_abbrev(L),                       \
-                          type_name(L),                         \
-                          type_abbrev(R),                       \
-                          type_name(R),                         \
-                          type_name(type_of_bop(O,L,R))))))
+                    tuple(op_mnemonic(Op),                      \
+                          op_symbol(Op),                        \
+                          type_abbrev(Tl),                      \
+                          type_name(Tl),                        \
+                          type_abbrev(Tr),                      \
+                          type_name(Tr),                        \
+                          type_name(type_of_bop(Op,Tl,Tr))))))
 
 /*
  * Then we'll generate code for all binary array procedures in two
@@ -536,15 +538,15 @@ ORDER_PP_FN(fn(O,L,R,                                           \
 
 ORDER_PP(seq_for_each_in_product
          (gen_array_bop,
-          let(T,seq_filter(fn(T,
-                              not(type_is_floating(T))),
-                           builtin_types),
-              seq(seq_filter(fn(O,
-                                and(equal(2,op_arity(O)),
-                                    not(op_does_floating(O)))),
+          let(Ts,seq_filter(fn(Ty,
+                               not(type_is_floating(Ty))),
+                            builtin_types),
+              seq(seq_filter(fn(Op,
+                                and(equal(2,op_arity(Op)),
+                                    not(op_does_floating(Op)))),
                              applicative_ops),
-                  T,
-                  T))))
+                  Ts,
+                  Ts))))
 
 /*
  * Then the floating point operators:
@@ -552,9 +554,9 @@ ORDER_PP(seq_for_each_in_product
 
 ORDER_PP(seq_for_each_in_product
          (gen_array_bop,
-          seq(seq_filter(fn(O,
-                            and(equal(2,op_arity(O)),
-                                op_does_floating(O))),
+          seq(seq_filter(fn(Op,
+                            and(equal(2,op_arity(Op)),
+                                op_does_floating(Op))),
                          applicative_ops),
               builtin_types,
               builtin_types)))
