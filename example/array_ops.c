@@ -57,9 +57,9 @@ void array##mnemo##in_a(const in_t* in,                 \
 // the `GEN_array_uop' macro expands to an unary array
 // manipulation procedure.
 //
-// We refer to macros like `GEN_array_uop' as ad hoc code
-// generation macros, because they are macros defined for the
-// purpose of generating a particular sequence of tokens.
+// We refer to macros like `GEN_array_uop' as ad hoc code generation
+// macros, because they are macros defined for the purpose of
+// generating a particular sequence of tokens.
 //
 // A binary array manipulation procedure takes two arrays as input,
 // applies a binary operator to the corresponding elements of the
@@ -315,8 +315,7 @@ ORDER_PP_CONST(((          char, _ch, 8false, 1))       \
 // So, we'll break the generation into a few cases.
 //
 // Let's first define a helper metafunction for emitting the code
-// for an unary operator. The `gen_array_uop(o,t)'
-// metafunction
+// for an unary operator. The `8gen_array_uop(o,t)' metafunction
 //<
 #define ORDER_PP_DEF_8gen_array_uop                             \
 ORDER_PP_FN(8fn(8O, 8T,                                         \
@@ -358,8 +357,8 @@ ORDER_PP(8seq_for_each_in_product
 // cartesian product of the given sequence of sequences and applies
 // the given procedure, in this case `8gen_array_uop', to each
 // element of the cartesian product. Above, we use
-// `8seq_for_each_in_product' to compute the cartesian product
-// of operators that do not work on floating point types and the
+// `8seq_for_each_in_product' to compute the cartesian product of
+// operators that do not work on floating point types and the
 // non-floating point types.
 //
 // Let's move on and generate code for the floating point operators
