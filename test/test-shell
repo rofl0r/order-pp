@@ -142,14 +142,16 @@ function differing-lines {
 
 function run-tests {
     echo "Total of $(test-cnt) tests."
-    echo -n "Running positive tests... "
+    echo "Running positive tests..."
 
     local allTerm=$(sed -e 's|#.*||g' $dbFile)
     local allExpected=$(sed -e 's|^[^#]*#||g' -e 's|#.*$||g' $dbFile)
     local allErrors=$(sed -e 's|.*#||g' $dbFile)
 
-    local posActual=$(time preprocess-positive-tests)
+    local posActual=$(preprocess-positive-tests)
     local posExpected=$(sed -e 's|^.*#.*#O.*$||g' -e 's|^[^#]*#||g' -e 's|#.*$||g' $dbFile)
+
+    echo "Comparing results..."
 
     for i in $(differing-lines "$posActual" "$posExpected") ; do
         term=$(get-line-from $i "$allTerm")
@@ -172,7 +174,7 @@ function run-tests {
         esac
     done
 
-    echo "Running negative tests..."
+    echo "Running and comparing negative tests..."
 
     local oldDebugFlag=$debugFlag
     debugFlag=1
@@ -315,7 +317,7 @@ while true ; do
         (a*|A)
         interactive-add-test ;;
         (t*|T)
-        run-tests ;;
+        time run-tests ;;
         (s*|S)
         less $dbFile ;;
         (c*|C)
