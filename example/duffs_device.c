@@ -11,7 +11,6 @@
 // This example was inspired by an original generalized macro for
 // for implementing Duff's Device written by Joerg Walter.
 
-/* Expands to a Duff's Device. */
 #define GEN_duffs_device(unrolling_factor, counter_t, n, exp)                           \
 do {                                                                                    \
   counter_t duffs_device_initial_cnt = (n);                                             \
