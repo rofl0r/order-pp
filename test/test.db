@@ -353,6 +353,7 @@
 8tuple(8tuple(8(1)))#((1))#
 8tuple(8tuple(8(1),8(2)),8tuple(8(3),8(4)))#((1,2),(3,4))#
 8tuple(8tuple(8(a)),8tuple(8(b)))#((a),(b))#
+8tuple(8tuple_map(8pair(1),8tuple(8(a),8(b))),8tuple_map(8dec,8tuple(10)))#(((1,a),(1,b)),(9))#
 8tuple_at(0,8tuple(8(4),8(5)))#4#
 8tuple_at(7,8tuple(8(1),8(2),8(3),8(4),8(5),8(6),8(7),8(8)))#8#
 8tuple_at(8nat(0),8tuple(0,1,2,3,4,5))#0#

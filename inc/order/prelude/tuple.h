@@ -120,6 +120,13 @@
 #define ORDER_PP_TUPLE_TO_SEQ_11_OR_MORE(P,_0,_1,_2,_3,_4,_5,_6,_7,_8,_9,...) (P##_0)(P##_1)(P##_2)(P##_3)(P##_4)(P##_5)(P##_6)(P##_7)(P##_8)(P##_9)ORDER_PP_NIL,8TUPLE_TO_SEQ_2,(,P##__VA_ARGS__)
 #define ORDER_PP_8TUPLE_TO_SEQ_2(P,s,t,...) (,s##P()ORDER_PP_OVERLOAD(TUPLE_TO_SEQ,ORDER_PP_TUPLE_SIZE_MAX_11_OR_MORE P##t)P##t,P##__VA_ARGS__)
 
+// Only some higher-order functions for convenience
+
+#define ORDER_PP_DEF_8tuple_map                                 \
+ORDER_PP_FN(8fn(8F, 8T,                                         \
+                8seq_to_tuple(8seq_map(8F,                      \
+                                       8tuple_to_seq(8T)))))
+
 // Details
 
 #define ORDER_PP_0IS_TUPLE(P,x) ORDER_PP_TEST(ORDER_PP_,ORDER_PP_IS_EDIBLE_TEST x##P,0IS_TUPLE_B,0NEVER)(ORDER_PP_EAT x##P)
