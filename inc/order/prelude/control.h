@@ -38,6 +38,19 @@
 #define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8DEC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8DEC,ORDER_PP_NAT_PRED i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
 #define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8INC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8INC,ORDER_PP_NAT_SUCC i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
 
+#define ORDER_PP_DEF_8for_each_in_range_with_delimiter          \
+ORDER_PP_FN(8fn(8F, 8D, 8I, 8J,                                 \
+                8cond((8less(8I, 8J),                           \
+                       8for_each_in_range(8chain(8D, 8F),       \
+                                          8I,                   \
+                                          8dec(8J)),            \
+                       8ap(8F, 8dec(8J)))                       \
+                      (8less(8J, 8I),                           \
+                       8for_each_in_range(8chain(8D, 8F),       \
+                                          8I,                   \
+                                          8inc(8J)),            \
+                       8ap(8F, 8J)))))
+
 #define ORDER_PP_DEF_8unless(cond,...) 8EVAL_IF,cond,8nil,ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),
 
 #define ORDER_PP_DEF_8until ORDER_PP_FN_CM(3,8UNTIL,0IS_FN,0IS_FN,0IS_ANY)
