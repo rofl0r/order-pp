@@ -4,4 +4,5 @@
 
 #include "order/lib/ext_sym.h"
 #include "order/lib/keywords.h"
+#include "order/lib/params.h"
 #include "order/lib/stream.h"
