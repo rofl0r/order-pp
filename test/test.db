@@ -13,6 +13,7 @@
 8ap(8fn(8X,8X),8quote(x))#x
 8ap(8fn(8X,8Y,8X),8quote(x),8quote(y))#x
 8ap(8fn(8X,8Y,8tuple(8X,8Y)),8quote(a),8quote(b))#(a,b)
+8ap(8identity,37)#37
 8cat(1,2)#12
 8cat(1,2,3,4,5,6,7,8)#12345678
 8constant_embedding#This constant is in two parts!
@@ -33,8 +34,10 @@
 8for_each_in_range(8fn(8X,8emit(8X)),4,8inc(10))#10 9 8 7 6 5 4
 8for_each_in_range(8fn(8X,8emit(8X)),45,45)#
 8for_each_in_range(8fn(8X,8emit(8quote(GEN_dim_0),8tuple(8X))),1,3)#(0,2)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(0,1)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)
+8identity(45)#45
 8if(8false,1,2)#2
 8if(8true,1,2)#1
+8ignore(8stringize(7))#
 8is_sym(8quote(this is not a symbol))#8false
 8is_sym(8true)#8true
 8let(8X,8id,8ap(8X,5))#5
