@@ -12,8 +12,8 @@
 // that the Order interpreter is reentrant.
 
 #define GEN_is_function_tester(n)                                               \
-template<class R ORDER_PP(8emit_trailing_params(8quote(class A), n)) >          \
-yes_type is_function_tester(R (*)(ORDER_PP(8emit_params(8quote(class A), n))));
+template<class R ORDER_PP(8emit_trailing_params(n, 8quote(class A))) >          \
+yes_type is_function_tester(R (*)(ORDER_PP(8emit_params(n, 8quote(class A)))));
 
 ORDER_PP(8for_each_in_range(8fn(8I,
                                 8emit(8quote(GEN_is_function_tester),
