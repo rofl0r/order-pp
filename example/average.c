@@ -75,8 +75,9 @@
 // program is just a simple test of the macro.
 
 int main() {
-  printf("GEN_average(3, 1, 4, 1, 5, 9, 2, 6, 5) = %f\n",
-         GEN_average(3, 1, 4, 1, 5, 9, 2, 6, 5));
+  printf(GEN_average(3, 1, 4, 1, 5, 9, 2, 6, 5) == 4
+         ? "OK.\n"
+         : "ERROR!\n");
 
   return 0;
 }
