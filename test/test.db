@@ -26,7 +26,7 @@
 8ap(8flip(8pair),3,7)#(7,3)#
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8H),8(!),8(%),8(?),8(^),8(~),8(*),8(;),8([))#[#
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z,8seq(8A,8B,8C,8D,8E,8F,8G,8H,8I,8J,8K,8L,8M,8N,8O,8P,8Q,8R,8S,8T,8U,8V,8W,8X,8Y,8Z)),1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26)#(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)(15)(16)(17)(18)(19)(20)(21)(22)(23)(24)(25)(26)#
-8ap(8fn(8T,8fn(8F,8tuple(8F,8T))),1,2,3)#ORDER_PP_TYPE_ERROR:0IS_FN((2,1)):(,,8DEF_CONST,3,,(2,1),8EXIT,,)#ORDER_PP_TYPE_ERROR
+8ap(8fn(8T,8fn(8F,8tuple(8F,8T))),1,2,3)#ORDER_PP_TYPE_ERROR:0IS_FN((2,1)):(,,8DEF_CONST,3,,1,8EXIT,,)#ORDER_PP_TYPE_ERROR
 8ap(8fn(8X,8X),8(!))#!#
 8ap(8fn(8X,8Y,8X),8(!),8(%))#!#
 8ap(8fn(8X,8Y,8tuple(8X,8Y)),8(!),8(%))#(!,%)#
@@ -82,7 +82,7 @@
 8if(8true,1,8put(2),8put(3),4)#1#
 8if(8true,8(!),8(%))#!#
 8ignore(8stringize(7))##
-8inc(1,2,3)#ORDER_PP_TYPE_ERROR:0IS_FN(2):(,,8DEF_CONST,2,,2,8EVAL_AP_1,,3,,8EXIT,,)#ORDER_PP_TYPE_ERROR
+8inc(1,2,3)#ORDER_PP_TYPE_ERROR:0IS_FN(2):(,,8DEF_CONST,2,,ORDER_PP_SAFE_OPEN 2,8EVAL_AP_1,,3,,8EXIT,,)#ORDER_PP_TYPE_ERROR
 8inc(8call_cc(8fn(8K,8add(1,2,8ap(8K,4)))))#5#
 8is_sym(8(this is not a symbol))#8false#
 8is_sym(8true)#8true#
@@ -113,7 +113,7 @@
 8or(8false,8false,8false,8true,0)#8true#
 8or(8true)#8true#
 8paste(1,8tuple(1))#ORDER_PP_PRECONDITION_FAILURE:9PASTE(1,(1)):(,(,1,(1)),8EXIT,,)#ORDER_PP_PRECONDITION_FAILURE
-8plus(1,2,3)#ORDER_PP_TYPE_ERROR:0IS_FN(3):(,,8DEF_CONST,3,,3,8EXIT,,)#ORDER_PP_TYPE_ERROR
+8plus(1,2,3)#ORDER_PP_TYPE_ERROR:0IS_FN(3):(,,8DEF_CONST,3,,ORDER_PP_SAFE_OPEN 3,8EXIT,,)#ORDER_PP_TYPE_ERROR
 8plus(1,8true)#ORDER_PP_TYPE_ERROR:0IS_NUM(8true):(,(,0)(ORDER_PP_8NATIVE_L_,LAST,MORE)(,0,9PLUS,(,0IS_NUM,),(,1,8true)),8EXIT,,)#ORDER_PP_TYPE_ERROR
 8print((!)8space 8lparen 8space 8rparen)#! ( )#
 8print((This is implicitly quoted.))#This is implicitly quoted.#
