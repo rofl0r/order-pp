@@ -263,12 +263,16 @@ ORDER_PP_FN(8fn(8O, 8T,                         \
 
 #define ORDER_PP_DEF_8type_of_bop                       \
 ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
-                8if(8op_is_logical(8O),                 \
-                    8type_int,                          \
-                    8if(8op_is_shift(8O),               \
-                        8type_of_promotion(8L),         \
-                        8type_of_conversion(8L, 8R)))))
+                8cond((8op_is_logical(8O),              \
+                       8type_int)                       \
+                      (8op_is_shift(8O),                \
+                       8type_of_promotion(8L))          \
+                      (8else,                           \
+                       8type_of_conversion(8L, 8R)))))
 
+// As you can see above, Order also implements the conditional form
+// `8cond', which is useful for avoiding nested `8if's.
+//
 // Given an operator and the types of the operands, we can now
 // compute the type of the result.
 //
