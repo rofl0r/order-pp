@@ -148,8 +148,9 @@
 8seq_sort(8greater,8quote((1)))#(1)
 8seq_sort(8less,8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)
 8seq_sort(8less,8quote())#
-8seq_to_tuple(8quote((1)(2)(3)))#(1 , 2 , 3 )
-8seq_to_tuple(8seq_nil)#()
+8seq_to_tuple(8quote(()))#()
+8seq_to_tuple(8quote((1)(2)(3)))#(1,2,3)
+8seq_to_tuple(8seq_nil)#
 8stringize(8quote(This is a string.))#"This is a string."
 8tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)
 8tuple(8add(1),8mul(3))#(1,3)
@@ -175,6 +176,9 @@
 8tuple_at(7,8tuple(1,2,3,4,5,6,7,8))#8
 8tuple_size(8quote((a,b,c,d)))#4
 8tuple_size(8tuple(8nil))#1
+8tuple_to_seq(8quote(()))#()
+8tuple_to_seq(8quote((a,1,b,2,c,3,d,4)))#(a)(1)(b)(2)(c)(3)(d)(4)
+8tuple_to_seq(8quote((a,1,b,2,c,3,d,4,e,5,f,6,g,7,h,8,i,9,j,10,k,11,l,12,m,13,n,14,o,15,p,16,q,17,r,18,s,19,t,20)))#(a)(1)(b)(2)(c)(3)(d)(4)(e)(5)(f)(6)(g)(7)(h)(8)(i)(9)(j)(10)(k)(11)(l)(12)(m)(13)(n)(14)(o)(15)(p)(16)(q)(17)(r)(18)(s)(19)(t)(20)
 8unless(8false,8emit(3),8emit(2),1)#1 3 2
 8unless(8true,8emit(3),8emit(2),1)#
 8vseq_to_seq(8quote((1)(2,3)(4,5,6,7)(8)))#((1))((2,3))((4,5,6,7))((8))
