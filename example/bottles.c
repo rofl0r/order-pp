@@ -31,7 +31,7 @@
   N bottles of beer on the wall,
   N bottles of beer, take one down, pass it around,
   N-1 bottles of beer on the wall.
-#endif
+#endif//0
 
 // Boring, isn't it? Well, things get a bit more interesting in the
 // last two phrases. When there is just 1 bottle of beer we must
@@ -46,7 +46,7 @@
   1 bottle of beer on the wall,
   1 bottle of beer, take one down, pass it around,
   no more bottles of beer on the wall.
-#endif
+#endif//0
 
 // So, the key is to generate the correct phrase for referring to
 // the number of bottles. We can express the rule in Order code
@@ -59,7 +59,7 @@
                       8separate(8N, 8quote(bottle)))
                      (8else,
                       8quote(no more bottles)))
-#endif
+#endif//0
 
 // Undoubtedly the first thing to notice was the prefix \code{8}. It
 // is a prefix of \emph{all} Order expressions and its purpose is to
@@ -115,7 +115,7 @@
                8cond((8greater(8N, 1),
                       ...
                       8quote(no more bottles))))
-#endif
+#endif//0
 
 // The \code{8fn(...)} syntactic form defines an anonymous
 // first--class function. The above function binds the variable
@@ -131,7 +131,7 @@
                   8ap(8B, 8N) (of beer,) 8space
                   (take one down, pass it around,) 8space
                   8ap(8B, 8dec(8N)) (of beer on the wall.))
-#endif
+#endif//0
 
 // A \code{8print} expression is evaluated by implicitly outputing
 // the value of any unparenthesized Order expression and outputing
@@ -165,7 +165,7 @@
                   ...
                   8ap(8B, 8dec(8N)) (of beer on the wall.))),
        100, 1)
-#endif
+#endif//0
 
 // You may wonder about the above upper bound of 100.
 // \code{8for_each_in_range} always considers the upper bound
@@ -178,6 +178,7 @@
 // interpreter header, and invoke the Order interpreter using the
 // \code{ORDER_PP} macro:
 
+// \begin{verbatim}
 #include "order/interpreter.h"
 
 ORDER_PP
@@ -195,6 +196,7 @@ ORDER_PP
                   (take one down, pass it around,) 8space
                   8ap(8B, 8dec(8N)) (of beer on the wall.))),
        100, 1)))
+// \end{verbatim}
 
 // The above program, when preprocessed, generates some 2773 tokens
 // on one line containing the desired lyrics. As you can see, we
@@ -210,10 +212,12 @@ ORDER_PP
 // First we'll write an ad hoc macro for generating one phrase of
 // the song:
 
+// \begin{verbatim}
 #define GEN_phrase(N_bottles, N_minus_1_bottles)    \
   N_bottles of beer on the wall,                    \
   N_bottles of beer, take one down, pass it around, \
   N_minus_1_bottles of beer on the wall.
+// \end{verbatim}
 
 // The above function--like macro, named \code{GEN_phrase}, takes
 // two arguments, \code{N_bottles} and \code{N_minus_1_bottles}, and
@@ -231,6 +235,7 @@ ORDER_PP
 // previously used auxiliary function for referring to the number of
 // bottles:
 
+// \begin{verbatim}
 #define ORDER_PP_DEF_8bottles                          \
 ORDER_PP_FN(8fn(8N,                                    \
                 8cond((8greater(8N, 1),                \
@@ -239,6 +244,7 @@ ORDER_PP_FN(8fn(8N,                                    \
                        8separate(8N, 8quote(bottle)))  \
                       (8else,                          \
                        8quote(no more bottles)))))
+// \end{verbatim}
 
 // The above object--like macro definition is an Order top--level
 // definition. Order top--level definition macros use the prefix
@@ -256,7 +262,7 @@ ORDER_PP_FN(8fn(8N,                                    \
               8emit(8quote(GEN_phrase),
                     8tuple(8bottles(8N),
                            8bottles(8dec(8N))))
-#endif
+#endif//0
 
 // Given two arguments, the \code{8emit} procedure outputs both of
 // the arguments separated by a space. Above, \code{8emit} is used
@@ -269,6 +275,7 @@ ORDER_PP_FN(8fn(8N,                                    \
 //
 // The complete program now looks like this:
 
+// \begin{verbatim}
 #include "order/interpreter.h"
 
 #define GEN_phrase(N_bottles, N_minus_1_bottles)    \
@@ -291,6 +298,7 @@ ORDER_PP(8for_each_in_range
                     8tuple(8bottles(8N),
                            8bottles(8dec(8N))))),
           100, 1))
+// \end{verbatim}
 
 // Depending on the preprocessor, the above program can be
 // preprocessed significantly faster than the previous program using
@@ -301,5 +309,5 @@ ORDER_PP(8for_each_in_range
 //
 // All that is left to do is to preprocess this example, direct the
 // output to the printer, get 99 bottles of beer and a few friends
-// to sing the song... On second thought, you could also just
+// to sing the song\ldots On second thought, you could also just
 // continue reading.
