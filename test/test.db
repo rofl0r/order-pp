@@ -37,6 +37,7 @@
 8for_each_in_range(8nat(1),8nat(2),8fn(8X,8emit(8(GEN_dim_0),8tuple(8nat_to_lit(8X)))))#(TCA (!)!,1)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (!)!,2)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)#<ws>
 8for_each_in_range(8nat(4),8nat(7),8chain(8put,8nat_to_lit))#4 5 6 7 8 9 10#<ws>
 8for_each_in_range(8nat(4,5),8nat(0),8put)##<ws>
+8for_each_in_range(8nat(5),8nat(4),8chain(8emit_rparen,8emit_lparen,8nat_to_lit))#(5)(6)(7)(8)#<ws>
 8identity(8act(!))#TCA (!)!!!!!!!!!!!!!!!!!#<ws>
 8if(8false,8act(!),8act(%))#ACT (%)%%%%%%%%%%%%%%#<ws>
 8if(8true,8act(!),8act(%))#ACT (!)!!!!!!!!!!!!!!#<ws>
@@ -61,7 +62,9 @@
 8or(8false,8false,8false,8true,0)#8true#<ws>
 8or(8true)#8true#<ws>
 8print((This is implicitly quoted.))#This is implicitly quoted.#<ws>
+8print(8parens(8parens(8and(8true,8true))))#((8true))#<ws>
 8print(8rparen 8comma 8lparen)#),(#<ws>
+8print(8rparen 8parens((.) 8(1)) 8comma 8parens(8(1) (.)) 8lparen)#)(. 1),(1 .)(#<ws>
 8rout(8for_each_in_range(8nat(0),8nat(3),8fn(8I,8rout(8for_each_in_range(8nat(0),8nat(3),8fn(8J,8put(8tuple(8nat_to_lit(8I),8nat_to_lit(8J)))))))))#(,2,0)(,2,1)(,2,2)(,1,0)(,1,1)(,1,2)(,0,0)(,0,1)(,0,2)#<ws>
 8rout(8for_each_in_range(8nat(1),8nat(2),8fn(8X,8emit(8(GEN_dim_0),8tuple(8nat_to_lit(8X))))))#(TCA (!)!,2)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (!)!,1)(TCA (%)%,1)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)(TCA (%)%,2)(TCA (?)?,1)(TCA (*)*,1)(TCA (*)*,2)(TCA (?)?,2)(TCA (*)*,1)(TCA (*)*,2)#<ws>
 8rout(8for_each_in_range(8nat(1),8nat(2),8fn(8X,8emit(8(GEN_dimr_0),8tuple(8nat_to_lit(8X))))))#(TCA (!)!,2)(TCA (%)%,2)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (%)%,1)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (!)!,1)(TCA (%)%,2)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)(TCA (%)%,1)(TCA (?)?,2)(TCA (*)*,2)(TCA (*)*,1)(TCA (?)?,1)(TCA (*)*,2)(TCA (*)*,1)#<ws>

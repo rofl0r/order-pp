@@ -55,8 +55,8 @@
 #define ORDER_PP_OUTPUT_EMIT_0(...)
 #define ORDER_PP_OUTPUT_EMIT_1(P,...) __VA_ARGS__##P
 #define ORDER_PP_OUTPUT_EMIT_2(P,m,...) m##P ORDER_PP_BLOCK __VA_ARGS__##P
-#define ORDER_PP_OUTPUT_EMIT_3(...) ,
-#define ORDER_PP_OUTPUT_EMIT_4(...) (
-#define ORDER_PP_OUTPUT_EMIT_5(...) )
+#define ORDER_PP_OUTPUT_EMIT_3(P,...) ,__VA_ARGS__##P
+#define ORDER_PP_OUTPUT_EMIT_4(P,...) (__VA_ARGS__##P
+#define ORDER_PP_OUTPUT_EMIT_5(P,...) )__VA_ARGS__##P
 
 #endif

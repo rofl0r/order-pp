@@ -27,6 +27,36 @@
 #define ORDER_PP_DEF_8emit ORDER_PP_FN_CM(2,8EMIT)
 #define ORDER_PP_8EMIT(P,m,a,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,P##m,P##a)
 
+// `8emit_comma(x)' outputs `,x' and returns nil.
+//
+// For example,
+//
+//   8do(8emit_lparen(8quote(1)),
+//       8emit_comma(8quote(2)),
+//       8emit_rparen(8quote(3))) ==> (1,2)3
+#define ORDER_PP_DEF_8emit_comma ORDER_PP_FN_CM(1,8EMIT_COMMA)
+#define ORDER_PP_8EMIT_COMMA(P,x,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,3,P##x)
+
+// `8emit_lparen(x)' outputs `(x' and returns nil.
+//
+// For example,
+//
+//   8do(8emit_lparen(8quote(1)),
+//       8emit_comma(8quote(2)),
+//       8emit_rparen(8quote(3))) ==> (1,2)3
+#define ORDER_PP_DEF_8emit_lparen ORDER_PP_FN_CM(1,8EMIT_LPAREN)
+#define ORDER_PP_8EMIT_LPAREN(P,x,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,4,P##x)
+
+// `8emit_rparen(x)' outputs `)x' and returns nil.
+//
+// For example,
+//
+//   8do(8emit_lparen(8quote(1)),
+//       8emit_comma(8quote(2)),
+//       8emit_rparen(8quote(3))) ==> (1,2)3
+#define ORDER_PP_DEF_8emit_rparen ORDER_PP_FN_CM(1,8EMIT_RPAREN)
+#define ORDER_PP_8EMIT_RPAREN(P,x,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,5,P##x)
+
 #define ORDER_PP_DEF_8emit_params ORDER_PP_FN_CM(3,8EMIT_PARAMS)
 #define ORDER_PP_8EMIT_PARAMS(P,i,n,p,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2,ORDER_PP_ENUM_PARAMS,(,P##i,P##n,P##p))
 
