@@ -1,0 +1,5 @@
+
+        <exp> ::= `8let'({<binding>}*, {<exp_body>}+{,})             ;; parallel binding
+
+    <binding> ::= (<sym>, <exp_init>)                                ;; binding
+
