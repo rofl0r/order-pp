@@ -7,8 +7,8 @@
  */
 
 #define ORDER_PP_CM(...) ORDER_PP_CM_B(ORDER_PP_CM_UP_0(__VA_ARGS__))
-#define ORDER_PP_CM_B(x) ORDER_PP_CM_C(,x
-#define ORDER_PP_CM_C(P,_,...) P##__VA_ARGS__
+#define ORDER_PP_CM_B(x) ORDER_PP_CM_ERROR(,x
+#define ORDER_PP_CM_ERROR(P,_,...) P##__VA_ARGS__
 
 #define ORDER_PP_CM_8STOP(P,x,...) ,P##x)
 
