@@ -86,9 +86,9 @@ IN THE SOFTWARE.}
 
 Order grew out of my interest in the design of programming languages
 and metaprogramming as well as desire to make something original,
-fascinating and beautiful. My work on the Boost.Preprocessor library
-\cite{boost.pp} had left me unsatisfied. While it was clear to me
-that it could theoretically be used to implement \emph{useful}
+fascinating and beautiful. My work on the Boost Preprocessor
+-library \cite{boost.pp} had left me unsatisfied. While it was clear
+to me that it could theoretically be used to implement \emph{useful}
 non-trivial metaprograms, it would have been quite tedious work,
 full of nasty little details and limitations to trip you up. I
 considered the prospects for further enhancements to the library,
@@ -98,18 +98,19 @@ instead of attempting to provide semimodular enhancements on top of
 the C preprocessor in a bottom-up fashion, it might be possible to
 lift the limitations by designing a complete monolithic interpreter
 for a high-level source language in a top-down fashion. After some
-experiments at interpreting lambda calculus and a couple of
-prototype interpreters for early versions of the Order language, I
-was left with a feeling that it would be too inefficient to be
-practical. The most serious limitation seemed to be the inability of
-the early prototypes to generate arbitrary output efficiently. I
-decided to forget about the interpreter and move on, but the work
-proved too interesting for me to forget completely. Over a long
-period of time I found several small incremental improvements to the
-interpreter until it suddenly started to look like more than a
-theoretical curiosity. Then I knew I just had to finish the work.
-Hopefully everyone will be able to find some beauty in the result.
-At least I know I've had a lot of fun designing the language.
+experiments at interpreting $\lambda$-calculus (lambda-calculus) and
+a couple of prototype interpreters for early versions of the Order
+language, I was left with a feeling that it would be too inefficient
+to be practical. The most serious limitation seemed to be the
+inability of the early prototypes to generate arbitrary output
+efficiently. I decided to forget about the interpreter and move on,
+but the work proved too interesting for me to forget completely.
+Over a long period of time I found several small incremental
+improvements to the interpreter until it suddenly started to look
+like more than a theoretical curiosity. Then I knew I just had to
+finish the work. Hopefully everyone will be able to find some beauty
+in the result. At least I know I've had a lot of fun designing the
+language.
 
 \subsection*{Intent}
 
@@ -138,7 +139,7 @@ This book is written for programmers working on C and C++ projects
 who would like to use metaprogramming techniques in their work. The
 reader should be familiar with the C and C++ programming languages
 and have a basic understanding of the C preprocessor. Previous
-knowledge of lambda calculus and functional programming will help
+knowledge of $\lambda$-calculus and functional programming will help
 to understand the material.
 
 \subsection*{Electronic Resources}
@@ -193,7 +194,7 @@ supporting \emph{partial application} of functions. The Order
 interpreter is implemented in \emph{continuation passing style} and
 is fully \emph{tail recursive}. Order is a \emph{reflective}
 language providing \emph{first class continuations}, \emph{first
-class environments} and an \emph{eval} function. Memory management
+class environments} and an \emph{eval}-function. Memory management
 in Order is implicit. Order provides \emph{arbitrary-precision
 arithmetic} on natural numbers, a comprehensive set of primitive and
 \emph{higher-order} functions for an aggregate data type called
@@ -203,14 +204,15 @@ clear.}
 
 Order is a fairly simple language to learn. It has only a modest
 number of syntactic forms with simple semantics and is based on
-the \emph{lambda calculus}.\footnote{Programmers familiar with both
-Scheme \cite{dybvig:1996,abelson:1996} and SML, in addition to C and
-the C preprocessor, should find Order particularly easy to learn.}
-Compared to other C preprocessor metaprogramming systems, such as
-the Boost Preprocessor library \cite{boost.pp}, Order provides a
-clearly higher-level alternative. Rather than providing some
-enhancements over the plain C preprocessor designed one problem at a
-time, Order implements a complete solution at once.
+the $\lambda$-calculus (lambda-calculus).\footnote{Programmers
+familiar with both Scheme \cite{dybvig:1996,abelson:1996} and SML,
+in addition to C and the C preprocessor, should find Order
+particularly easy to learn.} Compared to other C preprocessor
+metaprogramming systems, such as the Boost Preprocessor -library
+\cite{boost.pp}, Order provides a clearly higher-level alternative.
+Rather than providing some enhancements over the plain C
+preprocessor designed one problem at a time, Order implements a
+complete solution at once.
 
 \section{The C Preprocessor} %**************************************
 
@@ -218,19 +220,18 @@ The C preprocessor (Cpp) is part of both C \cite{c:1999} and C++
 \cite{c++:1998} and is mainly used to compose \emph{translation
 units} out of \emph{source files} using the \code{#include}
 directive and a family of conditional directives (\code{#if},
-\code{#ifdef},
-\ldots, \code{#endif}). The Cpp is a \emph{low-level}
+\code{#ifdef}, \ldots, \code{#endif}). The Cpp is a \emph{low-level}
 \emph{macroprocessor} enabling the definition of \emph{object-like}
-and \emph{function-like} macros using the \code{#define}
-directive.\footnote{The Cpp also has some other features and uses,
-but they are not relevant to Order.} The Order interpreter is
-implemented using the macro mechanism of the Cpp.
+and \emph{function-like} macros using the
+\code{#define}-directive.\footnote{The Cpp also has some other
+features and uses, but they are not relevant to Order.} The Order
+interpreter is implemented using the macro mechanism of the Cpp.
 
-The preprocessor defined by the \cite{c:1999} standard includes a
-number of important extensions, namely \emph{variadic} macros and
-\emph{placemarkers}, that aren't provided by standard C++. Apart
-from those extensions, and a few minor differences, the C and C++
-preprocessors are essentially the same and many modern C++
+The preprocessor defined by the latest C standard \cite{c:1999}
+includes a number of important extensions, namely \emph{variadic}
+macros and \emph{placemarkers}, that aren't provided by standard
+C++. Apart from those extensions, and a few minor differences, the C
+and C++ preprocessors are essentially the same. Many modern C++
 implementations actually provide variadic macros and placemarkers as
 an extension as they are likely to be adopted into the next C++
 standard.
@@ -239,19 +240,19 @@ Bjarne Stroustrup, the inventor of C++, has said that ``I'd like to
 see Cpp abolished'' \cite{stroustrup:1994}. Indeed, many consider
 the Cpp to be one of the \emph{worst} macroprocessors in history and
 for good reasons. We will assume that the reader is all too familiar
-with the problems described in \cite{stroustrup:1994} and many other
-sources and we will only discuss issues that are directly relevant
-to our subject.
+with the problems and we will only discuss issues that are directly
+relevant to our subject.
 
 The main strength of the Cpp is that it comes with every standards
 conforming C and C++ implementation. Compared to external
 metaprogramming facilities for C and C++, Cpp ``Works out of the
 box.''. This strength should not be underestimated. Library authors,
 and programmers in general, would often like to use generative
-programming techniques as described in \cite{czarnecki:2000,
-graham:1993}. However, code generation with external, non-standard
-tools introduces a host of problems typically making the
-maintenance, distribution and porting of software much harder.
+programming techniques as described in literature
+\cite{czarnecki:2000, graham:1993}. However, code generation with
+external, non-standard tools introduces a host of problems typically
+making the maintenance, distribution and porting of software much
+harder.
 
 As implied, the macro mechanism of the Cpp hasn't been designed to
 be very powerful. It explicitly disallows recursion by implementing
@@ -306,24 +307,25 @@ Order interpreter.
 
 \section{Requirements} %********************************************
 
-The Order interpreter, which is fully \cite{c:1999} conforming, has
-been developed with the \cite{gcc} CPP version 3.x and contains no
-workarounds for broken preprocessors. The Order interpreter
-\emph{requires variadics and placemarkers} as defined in
-\cite{c:1999}. The Wave preprocessor \cite{wave} is also known to be
-able to preprocess Order. A standards conforming C preprocessor and
-a fast computer with plenty of memory is recommended for
-experimenting with the interpreter. Be aware that despite the
-simplicity of the C preprocessor and the existence of stable
-standard for years and years, many preprocessors are broken beyond
-repair, either strictly not conforming to the standard or employing
-macro replacement algorithms that seem to take at least exponential
-time. At the time of writing, even GNU CPP, a rather highly
-standards conforming\footnote{But \emph{not} 100\% conforming, at
-the time of writing, due to eager elimination of whitespace
-separations.} and relatively efficient preprocessor, doesn't free
-memory during macro replacement, which makes the evaluation of
-non-trivial C preprocessor metaprograms extremely inefficient.
+The Order interpreter, which fully conforms to the C standard
+\cite{c:1999}, has been developed with the GNU CPP\cite{gcc} version
+3.x and contains no workarounds for broken preprocessors. The Order
+interpreter \emph{requires variadics and placemarkers} as defined in
+the C standard \cite{c:1999}. The Wave preprocessor \cite{wave} is
+also known to be able to preprocess Order. A standards conforming C
+preprocessor and a fast computer with plenty of memory is
+recommended for experimenting with the interpreter. Be aware that
+despite the simplicity of the C preprocessor and the existence of
+stable standard for years and years, many preprocessors are broken
+beyond repair, either strictly not conforming to the standard or
+employing macro replacement algorithms that seem to take at least
+exponential time. At the time of writing, even GNU CPP, a rather
+highly standards conforming\footnote{But \emph{not} 100\%
+conforming, at the time of writing, due to eager elimination of
+whitespace separations.} and relatively efficient preprocessor,
+doesn't free memory during macro replacement, which can make the
+evaluation of non-trivial C preprocessor metaprograms extremely
+inefficient.
 
 \section{The Interactive Test Shell} %******************************
 
@@ -332,10 +334,10 @@ script also makes use of some standard commands such as \emph{grep},
 \emph{sed} and \emph{head}. You'll probably have those commands if
 you have the Bash-shell.} that can be used for writing simple
 regression tests and interactive evaluation of Order expressions.
-The \code{test-shell} script can be found in the \code{test}
+The \code{Test-shell} script can be found in the \code{test}
 directory.
 
-When you start the test shell by typing \code{./test-shell}, the
+When you start the test shell by typing \code{./Test-shell}, the
 script first tries to find a preprocessor to use and will ask you
 which preprocessor you wish to use:
 \begin{verbatim}
@@ -378,7 +380,7 @@ Term:
 You can now type an expression to evaluate. For example, you could
 type:
 \begin{verbatim}
-Term: 8add(20,3)
+Term: 8add(20, 3)
 \end{verbatim}
 and then press enter to see:
 \begin{verbatim}
@@ -402,9 +404,12 @@ Most likely your computer runs out of memory before that many tokens
 are generated.
 
 The debug command of the main menu is used to trace the execution of
-Order programs at the \emph{continuation machine} level. It is
-mostly useful for debugging the interpreter itself, but it can be
-useful for the purpose of understanding how the interpreter actually
+Order programs at the continuation machine level. The
+\emph{continuation machine} is a virtual machine implemented using C
+preprocessor macros and is the main implementation technique used in
+the Order interpreter. The debug command is mostly useful for
+debugging the interpreter itself, but it can be useful for the
+purpose of understanding how the interpreter actually
 works.\footnote{The primary purpose of the test shell is to simplify
 testing the interpreter.}
 
