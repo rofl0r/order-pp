@@ -249,7 +249,7 @@ while true ; do
         REPLY="$1"
         shift
     else
-        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (C)lean DB | (Q)uit | (D)ebug | (M)ode: $debugFlag | Eval]? "
+        read -e -n 1 -p "[(A)dd | (C)lean | (D)ebug | (M)ode: $debugFlag | (Q)uit | (S)how | (T)est | Eval]? "
     fi
     case "$REPLY" in
         ("a"|"A")
