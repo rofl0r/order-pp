@@ -1,5 +1,5 @@
-#ifndef ORDER_DEF_BOOLEAN_H_VAJK20040620
-#define ORDER_DEF_BOOLEAN_H_VAJK20040620
+#ifndef ORDER_PRELUDE_BOOLEAN_H_VAJK20040620
+#define ORDER_PRELUDE_BOOLEAN_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *
@@ -8,6 +8,7 @@
 
 #define ORDER_DEF_true 8DEF_CONST,true
 #define ORDER_SYM_true_true(P,v) ,P##v,
+
 #define ORDER_DEF_false 8DEF_CONST,false
 #define ORDER_SYM_false_false(P,v) ,P##v,
 

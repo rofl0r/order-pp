@@ -6,6 +6,11 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
+#include "order/prelude/boolean.h"
 #include "order/prelude/emit.h"
+#include "order/prelude/nil.h"
+#include "order/prelude/numeric.h"
+#include "order/prelude/seq.h"
+#include "order/prelude/tuple.h"
 
 #endif
