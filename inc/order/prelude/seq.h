@@ -6,8 +6,8 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
+#include "order/prelude/seq/adt.h"
 #include "order/prelude/seq/bindings.h"
-#include "order/prelude/seq/ctor.h"
 #include "order/prelude/seq/detail.h"
 #include "order/prelude/seq/filter.h"
 #include "order/prelude/seq/fold.h"

@@ -242,20 +242,20 @@ Sequences
     seq_first(S)               : Seq -> Any
     seq_first_n(N,S)           : Num -> Seq -> Seq
     seq_insert(I,S,X)          : Num -> Seq -> Any -> Seq
-    seq_insert_subseq(I,S,Ss)  : Num -> Seq -> Seq -> Seq
+    seq_insert_range(I,S,Ss)   : Num -> Seq -> Seq -> Seq
     seq_pop_back(S)            : Seq -> Seq
     seq_pop_front(S)           : Seq -> Seq
     seq_push_back(X,S)         : Any -> Seq -> Seq
     seq_push_front(X,S)        : Any -> Seq -> Any -> Seq
     seq_remove(I,S)            : Num -> Seq -> Seq
-    seq_remove_subseq(I0,I1,S) : Num -> Num -> Seq -> Seq
+    seq_remove_range(I0,I1,S)  : Num -> Num -> Seq -> Seq
     seq_rest(S)                : Seq -> Seq
     seq_rest_n(N,S)            : Num -> Seq -> Seq
     seq_reverse(S)             : Seq -> Seq
     seq_set(I,S,X)             : Num -> Seq -> Any -> Seq
     seq_size(S)                : Seq -> Num
     seq_split(I,S)             : Num -> Seq -> Tuple(Seq, Seq)
-    seq_subseq(I,N,S)          : Num -> Num -> Seq -> Seq
+    seq_range(I,N,S)           : Num -> Num -> Seq -> Seq
     seq_to_tuple(S)            : Seq -> Tuple
 
   Higher-order:

@@ -49,6 +49,8 @@ seq_at(0,quote((a)(b)(c)(d)))#a
 seq_at(2,quote((a)(b)(c)(d)))#c
 seq_at(3,quote((a)(b)(c)(d)))#d
 seq_filter(is_sym,seq(1,quote(not symbol),true))#(1)(true)
+seq_first(quote((a)(b)(c)))#a
+seq_first(quote((a)))#a
 seq_first_n(0,quote((1)(2)(3)(4)))#
 seq_first_n(2,quote((1)(2)(3)(4)))#(1) (2)
 seq_first_n(4,quote((1)(2)(3)(4)))#(1) (2) (3) (4)
@@ -60,13 +62,23 @@ seq_for_each_in_product( fn(X,Y,Z,emit(tuple(X,Y,Z))) , quote( (( 1 )( 2 )) (( *
 seq_insert(0,quote((1)(2)(3)(4)),quote(x))#(x) (1)(2)(3)(4)
 seq_insert(2,quote((1)(2)(3)(4)),quote(x))#(1) (2)(x) (3)(4)
 seq_insert(4,quote((1)(2)(3)(4)),quote(x))#(1) (2) (3) (4)(x)
+seq_is_nil(seq(1,2,3))#false
+seq_is_nil(seq_nil)#true
+seq_isnt_nil(nil)#false
+seq_isnt_nil(seq(1,2,3))#true
 seq_map(dec,nil)#
 seq_map(inc,quote((3)(1)(4)(1)))#(4)(2)(5)(2)
 seq_pop_back(quote((1)(2)(3)(b)))#(1) (2) (3)
 seq_pop_back(quote((1)))#
+seq_push_back(45,quote((a)(b)(c)))#(a)(b)(c)(45)
+seq_push_back(5,seq_nil)#(5)
+seq_push_front(45,seq_nil)#(45)
+seq_push_front(5,quote((a)(b)(c)))#(5)(a)(b)(c)
 seq_range(0,7,quote((1)(2)(3)(4)(5)(6)(7)))#(1) (2) (3) (4) (5) (6) (7)
 seq_range(2,0,quote((1)(2)(3)(4)(5)(6)(7)))#
 seq_range(2,3,quote((1)(2)(3)(4)(5)(6)(7)))#(3) (4) (5)
+seq_rest(quote((a)(b)(c)))#(b)(c)
+seq_rest(quote((a)))#
 seq_rest_n(0,quote((1)(2)(3)(4)))#(1)(2)(3)(4)
 seq_rest_n(3,quote((1)(2)(3)(4)))#(4)
 seq_rest_n(4,quote((1)(2)(3)(4)))#
