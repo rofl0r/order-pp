@@ -89,6 +89,6 @@ int main(void) {
 //
 // \item Modify this example so that it prints the first 50
 //       Fibonacci numbers computed using the `8fib' function.
-//       (Hint: Use the function `8for_each_in_range} and the
+//       (Hint: Use the function `8for_each_in_range' and the
 //       operator `8emit'.)
 // \end{enumerate}

@@ -26,15 +26,16 @@ function cpp-to-ltx {
 
 mkdir -p "$tmpDir" && \
 cp *.ltx *.bib "$tmpDir/" && \
-cat "../../example/array_ops.c" | cpp-to-ltx > "$tmpDir/array-ops.ltx" && \
-cat "../../example/average.h" "../../example/average.c" | cpp-to-ltx > "$tmpDir/average.ltx" && \
-cat "../../example/binary.h" "../../example/binary.c" | cpp-to-ltx > "$tmpDir/binary.ltx" && \
-cat "../../example/bottles.c" | cpp-to-ltx > "$tmpDir/bottles.ltx" && \
-cat "../../example/duffs_device.c" | cpp-to-ltx > "$tmpDir/duffs-device.ltx" && \
-cat "../../example/exp_delay.c" | cpp-to-ltx > "$tmpDir/exp-delay.ltx" && \
-cat "../../example/fibonacci.c" | cpp-to-ltx > "$tmpDir/fibonacci.ltx" && \
-cat "../../example/is_function.hpp" "../../example/is_function.cpp" | cpp-to-ltx > "$tmpDir/is-function.ltx" && \
-cat "../../example/is_integral.hpp" "../../example/is_integral.cpp" | cpp-to-ltx > "$tmpDir/is-integral.ltx" && \
+cat "../../example/array_ops.c"                                     | cpp-to-ltx > "$tmpDir/array-ops.ltx"     && \
+cat "../../example/average.h" "../../example/average.c"             | cpp-to-ltx > "$tmpDir/average.ltx"       && \
+cat "../../example/binary.h" "../../example/binary.c"               | cpp-to-ltx > "$tmpDir/binary.ltx"        && \
+cat "../../example/bottles.c"                                       | cpp-to-ltx > "$tmpDir/bottles.ltx"       && \
+cat "../../example/catch_builtin.cpp"                               | cpp-to-ltx > "$tmpDir/catch-builtin.ltx" && \
+cat "../../example/duffs_device.c"                                  | cpp-to-ltx > "$tmpDir/duffs-device.ltx"  && \
+cat "../../example/exp_delay.c"                                     | cpp-to-ltx > "$tmpDir/exp-delay.ltx"     && \
+cat "../../example/fibonacci.c"                                     | cpp-to-ltx > "$tmpDir/fibonacci.ltx"     && \
+cat "../../example/is_function.hpp" "../../example/is_function.cpp" | cpp-to-ltx > "$tmpDir/is-function.ltx"   && \
+cat "../../example/is_integral.hpp" "../../example/is_integral.cpp" | cpp-to-ltx > "$tmpDir/is-integral.ltx"   && \
 cd "$tmpDir" && \
 latex -interaction=batchmode "$doc.ltx" && \
 bibtex -terse "$doc" && \
