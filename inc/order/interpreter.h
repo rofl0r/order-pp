@@ -18,6 +18,7 @@
 #include "order/cm.h"
 #include "order/def.h"
 #include "order/eval.h"
+#include "order/pm.h"
 #include "order/prelude.h"
 
 #define ORDER_PP ORDER_PP_CM_IS_SCAN_ACTIVE(0)(,ORDER_PP_EVAL_N,ORDER_PP_EVAL_0)

@@ -7,13 +7,13 @@
 #include "order/interpreter.h"
 
 #define ORDER_PP_DEF_8builtin_types                     \
-ORDER_PP_CONST((bool)                                   \
-               (char)(signed char)(unsigned char)       \
-               (wchar_t)                                \
-               (unsigned short)(short)                  \
-               (int)(unsigned)                          \
-               (long)(unsigned long)                    \
-               (float)(double)(long double))
+ORDER_PP_CONST((,bool)                                  \
+               (,char)(,signed char)(,unsigned char)    \
+               (,wchar_t)                               \
+               (,unsigned short)(,short)                \
+               (,int)(,unsigned)                        \
+               (,long)(,unsigned long)                  \
+               (,float)(,double)(,long double))
 
 #define GEN_catch(type)                                         \
 catch (type t) {                                                \

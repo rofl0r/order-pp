@@ -43,24 +43,20 @@ template<> struct is_integral<cv type> {                \
 // evaluates to a tuple, the result is a macro expansion. In this case we
 // expand the previously defined macro to generate a specialization of the
 // is_integral<> template.
-//
-// The output is generated (emitted) backwards from right to left, but it
-// really doesn't matter in this case, as each emit produces a complete
-// specialization, so they can be generated in any desired order.
 
-ORDER_PP(8rout(8seq_for_each_in_product
-               (8fn(8CV,8TY,
-                    8emit(8quote(GEN_is_integral_specialization),
-                          8args(8CV,8TY))),
-                8seq(8quote(()(const)(volatile)(const volatile)),
+ORDER_PP(8seq_for_each_in_product
+         (8fn(8CV,8TY,
+              8emit(8quote(GEN_is_integral_specialization),
+                    8args(8CV,8TY))),
+          8seq(8quote((,)(,const)(,volatile)(,const volatile)),
+               8seq_append
+               (8quote((,char)(,wchar_t)),
+                8let(8TS,8quote((,char)(,short)(,int)(,long)),
                      8seq_append
-                     (8quote((char)(wchar_t)),
-                      8let(8TS,8quote((char)(short)(int)(long)),
-                           8seq_append
-                           (8TS,
-                            8seq_map(8fn(8TY,
-                                         8expand(8quote(unsigned),8TY)),
-                                     8TS))))))))
+                     (8TS,
+                      8seq_map(8fn(8TY,
+                                   8expand(8quote(unsigned),8TY)),
+                               8TS)))))))
 
 #undef GEN_is_integral_specialization
 

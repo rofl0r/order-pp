@@ -53,9 +53,9 @@
 #define ORDER_PP_ISNT_ZERO_08 8true
 #define ORDER_PP_ISNT_ZERO_09 8true
 
-#define ORDER_PP_DEF_8nat(...) 8NAT,ORDER_PP_TUPLE_SIZE(,0##__VA_ARGS__,),(,0##__VA_ARGS__)
+#define ORDER_PP_DEF_8nat(...) 8NAT,ORDER_PP_TUPLE_SIZE(,0##__VA_ARGS__),(,0##__VA_ARGS__)
 #define ORDER_PP_8NAT(P,e,n,d,...) (,ORDER_PP_NAT_##n d##P,P##__VA_ARGS__)
-#define ORDER_PP_NAT(...) ORDER_PP_CAT(ORDER_PP_NAT_,ORDER_PP_TUPLE_SIZE(,0##__VA_ARGS__,))(,0##__VA_ARGS__)
+#define ORDER_PP_NAT(...) ORDER_PP_CAT(ORDER_PP_NAT_,ORDER_PP_TUPLE_SIZE(,0##__VA_ARGS__))(,0##__VA_ARGS__)
 #define ORDER_PP_NAT_1(P,_0) (P##_0)
 #define ORDER_PP_NAT_2(P,_0,_1) (P##_1)(P##_0)
 #define ORDER_PP_NAT_3(P,_0,_1,_2) (P##_2)(P##_1)(P##_0)
