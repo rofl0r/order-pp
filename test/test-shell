@@ -280,7 +280,8 @@ while true ; do
         (m*|M)
         debugFlag=$((1-debugFlag)) ;;
         (*)
-        interactive-eval ;;
+        interactive-eval
+        REPLY="" ;;
     esac
     REPLY="$(echo "$REPLY" | sed 's#^.##g')"
 done
