@@ -15,8 +15,8 @@
 str_type str_intern(str_type str) {
   assert(str);
 
-  // We use a simple linked list to store the interned strings. This isn't
-  // meant to be an industry strength implementation!
+  // We use a simple linked list to store the interned strings. This
+  // isn't meant to be an industry strength implementation!
   typedef struct str_entry {
     struct str_entry* next;
     str_type datum;

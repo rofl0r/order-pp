@@ -5,8 +5,8 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#include "order/interpreter.h"
 #include "checked_malloc.h"
+#include "order/interpreter.h"
 
 #define ORDER_PP_DEF_8DATATYPE_import_datatypes ORDER_PP_FN                     \
 (8fn(8TS,                                                                       \

@@ -5,9 +5,9 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#include "order/interpreter.h"
 #include "error.h"
 #include "str.h"
+#include "order/interpreter.h"
 
 #define ORDER_PP_DEF_8BRD_PARSER_import_terminals ORDER_PP_MACRO(8import_tuple_seq)
 
@@ -22,48 +22,50 @@
                                   8import_tuple_seq(8tuple_at(2,8NT))))),               \
               8import_tuple_seq(8NS))))
 
-#define BRD_PARSER(qr, name, skip_fn, match_fn, terminals, nonterminals)\
-ORDER_PP(8seq_for_each(8fn(8ST,                                         \
-                           8emit(8quote(BRD_PARSER_GEN_sym_typedef),    \
-                                 8tuple(8tuple_at(0,8ST),               \
-                                        8tuple_at(1,8ST)))),            \
-                       8seq_append(8BRD_PARSER_import_terminals(8quote(terminals)),     \
-                                   8BRD_PARSER_import_nonterminals(8quote(nonterminals)))))\
-                                                                        \
-ORDER_PP(8seq_for_each(8fn(8NT,                                         \
-                           8emit(8quote(BRD_PARSER_GEN_prototype),      \
-                                 8tuple(8tuple_at(0,8NT)))),            \
-                       8BRD_PARSER_import_nonterminals(8quote(nonterminals))))             \
-                                                                        \
-ORDER_PP(8emit(8quote(BRD_PARSER_GEN_entry_point),                      \
-               8tuple(8quote(qr),                                       \
-                      8quote(name),                                     \
-                      8tuple_at(0,8seq_at(0,8BRD_PARSER_import_nonterminals(8quote(nonterminals)))))))\
-                                                                        \
-inline void                                                             \
-ORDER_PP_FRESH_ID(skip)(str_type *ORDER_PP_FRESH_ID(pstr)) {            \
-  skip_fn(ORDER_PP_FRESH_ID(pstr));                                     \
-}                                                                       \
-                                                                        \
-ORDER_PP(8seq_for_each(8fn(8TE,                                         \
-                           8emit(8quote(BRD_PARSER_GEN_terminal),       \
-                                 8tuple(8tuple_at(0,8TE),               \
-                                        8tuple_at(2,8TE)))),            \
-                       8BRD_PARSER_import_terminals(8quote(terminals))))                \
-                                                                        \
-inline _Bool                                                            \
-ORDER_PP_FRESH_ID(match)(str_type *ORDER_PP_FRESH_ID(pstr),             \
-                         str_type ORDER_PP_FRESH_ID(maybe_prefix)) {    \
-  ORDER_PP_FRESH_ID(skip)(ORDER_PP_FRESH_ID(pstr));                     \
-                                                                        \
-  return match_fn(ORDER_PP_FRESH_ID(pstr),                              \
-                  ORDER_PP_FRESH_ID(maybe_prefix));                     \
-}                                                                       \
-                                                                        \
-ORDER_PP(8seq_for_each(8fn(8NT,                                         \
-                           8emit(8quote(BRD_PARSER_GEN_nonterminal),    \
-                                 8tuple(8tuple_at(0,8NT),               \
-                                        8tuple_at(2,8NT)))),            \
+#define BRD_PARSER(qr, name, skip_fn, match_fn, terminals, nonterminals)        \
+ORDER_PP(8seq_for_each                                                          \
+         (8fn(8ST,                                                              \
+              8emit(8quote(BRD_PARSER_GEN_sym_typedef),                         \
+                    8tuple(8tuple_at(0,8ST),                                    \
+                           8tuple_at(1,8ST)))),                                 \
+          8seq_append                                                           \
+          (8BRD_PARSER_import_terminals(8quote(terminals)),                     \
+           8BRD_PARSER_import_nonterminals(8quote(nonterminals)))))             \
+                                                                                \
+ORDER_PP(8let(8NS, 8BRD_PARSER_import_nonterminals(8quote(nonterminals)),       \
+              8do(8seq_for_each(8fn(8NT,                                        \
+                                    8emit(8quote(BRD_PARSER_GEN_prototype),     \
+                                          8tuple(8tuple_at(0,8NT)))),           \
+                                8NS),                                           \
+                  8emit(8quote(BRD_PARSER_GEN_entry_point),                     \
+                        8tuple(8quote(qr),                                      \
+                               8quote(name),                                    \
+                               8tuple_at(0,8seq_at(0,8NS)))))))                 \
+                                                                                \
+inline void                                                                     \
+ORDER_PP_FRESH_ID(skip)(str_type *ORDER_PP_FRESH_ID(pstr)) {                    \
+  skip_fn(ORDER_PP_FRESH_ID(pstr));                                             \
+}                                                                               \
+                                                                                \
+ORDER_PP(8seq_for_each(8fn(8TE,                                                 \
+                           8emit(8quote(BRD_PARSER_GEN_terminal),               \
+                                 8tuple(8tuple_at(0,8TE),                       \
+                                        8tuple_at(2,8TE)))),                    \
+                       8BRD_PARSER_import_terminals(8quote(terminals))))        \
+                                                                                \
+inline _Bool                                                                    \
+ORDER_PP_FRESH_ID(match)(str_type *ORDER_PP_FRESH_ID(pstr),                     \
+                         str_type ORDER_PP_FRESH_ID(maybe_prefix)) {            \
+  ORDER_PP_FRESH_ID(skip)(ORDER_PP_FRESH_ID(pstr));                             \
+                                                                                \
+  return match_fn(ORDER_PP_FRESH_ID(pstr),                                      \
+                  ORDER_PP_FRESH_ID(maybe_prefix));                             \
+}                                                                               \
+                                                                                \
+ORDER_PP(8seq_for_each(8fn(8NT,                                                 \
+                           8emit(8quote(BRD_PARSER_GEN_nonterminal),            \
+                                 8tuple(8tuple_at(0,8NT),                       \
+                                        8tuple_at(2,8NT)))),                    \
                        8BRD_PARSER_import_nonterminals(8quote(nonterminals))))
 
 #define BRD_PARSER_GEN_sym_typedef(P, sym, type)   \
@@ -74,17 +76,18 @@ static _Bool ORDER_PP_FRESH_ID(P##sym)          \
      (str_type *ORDER_PP_FRESH_ID(pstr),        \
       ORDER_PP_FRESH_ID(sym##_type) *P##sym);
 
-#define BRD_PARSER_GEN_entry_point(P, qr, name, sym)               \
-qr _Bool name(str_type *ORDER_PP_FRESH_ID(pstr),                \
-              ORDER_PP_FRESH_ID(sym##_type) *sym) {             \
+#define BRD_PARSER_GEN_entry_point(P, qr, name, sym)            \
+P##qr _Bool P##name(str_type *ORDER_PP_FRESH_ID(pstr),          \
+                    ORDER_PP_FRESH_ID(sym##_type) *P##sym) {    \
   assert(ORDER_PP_FRESH_ID(pstr));                              \
   assert(*ORDER_PP_FRESH_ID(pstr));                             \
-  assert(sym);                                                  \
-  return ORDER_PP_FRESH_ID(sym)(ORDER_PP_FRESH_ID(pstr), sym);  \
+  assert(P##sym);                                               \
+  return ORDER_PP_FRESH_ID(P##sym)(ORDER_PP_FRESH_ID(pstr),     \
+                                   P##sym);                     \
 }
 
 #define BRD_PARSER_GEN_terminal(P, sym, parse)          \
-inline _Bool ORDER_PP_FRESH_ID(sym)                     \
+inline _Bool ORDER_PP_FRESH_ID(P##sym)                  \
      (str_type *ORDER_PP_FRESH_ID(pstr),                \
       ORDER_PP_FRESH_ID(sym##_type) *P##sym) {          \
   ORDER_PP_FRESH_ID(skip)(ORDER_PP_FRESH_ID(pstr));     \
