@@ -6,7 +6,8 @@
 //    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_8EVAL_REF(P,e,s,G,K,...) ORDER_PP_CM_INVOKE(P##K,ORDER_PP_8EVAL_REF_B(ORDER_PP_ENV_REF_##s e##P)),P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_REF_B(...)  ORDER_PP_TUPLE_AT_1(,__VA_ARGS__,ORDER_PP_ERROR_UNBOUND_VARIABLE(!),)
+#define ORDER_PP_8EVAL_REF_B(x)  ORDER_PP_TUPLE_AT_1(,x,ORDER_PP_ERROR_UNBOUND_VARIABLE(!),)
+
 #define ORDER_PP_ERROR_UNBOUND_VARIABLE()
 
 /*
