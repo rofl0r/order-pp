@@ -2,7 +2,7 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_DEF_8let(bs,...) 8EVAL_LET,ORDER_PP_SEQ_AT_0 bs(,0let),ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),
+#define ORDER_PP_DEF_8let(bs,...) 8EVAL_LET,ORDER_PP_SEQ_AT_0 bs(,0let),ORDER_PP_IS_TUPLE_SIZE_1(,0##__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),
 
 #ifdef ORDER_PP_DEBUG
 #define ORDER_PP_8EVAL_LET(P,e,s0,i0,bs,t,G,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##i0())(,P##e,ORDER_PP_DEF_##i0,8EVAL_LET_LOOP,P##s0,,P##e,ORDER_PP_SEQ_AT_0 bs##P,P##t,P##__VA_ARGS__)
