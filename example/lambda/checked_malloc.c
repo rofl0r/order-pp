@@ -9,6 +9,7 @@
 #else
 #include <malloc.h>
 #define GC_MALLOC malloc
+#define GC_INIT() ((void)0)
 #endif
 
 void* checked_malloc(ptrdiff_t size) {
