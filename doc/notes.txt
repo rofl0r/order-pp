@@ -288,6 +288,17 @@ Preprocessing
 
    8stringize(x)            : a -> StringLiteral
 
+Tokens
+------
+
+  8has_tuples(t) : Tokens -> Bool
+
+  8take_tuples(t) : Tokens -> Seq(Tuple)
+  8drop_tuples(t) : Tokens -> Tokens
+
+  8tokens_to_seq(t) : Tokens -> Seq
+  8tokens_to_seq_with(m, t) : Catenable -> Tokens -> Seq
+
 Symbols
 -------
 
@@ -403,10 +414,18 @@ Sequences
 Tuples
 ------
 
+  Predicates:
+
+   8is_tuple(x) : a -> Bool
+
+  Operators:
+
+   8tuple_append(t0, t1, ..., tN) : Tuple+ -> Tuple
+
+  First-order:
+
   -8singleton(a)        : a -> Tuple(a)
    8pair(a, b)          : a -> b -> Tuple(a, b)
-
-   8is_tuple(x)         : a -> Bool
 
    8tuple_at(i, t)      : Num -> Tuple -> a        -where 8less(i, 8tuple_size(t))
    8tuple_at_[0,9](t)   : Tuple -> a               -where 8less(i, 8tuple_size(t))
@@ -414,9 +433,15 @@ Tuples
    8tuple_drop(n, t)    : Num -> Tuple -> Tuple    -where 8less(n, 8tuple_size(t))
    8tuple_drop_[1-9](t) : Tuple -> Tuple           -where 8less(n, 8tuple_size(t))
 
+   8tuple_join(l, r)    : Tuple -> Tuple -> Tuple
+
    8tuple_size(t)       : Tuple -> Num
 
   -8tuple_take(n, t)    : Num -> Tuple -> Tuple    -where 8less_eq(n, 8tuple_size(t))
   -8tuple_take_[1-9](t) : Tuple -> Tuple           -where 8less_eq(n, 8tuple_size(t))
 
    8tuple_to_seq(t)     : Tuple(a+) -> Seq(a)
+
+  Higher-order:
+
+   8tuple_map(f, t) : (a -> b) -> Tuple(a+) -> Tuple(b+)
