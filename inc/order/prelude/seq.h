@@ -217,8 +217,8 @@
 #define ORDER_PP_8SEQ_FILTER_B(P,b,f,x,out,...) ORDER_PP_8SEQ_FILTER_O(,P##f,ORDER_PP_LEFT(,out##P)ORDER_PP_WHEN_##b(,(P##x)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_fold ORDER_PP_FN_CM(3,8SEQ_FOLD)
-#define ORDER_PP_8SEQ_FOLD(P,f,x,s,...) ORDER_PP_8SEQ_FOLD_3(,P##x,P##f,P##s,P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_FOLD_3(P,x,f,s,...) (,P##x,ORDER_PP_SEQ_IS_NIL(,P##s)(,,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##s),8SEQ_FOLD_3,P##f,ORDER_PP_EAT s##P,)P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_FOLD(P,f,x,s,...) (,P##x,8SEQ_FOLD_O,P##f,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_OPEN_A P##s),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_FOLD_O(P,y,f,b,x,...) (,P##y,ORDER_PP_WHEN_##b(,ORDER_PP_OPEN f##P,8AP,P##x,8SEQ_FOLD_O,P##f,)P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_for_all ORDER_PP_FN_CM(2,8SEQ_FOR_ALL)
 #define ORDER_PP_8SEQ_FOR_ALL(P,f,s,...) (,ORDER_PP_SEQ_IS_NIL(,P##s)(,8true,ORDER_PP_SEQ_AT(,0,P##s),ORDER_PP_OPEN f##P,8SEQ_FOR_ALL_4,P##f,ORDER_PP_SEQ_AT_1 P##s),P##__VA_ARGS__)
