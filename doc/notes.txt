@@ -333,8 +333,6 @@ Sequences
    8seq_split(i, s)               : Num -> Seq(a) -> Tuple(Seq(a), Seq(a))
    8seq_join(ls, rs)              : Seq(a) -> Seq(a) -> Seq(a)
 
-  -8seq_zip(ls, rs)               : Seq(a) -> Seq(b) -> Seq(Tuple(a,b))
-
    8seq_iota(i0, i1)              : Num -> Num -> Seq(Num)
 
    8seq_cat(s)                    : Seq(Catenable) -> Catenable
@@ -387,6 +385,8 @@ Sequences
   -8seq_union(pr, los, ros)          : (a -> a -> Bool) -> Seq(a) -> Seq(a) -> Seq(a)
 
   -8seq_bin_search(pr, s)            : (a -> Bool) -> Seq(a) -> Tuple(Seq(a), Seq(a))
+
+  -8seq_zip_with(fn, ss)             : (Any+ -> Any) -> Seq(Seq) -> Seq
 
 Tuples
 ------
