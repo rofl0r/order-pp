@@ -16,6 +16,7 @@ extern void error(const char* fmt, ...);
 #define ERROR_exit(...)                         \
 do {                                            \
   error(__VA_ARGS__);                           \
-} while (1)
+  while (1) {}                                  \
+} while (0)
 
 #endif
