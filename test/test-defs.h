@@ -5,6 +5,9 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
+#define ORDER_PP_DEF_8diverge 8DIVERGE,
+#define ORDER_PP_8DIVERGE(...) (,,8DIVERGE,)
+
 #define ORDER_PP_DEF_8act(...) 8DEF_CONST,ACT(__VA_ARGS__),
 #define ACT(...) TCA ORDER_PP_BLOCK(__VA_ARGS__)__VA_ARGS__
 #define TCA(...) ACT ORDER_PP_BLOCK(__VA_ARGS__)__VA_ARGS__
