@@ -2,8 +2,8 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_SEQ_SPLIT_AT_0 ,
-#define ORDER_PP_SEQ_SPLIT_AT_1(x) (x),
+#define ORDER_PP_SEQ_SPLIT_AT_0 ORDER_PP_EAT,
+#define ORDER_PP_SEQ_SPLIT_AT_1(x) (x)ORDER_PP_EAT,
 #define ORDER_PP_SEQ_SPLIT_AT_2(x) (x)ORDER_PP_SEQ_SPLIT_AT_1
 #define ORDER_PP_SEQ_SPLIT_AT_3(x) (x)ORDER_PP_SEQ_SPLIT_AT_2
 #define ORDER_PP_SEQ_SPLIT_AT_4(x) (x)ORDER_PP_SEQ_SPLIT_AT_3

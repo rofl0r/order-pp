@@ -313,7 +313,7 @@ Sequences
    8seq_pop_at(i, s)              : Num -> Seq -> Seq
    8seq_pop_back(s)               : Seq -> Seq
    8seq_pop_front(s)              : Seq -> Seq
-  -8seq_pop_range(i, n, s)        : Num -> Num -> Seq -> Seq
+   8seq_pop_range(i, n, s)        : Num -> Num -> Seq -> Seq
 
    8seq_push_at(i, s, x)          : Num -> Seq -> a -> Seq
    8seq_push_back(x, s)           : a -> Seq -> Seq
