@@ -5,8 +5,6 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_PM_OUTPUT(s) ORDER_PP_CM_EMIT_ID ORDER_PP_BLOCK()ORDER_PP_CM_SCAN(ORDER_PP_CM_REV_OUT_A(9,)s(9,)(0,))(0,0,)
-
 #define ORDER_PP_PM(...) ORDER_PP_PM_B(ORDER_PP_PM_UP_0(__VA_ARGS__))
 #define ORDER_PP_PM_B(x) ORDER_PP_PM_ERROR(,x
 

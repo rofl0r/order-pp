@@ -17,6 +17,7 @@
 //
 //   8plus(1, 8exit(8nat_to_lit(2)), 3) ==> 2
 #define ORDER_PP_DEF_8exit ORDER_PP_FN_CM(1,8EXIT)
+#define ORDER_PP_8EXIT(P,x,...) ,x##P)
 
 #ifndef ORDER_PP_NDEBUG
 #define ORDER_PP_DEF_8with_assert(cond,body) ORDER_PP_MACRO(8if(cond,body,8exit(8quote(8Assert_Failed(8with_assert(cond,body))))))
