@@ -1,0 +1,185 @@
+#!/bin/bash
+
+# (C) Copyright Vesa Karvonen 2004.
+#
+#    Distributed under the Boost Software License, Version 1.0.
+
+source test-functions
+
+dbFile=test.db
+
+function sed-from {
+    local tmp="$1"
+    shift 1
+    echo "$tmp" | sed "$@"
+}
+
+function test-cnt {
+    cat $dbFile | wc -l | sed 's# ##g'
+}
+
+function get-line {
+    head -n $(($1+1)) | tail -n1
+}
+
+function get-line-from {
+    echo "$2" | get-line $1
+}
+
+function get-test {
+    cat $dbFile | get-line $1
+}
+
+function add-test {
+    echo "$1#$2" >> $dbFile
+    local tmp="$(cat $dbFile)"
+    echo "$tmp" | sort | uniq > $dbFile
+}
+
+function remove-test {
+    lines=$(test-cnt)
+    before=$(head -n $1 $dbFile)
+    after=$(tail -n $(($lines-1-$1)) $dbFile)
+    echo -n > $dbFile
+    if test "$before" != "" ; then echo "$before" >> $dbFile ; fi
+    if test "$after" != "" ; then echo "$after" >> $dbFile ; fi
+}
+
+function replace-test {
+    lines=$(test-cnt)
+    before=$(head -n $1 $dbFile)
+    after=$(tail -n $(($lines-1-$1)) $dbFile)
+    echo -n > $dbFile
+    if test "$before" != "" ; then echo "$before" >> $dbFile ; fi
+    add-test "$2" "$3"
+    if test "$after" != "" ; then echo "$after" >> $dbFile ; fi
+}
+
+function preprocess-all-tests {
+    sed -e 's|#.*||g' \
+        -e 's#^#ORDER(#g' \
+        -e 's#$#)#g' \
+        $dbFile | \
+    eval-in | \
+    tail -n $(test-cnt)
+}
+
+function run-tests {
+    echo "Running $(test-cnt) tests..."
+
+    allResult=$(time preprocess-all-tests)
+    allTerm=$(sed -e 's|#.*||g' $dbFile)
+    allExpected=$(sed -e 's|[^#]*#||g' $dbFile)
+
+    if test "$allResult" != "$allExpected" ; then
+        echo -n "Errors"
+        for ((i=0, n=$(test-cnt) ; i < n ; ++i )) ; do
+            result=$(get-line-from $i "$allResult")
+            term=$(get-line-from $i "$allTerm")
+            expected=$(get-line-from $i "$allExpected")
+
+            if test "$expected" != "$result" ; then
+                echo
+                echo "Term:     $term"
+                echo "Expected: $expected"
+                echo "Result:   $result"
+                read -e -n 1 -p "[(U)se result | (R)emove test | (S)kip all | Skip]? "
+                case "$REPLY" in
+                    ("u"|"U")
+                        echo -n "Using result"
+                        replace-test $i "$term" "$result" ;;
+                    ("r"|"R")
+                        echo -n "Removing test"
+                        remove-test $i
+                        i=$(($i-1)) ;;
+                    ("s"|"S")
+                        echo "Skipping all"
+                        i=$n ;;
+                    (*)
+                        echo "Skipping" ;;
+                esac
+            else
+            echo -n .
+            fi
+        done
+    fi
+}
+
+function interactive-eval {
+    read -e -p "Term: "
+    if test "$REPLY" != "" ; then
+        term="$REPLY"
+    else
+        echo "Term: $term"
+    fi
+    result=$(time eval-term "$term" | sed -e 's#\\(,#\n(,#g')
+    resultChars=$(echo "$result" | wc -m | sed 's# ##g')
+    resultLines=$(echo "$result" | wc -l | sed 's# ##g')
+    if test $(($COLUMNS-9)) -lt $resultChars ; then
+        echo "The output contains $resultChars characters on $resultLines lines!"
+        read -e -n 1 -p "[(D)isplay | (L)ess | Skip]? "
+        case "$REPLY" in
+            ("d"|"D")
+                echo "Result: $result" ;;
+            ("l"|"L")
+                echo "Result: $result" | less ;;
+            (*)
+                echo "Skipping" ;;
+        esac
+    else
+        echo "Result: $result"
+    fi
+}
+
+function interactive-add-test {
+    interactive-eval
+    read -e -n 1 -p "Add [(N)o | Yes]? "
+    case "$REPLY" in
+        ("n"|"N")
+            echo "Not added.";;
+        (*)
+            add-test "$term" "$result"
+            echo "Added." ;;
+    esac
+}
+
+echo "Database: $dbFile"
+if ! cp -r $dbFile $dbFile.bak ; then
+    echo "Backup failed. Terminating."
+    exit
+else
+    echo "Backed up database to: $dbFile.bak"
+fi
+
+IFS=''
+
+run-tests
+
+while true ; do
+    if test "$#" -gt 0 ; then
+        REPLY="$1"
+        shift
+    else
+        read -e -n 1 -p "[(A)dd | (T)est all | (S)how all | (Q)uit | (D)ebug trace toggle | Eval]? "
+    fi
+    case "$REPLY" in
+        ("a"|"A")
+            interactive-add-test ;;
+        ("t"|"T")
+            debugSwitch=OFF
+            run-tests ;;
+        ("s"|"S")
+            less $dbFile ;;
+        ("-q"|"q"|"Q")
+            exit ;;
+        ("d"|"D")
+            if test "$debugSwitch" = ON ; then
+                debugSwitch=OFF
+            else
+                debugSwitch=ON
+            fi
+            echo "Debug trace $debugSwitch." ;;
+        (*)
+            interactive-eval ;;
+    esac
+done

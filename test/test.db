@@ -1,0 +1,6 @@
+ap(ap(ap(ap(fn(A,B,A),fn(C,D,C),fn(E,F,E)),ap(fn(G,H,G),fn(I,J,I),fn(K,L,K)),ap(fn(M,N,M),fn(O,P,O),fn(Q,R,Q))),val(i)),val(j))#i
+ap(ap(ap(fn(X,Y,Z,Z),val(x)),val(y)),val(z))#z
+ap(fn(A,B,C,D,E,F,G,H,H),val(a),val(b),val(c),val(d),val(e),val(f),val(g),val(h))#h
+ap(fn(X,X),val(x))#x
+ap(fn(X,Y,X),val(x),val(y))#x
+val(0)#0

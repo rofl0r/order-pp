@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# (C) Copyright Vesa Karvonen 2004.
+#
+#    Distributed under the Boost Software License, Version 1.0.
+
+TIMEFORMAT='Time: %R seconds'
+
+debugSwitch=OFF
+
+if test -f .preprocessor ; then
+    preprocessor=$(cat .preprocessor)
+else
+    availablePreprocessors=''
+
+    if cpp --help &> /dev/null ; then
+        availablePreprocessors="[cpp] $availablePreprocessors"
+    fi
+    if wave -v &> /dev/null ; then
+        availablePreprocessors="[wave] $availablePreprocessors"
+    fi
+
+    read -e -p "Choose preprocessor $availablePreprocessors? "
+    echo "$REPLY" > .preprocessor
+    echo "Wrote $REPLY to the .preprocessor file."
+    preprocessor=$(cat .preprocessor)
+fi
+
+
+function eval-in-cpp {
+    cpp -P \
+        -DORDER_CM_TRACE_$debugSwitch \
+        -I "../inc/" \
+        -include "../inc/order/interpreter.h" \
+        -include "test-defs.h"
+}
+
+function eval-in-wave {
+    wave --c++0x \
+         --include "../inc/" \
+         --forceinclude "order/interpreter.h" \
+         --forceinclude "test-defs.h"
+}
+
+function eval-in {
+    eval-in-$preprocessor |
+    sed -e 's#  *# #g' \
+        -e 's# *\([(,)]\) *#\1#g' \
+        -e 's#^ ##g' \
+        -e 's# $##g'
+}
+
+function eval-term {
+    echo "ORDER($1)" | eval-in | tail -n1
+}
