@@ -212,9 +212,8 @@
 #define ORDER_PP_8SEQ_EXISTS_4(P,b,f,x,xs,...) (,ORDER_PP_SELECT_4(ORDER_PP_,IF_##b,SEQ_IS_NIL(,P##xs))(,8true,8true,ORDER_PP_LEFT(,P##x,ORDER_PP_OPEN f##P),P##x,ORDER_PP_OPEN f##P,8SEQ_EXISTS_4,P##f,ORDER_PP_SEQ_AT_0 P##xs),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_filter ORDER_PP_FN_CM(2,8SEQ_FILTER)
-#define ORDER_PP_8SEQ_FILTER(P,f,s,...) (,P##f,8SEQ_FILTER_O,,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_OPEN_A P##s),P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_FILTER_O(P,f,out,b,x,...) (,ORDER_PP_WHEN_##b(,P##x,ORDER_PP_OPEN f##P,8SEQ_FILTER_B,P##f,P##x,)P##out,P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_FILTER_B(P,b,f,x,out,...) ORDER_PP_8SEQ_FILTER_O(,P##f,ORDER_PP_LEFT(,out##P)ORDER_PP_WHEN_##b(,(P##x)),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_FILTER(P,f,s,...) (,0,8SEQ_FILTER_O,,P##f,,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_OPEN_A P##s),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_FILTER_O(P,b0,x0,f,out,b,x,...) (,ORDER_PP_WHEN_##b(,P##x,ORDER_PP_OPEN f##P,8SEQ_FILTER_O,P##x,P##f,)ORDER_PP_LEFT(,out##P)ORDER_PP_WHEN_##b0(,(P##x0)),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_fold ORDER_PP_FN_CM(3,8SEQ_FOLD)
 #define ORDER_PP_8SEQ_FOLD(P,f,x,s,...) (,P##x,8SEQ_FOLD_O,P##f,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_OPEN_A P##s),P##__VA_ARGS__)
@@ -262,9 +261,8 @@
 #define ORDER_PP_8SEQ_PARTITION_SORT_D(P,sl,m,sr,...) (,P##sl(P##m)P##sr,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_select ORDER_PP_FN_CM(3,8SEQ_SELECT)
-#define ORDER_PP_8SEQ_SELECT(P,f,x,s,...) ORDER_PP_8SEQ_SELECT_3(,P##x,P##s,P##f,P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_SELECT_3(P,y,xs,f,...) (,P##y,ORDER_PP_SEQ_IS_NIL(,P##xs)(,,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##xs),8SEQ_SELECT_B,P##y,ORDER_PP_SEQ_AT_0 xs##P,P##f,)P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_SELECT_B(P,b,y,x,...) ORDER_PP_CM_INVOKE(8SEQ_SELECT_3,ORDER_PP_IF_##b(,P##x,P##y)),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_SELECT(P,f,x,s,...) ORDER_PP_8SEQ_SELECT_L(,,,P##x,P##s,P##f,P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_SELECT_L(P,b,y,x,xs,f,...) (,ORDER_PP_IF_##b(,P##x,P##y),ORDER_PP_SEQ_IS_NIL(,P##xs)(,,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##xs),8SEQ_SELECT_L,ORDER_PP_IF_##b(,P##x,P##y),ORDER_PP_SEQ_AT_0 xs##P,P##f,)P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8seq_sort ORDER_PP_FN_CM(2,8SEQ_MERGE_SORT)
 
