@@ -313,6 +313,9 @@ Sequences
 
   Predicates:
 
+   8is_seq(x) : a -> Bool
+   8is_vseq(x) : a -> Bool
+
    8seq_is_nil(s)                 : Seq -> Bool
    8seq_isnt_nil(s)               : Seq -> Bool
 

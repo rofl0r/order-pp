@@ -3,6 +3,12 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.)
 
+#define ORDER_PP_DEF_8is_seq ORDER_PP_FN_CM(1,8IS_SEQ,0IS_ANY)
+#define ORDER_PP_8IS_SEQ(P,x,...) (,ORDER_PP_0IS_SEQ(,P##x)(,8true,8false),P##__VA_ARGS__)
+
+#define ORDER_PP_DEF_8is_vseq ORDER_PP_FN_CM(1,8IS_VSEQ,0IS_ANY)
+#define ORDER_PP_8IS_VSEQ(P,x,...) (,ORDER_PP_0IS_VSEQ(,P##x)(,8true,8false),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8seq_append ORDER_PP_OP_LEFT_NATIVE(9SEQ_JOIN,0IS_SEQ)
 
 #define ORDER_PP_DEF_8seq_at ORDER_PP_FN_NATIVE(2,9SEQ_AT,0IS_NUM,0IS_SEQ_CONS)
@@ -372,9 +378,14 @@ ORDER_PP_FN(8fn(8M, 8F,                                 \
 
 // Details
 
-#define ORDER_PP_0IS_SEQ(P,x) ORDER_PP_OR(or)(ORDER_PP_0IS_SEQ_CONS(,P##x))(or)(ORDER_PP_IS_NIL(,P##x))()
-#define ORDER_PP_0IS_SEQ_CONS(P,x) ORDER_PP_AND(and)(ORDER_PP_IS_EDIBLE(,P##x))(and)(ORDER_PP_FX(IS_TUPLE_SIZE_1,(,ORDER_PP_REM P##x)))()
-#define ORDER_PP_0IS_VSEQ(P,x) ORDER_PP_OR(or)(ORDER_PP_IS_EDIBLE(,P##x))(or)(ORDER_PP_IS_NIL(,P##x))()
+#define ORDER_PP_0IS_SEQ(P,x) ORDER_PP_FX(IS_NIL,(,ORDER_PP_TUPLES_TERMINATE(ORDER_PP_0IS_SEQ_A P##x)))
+#define ORDER_PP_0IS_SEQ_A(...) ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,,0)ORDER_PP_0IS_SEQ_B
+#define ORDER_PP_0IS_SEQ_B(...) ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,,0)ORDER_PP_0IS_SEQ_A
+#define ORDER_PP_ORDER_PP_0IS_SEQ_A
+#define ORDER_PP_ORDER_PP_0IS_SEQ_B
+
+#define ORDER_PP_0IS_SEQ_CONS(P,x) ORDER_PP_AND(and)(ORDER_PP_IS_EDIBLE(,P##x))(and)(ORDER_PP_0IS_SEQ(,P##x))()
+#define ORDER_PP_0IS_VSEQ(P,x) ORDER_PP_FX(IS_NIL,(,ORDER_PP_TUPLES_TERMINATE(ORDER_PP_DROP_TUPLES_A x##P)))
 
 #define ORDER_PP_SEQ_HEAD_2(x) x,ORDER_PP_SEQ_AT_0
 

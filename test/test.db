@@ -329,7 +329,9 @@
 8tuple(8is_0(0),8is_0(1),8is_0(8nat(1,2,3)))#(8true,8false,8false)#
 8tuple(8is_lit(8true),8is_lit(0),8is_lit(100),8is_lit(8tuple(1)),8is_lit(8(1000)))#(8false,8true,8true,8false,8false)#
 8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(8false,8true,8false,8false)#
+8tuple(8is_seq(8nil),8is_seq(8((1)(2)(3)(4))),8is_seq(8(+)),8is_seq(8((+)()(1,2)(a,b,c))),8is_seq(8((1)(+)(a)^)))#(8true,8true,8false,8false,8false)#
 8tuple(8is_tuple(8nil),8is_tuple(5),8is_tuple(8(+)),8is_tuple(8((a)b)),8is_tuple(8((a)(b))),8is_tuple(8((1,2))))#(8false,8false,8false,8false,8false,8true)#
+8tuple(8is_vseq(8nil),8is_vseq(8(+)),8is_vseq(8((+,-)()(1,2)(a,b,c))),8is_vseq(8((1,2)(+,-)(a,b)^)))#(8true,8false,8true,8false)#
 8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(8false,8true,8true)#
 8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(8nat(1,2,3)))#(8false,8true,8true)#
 8tuple(8less(4,5),8less(5,5),8less(5,4))#(8true,8false,8false)#
