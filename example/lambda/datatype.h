@@ -22,15 +22,15 @@ ORDER_PP(8seq_for_each                                          \
                     8DT)),                                      \
           8vseq_to_seq(8quote(datatypes))))
 
-#define DATATYPE_GEN_datatype(type_name, variants)                      \
+#define DATATYPE_GEN_datatype(P, type_name, variants, ...)              \
 ORDER_PP(8seq_for_each                                                  \
          (8fn(8V,                                                       \
               8seq_for_each_with_idx                                    \
               (8fn(8I, 8T,                                              \
                    8emit(8quote(DATATYPE_GEN_field_typedef),            \
-                         8tuple(8tuple_at(0,8V),                        \
-                                8I,                                     \
-                                8T))),                                  \
+                         8args(8tuple_at(0,8V),                         \
+                               8I,                                      \
+                               8T))),                                   \
                8tuple_at(1,8V))),                                       \
           8vseq_to_seq(8quote(variants))))                              \
                                                                         \
@@ -39,7 +39,7 @@ struct type_name {                                                      \
     ORDER_PP(8seq_for_each                                              \
              (8fn(8V,                                                   \
                   8emit(8quote(DATATYPE_GEN_tag),                       \
-                        8tuple(8tuple_at(0,8V)))),                      \
+                        8args(8tuple_at(0,8V)))),                       \
               8vseq_to_seq(8quote(variants))))                          \
   } tag;                                                                \
                                                                         \
@@ -56,9 +56,9 @@ struct type_name {                                                      \
 ORDER_PP(8seq_for_each                                                  \
          (8fn(8V,                                                       \
               8emit(8quote(DATATYPE_GEN_ctor),                          \
-                    8tuple(8quote(type_name),                           \
-                           8tuple_at(0,8V),                             \
-                           8seq_size(8tuple_at(1,8V))))),               \
+                    8args(8quote(type_name),                            \
+                          8tuple_at(0,8V),                              \
+                          8seq_size(8tuple_at(1,8V))))),                \
           8vseq_to_seq(8quote(variants))))
 
 #define DATATYPE_GEN_tag(ctor_name) DATATYPE_TAG_##ctor_name,
@@ -66,12 +66,12 @@ ORDER_PP(8seq_for_each                                                  \
 #define DATATYPE_GEN_field_typedef(ctor_name, idx, type)        \
 typedef type DATATYPE_FIELD_##idx##_TYPE_##ctor_name;
 
-#define DATATYPE_GEN_variant_struct(ctor_name, field_types)     \
-struct {                                                        \
-  ORDER_PP(8seq_for_each_with_idx                               \
-           (8fn(8I, 8T,                                         \
-                8emit(8T, 8cat(8quote(_), 8I), 8quote(;))),     \
-            8quote(field_types)))                               \
+#define DATATYPE_GEN_variant_struct(P, ctor_name, field_types, ...)     \
+struct {                                                                \
+  ORDER_PP(8seq_for_each_with_idx                                       \
+           (8fn(8I, 8T,                                                 \
+                8emit(8T, 8cat(8quote(_), 8I), 8quote(;))),             \
+            8quote(field_types)))                                       \
 } ctor_name;
 
 #define DATATYPE_GEN_ctor(type_name, ctor_name, field_cnt)      \
@@ -79,7 +79,7 @@ inline type_name                                                \
 ctor_name(ORDER_PP(8for_each_in_range                           \
                    (8fn(8I,                                     \
                         8emit(8quote(DATATYPE_GEN_ctor_arg),    \
-                              8tuple(8quote(ctor_name), 8I))),  \
+                              8args(8quote(ctor_name), 8I))),   \
                     0,                                          \
                     field_cnt))) {                              \
   struct type_name* ORDER_PP_FRESH_ID(result) =                 \
@@ -90,7 +90,7 @@ ctor_name(ORDER_PP(8for_each_in_range                           \
   ORDER_PP(8for_each_in_range                                   \
            (8fn(8I,                                             \
                 8emit(8quote(DATATYPE_GEN_ctor_assign),         \
-                      8tuple(8quote(ctor_name), 8I))),          \
+                      8args(8quote(ctor_name), 8I))),           \
             0,                                                  \
             field_cnt))                                         \
                                                                 \
@@ -121,17 +121,17 @@ do {                                                    \
   }                                                     \
 } while (0)
 
-#define DATATYPE_GEN_case(ctor_name, field_names, ...)  \
-case DATATYPE_TAG_##ctor_name: {                        \
-  ORDER_PP(8seq_for_each_with_idx                       \
-           (8fn(8I, 8FN,                                \
-                8emit(8quote(DATATYPE_GEN_var),         \
-                      8tuple(8quote(ctor_name),         \
-                             8I,                        \
-                             8FN))),                    \
-            8quote(field_names)))                       \
-    do __VA_ARGS__ while (0);                           \
-  break;                                                \
+#define DATATYPE_GEN_case(P, ctor_name, field_names, body, ...) \
+case DATATYPE_TAG_##ctor_name: {                                \
+  ORDER_PP(8seq_for_each_with_idx                               \
+           (8fn(8I, 8FN,                                        \
+                8emit(8quote(DATATYPE_GEN_var),                 \
+                      8args(8quote(ctor_name),                  \
+                            8I,                                 \
+                            8FN))),                             \
+            8quote(field_names)))                               \
+  do { ORDER_PP_REM body } while (0);                           \
+  break;                                                        \
 }
 
 #define DATATYPE_GEN_var(ctor_name, idx, name)          \

@@ -51,7 +51,7 @@ template<> struct is_integral<cv type> {                \
 ORDER_PP(8rout(8seq_for_each_in_product
                (8fn(8CV,8TY,
                     8emit(8quote(GEN_is_integral_specialization),
-                          8tuple(8CV,8TY))),
+                          8args(8CV,8TY))),
                 8seq(8quote(()(const)(volatile)(const volatile)),
                      8seq_append
                      (8quote((char)(wchar_t)),

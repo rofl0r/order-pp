@@ -145,16 +145,16 @@ static const str_type simple_example
 static str_type exp_unparse(exp_type exp) {
   DATATYPE_switch
     (exp, exp_type,
-     (Exp_Lambda,(var)(body), {
-       return str_cat("\\", var, ".", exp_unparse(body),
-                      str_end); })
-     (Exp_Apply,(lhs)(rhs), {
-       return str_cat("(", exp_unparse(lhs),
-                      " ", exp_unparse(rhs),
-                      ")",
-                      str_end); })
-     (Exp_Var,(var), {
-       return var; }));
+     (Exp_Lambda,(var)(body),
+      ( return str_cat("\\", var, ".", exp_unparse(body),
+                       str_end); ))
+     (Exp_Apply,(lhs)(rhs),
+      ( return str_cat("(", exp_unparse(lhs),
+                       " ", exp_unparse(rhs),
+                       ")",
+                       str_end); ))
+     (Exp_Var,(var),
+      ( return var; )));
 }
 
 // The most interesting thing in `exp_unparse' is the use of the
@@ -199,17 +199,17 @@ static str_type exp_unparse(exp_type exp) {
 static exp_type exp_subst(exp_type exp, id_type id, exp_type in) {
   DATATYPE_switch
     (in, exp_type,
-     (Exp_Lambda,(var)(body), {
-       return var == id
-         ? in
-         : Exp_Lambda(var, exp_subst(exp, id, body)); })
-     (Exp_Apply,(lhs)(rhs), {
-       return Exp_Apply(exp_subst(exp, id, lhs),
-                        exp_subst(exp, id, rhs)); })
-     (Exp_Var,(var), {
-       return var == id
-          ? exp
-          : in; }));
+     (Exp_Lambda,(var)(body),
+      ( return (var == id
+                ? in
+                : Exp_Lambda(var, exp_subst(exp, id, body))); ))
+     (Exp_Apply,(lhs)(rhs),
+      ( return Exp_Apply(exp_subst(exp, id, lhs),
+                         exp_subst(exp, id, rhs)); ))
+     (Exp_Var,(var),
+      ( return (var == id
+                ? exp
+                : in); )));
 }
 
 // Then we will define the function `exp_reduce', which reduces, or
@@ -221,23 +221,23 @@ static exp_type exp_subst(exp_type exp, id_type id, exp_type in) {
 static exp_type exp_reduce(exp_type exp) {
   DATATYPE_switch
     (exp, exp_type,
-     (Exp_Lambda,, {
-       return exp; })
-     (Exp_Apply,(lhs)(rhs), {
-       DATATYPE_switch
-         (exp_reduce(lhs), exp_type,
-          (Exp_Lambda,(var)(body), {
-            return exp_reduce(exp_subst(exp_reduce(rhs),
-                                        var,
-                                        body)); })
-          (Exp_Apply,, {
-            ERROR_exit("'%s' doesn't reduce to a Lambda.",
-                       exp_unparse(lhs)); })
-          (Exp_Var,, {
-            ERROR_exit("'%s' doesn't reduce to a Lambda.",
-                       exp_unparse(lhs)); })); })
-     (Exp_Var,(var), {
-       ERROR_exit("Unbound variable '%s'.", var); }));
+     (Exp_Lambda,,
+      ( return exp; ))
+     (Exp_Apply,(lhs)(rhs),
+      ({ DATATYPE_switch
+           (exp_reduce(lhs), exp_type,
+            (Exp_Lambda,(var)(body),
+             ( return exp_reduce(exp_subst(exp_reduce(rhs),
+                                           var,
+                                           body)); ))
+            (Exp_Apply,,
+             ( ERROR_exit("'%s' doesn't reduce to a Lambda.",
+                          exp_unparse(lhs)); ))
+            (Exp_Var,,
+             ( ERROR_exit("'%s' doesn't reduce to a Lambda.",
+                          exp_unparse(lhs)); ))); }))
+     (Exp_Var,(var),
+      ( ERROR_exit("Unbound variable '%s'.", var); )));
 }
 
 // As you can see above, we handle errors in a very simple way. Upon
@@ -280,14 +280,14 @@ static id_type id_fresh(id_type base) {
 static exp_type exp_fresh(exp_type exp) {
   DATATYPE_switch
     (exp, exp_type,
-     (Exp_Lambda,(var)(body), {
-       id_type new_var = id_fresh(var);
-       return Exp_Lambda(new_var,
-                         exp_fresh(exp_subst(Exp_Var(new_var), var, body))); })
-     (Exp_Apply,(lhs)(rhs), {
-       return Exp_Apply(exp_fresh(lhs), exp_fresh(rhs)); })
-     (Exp_Var,, {
-       return exp; }));
+     (Exp_Lambda,(var)(body),
+      ( id_type new_var = id_fresh(var);
+        return Exp_Lambda(new_var,
+                          exp_fresh(exp_subst(Exp_Var(new_var), var, body))); ))
+     (Exp_Apply,(lhs)(rhs),
+      ( return Exp_Apply(exp_fresh(lhs), exp_fresh(rhs)); ))
+     (Exp_Var,,
+      ( return exp; )));
 }
 
 // The above `exp_fresh' function is still rather inefficient, but
@@ -307,14 +307,14 @@ static exp_type exp_fresh(exp_type exp) {
 static exp_type prg_to_exp(prg_type prg) {
   DATATYPE_switch
     (prg, prg_type,
-     (Prg_Def,(first)(rest), {
-       DATATYPE_switch
-         (first, def_type,
-          (Def,(var)(body), {
-            return Exp_Apply(Exp_Lambda(var, prg_to_exp(rest)),
-                             body); })); })
-     (Prg_Exp,(last), {
-       return last; }));
+     (Prg_Def,(first)(rest),
+      ({ DATATYPE_switch
+           (first, def_type,
+            (Def,(var)(body),
+             ( return Exp_Apply(Exp_Lambda(var, prg_to_exp(rest)),
+                                body); ))); }))
+     (Prg_Exp,(last),
+      ( return last; )));
 }
 
 // We could now build programs by calling the variant constructors
@@ -354,20 +354,20 @@ BRD_PARSER(static, prg_parse,
            str_skip_spaces, str_match_prefix,
            (id, id_type, id_parse),
            (prg, prg_type,
-            ((def,first)(prg,rest), {
-              *prg = Prg_Def(first, rest); })
-            ((exp,last), {
-              *prg = Prg_Exp(last); }))
+            ((def,first)(prg,rest),
+             ( *prg = Prg_Def(first, rest); ))
+            ((exp,last),
+             ( *prg = Prg_Exp(last); )))
            (def, def_type,
-            (("def")(id,var)("=")(exp,body), {
-              *def = Def(var, body); }))
+            (("def")(id,var)("=")(exp,body),
+             ( *def = Def(var, body); )))
            (exp, exp_type,
-            (("\\")(id,var)(".")(exp,body), {
-              *exp = Exp_Lambda(var, body); })
-            (("(")(exp,lhs)(exp,rhs)(")"),  {
-              *exp = Exp_Apply(lhs, rhs); })
-            ((id,var), {
-              *exp = Exp_Var(var); })))
+            (("\\")(id,var)(".")(exp,body),
+             ( *exp = Exp_Lambda(var, body); ))
+            (("(")(exp,lhs)(exp,rhs)(")"),
+             ( *exp = Exp_Apply(lhs, rhs); ))
+            ((id,var),
+             ( *exp = Exp_Var(var); ))))
 
 // The `BRD_PARSER' macro implements the simple parser generator.
 // The first two parameters of the macro specify the linkage and

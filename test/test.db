@@ -12,8 +12,10 @@
 8ap(8fn(8A,8B,8C,8D,8E,8F,8G,8H,8H),8quote(a),8quote(b),8quote(c),8quote(d),8quote(e),8quote(f),8quote(g),8quote(h))#h#<ws>
 8ap(8fn(8X,8X),8quote(x))#x#<ws>
 8ap(8fn(8X,8Y,8X),8quote(x),8quote(y))#x#<ws>
-8ap(8fn(8X,8Y,8tuple(8X,8Y)),8quote(a),8quote(b))#(a,b)#<ws>
+8ap(8fn(8X,8Y,8tuple(8X,8Y)),8quote(a),8quote(b))#(,a,b,)#<ws>
 8ap(8identity,37)#37#<ws>
+8args(1,2,3)#(1,2,3)#<ws>
+8args_to_tuple(8args(1,2))#(,1,2,)#<ws>
 8cat(1,2)#12#<ws>
 8cat(1,2,3,4,5,6,7,8)#12345678#<ws>
 8constant_embedding#This constant is in two parts!#<ws>
@@ -53,7 +55,7 @@
 8quote(0)#0#<ws>
 8quote(ORDER_PP_NAT(1,2,3))#(3)(2)(01)#<ws>
 8rout(8emit(1),8emit(2,3),8emit(4),5)#5 4 2 3 1#<ws>
-8rout(8for_each_in_range(8fn(8I,8rout(8for_each_in_range(8fn(8J,8emit(8tuple(8I,8J))),0,3))),0,3))#(2,0)(2,1)(2,2)(1,0)(1,1)(1,2)(0,0)(0,1)(0,2)#<ws>
+8rout(8for_each_in_range(8fn(8I,8rout(8for_each_in_range(8fn(8J,8emit(8tuple(8I,8J))),0,3))),0,3))#(,2,0,)(,2,1,)(,2,2,)(,1,0,)(,1,1,)(,1,2,)(,0,0,)(,0,1,)(,0,2,)#<ws>
 8rout(8for_each_in_range(8fn(8X,8emit(8quote(GEN_dim_0),8tuple(8X))),1,3))#(0,2)(1,1)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)(1,2)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)(0,1)(1,1)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)(1,2)(2,1)(3,1)(3,2)(2,2)(3,1)(3,2)#<ws>
 8rout(8for_each_in_range(8fn(8X,8emit(8quote(GEN_dimr_0),8tuple(8X))),1,3))#(0,2)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(0,1)(1,2)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)(1,1)(2,2)(3,2)(3,1)(2,1)(3,2)(3,1)#<ws>
 8rout(8rout(1,2))#2#<ws>
@@ -92,8 +94,8 @@
 8seq_for_all(8greater(5),8quote())#8true#<ws>
 8seq_for_each(8fn(8X,8emit(8X)),8seq(1,2,3,4))#1 2 3 4#<ws>
 8seq_for_each(8fn(8_,8exit(0)),8nil)##<ws>
-8seq_for_each_in_product(8fn(8X,8Y,8Z,8emit(8tuple(8X,8Y,8Z))),8quote(((1)(2))((*))((A)(B)(C))))#(1,*,A)(1,*,B)(1,*,C)(2,*,A)(2,*,B)(2,*,C)#<ws>
-8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote((a)(b)(c)))#(0,a)(1,b)(2,c)#<ws>
+8seq_for_each_in_product(8fn(8X,8Y,8Z,8emit(8tuple(8X,8Y,8Z))),8quote(((1)(2))((*))((A)(B)(C))))#(,1,*,A,)(,1,*,B,)(,1,*,C,)(,2,*,A,)(,2,*,B,)(,2,*,C,)#<ws>
+8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote((a)(b)(c)))#(,0,a,)(,1,b,)(,2,c,)#<ws>
 8seq_for_each_with_idx(8fn(8I,8X,8emit(8tuple(8I,8X))),8quote())##<ws>
 8seq_is_nil(8seq(1,2,3))#8false#<ws>
 8seq_is_nil(8seq_nil)#8true#<ws>
@@ -106,7 +108,7 @@
 8seq_merge(8less,8quote((1)(3)(4)(5)(6)),8quote((0)(2)(2)(9)))#(0)(1)(2)(2)(3)(4)(5)(6)(9)#<ws>
 8seq_merge(8less,8quote((4)(5)(6)),8quote((1)(2)(3)))#(1)(2)(3)(4)( 5 ) ( 6 )#<ws>
 8seq_merge(8less,8seq_nil,8seq_nil)##<ws>
-8seq_partition(8less(5),8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#((9)(6),(3)(1)(4)(1)(5)(2)(5))#<ws>
+8seq_partition(8less(5),8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#(,(9)(6),(3)(1)(4)(1)(5)(2)(5),)#<ws>
 8seq_partition_sort(8less,8quote((3)(1)(4)(1)(5)(9)(2)(6)(5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)#<ws>
 8seq_partition_sort(8less,8quote())##<ws>
 8seq_pop_at(0,8quote((a)(b)(c)(d)))#( b ) ( c ) ( d )#<ws>
@@ -153,41 +155,41 @@
 8seq_to_tuple(8quote((1)(2)(3)))#(1,2,3)#<ws>
 8seq_to_tuple(8seq_nil)##<ws>
 8stringize(8quote(This is a string.))#"This is a string."#<ws>
-8tuple(1,2,3,4,5,6,7,8)#(1,2,3,4,5,6,7,8)#<ws>
-8tuple(8add(1),8mul(3))#(1,3)#<ws>
-8tuple(8dec(0),8dec(1),8dec(256))#(0,0,255)#<ws>
-8tuple(8div(10,3),8mod(10,3))#(3,1)#<ws>
-8tuple(8div(7),8div(32,4,2))#(7,4)#<ws>
-8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)#<ws>
-8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)#<ws>
-8tuple(8inc(0),8inc(128),8inc(255),8inc(256))#(1,129,256,256)#<ws>
-8tuple(8is_0(0),8is_0(1),8is_0(50))#(8true,8false,8false)#<ws>
-8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(8false,8true,8false,8false)#<ws>
-8tuple(8is_tuple(8nil),8is_tuple(5),8is_tuple(8quote(+)),8is_tuple(8quote((1,2))))#(8false,8false,8false,8true)#<ws>
-8tuple(8is_zero(8nat(0)),8is_zero(8nat(1)),8is_zero(8nat(1,2,3)))#(8true,8false,8false)#<ws>
-8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(8false,8true,8true)#<ws>
-8tuple(8isnt_zero(8nat(0)),8isnt_zero(8nat(1)),8isnt_zero(8nat(1,2,3)))#(8false,8true,8true)#<ws>
-8tuple(8less(4,5),8less(5,5),8less(5,4))#(8true,8false,8false)#<ws>
-8tuple(8less_eq(5,6),8less_eq(6,6),8less_eq(6,4))#(8true,8true,8false)#<ws>
-8tuple(8nat_to_lit(8nat(0)),8nat_to_lit(8nat(2,5)),8nat_to_lit(8nat(3,1,4,1,5,9,2)))#(0,25,3141592)#<ws>
-8tuple(8pred(8nat(0)),8pred(8nat(1)),8pred(8nat(1,2,3)),8pred(8nat(1,0,0)))#((00),(00),(2)(2)(01),(9)(09))#<ws>
-8tuple(8sub(10,3),8add(10,3))#(7,13)#<ws>
-8tuple(8sub(3),8sub(10,3,2,1))#(3,4)#<ws>
-8tuple(8succ(8nat(0)),8succ(8nat(9,9)),8succ(8nat(1,9,9)))#((01),(0)(0)(01),(0)(0)(02))#<ws>
-8tuple(8true,8false)#(8true,8false)#<ws>
-8tuple(8tuple(1))#((1))#<ws>
-8tuple(8tuple(1,2),8tuple(3,4))#((1,2),(3,4))#<ws>
-8tuple(8tuple(8quote(a)),8tuple(8quote(b)))#((a),(b))#<ws>
+8tuple(1,2,3,4,5,6,7,8)#(,1,2,3,4,5,6,7,8,)#<ws>
+8tuple(8add(1),8mul(3))#(,1,3,)#<ws>
+8tuple(8dec(0),8dec(1),8dec(256))#(,0,0,255,)#<ws>
+8tuple(8div(10,3),8mod(10,3))#(,3,1,)#<ws>
+8tuple(8div(7),8div(32,4,2))#(,7,4,)#<ws>
+8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(,8false,8false,8true,)#<ws>
+8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(,8false,8true,8true,)#<ws>
+8tuple(8inc(0),8inc(128),8inc(255),8inc(256))#(,1,129,256,256,)#<ws>
+8tuple(8is_0(0),8is_0(1),8is_0(50))#(,8true,8false,8false,)#<ws>
+8tuple(8is_nil(1),8is_nil(8nil),8is_nil(8tuple(1,2)),8is_nil(8seq(1,2)))#(,8false,8true,8false,8false,)#<ws>
+8tuple(8is_tuple(8nil),8is_tuple(5),8is_tuple(8quote(+)),8is_tuple(8quote((1,2))))#(,8false,8false,8false,8true,)#<ws>
+8tuple(8is_zero(8nat(0)),8is_zero(8nat(1)),8is_zero(8nat(1,2,3)))#(,8true,8false,8false,)#<ws>
+8tuple(8isnt_0(0),8isnt_0(1),8isnt_0(50))#(,8false,8true,8true,)#<ws>
+8tuple(8isnt_zero(8nat(0)),8isnt_zero(8nat(1)),8isnt_zero(8nat(1,2,3)))#(,8false,8true,8true,)#<ws>
+8tuple(8less(4,5),8less(5,5),8less(5,4))#(,8true,8false,8false,)#<ws>
+8tuple(8less_eq(5,6),8less_eq(6,6),8less_eq(6,4))#(,8true,8true,8false,)#<ws>
+8tuple(8nat_to_lit(8nat(0)),8nat_to_lit(8nat(2,5)),8nat_to_lit(8nat(3,1,4,1,5,9,2)))#(,0,25,3141592,)#<ws>
+8tuple(8pred(8nat(0)),8pred(8nat(1)),8pred(8nat(1,2,3)),8pred(8nat(1,0,0)))#(,(00),(00),(2)(2)(01),(9)(09),)#<ws>
+8tuple(8sub(10,3),8add(10,3))#(,7,13,)#<ws>
+8tuple(8sub(3),8sub(10,3,2,1))#(,3,4,)#<ws>
+8tuple(8succ(8nat(0)),8succ(8nat(9,9)),8succ(8nat(1,9,9)))#(,(01),(0)(0)(01),(0)(0)(02),)#<ws>
+8tuple(8true,8false)#(,8true,8false,)#<ws>
+8tuple(8tuple(1))#(,(,1,),)#<ws>
+8tuple(8tuple(1,2),8tuple(3,4))#(,(,1,2,),(,3,4,),)#<ws>
+8tuple(8tuple(8quote(a)),8tuple(8quote(b)))#(,(,a,),(,b,),)#<ws>
 8tuple_at(0,8tuple(4,5))#4#<ws>
 8tuple_at(7,8tuple(1,2,3,4,5,6,7,8))#8#<ws>
-8tuple_size(8quote((a,b,c,d)))#4#<ws>
+8tuple_size(8tuple(0,1,2,3))#4#<ws>
 8tuple_size(8tuple(8nil))#1#<ws>
-8tuple_to_seq(8quote(()))#()#<ws>
-8tuple_to_seq(8quote((a,1,b,2,c,3,d,4)))#(a)(1)(b)(2)(c)(3)(d)(4)#<ws>
-8tuple_to_seq(8quote((a,1,b,2,c,3,d,4,e,5,f,6,g,7,h,8,i,9,j,10,k,11,l,12,m,13,n,14,o,15,p,16,q,17,r,18,s,19,t,20)))#(a)(1)(b)(2)(c)(3)(d)(4)(e)(5)(f)(6)(g)(7)(h)(8)(i)(9)(j)(10)(k)(11)(l)(12)(m)(13)(n)(14)(o)(15)(p)(16)(q)(17)(r)(18)(s)(19)(t)(20)#<ws>
+8tuple_to_seq(8quote((,,)))#()#<ws>
+8tuple_to_seq(8quote((,a,1,b,2,c,3,d,4,)))#(a)(1)(b)(2)(c)(3)(d)(4)#<ws>
+8tuple_to_seq(8quote((,a,1,b,2,c,3,d,4,e,5,f,6,g,7,h,8,i,9,j,10,k,11,l,12,m,13,n,14,o,15,p,16,q,17,r,18,s,19,t,20,)))#(a)(1)(b)(2)(c)(3)(d)(4)(e)(5)(f)(6)(g)(7)(h)(8)(i)(9)(j)(10)(k)(11)(l)(12)(m)(13)(n)(14)(o)(15)(p)(16)(q)(17)(r)(18)(s)(19)(t)(20)#<ws>
 8unless(8false,8emit(3),8emit(2),1)#1 3 2#<ws>
 8unless(8true,8emit(3),8emit(2),1)##<ws>
-8vseq_to_seq(8quote((1)(2,3)(4,5,6,7)(8)))#((1))((2 , 3))((4 , 5 , 6 , 7))((8))#<ws>
+8vseq_to_seq(8quote((1)(2,3)(4,5,6,7)(8)))#((,1,))((,2 , 3,))((,4 , 5 , 6 , 7,))((,8,))#<ws>
 8vseq_to_seq(8quote())##<ws>
 8when(8false,8emit(5))##<ws>
 8when(8true,8emit(1),8emit(2),3)#3 1 2#<ws>

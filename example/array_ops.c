@@ -266,7 +266,7 @@ ORDER_PP_FN(8fn(8OP,8TL,8TR,                                    \
 // Considering the requirements, we will represent an operator by a
 // 6-tuple of the form
 //
-//   (symbol, mnemonic, arity, does_floating, is_logical, is_shift)
+//   (,symbol, mnemonic, arity, does_floating, is_logical, is_shift,)
 //
 // A tuple, in general, is represented simply by a parenthesized list of
 // comma separated elements. A 6-tuple simply has 6 elements.
@@ -298,27 +298,27 @@ ORDER_PP_FN(8fn(8OP,8TL,8TR,                                    \
 // will consider into the `8applicative_ops' constant as a sequence.
 
 #define ORDER_PP_DEF_8applicative_ops                           \
-ORDER_PP_CONST((( ~  , _compl , 1, 8false, 8false, 8false ))    \
-               (( -  , _neg   , 1,  8true, 8false, 8false ))    \
-               (( !  , _not   , 1,  8true,  8true, 8false ))    \
-               (( *  , _mul   , 2,  8true, 8false, 8false ))    \
-               (( /  , _div   , 2,  8true, 8false, 8false ))    \
-               (( +  , _add   , 2,  8true, 8false, 8false ))    \
-               (( -  , _sub   , 2,  8true, 8false, 8false ))    \
-               (( %  , _mod   , 2, 8false, 8false, 8false ))    \
-               (( << , _shl   , 2, 8false, 8false,  8true ))    \
-               (( >> , _shr   , 2, 8false, 8false,  8true ))    \
-               (( <  , _lt    , 2,  8true,  8true, 8false ))    \
-               (( <= , _lt_eq , 2,  8true,  8true, 8false ))    \
-               (( >  , _gt    , 2,  8true,  8true, 8false ))    \
-               (( >= , _gt_eq , 2,  8true,  8true, 8false ))    \
-               (( == , _equal , 2,  8true,  8true, 8false ))    \
-               (( != , _not_eq, 2,  8true,  8true, 8false ))    \
-               (( &  , _bitand, 2, 8false, 8false, 8false ))    \
-               (( |  , _bitor , 2, 8false, 8false, 8false ))    \
-               (( ^  , _bitxor, 2, 8false, 8false, 8false ))    \
-               (( && , _and   , 2,  8true,  8true, 8false ))    \
-               (( || , _or    , 2,  8true,  8true, 8false )))
+ORDER_PP_CONST(((,~  , _compl , 1, 8false, 8false, 8false,))    \
+               ((,-  , _neg   , 1,  8true, 8false, 8false,))    \
+               ((,!  , _not   , 1,  8true,  8true, 8false,))    \
+               ((,*  , _mul   , 2,  8true, 8false, 8false,))    \
+               ((,/  , _div   , 2,  8true, 8false, 8false,))    \
+               ((,+  , _add   , 2,  8true, 8false, 8false,))    \
+               ((,-  , _sub   , 2,  8true, 8false, 8false,))    \
+               ((,%  , _mod   , 2, 8false, 8false, 8false,))    \
+               ((,<< , _shl   , 2, 8false, 8false,  8true,))    \
+               ((,>> , _shr   , 2, 8false, 8false,  8true,))    \
+               ((,<  , _lt    , 2,  8true,  8true, 8false,))    \
+               ((,<= , _lt_eq , 2,  8true,  8true, 8false,))    \
+               ((,>  , _gt    , 2,  8true,  8true, 8false,))    \
+               ((,>= , _gt_eq , 2,  8true,  8true, 8false,))    \
+               ((,== , _equal , 2,  8true,  8true, 8false,))    \
+               ((,!= , _not_eq, 2,  8true,  8true, 8false,))    \
+               ((,&  , _bitand, 2, 8false, 8false, 8false,))    \
+               ((,|  , _bitor , 2, 8false, 8false, 8false,))    \
+               ((,^  , _bitxor, 2, 8false, 8false, 8false,))    \
+               ((,&& , _and   , 2,  8true,  8true, 8false,))    \
+               ((,|| , _or    , 2,  8true,  8true, 8false,)))
 
 // The above is a constant definition, as denoted by the use of
 // `ORDER_PP_CONST'. A constant can be any sequence of C preprocessor
@@ -354,21 +354,21 @@ ORDER_PP_CONST((( ~  , _compl , 1, 8false, 8false, 8false ))    \
 // separately. We'll make a point of encoding the data only once.
 
 #define ORDER_PP_DEF_8type_int                          \
-ORDER_PP_CONST( (     signed int, _si, 8false, 3 ) )
+ORDER_PP_CONST( (,    signed int, _si, 8false, 3,) )
 
 #define ORDER_PP_DEF_8builtin_types                     \
-ORDER_PP_CONST(((           char, _ch, 8false, 1 ))     \
-               ((    signed char, _sc, 8false, 1 ))     \
-               ((  unsigned char, _uc, 8false, 1 ))     \
-               ((   signed short, _ss, 8false, 2 ))     \
-               (( unsigned short, _us, 8false, 2 ))     \
+ORDER_PP_CONST(((,          char, _ch, 8false, 1,))     \
+               ((,   signed char, _sc, 8false, 1,))     \
+               ((, unsigned char, _uc, 8false, 1,))     \
+               ((,  signed short, _ss, 8false, 2,))     \
+               ((,unsigned short, _us, 8false, 2,))     \
                (ORDER_PP_GET_CONST(8type_int)     )     \
-               ((   unsigned int, _ui, 8false, 4 ))     \
-               ((    signed long, _sl, 8false, 5 ))     \
-               ((  unsigned long, _ul, 8false, 6 ))     \
-               ((          float, _fl,  8true, 7 ))     \
-               ((         double, _db,  8true, 8 ))     \
-               ((    long double, _ld,  8true, 9 )))
+               ((,  unsigned int, _ui, 8false, 4,))     \
+               ((,   signed long, _sl, 8false, 5,))     \
+               ((, unsigned long, _ul, 8false, 6,))     \
+               ((,         float, _fl,  8true, 7,))     \
+               ((,        double, _db,  8true, 8,))     \
+               ((,   long double, _ld,  8true, 9,)))
 
 // Above, `ORDER_PP_GET_CONST' is C preprocessor macro that extracts the
 // value of an Order constant definition. It is useful in situations like
@@ -390,11 +390,11 @@ ORDER_PP_CONST(((           char, _ch, 8false, 1 ))     \
 #define ORDER_PP_DEF_8gen_array_uop                                     \
 ORDER_PP_FN(8fn(8OP,8TY,                                                \
                 8emit(8quote(GEN_array_uop),                            \
-                      8tuple(8op_mnemonic(8OP),                         \
-                             8op_symbol(8OP),                           \
-                             8type_abbrev(8TY),                         \
-                             8type_name(8TY),                           \
-                             8type_name(8type_of_uop(8OP,8TY))))))
+                      8args(8op_mnemonic(8OP),                          \
+                            8op_symbol(8OP),                            \
+                            8type_abbrev(8TY),                          \
+                            8type_name(8TY),                            \
+                            8type_name(8type_of_uop(8OP,8TY))))))
 
 // computes the parameter tuple for the `GEN_array_uop(...)' code
 // generation macro and then emits the expansion.
@@ -492,13 +492,13 @@ ORDER_PP(8rout(8seq_for_each_in_product
 #define ORDER_PP_DEF_8gen_array_bop                                     \
 ORDER_PP_FN(8fn(8OP,8TL,8TR,                                            \
                 8emit(8quote(GEN_array_bop),                            \
-                      8tuple(8op_mnemonic(8OP),                         \
-                             8op_symbol(8OP),                           \
-                             8type_abbrev(8TL),                         \
-                             8type_name(8TL),                           \
-                             8type_abbrev(8TR),                         \
-                             8type_name(8TR),                           \
-                             8type_name(8type_of_bop(8OP,8TL,8TR))))))
+                      8args(8op_mnemonic(8OP),                          \
+                            8op_symbol(8OP),                            \
+                            8type_abbrev(8TL),                          \
+                            8type_name(8TL),                            \
+                            8type_abbrev(8TR),                          \
+                            8type_name(8TR),                            \
+                            8type_name(8type_of_bop(8OP,8TL,8TR))))))
 
 // Then we'll generate code for all binary array procedures in two
 // batches. First the non-floating point operators:
@@ -552,4 +552,3 @@ ORDER_PP(8rout(8seq_for_each_in_product
 //    units, we need a header with prototypes for all the procedures.
 //    Write code to generate the prototypes for all procedures. Then
 //    refactor the code into a separate header and implementation file.
-

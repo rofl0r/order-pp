@@ -6,7 +6,7 @@
 //    Distributed under the Boost Software License, Version 1.0.
 
 #define ORDER_PP_DEF_8is_zero ORDER_PP_FN_CM(1,8IS_ZERO)
-#define ORDER_PP_IS_ZERO(d) ORDER_PP_PTUPLE_AT_0(,ORDER_PP_IS_ZERO_##d,
+#define ORDER_PP_IS_ZERO(d) ORDER_PP_TUPLE_AT_0(,ORDER_PP_IS_ZERO_##d,
 #define ORDER_PP_8IS_ZERO(P,x,...) (,ORDER_PP_IS_ZERO x##P),P##__VA_ARGS__)
 #define ORDER_PP_IS_ZERO_0 8false
 #define ORDER_PP_IS_ZERO_1 8false
@@ -30,7 +30,7 @@
 #define ORDER_PP_IS_ZERO_09 8false
 
 #define ORDER_PP_DEF_8isnt_zero ORDER_PP_FN_CM(1,8ISNT_ZERO)
-#define ORDER_PP_ISNT_ZERO(d) ORDER_PP_PTUPLE_AT_0(,ORDER_PP_ISNT_ZERO_##d,
+#define ORDER_PP_ISNT_ZERO(d) ORDER_PP_TUPLE_AT_0(,ORDER_PP_ISNT_ZERO_##d,
 #define ORDER_PP_8ISNT_ZERO(P,x,...) (,ORDER_PP_ISNT_ZERO x##P),P##__VA_ARGS__)
 #define ORDER_PP_ISNT_ZERO_0 8true
 #define ORDER_PP_ISNT_ZERO_1 8true
@@ -53,9 +53,9 @@
 #define ORDER_PP_ISNT_ZERO_08 8true
 #define ORDER_PP_ISNT_ZERO_09 8true
 
-#define ORDER_PP_DEF_8nat(...) 8NAT,ORDER_PP_PTUPLE_SIZE(,0##__VA_ARGS__),(,0##__VA_ARGS__)
+#define ORDER_PP_DEF_8nat(...) 8NAT,ORDER_PP_TUPLE_SIZE(,0##__VA_ARGS__,),(,0##__VA_ARGS__)
 #define ORDER_PP_8NAT(P,e,n,d,...) (,ORDER_PP_NAT_##n d##P,P##__VA_ARGS__)
-#define ORDER_PP_NAT(...) ORDER_PP_CAT(ORDER_PP_NAT_,ORDER_PP_PTUPLE_SIZE(,0##__VA_ARGS__))(,0##__VA_ARGS__)
+#define ORDER_PP_NAT(...) ORDER_PP_CAT(ORDER_PP_NAT_,ORDER_PP_TUPLE_SIZE(,0##__VA_ARGS__,))(,0##__VA_ARGS__)
 #define ORDER_PP_NAT_1(P,_0) (P##_0)
 #define ORDER_PP_NAT_2(P,_0,_1) (P##_1)(P##_0)
 #define ORDER_PP_NAT_3(P,_0,_1,_2) (P##_2)(P##_1)(P##_0)

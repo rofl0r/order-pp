@@ -18,7 +18,7 @@ yes_type is_function_tester(R (*)(ORDER_PP(8emit_params(n, 8quote(A)))));
 ORDER_PP(8rout(8for_each_in_range
                (8fn(8I,
                     8emit(8quote(GEN_is_function_tester),
-                          8tuple(8I))),
+                          8args(8I))),
                 0,
                 30)))
 

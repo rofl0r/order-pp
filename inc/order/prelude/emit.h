@@ -40,10 +40,10 @@
 #define ORDER_PP_8EMIT_RPAREN(P,e,K,...) ORDER_PP_##K(,,P##__VA_ARGS__)(,2C,ORDER_PP_,8R)
 #define ORDER_PP_8R )
 
-#define ORDER_PP_DEF_8emit_trailing_params(n,p) ORDER_PP_MACRO(8emit(8quote(CHAOS_PP_ENUM_TRAILING_PARAMS),8tuple(n,p)))
+#define ORDER_PP_DEF_8emit_trailing_params(n,p) ORDER_PP_MACRO(8emit(8quote(CHAOS_PP_ENUM_TRAILING_PARAMS),8args(n,p)))
 #include "chaos/preprocessor/repetition/enum_trailing_params.h"
 
-#define ORDER_PP_DEF_8emit_params(n,p) ORDER_PP_MACRO(8emit(8quote(CHAOS_PP_ENUM_PARAMS),8tuple(n,p)))
+#define ORDER_PP_DEF_8emit_params(n,p) ORDER_PP_MACRO(8emit(8quote(CHAOS_PP_ENUM_PARAMS),8args(n,p)))
 #include "chaos/preprocessor/repetition/enum_params.h"
 
 #endif

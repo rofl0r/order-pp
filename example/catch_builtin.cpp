@@ -26,7 +26,7 @@ int main() {
    }
    ORDER_PP(8seq_for_each(8fn(8TY,
                               8emit(8quote(GEN_catch),
-                                    8tuple(8TY))),
+                                    8args(8TY))),
                           8builtin_types));
    return 0;
 }
