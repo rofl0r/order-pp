@@ -2,9 +2,18 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_FN_CM(arity,K) 8DEF_FN_CM,arity,K,ORDER_PP_ARGS
+#define ORDER_PP_FN_CM(arity,K) 8DEF_FN_CM,(ORDER_PP_FN_CM_##arity,K),ORDER_PP_ARGS
 
-#define ORDER_PP_8DEF_FN_CM(P,e,np,K,na,...) ORDER_PP_8EVAL_AP_##na(,(,ORDER_PP_TEST(ORDER_PP_IF_,ORDER_PP_SYM_1_##np(,),,0)(,,8CM_##np,)P##K),P##e,P##__VA_ARGS__)
+#define ORDER_PP_FN_CM_1
+#define ORDER_PP_FN_CM_2 ,8CM_2
+#define ORDER_PP_FN_CM_3 ,8CM_3
+#define ORDER_PP_FN_CM_4 ,8CM_4
+#define ORDER_PP_FN_CM_5 ,8CM_5
+#define ORDER_PP_FN_CM_6 ,8CM_6
+#define ORDER_PP_FN_CM_7 ,8CM_7
+#define ORDER_PP_FN_CM_8 ,8CM_8
+
+#define ORDER_PP_8DEF_FN_CM(P,e,f,na,...) ORDER_PP_8EVAL_AP_##na(,P##f,P##e,P##__VA_ARGS__)
 
 #define ORDER_PP_8CM_2(P,A,K,...) (,(,8CM_2_1,P##A,P##K),P##__VA_ARGS__)
 #define ORDER_PP_8CM_2_1(P,B,A,K,...) (,P##A,P##K,P##B,P##__VA_ARGS__)

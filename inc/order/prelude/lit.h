@@ -2,13 +2,13 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_DEF_8is_lit ORDER_PP_FN_NATIVE(1,9IS_LIT)
-#define ORDER_PP_9IS_LIT(P,l) ORDER_PP_IS_SYM(,P##l)(,ORDER_PP_TEST(,ORDER_PP_FX(IS_EDIBLE_TEST,ORDER_PP_PRIMITIVE_CAT(ORDER_PP_LIT_TO_NAT_,P##l)),8true,8false),8false)
+#define ORDER_PP_DEF_8is_lit ORDER_PP_FN_CM(1,8IS_LIT)
+#define ORDER_PP_8IS_LIT(P,l,...) (,ORDER_PP_IS_SYM(,P##l)(,ORDER_PP_TEST(,ORDER_PP_FX(IS_EDIBLE_TEST,ORDER_PP_PRIMITIVE_CAT(ORDER_PP_LIT_TO_NAT_,P##l)),8true,8false),8false),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8lit_add ORDER_PP_OP_LEFT_NATIVE(9LIT_PLUS)
 
-#define ORDER_PP_DEF_8lit_dec ORDER_PP_FN_NATIVE(1,9LIT_DEC)
-#define ORDER_PP_9LIT_DEC(P,l) ORDER_PP_LIT_ASSERT(ORDER_PP_LIT_DEC_##l)
+#define ORDER_PP_DEF_8lit_dec ORDER_PP_FN_CM(1,8LIT_DEC)
+#define ORDER_PP_8LIT_DEC(P,l,...) (,ORDER_PP_LIT_ASSERT(ORDER_PP_LIT_DEC_##l),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8lit_div ORDER_PP_OP_LEFT_NATIVE(9LIT_QUOTIENT)
 
@@ -21,14 +21,14 @@
 #define ORDER_PP_DEF_8lit_greater_eq ORDER_PP_FN_NATIVE(2,9LIT_GREATER_EQ)
 #define ORDER_PP_9LIT_GREATER_EQ(P,l,r) ORDER_PP_TEST(,ORDER_PP_SYM_##l##_##r(,),8true,ORDER_PP_LIT_LESS(,P##r,P##l)(,8true,8false))
 
-#define ORDER_PP_DEF_8lit_inc ORDER_PP_FN_NATIVE(1,9LIT_INC)
-#define ORDER_PP_9LIT_INC(P,l) ORDER_PP_LIT_ASSERT(ORDER_PP_LIT_INC_##l)
+#define ORDER_PP_DEF_8lit_inc ORDER_PP_FN_CM(1,8LIT_INC)
+#define ORDER_PP_9LIT_INC(P,l,...) (,ORDER_PP_LIT_ASSERT(ORDER_PP_LIT_INC_##l),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8lit_is_0 ORDER_PP_FN_NATIVE(1,9LIT_IS_0)
-#define ORDER_PP_9LIT_IS_0(P,l) ORDER_PP_TEST(,ORDER_PP_SYM_0_##l(,),8true,8false)
+#define ORDER_PP_DEF_8lit_is_0 ORDER_PP_FN_CM(1,8LIT_IS_0)
+#define ORDER_PP_8LIT_IS_0(P,l,...) (,ORDER_PP_TEST(,ORDER_PP_SYM_0_##l(,),8true,8false),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8lit_isnt_0 ORDER_PP_FN_NATIVE(1,9LIT_ISNT_0)
-#define ORDER_PP_9LIT_ISNT_0(P,l) ORDER_PP_TEST(,ORDER_PP_SYM_0_##l(,),8false,8true)
+#define ORDER_PP_DEF_8lit_isnt_0 ORDER_PP_FN_CM(1,8LIT_ISNT_0)
+#define ORDER_PP_8LIT_ISNT_0(P,l,...) (,ORDER_PP_TEST(,ORDER_PP_SYM_0_##l(,),8false,8true),P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_8lit_less ORDER_PP_FN_NATIVE(2,9LIT_LESS)
 #define ORDER_PP_9LIT_LESS(P,l,r) ORDER_PP_LIT_LESS(,P##l,P##r)(,8true,8false)
@@ -58,8 +58,8 @@
 #define ORDER_PP_DEF_8lit_times ORDER_PP_FN_NATIVE(2,9LIT_TIMES)
 #define ORDER_PP_9LIT_TIMES(P,l,r) ORDER_PP_LIT_ASSERT(ORDER_PP_LIT_TIMES(,P##l,P##r))
 
-#define ORDER_PP_DEF_8lit_to_nat ORDER_PP_FN_NATIVE(1,9LIT_TO_NAT)
-#define ORDER_PP_9LIT_TO_NAT(P,x) ORDER_PP_LIT_TO_NAT_##x
+#define ORDER_PP_DEF_8lit_to_nat ORDER_PP_FN_CM(1,8LIT_TO_NAT)
+#define ORDER_PP_8LIT_TO_NAT(P,x,...) (,ORDER_PP_LIT_TO_NAT_##x,P##__VA_ARGS__)
 
 // Macros for numeric operations
 
