@@ -6,7 +6,7 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
-#define ORDER_OP_CTOR(arity,cm) 8DEF_CTOR_##arity,cm,
+#define ORDER_CTOR(arity,cm) 8DEF_CTOR_##arity,cm,
 
 #define ORDER_CM_8DEF_CTOR_1(P,e,cm,p,...) (,P##e,ORDER_DEF P##p,P##cm,P##__VA_ARGS__)
 #define ORDER_CM_8DEF_CTOR_2(P,e,cm,ts,...) (,P##e,ORDER_DEF_ARGS_LAST_AT_1 P##ts,8DEF_CTOR_LEFT_1,P##e,ORDER_PP_ARGS_FIRST_1 P##ts,P##cm,P##__VA_ARGS__)

@@ -6,9 +6,9 @@
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
-#include "order/def/cm.h"
 #include "order/def/const.h"
 #include "order/def/ctor.h"
 #include "order/def/op.h"
+#include "order/def/op_cm.h"
 
 #endif

@@ -1,14 +1,14 @@
-#ifndef ORDER_DEF_CM_H_VAJK20040620
-#define ORDER_DEF_CM_H_VAJK20040620
+#ifndef ORDER_DEF_OP_CM_H_VAJK20040620
+#define ORDER_DEF_OP_CM_H_VAJK20040620
 
 /* (C) Copyright Vesa Karvonen 2004.
  *
  *    Distributed under the Boost Software License, Version 1.0.
  */
 
-#define ORDER_OP_CM(arity,cm) 8DEF_CM,arity,cm,ORDER_PARAMS
+#define ORDER_OP_CM(arity,cm) 8DEF_OP_CM,arity,cm,ORDER_PARAMS
 
-#define ORDER_CM_8DEF_CM(P,e,na,cm,np,...) ORDER_CM_8EVAL_AP_##np(,(,8WAIT_##na,P##cm),P##e,P##__VA_ARGS__)
+#define ORDER_CM_8DEF_OP_CM(P,e,na,cm,np,...) ORDER_CM_8EVAL_AP_##np(,(,8WAIT_##na,P##cm),P##e,P##__VA_ARGS__)
 
 #define ORDER_CM_8WAIT_1(P,v0,cm,...) ORDER_CM_##cm(,P##v0,P##__VA_ARGS__)
 
