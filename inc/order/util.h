@@ -51,6 +51,7 @@
 
 #define ORDER_PP_NUM_ARGS_8(_,_8,_7,_6,_5,_4,_3,_2,_1,x,...) x
 
+#define ORDER_PP_IF(c) ORDER_PP_PRIMITIVE_CAT(ORDER_PP_IF_,c)
 #define ORDER_PP_IF_(P,c,...) P##c
 #define ORDER_PP_IF_0(P,c,...) P##__VA_ARGS__
 #define ORDER_PP_IF_1(P,c,...) P##c
