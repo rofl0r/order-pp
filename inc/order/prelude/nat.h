@@ -61,7 +61,7 @@
 #define ORDER_PP_NAT_PRED_7 (6)
 #define ORDER_PP_NAT_PRED_8 (7)
 #define ORDER_PP_NAT_PRED_9 (8)
-#define ORDER_PP_NAT_PRED_00 ORDER_PP_ERROR_NATURAL_NUMBER_0_HAS_NO_PREDECESSOR(!)
+#define ORDER_PP_NAT_PRED_00 ()(01)
 #define ORDER_PP_NAT_PRED_01 (00)
 #define ORDER_PP_NAT_PRED_02 (01)
 #define ORDER_PP_NAT_PRED_03 (02)
@@ -111,8 +111,6 @@
 #define ORDER_PP_NAT_PRED_B_07 (9)(06)
 #define ORDER_PP_NAT_PRED_B_08 (9)(07)
 #define ORDER_PP_NAT_PRED_B_09 (9)(08)
-
-#define ORDER_PP_ERROR_NATURAL_NUMBER_0_HAS_NO_PREDECESSOR()
 
 // `8nat_div(n0, n1, ..., nN)' computes the quotient of `n0 / n1 /
 // ... / nN'.
