@@ -136,7 +136,7 @@ function interactive-trace {
 
     steps=0
 
-    result=$(echo "(,,ORDER_PP_DEF_$term,8STOP,)" | eval-in)
+    result=$(echo "(,,ORDER_PP_DEF($term),8STOP,)" | eval-in)
     echo ": $result"
 
     while read -e -n 1 -p "[(#$steps) | Enter to step]? " ; do

@@ -10,7 +10,4 @@
 #define ORDER_PP_SEQ_FIRST_B(P,_0,...) P##_0
 #define ORDER_PP_SEQ_AT_0(...) __VA_ARGS__,
 
-#define ORDER_PP_SEQ_TAKE_1(...) __VA_ARGS__,
-#define ORDER_PP_SEQ_DROP_1(...) ,
-
 #endif

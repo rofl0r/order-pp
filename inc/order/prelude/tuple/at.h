@@ -8,7 +8,7 @@
 
 #define ORDER_PP_DEF_tuple_at ORDER_PP_OP_CM(2,8TUPLE_AT)
 
-#define ORDER_PP_CM_8TUPLE_AT(P,t,n,...) (,ORDER_PP_EXPAND(ORDER_PP_TUPLE_AT_##n,(,ORDER_PP_OPEN_NP P##t,)),P##__VA_ARGS__)
+#define ORDER_PP_CM_8TUPLE_AT(P,t,n,...) (,ORDER_PP_EXPAND(ORDER_PP_TUPLE_AT_##n,(,ORDER_PP_OPEN_NP t##P,)),P##__VA_ARGS__)
 
 #define ORDER_PP_TUPLE_AT_0(P,_0,...) P##_0
 #define ORDER_PP_TUPLE_AT_1(P,_0,_1,...) P##_1
