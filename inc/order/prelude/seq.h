@@ -315,7 +315,7 @@
 
 #define ORDER_PP_SEQ_AT(P,i,s) ORDER_PP_SEQ_AT_B(ORDER_PP_SEQ_AT_##i P##s)
 #define ORDER_PP_SEQ_AT_B(xs) ORDER_PP_TUPLE_AT_0(,xs)
-#define ORDER_PP_SEQ_AT_0(x) x,
+#define ORDER_PP_SEQ_AT_0(...) __VA_ARGS__,
 #define ORDER_PP_SEQ_AT_1(...) ORDER_PP_SEQ_AT_0
 #define ORDER_PP_SEQ_AT_2(...) ORDER_PP_SEQ_AT_1
 
