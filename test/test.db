@@ -218,6 +218,8 @@
 8to_lit(8seq_size(8seq_nil))#0#<ws>
 8to_lit(8tuple_size(8tuple(0,1,2,3)))#4#<ws>
 8to_lit(8tuple_size(8tuple(8nil)))#1#<ws>
+8tokens_to_seq(8())##<ws>
+8tokens_to_seq(8(1 2 (a)(b) 3 4))#(1)(2)(a)(b)(3)(4)#<ws>
 8tuple(8act(!),8act(%),8act(?),8act(^),8act(*),8act(;),8act([),8act(]))#(TCA (!)!!!!!!!!!!!!!!!!!!!!!!!!!,ACT (%)%%%%%%%%%%%%%%%%%%%%%%%%,TCA (?)???????????????????????,ACT (^)^^^^^^^^^^^^^^^^^^^^^^,TCA (*)*********************,ACT (;);;;;;;;;;;;;;;;;;;;;,TCA ([)[[[[[[[[[[[[[[[[[[[,ACT (])]]]]]]]]]]]]]]]]]])#<ws>
 8tuple(8greater(2,5),8greater(4,4),8greater(6,3))#(8false,8false,8true)#<ws>
 8tuple(8greater_eq(3,4),8greater_eq(5,5),8greater_eq(4,2))#(8false,8true,8true)#<ws>
