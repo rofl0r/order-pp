@@ -68,7 +68,7 @@ namespace detail {
 // conforming C++ compiler, we wouldn't need the repetition, but the
 // repetition is needed for portability and structurally identical
 // (isomorphic) repetition is needed, even on conforming C++
-// compilers, in other cases.} The next best thing is that the
+// compilers in other cases.} The next best thing is that the
 // maximum number of parameters could easily be specified, making
 // the `is_function<T>' type trait configurable. So, let's do it by
 // using a conditional macro definition, that can be externally
