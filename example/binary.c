@@ -19,14 +19,14 @@
 // First we'll implement an Order function to convert a number to a
 // sequence of binary digits.
 //<
-#define ORDER_PP_DEF_8num_to_seq_of_binary_digits               \
-ORDER_PP_FN(8fn(8N,                                             \
-                8if(8is_0(8N),                                  \
-                    8seq(0),                                    \
-                    8seq_reverse(8seq_unfold                    \
-                                 (8isnt_0,                      \
-                                  8ap(8flip(8quotient), 2),     \
-                                  8ap(8flip(8remainder), 2),    \
+#define ORDER_PP_DEF_8num_to_seq_of_binary_digits       \
+ORDER_PP_FN(8fn(8N,                                     \
+                8if(8is_0(8N),                          \
+                    8seq(0),                            \
+                    8seq_reverse(8seq_unfold            \
+                                 (8isnt_0,              \
+                                  8flip(8quotient, 2),  \
+                                  8flip(8remainder, 2), \
                                   8N)))))
 //>
 // We'll also use an ad hoc code generation macro to generate a
