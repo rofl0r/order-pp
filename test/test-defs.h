@@ -58,11 +58,11 @@ ORDER_PP_FN(8fn(8N, 8I, 8J,                             \
 #define ORDER_PP_DEF_8bottles                                                                   \
 ORDER_PP_MACRO(8let((8B, 8fn(8N,                                                                \
                              8cond((8greater(8N, 1),                                            \
-                                    8separate(8N, 8quote(bottles)))                             \
+                                    8separate(8N, 8(bottles)))                                  \
                                    (8isnt_0(8N),                                                \
-                                    8separate(8N, 8quote(bottle)))                              \
+                                    8separate(8N, 8(bottle)))                                   \
                                    (8else,                                                      \
-                                    8quote(no more bottles))))),                                \
+                                    8(no more bottles))))),                                     \
                     8for_each_in_range                                                          \
                     (8fn(8N,                                                                    \
                          8print(8ap(8B, 8N) (of beer on the wall,) 8space                       \
