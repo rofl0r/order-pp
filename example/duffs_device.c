@@ -5,42 +5,45 @@
 #include <stdio.h>
 #include "order/interpreter.h"
 
+// ## Duff's device
+//
 // This example uses the Order interpreter to implement a generalized
 // macro for implementing Duff's Device.
 //
 // This example was inspired by an original generalized macro for
 // for implementing Duff's Device written by Joerg Walter.
 
-#define GEN_duffs_device(unrolling_factor, counter_t, n, exp)                           \
-do {                                                                                    \
-  counter_t duffs_device_initial_cnt = (n);                                             \
-                                                                                        \
-  if (duffs_device_initial_cnt > 0) {                                                   \
-    counter_t duffs_device_running_cnt =                                                \
-      (duffs_device_initial_cnt + (unrolling_factor - 1)) / unrolling_factor;           \
-                                                                                        \
-    switch (duffs_device_initial_cnt % unrolling_factor) {                              \
-      do {                                                                              \
-        ORDER_PP(8do(8for_each_in_range(8fn(8I,                                         \
-                                            8emit(8quote(GEN_duffs_device_case),        \
-                                                  8tuple(8I,8quote(exp)))),             \
-                                        1,                                              \
-                                        unrolling_factor),                              \
-                     8emit(8quote(GEN_duffs_device_case),                               \
-                           8quote((0,exp)))));                                          \
-      } while (--duffs_device_running_cnt);                                             \
-    }                                                                                   \
-  }                                                                                     \
+#define GEN_duffs_device(unroll_cnt, counter_t, n, exp)                 \
+do {                                                                    \
+  counter_t ORDER_PP_FRESH_ID(initial_cnt) = (n);                       \
+                                                                        \
+  if (ORDER_PP_FRESH_ID(initial_cnt) > 0) {                             \
+    counter_t ORDER_PP_FRESH_ID(running_cnt) =                          \
+      (ORDER_PP_FRESH_ID(initial_cnt) + (unroll_cnt-1)) / unroll_cnt;   \
+                                                                        \
+    switch (ORDER_PP_FRESH_ID(initial_cnt) % unroll_cnt) {              \
+      do {                                                              \
+        ORDER_PP(8do(8for_each_in_range                                 \
+                     (8fn(8I,                                           \
+                          8emit(8quote(GEN_duffs_device_case),          \
+                                8tuple(8I,8quote(exp)))),               \
+                      1,                                                \
+                      unroll_cnt),                                      \
+                     8emit(8quote(GEN_duffs_device_case),               \
+                           8quote((0,exp)))));                          \
+      } while (--ORDER_PP_FRESH_ID(running_cnt));                       \
+    }                                                                   \
+  }                                                                     \
 } while (0)
 
 #define GEN_duffs_device_case(n,exp) case n : exp;
 
 #ifndef UNROLLING_FACTOR
-#define UNROLLING_FACTOR 16
+#define UNROLLING_FACTOR 4
 #endif
 
 #ifndef N
-#define N 1000
+#define N 10
 #endif
 
 int main(void) {

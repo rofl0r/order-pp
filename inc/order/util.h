@@ -5,12 +5,16 @@
 //
 //    Distributed under the Boost Software License, Version 1.0.
 
+#define ORDER_PP_FRESH_ID(name) ORDER_PP_FRESH_ID_B(__LINE__,name)
+#define ORDER_PP_FRESH_ID_B(line,name) ORDER_PP_FRESH_ID_C(line,name)
+#define ORDER_PP_FRESH_ID_C(line,name) ORDER_PP_ID_##line##_##name
+
 #define ORDER_PP_DEF(t) ORDER_PP_DEF_##t
 
 #define ORDER_PP_EAT(...)
 #define ORDER_PP_EXPAND(l,r) l r
-#define ORDER_PP_PASTE(l,r) ORDER_PP_PRIMITIVE_PASTE(l,r)
-#define ORDER_PP_PRIMITIVE_PASTE(l,r) l##r
+#define ORDER_PP_CAT(l,r) ORDER_PP_PRIMITIVE_CAT(l,r)
+#define ORDER_PP_PRIMITIVE_CAT(l,r) l##r
 #define ORDER_PP_OPEN(P,...) P##__VA_ARGS__
 #define ORDER_PP_OPEN_COND(P,...) P##__VA_ARGS__
 #define ORDER_PP_OPEN_NP(...) __VA_ARGS__
@@ -59,7 +63,7 @@
 #define ORDER_PP_UNLESS_8true(...)
 #define ORDER_PP_UNLESS_8false(P,...) P##__VA_ARGS__
 
-#define ORDER_PP_SELECT_4(c0,c1) ORDER_PP_PASTE(c0(,(,ORDER_PP_SELECT_4_8true),ORDER_PP_SELECT_4_8false),c1(,(,8true),8false))
+#define ORDER_PP_SELECT_4(c0,c1) ORDER_PP_CAT(c0(,(,ORDER_PP_SELECT_4_8true),ORDER_PP_SELECT_4_8false),c1(,(,8true),8false))
 #define ORDER_PP_SELECT_4_8true8true(P,tt,tf,ft,...) ORDER_PP_OPEN_COND tt##P
 #define ORDER_PP_SELECT_4_8true8false(P,tt,tf,ft,...) ORDER_PP_OPEN_COND tf##P
 #define ORDER_PP_SELECT_4_8false8true(P,tt,tf,ft,...) ORDER_PP_OPEN_COND ft##P
