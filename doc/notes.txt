@@ -386,6 +386,7 @@ Sequences
 
   -8seq_bin_search(pr, s)            : (a -> Bool) -> Seq(a) -> Tuple(Seq(a), Seq(a))
 
+   8seq_pair_with(fn, ls, rs)        : (a -> b -> c) -> Seq(a) -> Seq(b) -> Seq(c)
   -8seq_zip_with(fn, ss)             : (Any+ -> Any) -> Seq(Seq) -> Seq
 
 Tuples

@@ -94,22 +94,22 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
                        8stream_cons(8stream_head(8S),                           \
                                     8stream_merge(8F,8L,8stream_tail(8R)))))))
 
-#define ORDER_PP_DEF_8stream_unfold                                             \
-ORDER_PP_FN(8fn(8C,8S,8F,8X,                                                    \
-                8when(8ap(8C,8X),                                               \
-                      8stream_cons(8ap(8F,8X),                                  \
-                                   8stream_unfold(8C,8S,8F,8ap(8S,8X))))))
-
-#define ORDER_PP_DEF_8stream_zip_with                                           \
+#define ORDER_PP_DEF_8stream_pair_with                                          \
 ORDER_PP_FN(8fn(8F,8L,8R,                                                       \
                 8unless(8or(8stream_is_nil(8L),                                 \
                             8stream_is_nil(8R)),                                \
                         8stream_cons(8ap(8F,                                    \
                                          8stream_head(8L),                      \
                                          8stream_head(8R)),                     \
-                                     8stream_zip_with(8F,                       \
-                                                      8stream_tail(8L),         \
-                                                      8stream_tail(8R))))))
+                                     8stream_pair_with(8F,                      \
+                                                       8stream_tail(8L),        \
+                                                       8stream_tail(8R))))))
+
+#define ORDER_PP_DEF_8stream_unfold                                             \
+ORDER_PP_FN(8fn(8C,8S,8F,8X,                                                    \
+                8when(8ap(8C,8X),                                               \
+                      8stream_cons(8ap(8F,8X),                                  \
+                                   8stream_unfold(8C,8S,8F,8ap(8S,8X))))))
 
 // Detail
 

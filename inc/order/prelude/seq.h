@@ -279,6 +279,10 @@ ORDER_PP_FN(8fn(8N, 8S,                                         \
 #define ORDER_PP_8SEQ_MERGE_SORT_B(P,ls,f,K,...) ORDER_PP_##K(,(,8SEQ_MERGE_SORT_C,ORDER_PP_SEQ_AT_0 P##ls,P##f),P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_MERGE_SORT_C(P,rs,l,ls,f,...) (,P##l,ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##rs),8SEQ_MERGE_L,P##l,P##ls,ORDER_PP_SEQ_AT_0 rs##P,P##f,,P##__VA_ARGS__)
 
+#define ORDER_PP_DEF_8seq_pair_with ORDER_PP_FN_CM(3,8SEQ_PAIR_WITH,0IS_FN,0IS_SEQ,0IS_SEQ)
+#define ORDER_PP_8SEQ_PAIR_WITH(P,sr,sl,f,...) (,ORDER_PP_OR(or)(ORDER_PP_SEQ_IS_NIL(,P##sl))(or)(ORDER_PP_SEQ_IS_NIL(,P##sr))()(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_PAIR_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,),P##__VA_ARGS__)
+#define ORDER_PP_8SEQ_PAIR_WITH_L(P,x,sr,sl,f,out,...) (,ORDER_PP_OR(or)(ORDER_PP_SEQ_IS_NIL(,P##sl))(or)(ORDER_PP_SEQ_IS_NIL(,P##sr))()(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_PAIR_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,)P##out(P##x),P##__VA_ARGS__)
+
 #define ORDER_PP_DEF_8seq_partition ORDER_PP_FN_CM(2,8SEQ_PARTITION,0IS_FN,0IS_SEQ)
 #define ORDER_PP_8SEQ_PARTITION(P,s,f,...) (,P##f,8SEQ_PARTITION_O,,,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_OPEN_A P##s),8PAIR,P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_PARTITION_O(P,f,ot,of,b,x,K,...) (,ORDER_PP_IF_NOT_##b(,ORDER_PP_OPEN(,P##of,P##K,P##ot),P##x,ORDER_PP_OPEN f##P,8SEQ_PARTITION_B,P##x,P##ot,P##of,P##f,P##K),P##__VA_ARGS__)
@@ -311,10 +315,6 @@ ORDER_PP_FN(8fn(8N, 8S,                                         \
 #define ORDER_PP_8SEQ_UNFOLD_5(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8SEQ_UNFOLD_B,P##x,c##P,P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_UNFOLD_B(P,b,x,c,s,f,...) (,ORDER_PP_WHEN_##b(,P##x,ORDER_PP_OPEN f##P,8SEQ_UNFOLD_C,P##x,P##c,s##P,f##P,)P##__VA_ARGS__)
 #define ORDER_PP_8SEQ_UNFOLD_C(P,y,x,c,s,f,ys,...) (,P##x,ORDER_PP_OPEN s##P,8SEQ_UNFOLD_5,P##c,P##s,P##f,P##ys(P##y),P##__VA_ARGS__)
-
-#define ORDER_PP_DEF_8seq_zip_with ORDER_PP_FN_CM(3,8SEQ_ZIP_WITH,0IS_FN,0IS_SEQ,0IS_SEQ)
-#define ORDER_PP_8SEQ_ZIP_WITH(P,sr,sl,f,...) (,ORDER_PP_OR(or)(ORDER_PP_SEQ_IS_NIL(,P##sl))(or)(ORDER_PP_SEQ_IS_NIL(,P##sr))()(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_ZIP_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,),P##__VA_ARGS__)
-#define ORDER_PP_8SEQ_ZIP_WITH_L(P,x,sr,sl,f,out,...) (,ORDER_PP_OR(or)(ORDER_PP_SEQ_IS_NIL(,P##sl))(or)(ORDER_PP_SEQ_IS_NIL(,P##sr))()(,,ORDER_PP_SEQ_AT(,0,P##sl),ORDER_PP_OPEN f##P,8AP,ORDER_PP_SEQ_AT(,0,P##sr),8SEQ_ZIP_WITH_L,ORDER_PP_EAT P##sr,ORDER_PP_EAT P##sl,P##f,)P##out(P##x),P##__VA_ARGS__)
 
 // Details
 

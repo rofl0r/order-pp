@@ -253,30 +253,34 @@ else
 fi
 
 IFS=''
+REPLY=''
 
 while true ; do
-    if test "$#" -gt 0 ; then
-        REPLY="$1"
-        shift
-    else
-        read -e -n 1 -p "[(A)dd | (C)lean | (D)ebug | (M)ode: $debugFlag | (Q)uit | (S)how | (T)est | Eval]? "
+    if test -z "$REPLY" ; then
+        if test "$#" -gt 0 ; then
+            REPLY="$(echo "$1" | sed 's#^-*##g')"
+            shift
+        else
+            read -e -n 1 -p "[(A)dd | (C)lean | (D)ebug | (M)ode: $debugFlag | (Q)uit | (S)how | (T)est | Eval]? "
+        fi
     fi
     case "$REPLY" in
-        ("a"|"A")
+        (a*|A)
         interactive-add-test ;;
-        ("-t"|"t"|"T")
+        (t*|T)
         run-tests ;;
-        ("s"|"S")
+        (s*|S)
         less $dbFile ;;
-        ("c"|"C")
+        (c*|C)
         clean-test-db ;;
-        ("-q"|"q"|"Q")
+        (q*|Q)
         exit ;;
-        ("d"|"D")
+        (d*|D)
         interactive-trace ;;
-        ("m"|"M")
+        (m*|M)
         debugFlag=$((1-debugFlag)) ;;
         (*)
         interactive-eval ;;
     esac
+    REPLY="$(echo "$REPLY" | sed 's#^.##g')"
 done

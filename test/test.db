@@ -195,6 +195,12 @@
 8seq_map(8to_lit,8seq_sort(8less,8seq(3,1,4,1,5,9,2,6,5)))#(1)(1)(2)(3)(4)(5)(5)(6)(9)#<ws>
 8seq_map(8to_lit,8seq_sort(8less,8seq))##<ws>
 8seq_map_seq(8((!)(%)(?)(^)))#((!))((%))((?))((^))#<ws>
+8seq_pair_with(8pair,8seq,8seq)##<ws>
+8seq_pair_with(8pair,8seq,8seq_iota(1,5))##<ws>
+8seq_pair_with(8pair,8seq_iota(1,5),8seq)##<ws>
+8seq_pair_with(8pair,8seq_iota(1,5),8seq_iota(10,3))#((1,9))((2,8))((3,7))((4,6))#<ws>
+8seq_pair_with(8pair,8seq_iota(1,5),8seq_iota(10,6))#((1,9))((2,8))((3,7))((4,6))#<ws>
+8seq_pair_with(8pair,8seq_iota(1,7),8seq_iota(10,6))#((1,9))((2,8))((3,7))((4,6))#<ws>
 8seq_partition_sort(8less,8())##<ws>
 8seq_pop_at(0,8((;)([)(])({)))#( [ ) ( ] ) ( { )#<ws>
 8seq_pop_at(0,8(([)))##<ws>
@@ -251,18 +257,12 @@
 8seq_to_tuple(8seq)##<ws>
 8seq_unfold(8isnt_0,8dec,8to_lit,0)##<ws>
 8seq_unfold(8isnt_0,8dec,8to_lit,10)#(10)(9)(8)(7)(6)(5)(4)(3)(2)(1)#<ws>
-8seq_zip_with(8pair,8seq,8seq)##<ws>
-8seq_zip_with(8pair,8seq,8seq_iota(1,5))##<ws>
-8seq_zip_with(8pair,8seq_iota(1,5),8seq)##<ws>
-8seq_zip_with(8pair,8seq_iota(1,5),8seq_iota(10,3))#((1,9))((2,8))((3,7))((4,6))#<ws>
-8seq_zip_with(8pair,8seq_iota(1,5),8seq_iota(10,6))#((1,9))((2,8))((3,7))((4,6))#<ws>
-8seq_zip_with(8pair,8seq_iota(1,7),8seq_iota(10,6))#((1,9))((2,8))((3,7))((4,6))#<ws>
 8stream_for_each(8compose(8put,8to_lit),8stream_take(3,8stream_filter(8fn(8X,8is_0(8remainder(8X,2))),8stream_of_naturals)))#0 2 4#<ws>
 8stream_head(8stream_cons(1,8stream_nil))#1#<ws>
 8stream_head(8stream_tail(8stream_cons(1,8stream_cons(2,8stream_nil))))#2#<ws>
 8stream_nil##<ws>
 8stream_to_seq(8seq_to_stream(8seq_iota(1,5)))#(1)(2)(3)(4)#<ws>
-8stream_to_seq(8stream_take(3,8stream_zip_with(8times,8stream_iterate(8inc,0),8stream_iterate(8inc,2))))#(0)(3)(8)#<ws>
+8stream_to_seq(8stream_take(3,8stream_pair_with(8times,8stream_iterate(8inc,0),8stream_iterate(8inc,2))))#(0)(3)(8)#<ws>
 8stream_to_seq(8stream_take(5,8stream_map(8to_lit,8stream_of_naturals)))#(0)(1)(2)(3)(4)#<ws>
 8stream_to_seq(8stream_unfold(8greater(5),8inc,8identity,1))#(1)(2)(3)(4)#<ws>
 8stringize(8(This is a string.))#"This is a string."#<ws>
