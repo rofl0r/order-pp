@@ -10,7 +10,8 @@
 // whose time complexity of is $\Omega(2^n)$. After expending an
 // exponential amount of time, `exp_delay(n)' simply evaluates to
 // nothing. `exp_delay' might become handy when recompiles are too
-// fast to take a coffee break...
+// fast to take a coffee break...{This example is rather theoretical
+// compared to the other examples.}
 //
 // Let's then see the definition of `exp_delay'.
 
@@ -41,7 +42,7 @@ ORDER_PP_FN(8fn(8N,                             \
 
 // The default value of 10 can now be overridden by defining the
 // `EXP_DELAY_N' macro on the command line. Typically, the command
-// line option is `-d' as in `-dEXP_DELAY_N=12', but the details
+// line option is `-D' as in `-DEXP_DELAY_N=12', but the details
 // vary between different preprocessors, so you should consult your
 // preprocessor manual for instructions.
 //

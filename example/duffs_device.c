@@ -3,6 +3,7 @@
 // Distributed under the Boost Software License, Version 1.0.
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "order/interpreter.h"
 
 // ## Duff's device
@@ -86,8 +87,8 @@ do {                                                    \
   if (ORDER_PP_FRESH_ID(initial_cnt) > 0) {             \
     counter_t ORDER_PP_FRESH_ID(running_cnt) =          \
       (ORDER_PP_FRESH_ID(initial_cnt) +                 \
-       ORDER_PP(8to_lit(8dec(8(unroll_cnt)))) /         \
-       ORDER_PP(8to_lit(8(unroll_cnt))));               \
+       ORDER_PP(8to_lit(8dec(8(unroll_cnt))))) /        \
+      ORDER_PP(8to_lit(8(unroll_cnt)));                 \
                                                         \
     switch (ORDER_PP_FRESH_ID(initial_cnt) %            \
             ORDER_PP(8to_lit(8(unroll_cnt)))) {         \
@@ -104,6 +105,11 @@ do {                                                    \
   }                                                     \
 } while (0)
 
+// The `main' program is a simple test. It checks that the body of a
+// Duff's device is executed the proper number of times. We also
+// make this example configurable through the conditional macro
+// definition `UNROLLING_FACTOR'.
+
 #ifndef UNROLLING_FACTOR
 #define UNROLLING_FACTOR 8
 #endif
@@ -112,8 +118,13 @@ int main(void) {
   for (int i=0; i<UNROLLING_FACTOR*2+2; ++i) {
     int cnt=0;
     GEN_duffs_device(UNROLLING_FACTOR, int, i, ++cnt;);
-    if (cnt != i)
-      printf("Error!");
+    if (cnt != i) {
+      printf("ERROR: Unrolling factor = "
+             ORDER_PP(8stringize(8to_lit(8(UNROLLING_FACTOR))))
+             ", i = %d and cnt = %d.\n", i, cnt);
+      exit(EXIT_FAILURE);
+    }
   }
+  printf("OK.\n");
   return 0;
 }
