@@ -22,12 +22,12 @@ ORDER_PP_FN(8fn(8S,                                                             
                          8vseq_to_seq_of_tuples(8S))))
 
 #define DATATYPE_define(datatypes)                                              \
-ORDER_PP(8let(8S, 8dt_import_datatypes(8(datatypes)),                           \
-              8do(8seq_for_each(8fn(8N,                                         \
-                                    8print((typedef const struct)8N(*)8N(;))),  \
-                                8seq_map(8dt_type_name, 8S)),                   \
-                  8seq_for_each(8emit(8(DATATYPE_GEN_datatype)),                \
-                                8S))))
+ORDER_PP(8let((8S, 8dt_import_datatypes(8(datatypes))),                         \
+              8seq_for_each(8fn(8N,                                             \
+                                8print((typedef const struct)8N(*)8N(;))),      \
+                            8seq_map(8dt_type_name, 8S)),                       \
+              8seq_for_each(8emit(8(DATATYPE_GEN_datatype)),                    \
+                            8S)))
 
 #define DATATYPE_GEN_datatype(type_name, variants)                      \
 ORDER_PP(8seq_for_each                                                  \
@@ -95,7 +95,7 @@ variant_name(ORDER_PP(8for_each_in_range                                        
                                                                                 \
   ORDER_PP(8for_each_in_range                                                   \
            (8fn(8I,                                                             \
-                8let(8F, 8cat(8(_),8to_lit(8I)),                                \
+                8let((8F, 8cat(8(_),8to_lit(8I))),                              \
                      8print((ORDER_PP_FRESH_ID(result)->datum.variant_name.)    \
                             8F (=) 8F (;)))),                                   \
             0, 8(field_cnt)))                                                   \
@@ -125,7 +125,7 @@ do {                                                    \
 case DATATYPE_TAG_##variant_name: {                                             \
   ORDER_PP(8seq_for_each_with_idx                                               \
            (8fn(8I, 8F,                                                         \
-                8let(8I, 8to_lit(8I),                                           \
+                8let((8I, 8to_lit(8I)),                                         \
                      8print((const) 8cat(8(DATATYPE_FIELD_),                    \
                                          8I,                                    \
                                          8(_TYPE_##variant_name))               \

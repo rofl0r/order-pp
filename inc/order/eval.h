@@ -10,6 +10,7 @@
 #include "order/eval/fn.h"
 #include "order/eval/if.h"
 #include "order/eval/let.h"
+#include "order/eval/letn.h"
 #include "order/eval/or.h"
 #include "order/eval/print.h"
 #include "order/eval/quote.h"

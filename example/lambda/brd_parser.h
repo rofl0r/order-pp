@@ -32,15 +32,15 @@ ORDER_PP(8seq_for_each                                                          
           (8bp_import_terminals(8(terminals)),                                  \
            8bp_import_nonterminals(8(nonterminals)))))                          \
                                                                                 \
-ORDER_PP(8let(8S, 8bp_import_nonterminals(8(nonterminals)),                     \
-              8do(8seq_for_each(8fn(8N,                                         \
-                                    8emit(8(BRD_PARSER_GEN_prototype),          \
-                                          8tuple(8tuple_at_0(8N)))),            \
-                                8S),                                            \
-                  8emit(8(BRD_PARSER_GEN_entry_point),                          \
-                        8tuple(8(qr),                                           \
-                               8(name),                                         \
-                               8tuple_at_0(8seq_at(0,8S)))))))                  \
+ORDER_PP(8let((8S, 8bp_import_nonterminals(8(nonterminals))),                   \
+              8seq_for_each(8fn(8N,                                             \
+                                8emit(8(BRD_PARSER_GEN_prototype),              \
+                                      8tuple(8tuple_at_0(8N)))),                \
+                            8S),                                                \
+              8emit(8(BRD_PARSER_GEN_entry_point),                              \
+                    8tuple(8(qr),                                               \
+                           8(name),                                             \
+                           8tuple_at_0(8seq_at(0,8S))))))                       \
                                                                                 \
 inline void                                                                     \
 ORDER_PP_FRESH_ID(skip)(str_type *ORDER_PP_FRESH_ID(pstr)) {                    \

@@ -2,9 +2,9 @@
 //
 // Distributed under the Boost Software License, Version 1.0.
 
-#define ORDER_PP_DEF_8cond(ts) 8EVAL_COND,ORDER_PP_FX(EVAL_COND_SPLIT,ORDER_PP_SEQ_TERMINATE(ORDER_PP_SEQ_TO_PSEQ_A ts)(,0cond,)),
+#define ORDER_PP_DEF_8cond(ts) 8EVAL_COND,ORDER_PP_EVAL_COND_SPLIT ts(0cond,),
 
-#define ORDER_PP_EVAL_COND_SPLIT(P,c,...) P##c,ORDER_PP_IS_TUPLE_SIZE_1(,P##__VA_ARGS__)(,ORDER_PP_REM,8do)(P##__VA_ARGS__),
+#define ORDER_PP_EVAL_COND_SPLIT(c,...) c,ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),
 
 #ifdef ORDER_PP_DEBUG
 #define ORDER_PP_8EVAL_COND(P,e,bt,ct,ts,G,...) ORDER_PP_ASSERT_SYNTAX(ORDER_PP_DEF_##bt())(,P##e,ORDER_PP_DEF_##bt,8EVAL_COND_LOOP,P##ct,ORDER_PP_EVAL_COND_SPLIT P##ts,P##e,P##__VA_ARGS__)

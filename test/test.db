@@ -64,11 +64,14 @@
 8inc(8call_cc(8fn(8K,8add(1,2,8ap(8K,4)))))#5#<ws>
 8is_sym(8(this is not a symbol))#8false#<ws>
 8is_sym(8true)#8true#<ws>
-8let(8X,0,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#10#<ws>
-8let(8X,1,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#11#<ws>
-8let(8X,2,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#12#<ws>
-8let(8X,3,8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))##<ws>
-8let(8X,8id,8ap(8X,8act(!)))#TCA (!)!!!!!!!!!!!!!!!#<ws>
+8let((8X,0),8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#10#<ws>
+8let((8X,1)(8Y,5),8let((8X,8inc(8X))(8Y,8inc(8X))(8Z,8inc(8Y)),8put(8X),8put(8Y),8Z))#2 2 6#<ws>
+8let((8X,1),8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#11#<ws>
+8let((8X,2),8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))#12#<ws>
+8let((8X,3),8cond((8equal(8X,0),10)(8equal(8X,1),11)(8equal(8X,2),12)))##<ws>
+8let((8X,8id),8ap(8X,8act(!)))#ACT (!)!!!!!!!!!!!!!!!!#<ws>
+8letn((8X,8inc(1))(8Y,8dec(8X))(8Z,8plus(8X,8Y)),8put(8X),8put(8Y),8Z)#2 1 3#<ws>
+8letn(,1)#1#<ws>
 8macro_let(8X,8(5),8X)#5#<ws>
 8nil##<ws>
 8not(8not(8false))#8false#<ws>

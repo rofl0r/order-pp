@@ -270,8 +270,8 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                             \
                       (8else,                           \
                        8type_of_conversion(8L, 8R)))))
 
-// As you can see above, Order also implements the conditional form
-// `8cond', which is useful for avoiding nested `8if's.
+// As you can see above, Order also has the conditional form
+// `8cond', which is useful for avoiding deeply nested `8if's.
 //
 // Given an operator and the types of the operands, we can now
 // compute the type of the result.
@@ -529,8 +529,8 @@ ORDER_PP_FN(8fn(8O, 8L, 8R,                                             \
 
 ORDER_PP(8seq_for_each_in_product
          (8gen_array_bop,
-          8let(8S, 8seq_filter(8compose(8not, 8type_is_float),
-                               8builtin_types),
+          8let((8S, 8seq_filter(8compose(8not, 8type_is_float),
+                                8builtin_types)),
                8seq(8seq_filter(8fn(8O,
                                     8and(8equal(2, 8op_arity(8O)),
                                          8not(8op_does_floats(8O)))),

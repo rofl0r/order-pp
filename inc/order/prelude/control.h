@@ -32,14 +32,14 @@
 #define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8DEC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8DEC,ORDER_PP_NAT_PRED i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
 #define ORDER_PP_8FOR_EACH_IN_RANGE_NAT_8INC(P,_,i,n,f,...) (,ORDER_PP_NAT_IS_ZERO n##P(,,P##i,ORDER_PP_OPEN f##P,8FOR_EACH_IN_RANGE_NAT_8INC,ORDER_PP_NAT_SUCC i##P,ORDER_PP_NAT_PRED n##P,P##f),P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8unless(cond,...) 8EVAL_IF,cond,8nil,8do(__VA_ARGS__),
+#define ORDER_PP_DEF_8unless(cond,...) 8EVAL_IF,cond,8nil,ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),
 
 #define ORDER_PP_DEF_8until ORDER_PP_FN_CM(3,8UNTIL)
 #define ORDER_PP_8UNTIL(P,c,s,x,...) (,P##x,ORDER_PP_OPEN c##P,8UNTIL_B,P##x,P##c,P##s,P##__VA_ARGS__)
 #define ORDER_PP_8UNTIL_B(P,b,x,c,s,...) (,P##x,ORDER_PP_UNLESS_##b(,ORDER_PP_OPEN s##P,8UNTIL_C,P##c,P##s,)P##__VA_ARGS__)
 #define ORDER_PP_8UNTIL_C(P,x,c,...) (,P##x,ORDER_PP_OPEN c##P,8UNTIL_B,P##x,P##c,P##__VA_ARGS__)
 
-#define ORDER_PP_DEF_8when(cond,...) 8EVAL_IF,cond,8do(__VA_ARGS__),8nil,
+#define ORDER_PP_DEF_8when(cond,...) 8EVAL_IF,cond,ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,ORDER_PP_REM,8do)(__VA_ARGS__),8nil,
 
 #define ORDER_PP_DEF_8while ORDER_PP_FN_CM(3,8WHILE)
 #define ORDER_PP_8WHILE(P,c,s,x,...) (,P##x,ORDER_PP_OPEN c##P,8WHILE_B,P##x,P##c,P##s,P##__VA_ARGS__)
