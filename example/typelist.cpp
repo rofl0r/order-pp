@@ -31,6 +31,6 @@ typedef TYPELIST((std::pair<signed  char, unsigned  char>)
 //>
 //
 // \begin{exercise}
-// How can one define a ``variadic'' metafunction? (Hint: Consider
-// default template arguments.)
+// How can one define a ``variadic'' template metafunction? (Hint:
+// Consider default template arguments.)
 // \end{exercise}
