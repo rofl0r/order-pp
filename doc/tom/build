@@ -20,12 +20,14 @@ function ebnf-to-ltx {
         -e                               's#<#\$\\mathit{#g' \
         -e                               's#>#}\$#g' \
         -e                               's#+#\$^+\$#g' \
+        -e                              's#\*#\$^\*\$#g' \
         -e                               's#?#\$^?\$#g' \
         -e                         's#\\{,\\}#\$^{\\{,\\}}\$#g' \
         -e                               's#(#\\code{(}#g' \
         -e                               's#)#\\code{)}#g' \
         -e                              's#, #\\code{,} #g' \
-        -e "s#\([^\`]\)\`\\([^\`\{\}']\\+\\)'#\\1\\\\code{\\2}#g" \
+        -e   "s#\([^\`]\)\`\\([^\`{}']\\+\\)'#\\1\\\\code{\\2}#g" \
+        -e   "s#\([^\`]\)\`\\([^\`{}']\\+\\)'#\\1\\\\code{\\2}#g" \
         -e             's#_\([0-9A-Za-z-]\+\)#_{\1}#g' \
         -e                               's#$#}\\\\#g'
 }
@@ -66,4 +68,5 @@ latex -interaction=batchmode "$doc.ltx" && \
 bibtex -terse "$doc" && \
 latex -interaction=batchmode "$doc.ltx" && \
 latex -interaction=batchmode "$doc.ltx" && \
+echo "DVI done" && \
 dvips -q -o "../$doc.ps" "$doc.dvi"

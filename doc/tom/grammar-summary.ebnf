@@ -34,6 +34,6 @@
                |  `8rparen'                                          ;; output right-paren
                |  `8space'                                           ;; output space
 
-        <sym> ::= `[0-9][0-9A-Za-z_]'                                ;; general symbol
+        <sym> ::= [`0'-`9'][`0'-`9'`A'-`Z'`a'-`z'`_']*               ;; general symbol
 
-        <var> ::= `8[A-Z]'                                           ;; variable symbol
+        <var> ::= `8'[`A'-`Z']                                       ;; variable symbol
