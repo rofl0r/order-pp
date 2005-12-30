@@ -5,6 +5,8 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.)
 
+set -e
+
 TIMEFORMAT='  Time: %R seconds'
 
 if test "$1" == "-d" ; then
@@ -27,8 +29,8 @@ function compile {
         time g++ -c -std=c++98 -Wall -Werror -pedantic-errors "$1"
     else
         time gcc -c -std=c99 -Wall -Werror -pedantic-errors "$1"
-    fi && \
-        rm "$(echo "$1" | sed 's#\.[^.]\+$#.o#g')"
+    fi
+    rm "$(echo "$1" | sed 's#\.[^.]\+$#.o#g')"
 }
 
 function preprocess {

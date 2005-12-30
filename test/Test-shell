@@ -5,6 +5,8 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.)
 
+set -e
+
 TIMEFORMAT='Time: %R seconds'
 
 dbFile=test.db
@@ -138,8 +140,8 @@ function preprocess-positive-tests {
 function differing-lines {
     echo "$1" | \
         nl -s '#' -v 0 | \
-        grep -v -e "^\\($(echo -n "$2" | sed 's#\([^a-zA-Z0-9()?+|{, ]\)#\\\1#g' | nl -s '#' -v 0 | tr $'\n' '$' | sed 's#\$#\\\|#g')\\)\$" | \
-        sed -e 's|#.*||g' -e 's|[ \t]||g' | tr $'\n' ' '
+        grep -v -e "^\\($(echo -n "$2" | sed 's#\([^a-zA-Z0-9()?+|{, ]\)#\\\1#g' | nl -s '#' -v 0 | tr "\n" '$' | sed 's#\$#\\\|#g')\\)\$" | \
+        sed -e 's|#.*||g' -e 's|[ \t]||g' | tr "\n" ' '
 }
 
 function run-tests {
