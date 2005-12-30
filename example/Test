@@ -72,7 +72,7 @@ for f in "$@" ; do
 
     numPrefixLines=$(grep -n -e 'order/interpreter.h' "$(preprocessed-file "$f")" | tail -n1 | grep -o '^[0-9]\+')
     numLines=$(cat "$(preprocessed-file "$f")" | wc -l)
-    cat "$(preprocessed-file "$f")" | tail -n$(($numLines - $numPrefixLines)) | grep -v -e '^#' -e '^$' > ".$f.new"
+    cat "$(preprocessed-file "$f")" | tail -n$(($numLines - $numPrefixLines)) | (grep -v -e '^#' -e '^$' || true) > ".$f.new"
 
     if test -f ".$f.out" ; then
         if diff -q ".$f.out" ".$f.new" > /dev/null ; then
