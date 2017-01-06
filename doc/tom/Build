@@ -51,7 +51,7 @@ function cpp-to-ltx {
 }
 
 mkdir -p "$tmpDir"                                                                                                 && \
-    cp *.ltx "$tmpDir/"                                                                                            && \
+    cp *.ltx *.bib "$tmpDir/"                                                                                      && \
     for f in *.ebnf ; do cat "$f" | ebnf-to-ltx > "$tmpDir/$(echo "$f" | sed 's#\.ebnf$#\.ltx#g')" ; done          && \
     cat "../../example/array_ops.c"                                     | cpp-to-ltx > "$tmpDir/array-ops.ltx"     && \
     cat "../../example/average.h" "../../example/average.c"             | cpp-to-ltx > "$tmpDir/average.ltx"       && \
