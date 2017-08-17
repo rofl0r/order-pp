@@ -96,7 +96,7 @@ ORDER_PP_FN(8fn(8F,8L,8R,                                                       
                        8stream_cons(8stream_head(8L),                           \
                                     8stream_merge(8F,8stream_tail(8L),8R)))     \
                       (8else,                                                   \
-                       8stream_cons(8stream_head(8S),                           \
+                       8stream_cons(8stream_head(8R),                           \
                                     8stream_merge(8F,8L,8stream_tail(8R)))))))
 
 #define ORDER_PP_DEF_8stream_pair_with                                          \
