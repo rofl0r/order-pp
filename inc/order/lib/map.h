@@ -54,14 +54,18 @@ ORDER_PP_FN(8fn(8K, 8M,                                                         
 
 #define ORDER_PP_DEF_8map_insert \
 ORDER_PP_FN(8fn(8K, 8V, 8M, \
-                8pair(8map_equivalence_fn(8M), \
-                      8seq_push_back(8pair(8K, 8V), 8map_items(8M)))))
+                8if(8map_exists(8K, 8M), \
+                    8M, \
+                    8seq_of_pairs_to_map(8map_equivalence_fn(8M), \
+                                         8seq_push_back(8pair(8K, 8V), 8map_items(8M))))))
 
 
 #define ORDER_PP_DEF_8map_erase \
 ORDER_PP_FN(8fn(8K, 8M, \
-                8pair(8map_equivalence_fn(8M), \
-                      8seq_filter(8fn(8E, 8not(0map_item_matches(8E, 8K, 8M))), 8map_items(8M)))))
+                8seq_of_pairs_to_map(8map_equivalence_fn(8M), \
+                                     8seq_filter(8fn(8E, \
+                                                     8not(0map_item_matches(8E, 8K, 8M))), \
+                                                 8map_items(8M)))))
 
 
 #define ORDER_PP_DEF_8map_size ORDER_PP_FN(8fn(8M, 8seq_size(8map_items(8M))))
