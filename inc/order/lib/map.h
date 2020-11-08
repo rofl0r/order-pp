@@ -19,21 +19,21 @@
 
 #define ORDER_PP_DEF_0map_eval_terminate 0EVAL_MAP_TERMINATE,
 #define ORDER_PP_0EVAL_MAP_TERMINATE(P, env, G, _eval_map_loop_b_, _q_head_value_, _tail_, _acc_, _cmp_, _env_,...) \
-                                    (,(P##_cmp_,ORDER_PP_9VSEQ_TO_SEQ_OF_TUPLES(,P##_acc_)), __VA_ARGS__)   
+                                    (,(P##_cmp_,ORDER_PP_9VSEQ_TO_SEQ_OF_TUPLES(,P##_acc_)), P##__VA_ARGS__)   
 
 
-#define ORDER_PP_DEF_8map_equivalence_fn ORDER_PP_FN_CM(1,8MAP_EQUIVALENCE_FN,0IS_MAP)
-#define ORDER_PP_8MAP_EQUIVALENCE_FN(P, map, ...) (,ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_REM P##map,)),__VA_ARGS__)
+#define ORDER_PP_DEF_8map_equivalence_fn ORDER_PP_FN_NATIVE(1,8MAP_EQUIVALENCE_FN,0IS_MAP)
+#define ORDER_PP_8MAP_EQUIVALENCE_FN(P, map) ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_REM P##map,))
 
 
-#define ORDER_PP_DEF_8map_items ORDER_PP_FN_CM(1,8MAP_ITEMS,0IS_MAP)
-#define ORDER_PP_8MAP_ITEMS(P, map, ...) (,ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_REM P##map,)),__VA_ARGS__)
+#define ORDER_PP_DEF_8map_items ORDER_PP_FN_NATIVE(1,8MAP_ITEMS,0IS_MAP)
+#define ORDER_PP_8MAP_ITEMS(P, map, ...) ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_REM P##map,))
 
 
-#define ORDER_PP_DEF_8map_keys ORDER_PP_FN(8fn(8M, 8seq_map(8fn(8E, 8tuple_at_0(8E)), 8map_items(8M))))
+#define ORDER_PP_DEF_8map_keys ORDER_PP_FN(8fn(8M, 8seq_map(8tuple_at_0, 8map_items(8M))))
 
 
-#define ORDER_PP_DEF_8map_values ORDER_PP_FN(8fn(8M, 8seq_map(8fn(8E, 8tuple_at_1(8E)), 8map_items(8M))))
+#define ORDER_PP_DEF_8map_values ORDER_PP_FN(8fn(8M, 8seq_map(8tuple_at_1, 8map_items(8M))))
 
 
 #define ORDER_PP_DEF_8map_at                                                                            \
