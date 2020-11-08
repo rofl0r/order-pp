@@ -6,23 +6,20 @@
 
 // First-order
 
-#define ORDER_PP_DEF_8map(cmp, ...) 8EVAL_MAP,ORDER_PP_SEQ_AT_0 __VA_ARGS__(0map_eval_terminate,),cmp,
+#define ORDER_PP_DEF_8map(cmp, ...) 8EVAL_MAP,cmp,ORDER_PP_SEQ_AT_0 __VA_ARGS__(0map_eval_terminate,),
 
-#define ORDER_PP_8EVAL_MAP(P, env, q_head_key, q_head_value, tail, cmp, G, ...) \
-                          (,P##env,8EVAL_MAP_LOOP,P##q_head_key,P##q_head_value,P##tail,,P##cmp,P##__VA_ARGS__)
-#define ORDER_PP_8EVAL_MAP_LOOP(P, env, q_head_key, q_head_value, tail, acc, cmp, ...) \
+#define ORDER_PP_8EVAL_MAP(P, env, q_cmp, q_head_key, q_head_value, tail, G, ...) \
+                          (,P##env,ORDER_PP_DEF_##q_cmp,8EVAL_MAP_LOOP,P##q_head_key,P##q_head_value,P##tail,,P##env,P##__VA_ARGS__)
+#define ORDER_PP_8EVAL_MAP_LOOP(P, cmp, q_head_key, q_head_value, tail, acc, env, ...) \
                                (,P##env,ORDER_PP_DEF_##q_head_key,8EVAL_MAP_LOOP_B,P##q_head_value,P##tail,P##acc,P##cmp,P##env,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_MAP_LOOP_B(P, head_key, q_head_value, tail, acc, cmp, env, ...) \
                                  (,P##env,ORDER_PP_DEF_##q_head_value,8EVAL_MAP_LOOP_C,P##head_key,P##tail,P##acc,P##cmp,P##env,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_MAP_LOOP_C(P, head_value, head_key, tail, acc, cmp, env, ...) \
-                                 (,P##env,8EVAL_MAP_LOOP,ORDER_PP_SEQ_AT_0 tail##P,P##acc(P##head_key,P##head_value),P##cmp,P##__VA_ARGS__)
+                                 (,P##cmp,8EVAL_MAP_LOOP,ORDER_PP_SEQ_AT_0 tail##P,P##acc(P##head_key,P##head_value),P##env,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_0map_eval_terminate 0EVAL_MAP_TERMINATE,
-
 #define ORDER_PP_0EVAL_MAP_TERMINATE(P, env, G, _eval_map_loop_b_, _q_head_value_, _tail_, _acc_, _cmp_, _env_,...) \
-                                    (,P##env,ORDER_PP_DEF_##_cmp_, 0EVAL_MAP_TERMINATE_B, P##_acc_, __VA_ARGS__)   
-#define ORDER_PP_0EVAL_MAP_TERMINATE_B(P, cmp, acc, ...) \
-                                      (,(P##cmp,ORDER_PP_9VSEQ_TO_SEQ_OF_TUPLES(,P##acc)),__VA_ARGS__)
+                                    (,(P##_cmp_,ORDER_PP_9VSEQ_TO_SEQ_OF_TUPLES(,P##_acc_)), __VA_ARGS__)   
 
 
 #define ORDER_PP_DEF_8map_equivalence_fn ORDER_PP_FN_CM(1,8MAP_EQUIVALENCE_FN,0IS_MAP)
