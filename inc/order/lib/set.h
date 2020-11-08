@@ -25,13 +25,17 @@
 #define ORDER_PP_8SET_EQUIVALENCE_FN(P, set) ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_REM P##set,))
 
 
-#define ORDER_PP_DEF_8set_items(set) ORDER_PP_MACRO(8seq_map(8tuple_at_0, 8map_items(set)))
+#define ORDER_PP_DEF_8set_items \
+ORDER_PP_MACRO(8fn(8S, \
+                   8seq_map(8tuple_at_0, 8map_items(8S))))
 
 
 #define ORDER_PP_DEF_8set_exists ORDER_PP_MACRO(8map_exists)
 
 
-#define ORDER_PP_DEF_8set_insert(value, set) ORDER_PP_MACRO(8map_insert(value,8nil,set))
+#define ORDER_PP_DEF_8set_insert(value, set) \
+ORDER_PP_FN(8fn(8V, 8S, \
+                8map_insert(8V,8nil,8S)))
 
 
 #define ORDER_PP_DEF_8set_erase ORDER_PP_MACRO(8map_erase)
@@ -40,6 +44,18 @@
 #define ORDER_PP_DEF_8is_set ORDER_PP_FN_NATIVE(1,8IS_SET,0IS_ANY)
 #define ORDER_PP_8IS_SET(P,x) ORDER_PP_0IS_SET(,P##x)(,8true,8false)
 
+// Higher-order
+
+#define ORDER_PP_DEF_8set_union ORDER_PP_MACRO(8map_union)
+
+
+#define ORDER_PP_DEF_8set_intersect ORDER_PP_MACRO(8map_intersect)
+
+
+#define ORDER_PP_DEF_8set_diff ORDER_PP_MACRO(8map_diff)
+
+
+#define ORDER_PP_DEF_8set_symm_diff ORDER_PP_MACRO(8map_symm_diff)
 
 // Detail
 #define ORDER_PP_0IS_SET(P,x) ORDER_PP_0IS_MAP(,P##x)
