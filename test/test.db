@@ -402,3 +402,14 @@
 8map_items(8map_union(8map(8equal,(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((1,2))((3,4))((5,6))((7,88))#
 8map_items(8map_intersect(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((1,2))((3,4))((5,6))#
 8map_items(8map_symm_diff(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((7,88))((0,0))#
+8set_items(8map(8equal))##
+8set_items(8set(8equal,(1)(4)))#(1)(4)#
+8set_items(8set(8equal,(8add(2,3))))#(5)#
+8is_set(8set(8equal))#8true#
+8set_exists(7,8set(8equal,(8add(5,2))))#8true#
+8set_exists(8,8set(8equal,(8add(5,2))))#8false#
+8set_equivalence_fn(8set(8equal))#(,8NATIVE,1,9EQUAL,(,0IS_NUM,0IS_NUM,))#
+8to_lit(8set_size(8set(8equal,(1)(8add(2,3))(8))))#3#
+8set_items(8set_union(8set(8equal,(1)(3)(5)),8set(8equal,(1)(3)(5)(7))))#(1)(3)(5)(7)#
+8set_items(8set_intersect(8set(8equal,(0)(1)(3)(5)),8set(8equal,(1)(3)(5)(7))))#(1)(3)(5)#
+8set_items(8set_symm_diff(8set(8equal,(0)(1)(3)(5)),8set(8equal,(1)(3)(5)(7))))#(7)(0)#

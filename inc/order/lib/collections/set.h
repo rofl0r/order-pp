@@ -1,14 +1,19 @@
 #ifndef ORDER_INC_ORDER_LIB_SET_H
 #define ORDER_INC_ORDER_LIB_SET_H
 
-#include "order/lib/map.h"
+#include "order/lib/collections/map.h"
 
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE.)
 
 // First-order
 
-#define ORDER_PP_DEF_8set(cmp, ...) 8EVAL_SET,cmp,ORDER_PP_SEQ_AT_0 __VA_ARGS__(0set_eval_terminate),
+#define ORDER_PP_DEF_8set(...) 8EVAL_SET,ORDER_PP_0EVAL_SET_ARGS(__VA_ARGS__)(0set_eval_terminate),
+
+#define ORDER_PP_0EVAL_SET_ARGS(...) ORDER_PP_OVERLOAD(0EVAL_SET_ARGS, ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,1,N))(__VA_ARGS__)
+#define ORDER_PP_0EVAL_SET_ARGS_1(cmp) cmp,ORDER_PP_SEQ_AT_0
+#define ORDER_PP_0EVAL_SET_ARGS_N(cmp, ...) cmp,ORDER_PP_SEQ_AT_0 __VA_ARGS__
+
 #define ORDER_PP_8EVAL_SET(P, env, q_cmp, q_head, tail, G, ...) \
                           (,P##env,ORDER_PP_DEF_##q_cmp,8EVAL_SET_LOOP,P##q_head,P##tail,,P##env,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_SET_LOOP(P, cmp, q_head, tail, acc, env, ...) \
@@ -26,7 +31,7 @@
 
 
 #define ORDER_PP_DEF_8set_items \
-ORDER_PP_MACRO(8fn(8S, \
+ORDER_PP_FN(8fn(8S, \
                    8seq_map(8tuple_at_0, 8map_items(8S))))
 
 
@@ -39,6 +44,9 @@ ORDER_PP_FN(8fn(8V, 8S, \
 
 
 #define ORDER_PP_DEF_8set_erase ORDER_PP_MACRO(8map_erase)
+
+
+#define ORDER_PP_DEF_8set_size ORDER_PP_MACRO(8map_size)
 
 
 #define ORDER_PP_DEF_8is_set ORDER_PP_FN_NATIVE(1,8IS_SET,0IS_ANY)
