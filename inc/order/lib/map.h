@@ -56,16 +56,15 @@ ORDER_PP_FN(8fn(8K, 8M,                                                         
 ORDER_PP_FN(8fn(8K, 8V, 8M, \
                 8if(8map_exists(8K, 8M), \
                     8M, \
-                    8seq_of_pairs_to_map(8map_equivalence_fn(8M), \
-                                         8seq_push_back(8pair(8K, 8V), 8map_items(8M))))))
+                    0map_reset(8seq_push_back(8pair(8K, 8V), 8map_items(8M)), 8M))))
 
 
 #define ORDER_PP_DEF_8map_erase \
 ORDER_PP_FN(8fn(8K, 8M, \
-                8seq_of_pairs_to_map(8map_equivalence_fn(8M), \
-                                     8seq_filter(8fn(8E, \
-                                                     8not(0map_item_matches(8E, 8K, 8M))), \
-                                                 8map_items(8M)))))
+                0map_reset(8seq_filter(8fn(8E, \
+                                           8not(0map_item_matches(8E, 8K, 8M))), \
+                                       8map_items(8M)), \
+                           8M)))
 
 
 #define ORDER_PP_DEF_8map_size ORDER_PP_FN(8fn(8M, 8seq_size(8map_items(8M))))
@@ -76,6 +75,43 @@ ORDER_PP_FN(8fn(8K, 8M, \
 
 // Higher-order
 
+#define ORDER_PP_DEF_8map_union \
+ORDER_PP_FN(8fn(8M, 8N, \
+                8seq_fold(8fn(8A, 8E, \
+                              8map_insert(8tuple_at_0(8E), 8tuple_at_1(8E), 8A)), \
+                          8M, 8map_items(8N))))
+
+
+#define ORDER_PP_DEF_8map_intersect \
+ORDER_PP_FN(8fn(8M, 8N, \
+                0map_reset(8seq_fold(8fn(8A, 8E, \
+                                         8if(8map_exists(8tuple_at_0(8E), 8N), \
+                                             8seq_push_back(8E, 8A), \
+                                             8A)), \
+                                     8nil, 8map_items(8M)), \
+                           8M)))
+
+
+#define ORDER_PP_DEF_8map_diff \
+ORDER_PP_FN(8fn(8M, 8N, \
+                0map_reset(8seq_fold(8fn(8A, 8E, \
+                                         8if(8map_exists(8tuple_at_0(8E), 8N), \
+                                             8A, \
+                                             8seq_push_back(8E, 8A))), \
+                                     8nil, 8map_items(8M)), \
+                           8M)))
+
+
+#define ORDER_PP_DEF_8map_symm_diff \
+ORDER_PP_FN(8fn(8M, 8N, \
+                0map_reset(8seq_fold(8fn(8A, 8E, \
+                                         8if(8map_exists(8tuple_at_0(8E), 8N), \
+                                         8seq_filter(8fn(8U, 8not(0map_item_matches(8U, 8tuple_at_0(8E), 8N))), 8A), \
+                                         8seq_push_back(8E, 8A))), \
+                                     8map_items(8N), 8map_items(8M)), \
+                           8M)))
+
+
 #define ORDER_PP_DEF_8seq_of_pairs_to_map ORDER_PP_FN_NATIVE(2,8SEQ_OF_PAIRS_TO_MAP,0IS_FN,0IS_ANY)
 #define ORDER_PP_8SEQ_OF_PAIRS_TO_MAP(P, cmp, items) (P##cmp, P##items)
 
@@ -85,8 +121,8 @@ ORDER_PP_FN(8fn(8K, 8M, \
                               (and)(ORDER_PP_FY(IS_TUPLE_SIZE_2,(,ORDER_PP_REM P##x)))                      \
                               (and)(ORDER_PP_FY(0IS_FN,(,ORDER_PP_FX(TUPLE_AT_0,(,ORDER_PP_REM P##x,)))))()
 
-#define ORDER_PP_DEF_0map_item_matches \
-ORDER_PP_FN(8fn(8E, 8K, 8M, \
-                8ap(8map_equivalence_fn(8M), 8K, 8tuple_at_0(8E))))
+#define ORDER_PP_DEF_0map_item_matches(entry, key, map) ORDER_PP_MACRO(8ap(8map_equivalence_fn(map), key, 8tuple_at_0(entry)))
+
+#define ORDER_PP_DEF_0map_reset(items, map) ORDER_PP_MACRO(8seq_of_pairs_to_map(8map_equivalence_fn(map), items))
 
 #endif
