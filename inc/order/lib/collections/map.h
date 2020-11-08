@@ -59,8 +59,17 @@ ORDER_PP_FN(8fn(8K, 8M,                                                         
 #define ORDER_PP_DEF_8map_insert \
 ORDER_PP_FN(8fn(8K, 8V, 8M, \
                 8if(8map_exists(8K, 8M), \
-                    8M, \
+                    8map_replace(8K, 8V, 8M), \
                     0map_reset(8seq_push_back(8pair(8K, 8V), 8map_items(8M)), 8M))))
+
+
+#define ORDER_PP_DEF_8map_replace \
+ORDER_PP_FN(8fn(8K, 8V, 8M, \
+                0map_reset(8seq_map(8fn(8E, \
+                                        8if(0map_item_matches(8E, 8K, 8M), \
+                                            8pair(8K, 8V), \
+                                            8E)), \
+                                    8map_items(8M)), 8M)))
 
 
 #define ORDER_PP_DEF_8map_erase \
