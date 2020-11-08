@@ -399,6 +399,7 @@
 8to_lit(8map_size(8map(8equal,(1,2)(8add(2,3),10)(8,20))))#3#
 8map_keys(8map(8equal,(1,2)(8add(2,3),10)(8,20)))#(1)(5)(8)#
 8map_values(8map(8equal,(1,2)(8add(2,3),10)(8,20)))#(2)(10)(20)#
-8map_items(8map_union(8map(8equal,(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((1,2))((3,4))((5,6))((7,88))#
-8map_items(8map_intersect(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((1,2))((3,4))((5,6))#
-8map_items(8map_symm_diff(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((7,88))((0,0))#
+8map_items(8map_insert(5, 10, 8map(8equal)))#((5,10))#
+8map_items(8map_insert(5,20,8map_insert(5,10,8map(8equal))))#((5,20))#
+8map_items(8map_symm_diff(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7,88))))#((7,88))((0,0))#
+8map_items(8map_intersect(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7,88))))#((1,2))((3,4))((5,6))#
