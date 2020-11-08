@@ -15,7 +15,7 @@
 #define ORDER_PP_8EVAL_SET_LOOP(P, cmp, q_head, tail, acc, env, ...) \
                                (,P##env,ORDER_PP_DEF_##q_head,8EVAL_SET_LOOP_B,P##tail,P##acc,P##cmp,P##env,P##__VA_ARGS__)
 #define ORDER_PP_8EVAL_SET_LOOP_B(P, head, tail, acc, cmp, env, ...) \
-                                 (,P##env,8EVAL_SET_LOOP,ORDER_PP_SEQ_AT_0 tail##P,P##acc(P##head,),P##cmp,P##__VA_ARGS__)
+                                 (,P##cmp,8EVAL_SET_LOOP,ORDER_PP_SEQ_AT_0 tail##P,P##acc(P##head,),P##env,P##__VA_ARGS__)
 
 #define ORDER_PP_DEF_0set_eval_terminate 0EVAL_SET_TERMINATE,
 #define ORDER_PP_0EVAL_SET_TERMINATE(P, env, G, _eval_set_loop_b_, _tail_, _acc_, _cmp_, _env_,...) \
