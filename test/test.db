@@ -388,3 +388,17 @@
 8while(8greater(8),8plus(2),0)#8#
 8with_assert(8and(8true,8false),8add(5,6))#ORDER_PP_ASSERTION_FAILURE:8with_assert(8and ( 8true , 8false ),8add ( 5 , 6 )):(,8EXIT,,)#ORDER_PP_ASSERTION_FAILURE
 8with_assert(8or(8false,8true),8put(1),8put(2),3)#1 2 3#
+8map_items(8map(8equal))##
+8map_items(8map(8equal,(1,2)(3,4)))#((1,2))((3,4))#
+8map_items(8map(8equal,(8add(2,3),10)))#((5,10))#
+8is_map(8map(8equal))#8true#
+8map_exists(7,8map(8equal,(8add(5,2), 10)))#8true#
+8map_exists(8,8map(8equal,(8add(5,2), 10)))#8false#
+8map_equivalence_fn(8map(8equal))#(,8NATIVE,1,9EQUAL,(,0IS_NUM,0IS_NUM,))#
+8map_items(8map(8equal,(1,2)(8add(2,3),10)(8,20)))#((1,2))((5,10))((8,20))#
+8to_lit(8map_size(8map(8equal,(1,2)(8add(2,3),10)(8,20))))#3#
+8map_keys(8map(8equal,(1,2)(8add(2,3),10)(8,20)))#(1)(5)(8)#
+8map_values(8map(8equal,(1,2)(8add(2,3),10)(8,20)))#(2)(10)(20)#
+8map_items(8map_union(8map(8equal,(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((1,2))((3,4))((5,6))((7,88))#
+8map_items(8map_intersect(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((1,2))((3,4))((5,6))#
+8map_items(8map_symm_diff(8map(8equal,(0,0)(1,2)(3,4)(5,6)),8map(8equal,(1,22)(3,44)(5,66)(7, 88))))#((7,88))((0,0))#
