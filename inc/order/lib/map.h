@@ -73,6 +73,11 @@ ORDER_PP_FN(8fn(8K, 8M, \
 #define ORDER_PP_DEF_8is_map ORDER_PP_FN_CM(1,8IS_MAP,0IS_ANY)
 #define ORDER_PP_8IS_MAP(P,x,...) (,ORDER_PP_0IS_MAP(,P##x)(,8true,8false),P##__VA_ARGS__)
 
+// Higher-order
+
+#define ORDER_PP_DEF_8seq_of_pairs_to_map ORDER_PP_FN_NATIVE(2,8SEQ_OF_PAIRS_TO_MAP,0IS_FN,0IS_ANY)
+#define ORDER_PP_8SEQ_OF_PAIRS_TO_MAP(P, cmp, items) (P##cmp, P##items)
+
 // Detail
 #define ORDER_PP_0IS_MAP(P,x) ORDER_PP_AND                                                                  \
                               (and)(ORDER_PP_0IS_TUPLE(,P##x))                                              \
