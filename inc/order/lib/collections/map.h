@@ -6,7 +6,11 @@
 
 // First-order
 
-#define ORDER_PP_DEF_8map(cmp, ...) 8EVAL_MAP,cmp,ORDER_PP_SEQ_AT_0 __VA_ARGS__(0map_eval_terminate,),
+#define ORDER_PP_DEF_8map(...) 8EVAL_MAP,ORDER_PP_0EVAL_MAP_ARGS(__VA_ARGS__)(0map_eval_terminate,),
+
+#define ORDER_PP_0EVAL_MAP_ARGS(...) ORDER_PP_OVERLOAD(0EVAL_MAP_ARGS, ORDER_PP_IS_TUPLE_SIZE_1(,__VA_ARGS__)(,1,N))(__VA_ARGS__)
+#define ORDER_PP_0EVAL_MAP_ARGS_1(cmp) cmp,ORDER_PP_SEQ_AT_0
+#define ORDER_PP_0EVAL_MAP_ARGS_N(cmp, ...) cmp,ORDER_PP_SEQ_AT_0 __VA_ARGS__
 
 #define ORDER_PP_8EVAL_MAP(P, env, q_cmp, q_head_key, q_head_value, tail, G, ...) \
                           (,P##env,ORDER_PP_DEF_##q_cmp,8EVAL_MAP_LOOP,P##q_head_key,P##q_head_value,P##tail,,P##env,P##__VA_ARGS__)
@@ -27,7 +31,7 @@
 
 
 #define ORDER_PP_DEF_8map_items ORDER_PP_FN_NATIVE(1,8MAP_ITEMS,0IS_MAP)
-#define ORDER_PP_8MAP_ITEMS(P, map, ...) ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_REM P##map,))
+#define ORDER_PP_8MAP_ITEMS(P, map) ORDER_PP_FX(TUPLE_AT_1,(,ORDER_PP_REM P##map,))
 
 
 #define ORDER_PP_DEF_8map_keys ORDER_PP_FN(8fn(8M, 8seq_map(8tuple_at_0, 8map_items(8M))))
@@ -113,7 +117,7 @@ ORDER_PP_FN(8fn(8M, 8N, \
 
 
 #define ORDER_PP_DEF_8seq_of_pairs_to_map ORDER_PP_FN_NATIVE(2,8SEQ_OF_PAIRS_TO_MAP,0IS_FN,0IS_ANY)
-#define ORDER_PP_8SEQ_OF_PAIRS_TO_MAP(P, cmp, items) (P##cmp, P##items)
+#define ORDER_PP_8SEQ_OF_PAIRS_TO_MAP(P, cmp, items) (P##cmp,P##items)
 
 // Detail
 #define ORDER_PP_0IS_MAP(P,x) ORDER_PP_AND                                                                  \
